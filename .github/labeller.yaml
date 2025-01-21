@@ -1,0 +1,31 @@
+docs:
+  - changed-files:
+      - any-glob-to-any-file:
+          - docs/**
+          - README.md
+env:
+  - changed-files:
+      - any-glob-to-any-file:
+          - Pipfile
+          - Pipfile.lock
+tests:
+  - changed-files:
+      - any-glob-to-any-file:
+          - tests/**
+          - pytest.ini
+tools:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .cspell.json
+          - .editorconfig
+          - .markdownlint.yaml
+          - .sqlfluff
+          - .yamllint.yaml
+vs-code-settings:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .vscode/**
+workflows:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .github/**

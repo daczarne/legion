@@ -1,0 +1,8 @@
+{
+    "editor.rulers": [120],
+    "editor.multiCursorModifier": "ctrlCmd",
+    "terminal.integrated.stickyScroll.enabled": true,
+    "github-actions.workflows.pinned.workflows": [
+        ".github/workflows/main.yaml"
+    ]
+}

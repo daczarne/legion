@@ -1,0 +1,1344 @@
+[sqlfluff]
+dialect = bigquery
+sql_file_exts = .sql
+templater = jinja
+encoding = utf-8
+# ignore = templating, parsing
+ignore_templated_areas = True
+
+disable_noqa = False
+warn_unused_ignores = True
+fix_even_unparsable = False
+
+large_file_skip_byte_limit = 0
+large_file_skip_char_limit = 0
+max_line_length = 120
+
+processes = 1
+nocolor = False
+output_line_length = 80
+runaway_limit = 10
+verbose = 1
+
+
+# List of rules (in order of appearance)
+#*  - Aliasing bundle:
+#       ->> AL01: [sqlfluff:rules:aliasing.table]
+#       ->> AL02: [sqlfluff:rules:aliasing.column]
+#       ->> AL03: [sqlfluff:rules:aliasing.expression]
+#       ->> AL04: [sqlfluff:rules:aliasing.unique.table]
+#       ->> AL05: [sqlfluff:rules:aliasing.unused]
+#       ->> AL06: [sqlfluff:rules:aliasing.length]
+#       ->> AL07: [sqlfluff:rules:aliasing.forbid]
+#       ->> AL08: [sqlfluff:rules:aliasing.unique.column]
+#       ->> AL09: [sqlfluff:rules:aliasing.self_alias.column]
+#*  - Ambiguous bundle:
+#       ->> AM01: [sqlfluff:rules:ambiguous.distinct]
+#       ->> AM02: [sqlfluff:rules:ambiguous.union]
+#       ->> AM03: [sqlfluff:rules:ambiguous.order_by]
+#       ->> AM04: [sqlfluff:rules:ambiguous.column_count]
+#       ->> AM05: [sqlfluff:rules:ambiguous.join]
+#       ->> AM06: [sqlfluff:rules:ambiguous.column_references]
+#       ->> AM07: [sqlfluff:rules:ambiguous.set_columns]
+#*  - Capitalisation bundle:
+#       ->> CP01: [sqlfluff:rules:capitalisation.keywords]
+#       ->> CP02: [sqlfluff:rules:capitalisation.identifiers]
+#       ->> CP03: [sqlfluff:rules:capitalisation.functions]
+#       ->> CP04: [sqlfluff:rules:capitalisation.literals]
+#       ->> CP05: [sqlfluff:rules:capitalisation.types]
+#*  - Convention bundle:
+#       ->> CV01: [sqlfluff:rules:convention.not_equal]
+#!      -** CV02: [sqlfluff:rules:convention.coalesce] EXCLUDED!
+#       ->> CV03: [sqlfluff:rules:convention.select_trailing_comma]
+#       ->> CV04: [sqlfluff:rules:convention.count_rows]
+#       ->> CV05: [sqlfluff:rules:convention.is_null]
+#       ->> CV06: [sqlfluff:rules:convention.terminator]
+#                 [sqlfluff:layout:type:statement_terminator]
+#       ->> CV07: [sqlfluff:rules:convention.statement_brackets]
+#       ->> CV08: [sqlfluff:rules:convention.left_join]
+#!      -** CV09: [sqlfluff:rules:convention.blocked_words] EXCLUDED!
+#       ->> CV10: [sqlfluff:rules:convention.quoted_literals]
+#       ->> CV11: [sqlfluff:rules:convention.casting_style]
+#                 [sqlfluff:layout:type:casting_operator]
+#*  - Jinja bundle:
+#                 [sqlfluff:templater:jinja]
+#                 [sqlfluff:templater:jinja:context]
+#                 [sqlfluff:templater:jinja:macros]
+#       ->> JJ01: [sqlfluff:rules:jinja.padding]
+#*  - Layout bundle:
+#                 [sqlfluff:layout:type:select_clause]
+#                 [sqlfluff:layout:type:from_clause]
+#                 [sqlfluff:layout:type:join_clause]
+#                 [sqlfluff:layout:type:where_clause]
+#                 [sqlfluff:layout:type:groupby_clause]
+#                 [sqlfluff:layout:type:having_clause]
+#                 [sqlfluff:layout:type:orderby_clause]
+#                 [sqlfluff:layout:type:limit_clause]
+#       ->> LT01: [sqlfluff:rules:layout.spacing]
+#                 [sqlfluff:layout:type:start_bracket]
+#                 [sqlfluff:layout:type:end_bracket]
+#                 [sqlfluff:layout:type:start_square_bracket]
+#                 [sqlfluff:layout:type:end_square_bracket]
+#                 [sqlfluff:layout:type:start_angle_bracket]
+#                 [sqlfluff:layout:type:end_angle_bracket]
+#                 [sqlfluff:layout:type:slice]
+#                 [sqlfluff:layout:type:dot]
+#                 [sqlfluff:layout:type:object_reference]
+#                 [sqlfluff:layout:type:numeric_literal]
+#                 [sqlfluff:layout:type:sign_indicator]
+#                 [sqlfluff:layout:type:tilde]
+#                 [sqlfluff:layout:type:array_type]
+#                 [sqlfluff:layout:type:typed_array_literal]
+#                 [sqlfluff:layout:type:sized_array_type]
+#                 [sqlfluff:layout:type:struct_type]
+#                 [sqlfluff:layout:type:bracketed_arguments]
+#                 [sqlfluff:layout:type:typed_struct_literal]
+#                 [sqlfluff:layout:type:semi_structured_expression]
+#                 [sqlfluff:layout:type:array_accessor]
+#                 [sqlfluff:layout:type:colon]
+#                 [sqlfluff:layout:type:colon_delimiter]
+#                 [sqlfluff:layout:type:path_segment]
+#                 [sqlfluff:layout:type:sql_conf_option]
+#                 [sqlfluff:layout:type:sqlcmd_operator]
+#                 [sqlfluff:layout:type:comment]
+#                 [sqlfluff:layout:type:pattern_expression]
+#                 [sqlfluff:layout:type:placeholder]
+#                 [sqlfluff:layout:type:common_table_expression]
+#                 [sqlfluff:layout:type:template_loop]
+#!      -** LT02: [sqlfluff:rules:layout.indent] EXCLUDED!
+#                 [sqlfluff:indentation]
+#       ->> LT03: [sqlfluff:rules:layout.operators]
+#                 [sqlfluff:layout:type:binary_operator]
+#                 [sqlfluff:layout:type:comparison_operator]
+#                 [sqlfluff:layout:type:assignment_operator]
+#       ->> LT04: [sqlfluff:rules:layout.commas]
+#                 [sqlfluff:layout:type:comma]
+#       ->> LT05: [sqlfluff:rules:layout.long_lines]
+#       ->> LT06: [sqlfluff:rules:layout.functions]
+#                 [sqlfluff:layout:type:function_name]
+#       ->> LT07: [sqlfluff:rules:layout.cte_bracket]
+#!      -** LT08: [sqlfluff:rules:layout.cte_newline] EXCLUDED!
+#       ->> LT09: [sqlfluff:rules:layout.select_targets]
+#       ->> LT10: [sqlfluff:rules:layout.select_modifiers]
+#       ->> LT11: [sqlfluff:rules:layout.set_operators]
+#                 [sqlfluff:layout:type:set_operator]
+#       ->> LT12: [sqlfluff:rules:layout.end_of_file]
+#                 [sqlfluff:layout:type:end_of_file]
+#       ->> LT13: [sqlfluff:rules:layout.start_of_file]
+#*  - References bundle:
+#       ->> RF01: [sqlfluff:rules:references.from]
+#       ->> RF02: [sqlfluff:rules:references.qualification]
+#!      -** RF03: [sqlfluff:rules:references.consistent] EXCLUDED!
+#!      -** RF04: [sqlfluff:rules:references.keywords] EXCLUDED!
+#       ->> RF05: [sqlfluff:rules:references.special_chars]
+#       ->> RF06: [sqlfluff:rules:references.quoting]
+#*  - Structure bundle:
+#       ->> ST01: [sqlfluff:rules:structure.else_null]
+#!      -** ST02: [sqlfluff:rules:structure.simple_case] EXCLUDED!
+#       ->> ST03: [sqlfluff:rules:structure.unused_cte]
+#       ->> ST04: [sqlfluff:rules:structure.nested_case]
+#       ->> ST05: [sqlfluff:rules:structure.subquery]
+#!      -** ST06: [sqlfluff:rules:structure.column_order] EXCLUDED!
+#       ->> ST07: [sqlfluff:rules:structure.using]
+#       ->> ST08: [sqlfluff:rules:structure.distinct]
+#!      -** ST09: [sqlfluff:rules:structure.join_condition_order] EXCLUDED!
+#*  - TSQL bundle:
+#!      -** TQ01: [sqlfluff:rules:tsql.sp_prefix] EXCLUDED!
+
+
+# *** LAYOUT CONFIGURATIONS *** #
+
+# Layout configurations in SQLFluff are complicated. To make matters worst, the documentation is misleading. It says
+# that the configurations passed to the [sqlfluff:indentation] and the [sqlfluff:layout:type:XYZ] titles apply across
+# all rules. But this is not entirely correct. They apply across all rules in which they are been used. But there are
+# also differences between how the [sqlfluff:indentation] title works and how the different [sqlfluff:layout:type:XYZ]
+# titles work.
+
+# Let's start with [sqlfluff:indentation]. In its default value, this title has, amongst others, the following default
+# configurations for its elements:
+#   [sqlfluff:indentation]
+#   indent_unit = space
+#   tab_space_size = 4
+# But if rule LT02 is added to the list of excluded rules, then this configurations are not evaluated, because this
+# rule is the only rule in which they are invoked.
+
+# An example of a [sqlfluff:layout:type:XYZ] would be (default values):
+#   [sqlfluff:layout:type:comma]
+#   spacing_before = touch
+#   spacing_after = single
+#   spacing_within = single
+#   line_position = trailing
+# Here the evaluation is more complicated. The `spacing_*` elements require that rule LT01 be enabled. The
+# `line_position` element requires that rule LT04 be enabled.
+
+# Therefore, we will configure the different [sqlfluff:indentation] and [sqlfluff:layout:type:XYZ] titles in their
+# most appropriate rule. See the list of rules at the begging of this file to know where to find each title. But
+# maintainers of this file need to understand that the `spacing_*` rules are only enforced if rule LT01 is enabled. If
+# LT01 is disabled, all `spacing_*` elements will be excluded from linting checks.
+
+# Before configuring the titles, we need to understand the elements of said titles. These elements are also available
+# in the titles that are configured in the context of specific rules (see explanation above as to why).
+
+# Spacing in controlled by three elements: `spacing_before`, `spacing_after`, `spacing_within`. Each of them can take
+# the following values:
+#   - `single`: a single value of space needs to be found. This is the default value for all `spacing_*` settings.
+#   - `touch`: this means that the targeted element needs to be touching the reference element.
+#   - `any`: the linter will consider all spacing formats as appropriate.
+# Allowed modifiers for these values are:
+#   - `:inline`: when present, it prevents newlines within the segment (element before and after need to be on the same
+#     line as the referenced element).
+
+# Line position is controlled by the `line_position` element. These can take the following values:
+#   - `trailing`: the referenced element is expected to trail the targeted element. This is the default value.
+#   - `leading`: the referenced element is expected to lead the targeted element.
+#   - `alone`: the referenced element is expected to be in a line by itself.
+# Allowed modifiers for these values are:
+#   - `:strict`: when present, it prevents the `:inline` modifier of `spacing_*` elements to take effect.
+
+
+# *** ENABLING/DISABLING RULES *** #
+
+# The `rules` configuration allows you to select a comma-separated list of rules to evaluate. It's left here as a
+# placeholder that can be helpful for when debugging or doing testing. If you wish to use it, add your rules here and
+# comment-out the `exclude_rules` instead.
+# rules = ADD, RULES, HERE, SEPARATED, BY, COMMAS
+
+exclude_rules = CV02, CV09, LT02, LT08, RF03, RF04, ST02, ST06, ST09, TQ01
+
+
+#! *** ADD CONFIGURATIONS FOR RULES AND LAYOUT BELOW THIS LINE *** !#
+
+
+#* *** *** *** *** *#
+#* ALIASING BUNDLE *#
+#* *** *** *** *** *#
+
+# *** AL01 *** #
+
+# Use: this rule ensures that every table aliasing that is done, is done with the use of an `AS` keyword. This does not
+# mean that all tables should have aliases, but when they do, the use of the `AS` keyword is mandatory.
+
+[sqlfluff:rules:aliasing.table]
+aliasing = explicit
+
+
+# *** AL02 *** #
+
+# Use: this rule ensures that every column aliasing that is done, is done with the use of an `AS` keyword. This does
+# not mean that all columns should have aliases, but when they do, the use of the `AS` keyword is mandatory.
+
+[sqlfluff:rules:aliasing.column]
+aliasing = explicit
+
+
+# *** AL03 *** #
+
+# Use: this rule ensures that every column that is the result of an expression (function call, CASE WHEN, etc) is given
+# a name (alias).
+
+# In BigQuery this is redundant for the case of `SELECT` statements that return scalars from nested fields, for
+# example:
+#   `SUM((SELECT SUM(total_ppp_lc) AS total_ppp_lc FROM UNNEST(fcol.fundings))) AS amt_total_ppp_lc`
+# BigQuery does not care that `SUM(total_ppp_lc)` is not aliased, and the resulting column will have the name
+# `amt_total_ppp_lc`. But, since SQLFluff does not understand this difference, it's better to have the alias so that we
+# can leverage this rule for other cases. By having it we make sure that output tables don't have column names like
+# `_f01`, `_f02`, etc (the default name that BigQuery uses for columns that are the result of an un-aliased
+# expression).
+
+[sqlfluff:rules:aliasing.expression]
+allow_scalar = False
+
+
+# *** AL04 *** #
+
+# Use: this rule ensures all table aliases are unique.
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-AL04
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/aliasing/AL04.py
+
+[sqlfluff:rules:aliasing.unique.table]
+
+
+# *** AL05 *** #
+
+# Use: this rule ensures all table aliases are used. This does not mean that all tables invoked in a query are going to
+# be expected to be used somewhere. Just that all aliases declared are indeed used.
+
+# We will use this rule in combination with RF01 which enforces that all tables have aliases, to make sure all
+# referenced tables are actually used for something and not just be the result of some left-over code.
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-AL05
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/aliasing/AL05.py
+
+[sqlfluff:rules:aliasing.unused]
+
+
+# *** AL06 *** #
+
+# Use: this rule controls the minimum and maximum length of table aliases. Due to legacy code, we'll have to set the
+# minimum to 1 and the maximum to 30 (as a reference value). In the future we should make rules for this.
+
+[sqlfluff:rules:aliasing.length]
+min_alias_length = 1
+max_alias_length = 30
+
+
+# *** AL07 *** #
+
+# Use: if activated, this rule forces tables in `FROM` and `JOIN` clauses to not use aliases. We just don't want that!
+# False is the default value of this rule already. We are adding it here just to make it explicit.
+
+[sqlfluff:rules:aliasing.forbid]
+force_enable = False
+
+
+# *** AL08 *** #
+
+# Use: this rule enforces that column aliases should be unique within a given clause.
+
+[sqlfluff:rules:aliasing.unique.column]
+force_enable = True
+
+
+# *** AL09 *** #
+
+# Use: if activated, this rule prevents the use of self-aliasing (e.g. `col AS col` statements in the `SELECT` clause).
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-AL09
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/aliasing/AL09.py
+
+[sqlfluff:rules:aliasing.self_alias.column]
+
+
+#* *** *** *** **** *#
+#* AMBIGUOUS BUNDLE *#
+#* **** *** *** *** *#
+
+# *** AM01 *** #
+
+# Use: this rule makes sure that `DISTINCT` is not used in an expression with a `GROUP BY` (as it is redundant).
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-AM01
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/ambiguous/AM01.py
+
+[sqlfluff:rules:ambiguous.distinct]
+
+
+# *** AM02 *** #
+
+# Use: this rule enforces `UNION` keywords to be qualified (either `DISTINCT` or `ALL`).
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-AM02
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/ambiguous/AM02.py
+
+[sqlfluff:rules:ambiguous.union]
+
+
+# *** AM03 *** #
+
+# Use: this rule enforces that, if any column in an `ORDER BY` clause specifies either `ASC` or `DESC`, then they all
+# should.
+
+#! The implementation of this rule in SQLFluff appears to be bugged (or at least not considering all cases for
+#! BigQuery). If the query has an `ORDER BY` clause in a `WINDOW` declaration, and another `ORDER BY` as part of the
+#! query itself, only the first one will be evaluated. We should still use this rule as having `ORDER BY` clauses as
+#! part of the query statement itself is usually considered an anti-pattern for optimization reasons, and therefore,
+#! hardly ever needed.
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-AM03
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/ambiguous/AM03.py
+
+[sqlfluff:rules:ambiguous.order_by]
+
+
+# *** AM04 *** #
+
+# Use: this rule is rather complicated to understand. At a first glance, it seems like it disallows the use of
+# `SELECT *` statements. But this is not entirely correct. What it does is it disallows an ambiguous column count. This
+# happens when a `SELECT *` is used, but not if, at a later stage of the query, the full list of columns is included.
+# Given that in our code base we never want to have `SELECT *` statements we will use this rule. But we need to keep in
+# mind that it does not cover the full extent of our code style.
+
+#! The implementation of this rule in SQLFluff appears to be a little buggy, with some issues in the linting stage. More
+#! details can be found in --> https://github.com/sqlfluff/sqlfluff/issues/5496
+#! Given that the issue only produces false-positives, i.e. it passes on instances where it should fail, but it does
+#! not fail in situations in which it should pass (which would block a PR), we use it.
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-AM04
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/ambiguous/AM04.py
+
+[sqlfluff:rules:ambiguous.column_count]
+
+
+# *** AM05 *** #
+
+# Use: this rule ensures that all `JOIN` keywords are qualified (`INNER`, `LEFT`, `RIGHT`). Full qualification of
+# `OUTER` joins is not pursued.
+
+[sqlfluff:rules:ambiguous.join]
+fully_qualify_join_types = inner
+
+
+# *** AM06 *** #
+
+# Use: this rule ensures `GROUP BY` and `ORDER BY` clauses are consistent within a query. The code style guide
+# prioritizes the use of implicit positional references. But in some cases BigQuery will only allow for explicit
+# column name references (or exceptionally, they will be preferred).
+
+# Note: the `ORDER BY` clauses from `WINDOW` clauses are ignored.
+
+# Note: the `ORDER BY` clauses in `ARRAY_AGG` calls are ignored (which is needed since BigQuery does not allow for
+# implicit positional references in `ARRAY_AGG` calls).
+
+#! Note: the `ORDER BY` clauses in `ARRAY` calls are NOT ignored. This is a problem as BigQuery does not allow for
+#! implicit positional references in `ARRAY` calls. Therefore, at the end of such lines we need to disable AM06 with
+#! a `-- noqa: disable=AM06` comment. These comments will only work if `disable_noqa = False` is set at the top of this
+#! file. This issue has been raise with the SQLFluff team --> https://github.com/sqlfluff/sqlfluff/issues/5497
+
+[sqlfluff:rules:ambiguous.column_references]
+group_by_and_order_by_style = implicit
+
+
+# *** AM07 *** #
+
+# Use: this rule ensures query expressions within set operation (e.g. `UNION ALL`) produce the same number of columns.
+# This check would already be captured by the BigQuery parser, but it's nice to have a check that verifies it before
+# attempting to run the query via Airflow as it would save us time.
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-AM07
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/ambiguous/AM07.py
+
+[sqlfluff:rules:ambiguous.set_columns]
+
+
+#* *** **** *** **** *** *#
+#* CAPITALIZATION BUNDLE *#
+#* *** **** *** **** *** *#
+
+# *** CP01 *** #
+
+# Use: this rule controls how SQLFluff will treat SQL keywords. SQL keywords refers to things like SELECT, FROM, WHERE,
+# etc. There's a different section for function names.
+
+[sqlfluff:rules:capitalisation.keywords]
+capitalisation_policy = upper
+ignore_words = None
+ignore_words_regex = None
+
+
+# *** CP02 *** #
+
+# Use: in a nutshell, 'identifiers' is just how SQLFluff refers to column names (there's more to it of course, but it
+# should not impact as for now). All column names must be lower case. If a column has been given a name that uses
+# capital letters (mostly a legacy thing in our code base), then it must be `Quoted` to be allowed by SQLFluff.
+
+[sqlfluff:rules:capitalisation.identifiers]
+capitalisation_policy = lower
+ignore_words = _PARTITIONTIME, _TABLE_SUFFIX
+ignore_words_regex = None
+unquoted_identifiers_policy = all
+
+
+# *** CP03 *** #
+
+# Use: this rule controls how SQLFluff will treat SQL function names.
+
+[sqlfluff:rules:capitalisation.functions]
+extended_capitalisation_policy = upper
+ignore_words = None
+ignore_words_regex = None
+
+
+# *** CP04 *** #
+
+# Use: this rule controls how SQLFluffs deals with literals (`TRUE`, `FALSE`, `NULL`).
+
+[sqlfluff:rules:capitalisation.literals]
+capitalisation_policy = upper
+
+
+# *** CP05 *** #
+
+# Use: this rule controls how SQLFluffs deals with data type declarations (`INT64`, `BOOL`, `STRING`, etc).
+
+[sqlfluff:rules:capitalisation.types]
+extended_capitalisation_policy = upper
+ignore_words = None
+ignore_words_regex = None
+
+
+#* **** *** *** **** *#
+#* CONVENTION BUNDLE *#
+#* **** *** *** **** *#
+
+# *** CV01 *** #
+
+# Use: this rule enforces the use of `!=` for "not equal to" (instead of `<>`)
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-CV01
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/convention/CV01.py
+
+[sqlfluff:rules:convention.not_equal]
+
+
+# *** CV02 *** #
+
+# Use: this rule establishes a strict preference of `COALESCE` over `IFNULL`. This seems like a misguided idea. Though
+# all uses of `IFNULL` can be covered by `COALESCE` the opposite is not true. Additionally, the use of `IFNULL` to fill
+# `NULL` values with static values seems more appropriate from a readability perspective. Therefore, this rule is
+# added to the `exclude_rules` set.
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-CV02
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/convention/CV02.py
+
+[sqlfluff:rules:convention.coalesce]
+
+
+# *** CV03 *** #
+
+# Use: this rule enforces that `SELECT` clauses should have no trailing commas. That is, after the last column, there
+# should be no additional commas.
+[sqlfluff:rules:convention.select_trailing_comma]
+select_clause_trailing_comma = forbid
+
+
+# *** CV04 *** #
+
+# Use: this rule enforces the use of `COUNT(*)` for counting the number of rows. This is due to BQ optimization over
+# the alternatives `COUNT(0)` or `COUNT(1)`.
+[sqlfluff:rules:convention.count_rows]
+prefer_count_0 = False
+prefer_count_1 = False
+
+
+# *** CV05 *** #
+
+# Use: this rule enforces that comparisons with `NULL` should be done with `IS` or `IS NOT` and not with the `=`
+# operator.
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-CV05
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/convention/CV05.py
+
+[sqlfluff:rules:convention.is_null]
+
+
+# *** CV06 *** #
+
+# Use: this rule deals with semicolons (`;`) at the end of queries.
+
+# We need to allow for the semicolon to be present due to the parsing of `{% include '_function_name.sql' %}`
+# statements. But we need not enforce that it should be there when not needed. When present, the semicolon should be
+# on the same line as the last line of the query expression that requires it.
+
+[sqlfluff:rules:convention.terminator]
+# Should statements end with a semicolon? Possible values are:
+#   - `True`: they are required. This means that not having it would raise an error.
+#   - `False`: they are not required. This means that not having it won't raise an error. It does not mean that having
+#     it would raise an error.
+require_final_semicolon = False
+# This element controls whether the semicolon (when present) should be placed in a new line (`True`) or not (`False`).
+# Single line query expressions are excluded from this evaluation.
+multiline_newline = False
+
+
+[sqlfluff:layout:type:statement_terminator]
+# Spacing elements will not be evaluated if rule LT01 is excluded.
+spacing_before = touch
+spacing_after = single
+spacing_within = single
+# Line position elements will not be evaluated if rule CV06 is excluded.
+line_position = trailing
+
+
+# *** CV07 *** #
+
+# Use: this rule enforces that top level statements should not be wrapped in parentheses.
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-CV07
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/convention/CV07.py
+
+[sqlfluff:rules:convention.statement_brackets]
+
+
+# *** CV08 *** #
+
+# Use: this rule enforces the preference of `LEFT JOIN` over `RIGHT JOIN`.
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-CV08
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/convention/CV08.py
+
+[sqlfluff:rules:convention.left_join]
+
+
+# *** CV09 *** #
+
+# Use: this rule enforces the prohibition on using specific words (the ones provided in the rule's configuration).
+
+# This rule would only be useful if we had a list of words that we would like to not be used. But since we don't have
+# any at the moment, we will add this rule to the `exclude_rules`. If such a list becomes available in the future, we
+# will move it to the list of `rules`.
+
+[sqlfluff:rules:convention.blocked_words]
+blocked_regex = None
+blocked_words = None
+match_source = None
+
+
+# *** CV10 *** #
+
+# Use: this rule enforces the preference of single quotes for quoting literals. When double quotes are used to avoid
+# needing an escape sequence on single quotes, the rule will allow it (and not fail).
+
+[sqlfluff:rules:convention.quoted_literals]
+# We do not need to `force_enable` the rule. That is only used for enabling the rule in dialects in which the rule is
+# not available out-of-box, and BigQuery is not one of them.
+# force_enable = True
+preferred_quoted_literal_style = single_quotes
+
+
+# *** CV11 *** #
+
+# Use: this rule enforces the use of the `CAST` function for casting data-types.
+
+[sqlfluff:rules:convention.casting_style]
+preferred_type_casting_style = cast
+
+
+# These layout rules are only relevant for SQL dialects with a casting operator (like `::`). They are included here
+# with their default values for completion.
+[sqlfluff:layout:type:casting_operator]
+# Spacing elements will not be evaluated if rule LT01 is excluded.
+spacing_before = touch
+spacing_after = touch:inline
+
+
+#* *** *** **** *#
+#* JINJA BUNDLE *#
+#* **** *** *** *#
+
+[sqlfluff:templater:jinja]
+apply_dbt_builtins = False
+# load_macros_from_path = add/path/macros,and/another/path/to/more/macros
+# library_path = add/path/to/library
+
+
+# In this section we supply SQLFluff with all the default values to use during the templating step. It would be better
+# to supply a JSON for the `params` that is properly broken into lines, but SQLFluff does not allow for it. The one
+# present here has been broken into lines as much as possible, but breaking it further causes issues with SQLFluff
+[sqlfluff:templater:jinja:context]
+# params = {}
+# next_ds = 2024-01-01
+# next_execution_date = 2024-01-01
+
+
+# Jinja macros can be added here
+[sqlfluff:templater:jinja:macros]
+
+
+# *** JJ01 *** #
+
+# Use: this rule ensures Jinja tags (`{{` and `}}`) have only one whitespace (or a line break) on either side.
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-JJ01
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/jinja/JJ01.py
+
+[sqlfluff:rules:jinja.padding]
+
+
+#* **** *** **** *#
+#* LAYOUT BUNDLE *#
+#* **** *** **** *#
+
+[sqlfluff:layout:type:select_clause]
+line_position = alone
+
+[sqlfluff:layout:type:from_clause]
+line_position = alone
+
+[sqlfluff:layout:type:join_clause]
+line_position = alone
+
+[sqlfluff:layout:type:where_clause]
+line_position = alone
+
+[sqlfluff:layout:type:groupby_clause]
+line_position = alone
+
+[sqlfluff:layout:type:having_clause]
+line_position = alone
+
+[sqlfluff:layout:type:orderby_clause]
+line_position = leading
+
+[sqlfluff:layout:type:limit_clause]
+line_position = alone
+
+
+# *** LT01 *** #
+
+# Use: the enablement of this rule enforces the `spacing_*` layout configurations established in the
+# [sqlfluff:layout:type:XYZ] titles. The rule by itself basically only enforces that there are no trailing white spaces
+# at the end of a line.
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-LT01
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/layout/LT01.py
+
+[sqlfluff:rules:layout.spacing]
+
+
+# These layout configurations control how parentheses (`(` and `)`) should be placed. But the "issue" here is that
+# opening (and closing) parentheses are used in multiple different places for different reasons:
+#   - to group boolean and mathematical expressions
+#   - on function calls
+#   - to define CTE query expressions
+#   - on specific keywords like `USING`, `OVER`, `EXCEPT`, `WINDOW`, etc
+# and each of them may require a different treatment.
+[sqlfluff:layout:type:start_bracket]
+spacing_before = single
+spacing_after = touch
+
+[sqlfluff:layout:type:end_bracket]
+spacing_before = touch
+
+# Similar caveats apply to square brackets (`[` and `]`), and angle brackets (`<` and `>`), but their use cases are
+# more limited than for parentheses. All four of them are configured in the titles that follow.
+[sqlfluff:layout:type:start_square_bracket]
+spacing_after = touch
+
+[sqlfluff:layout:type:end_square_bracket]
+spacing_before = touch
+
+[sqlfluff:layout:type:start_angle_bracket]
+spacing_after = touch
+
+[sqlfluff:layout:type:end_angle_bracket]
+spacing_before = touch
+
+
+# We need more testing to fully understand what this title controls.
+[sqlfluff:layout:type:slice]
+spacing_before = touch
+spacing_after = touch
+
+
+# This title controls how dots (`.`) should be handled. In BigQuery dots are used in three different places:
+#   - Tables: `project.dataset.table`
+#   - Column aliases: `alias.column_name`
+#   - Floats: `whole_part.decimal_part`
+# All of these cases require that the dot be touching before and after.
+[sqlfluff:layout:type:dot]
+spacing_before = touch
+spacing_after = touch
+
+
+# We need more testing to fully understand what this title controls.
+[sqlfluff:layout:type:object_reference]
+spacing_within = touch:inline
+
+
+# A numeric literal refers to a number. This elements control (amongst others), how the sign of a negative number
+# should appear (touching the number or not).
+[sqlfluff:layout:type:numeric_literal]
+spacing_within = touch:inline
+
+
+# This title seems similar to [sqlfluff:layout:type:numeric_literal], but it's not exactly the same. This title
+# controls where the minus sign should be in:
+#   - mathematical operations
+#   - changing the sign of a numerical column
+# In combination with the [sqlfluff:layout:type:numeric_literal] we establish that the following patterns should be
+# observed:
+#   SELECT
+#     t.numeric_column
+#     , - t.numeric_column
+#     , -1 * t.numeric_column -- Not the preferred way, but acceptable.
+#     , -1
+#     , - (1 + 2)
+#     , (2 * 2) + (5 / 7)
+#     , - (2 * 2) + (5 / 7)
+#     , -1 + 5
+#     , -1 + (5 * t.numeric_column)
+#   FROM `{{ params.project_id }}.{{ params.dataset.cl }}.table` AS t
+[sqlfluff:layout:type:sign_indicator]
+spacing_after = single
+
+
+# In English, the tilde is the following character: ~
+# We don't really use this character in our code base, so we accept the default value.
+[sqlfluff:layout:type:tilde]
+spacing_after = touch:inline
+
+
+# We need more testing to fully understand what this title controls.
+[sqlfluff:layout:type:array_type]
+spacing_within = touch:inline
+
+
+# We need more testing to fully understand what this title controls.
+[sqlfluff:layout:type:typed_array_literal]
+spacing_within = touch
+
+
+# We need more testing to fully understand what this title controls.
+[sqlfluff:layout:type:sized_array_type]
+spacing_within = touch
+
+
+# We need more testing to fully understand what this title controls.
+[sqlfluff:layout:type:struct_type]
+spacing_within = touch:inline
+
+
+# We need more testing to fully understand what this title controls.
+[sqlfluff:layout:type:bracketed_arguments]
+spacing_before = touch:inline
+
+
+# We need more testing to fully understand what this title controls.
+[sqlfluff:layout:type:typed_struct_literal]
+spacing_within = touch
+
+
+# We need more testing to fully understand what this title controls.
+[sqlfluff:layout:type:semi_structured_expression]
+spacing_within = touch:inline
+spacing_before = touch:inline
+
+
+# We need more testing to fully understand what this title controls.
+[sqlfluff:layout:type:array_accessor]
+spacing_before = touch:inline
+
+
+# We need more testing to fully understand what this title controls.
+[sqlfluff:layout:type:colon]
+spacing_before = touch
+
+
+# We need more testing to fully understand what this title controls.
+[sqlfluff:layout:type:colon_delimiter]
+spacing_before = touch
+spacing_after = touch
+
+
+# We need more testing to fully understand what this title controls.
+[sqlfluff:layout:type:path_segment]
+spacing_within = touch
+
+
+# We need more testing to fully understand what this title controls.
+[sqlfluff:layout:type:sql_conf_option]
+spacing_within = touch
+
+
+# We need more testing to fully understand what this title controls.
+[sqlfluff:layout:type:sqlcmd_operator]
+spacing_before = touch
+
+
+# We need more testing to fully understand what this title controls.
+[sqlfluff:layout:type:comment]
+spacing_before = any
+spacing_after = any
+
+
+# We need more testing to fully understand what this title controls.
+[sqlfluff:layout:type:pattern_expression]
+spacing_within = any
+
+
+# We need more testing to fully understand what this title controls.
+[sqlfluff:layout:type:placeholder]
+spacing_before = any
+spacing_after = any
+
+
+# We need more testing to fully understand what this title controls.
+[sqlfluff:layout:type:common_table_expression]
+spacing_within = single:inline
+
+
+# We need more testing to fully understand what this title controls.
+[sqlfluff:layout:type:template_loop]
+spacing_before = any
+spacing_after = any
+
+
+# *** LT02 *** #
+
+# Use: the enablement of this rule enforces the indentation layout configurations established in the
+# [sqlfluff:indentation] title.
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-LT02
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/layout/LT02.py
+
+[sqlfluff:rules:layout.indent]
+
+[sqlfluff:indentation]
+indent_unit = space
+tab_space_size = 2
+
+# This element is misleading. When set to `True` what it enforces is that the name of the CTE should be indented with
+# respect to the `WITH` keyword.
+indented_ctes = False
+
+# These elements control how `JOIN`s should be written.
+#   - `indented_joins = False`: means that the `JOIN` keyword should be at the same indentation level as the `FROM`
+#      keyword.
+#   - `indented_using_on = True`: means that `ON` keyword should be indented with respect to the `JOIN` keyword.
+#   - `indented_on_contents = False`: means that the content of the `ON` keyword (including any subsequent `AND`
+#      statements), should not be indented with respect to the `ON` keyword.
+indented_joins = False
+indented_using_on = True
+indented_on_contents = False
+
+indented_then = True
+indented_then_contents = True
+
+allow_implicit_indents = True
+template_blocks_indent = True
+
+# This is a comma separated list of elements to skip indentation edits to.
+skip_indentation_in = script_content
+
+# This configuration is only for `sqlfluff fix`. We are not using it. But comments should precede the lines that they
+# describe, so we set it to `before`.
+trailing_comments = before
+
+
+# *** LT03 *** #
+
+# Use: the enablement of this rule enforces the operators layout configurations established in the following
+# [sqlfluff:layout:type] titles.
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-LT03
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/layout/LT03.py
+
+[sqlfluff:rules:layout.operators]
+
+
+# Binary operators refers to mathematical symbols like `+`, `-`, `/`, etc. Keep in mind that Google follows a slightly
+# different classification of operators. https://cloud.google.com/bigquery/docs/reference/standard-sql/operators
+[sqlfluff:layout:type:binary_operator]
+# Spacing elements will not be evaluated if rule LT01 is excluded.
+spacing_before = single
+spacing_after = single
+spacing_within = touch
+# Line position elements will not be evaluated if rule LT03 is excluded.
+line_position = leading
+
+
+# Comparison operators refers to symbols like `=`, `>`, `<`, `!=`, etc. Keep in mind that Google follows a slightly
+# different classification of operators. https://cloud.google.com/bigquery/docs/reference/standard-sql/operators
+[sqlfluff:layout:type:comparison_operator]
+# Spacing elements will not be evaluated if rule LT01 is excluded.
+spacing_within = touch
+# Line position elements will not be evaluated if rule LT03 is excluded.
+line_position = leading
+
+
+# The assignment operator refers to symbol `:=`. This is not available in Google BigQuery. Refer to Google's docs
+# for more information on operators: https://cloud.google.com/bigquery/docs/reference/standard-sql/operators
+[sqlfluff:layout:type:assignment_operator]
+# Spacing elements will not be evaluated if rule LT01 is excluded.
+spacing_within = touch
+# Line position elements will not be evaluated if rule LT03 is excluded.
+line_position = leading
+
+
+# *** LT04 *** #
+
+# Use: the enablement of this rule enforces the `line_position` configuration established in the
+# [sqlfluff:layout:type:comma] title.
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-LT04
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/layout/LT04.py
+
+[sqlfluff:rules:layout.commas]
+
+[sqlfluff:layout:type:comma]
+# Spacing elements will not be evaluated if rule LT01 is excluded.
+spacing_before = touch
+spacing_after = single
+spacing_within = single
+# Line position elements will not be evaluated if rule LT04 is excluded.
+line_position = leading
+
+
+# *** LT05 *** #
+
+# Use: the enablement of this rule enforces the `max_line_length` value.
+
+[sqlfluff:rules:layout.long_lines]
+ignore_comment_clauses = False
+ignore_comment_lines = False
+
+
+# *** LT06 *** #
+
+# Use: the enablement of this rule enforces that function names are followed by their opening parenthesis.
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-LT06
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/layout/LT06.py
+
+[sqlfluff:rules:layout.functions]
+
+[sqlfluff:layout:type:function_name]
+# Spacing elements will not be evaluated if rule LT01 is excluded. But this is one of those places of the SQLFluff
+# configuration where the hierarchy between configurations can be observed. If LT06 is activated, no space is expected
+# between the function name and the opening parenthesis, regardless of the configuration of the `spacing_after` element
+# in the [sqlfluff:layout:type:function_name] title. But, if LT06 is not activated, then the configuration of the
+# `spacing_after` (see below) is enforced (assuming LT01 is enabled, otherwise any spacing will be accepted).
+# So, in summary, what LT06 actually does, is to enforce that the `spacing_after` configuration of this title is set to
+# `spacing_after = touch:inline`.
+spacing_before = single
+spacing_after = touch:inline
+spacing_within = touch:inline
+
+
+# *** LT07 *** #
+
+# Use: this rule controls that the closing parenthesis of a `WITH` clause should be in on a new line.
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-LT07
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/layout/LT07.py
+
+[sqlfluff:rules:layout.cte_bracket]
+
+
+# *** LT08 *** #
+
+# Use: this rule enforces the use of a line break after the closing parenthesis of the last CTE of a `WITH` clause and
+# the "return" statement of the query expression. We do not want this behavior, so it will be included in the
+# `exclude_rules` configuration.
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-LT08
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/layout/LT08.py
+
+[sqlfluff:rules:layout.cte_newline]
+
+
+# *** LT09 *** #
+
+# Use: when enabled, this rule enforces that `SELECT` targets are each in a new line, except when there's only one
+# `SELECT` target. This rule is not enforced for single-select targets that span multiple lines. Those can still start
+# on their own line.
+
+[sqlfluff:rules:layout.select_targets]
+# This option means that `SELECT *` is considered a single element, and can thus be in the same lines as the
+# `SELECT` keyword. Of course, ideally, we should have absolutely no `SELECT *` expressions.
+wildcard_policy = single
+
+
+# *** LT10 *** #
+
+# Use: when enabled, this rule enforces that `SELECT` modifiers (e.g. `DISTINCT`) must be in the same line as the
+# `SELECT` keyword.
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-LT10
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/layout/LT10.py
+
+[sqlfluff:rules:layout.select_modifiers]
+
+
+# *** LT11 *** #
+
+# Use: when enabled, this rule enforces that set operators (`SET`, `UNION`) be in their own line.
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-LT11
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/layout/LT11.py
+
+[sqlfluff:rules:layout.set_operators]
+
+[sqlfluff:layout:type:set_operator]
+# Spacing elements will not be evaluated if rule LT01 is excluded.
+spacing_before = single
+spacing_after = single
+spacing_within = single
+# Line position elements will not be evaluated if rule LT11 is excluded.
+line_position = alone:strict
+
+
+# *** LT12 *** #
+
+# Use: when enabled, this rule enforces that files must end with a single trailing newline.
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-LT12
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/layout/LT12.py
+
+[sqlfluff:rules:layout.end_of_file]
+
+[sqlfluff:layout:type:end_of_file]
+# Spacing elements will not be evaluated if rule LT01 is excluded.
+spacing_before = touch
+spacing_after = single
+spacing_within = single
+# Line position elements will not be evaluated if rule LT12 is excluded.
+line_position = trailing
+
+
+# *** LT13 *** #
+
+# Use: when enabled, this rule enforces that files not start with newlines or whitespace.
+
+# The rule itself does not require any specific configurations. As long as it is either: a) included in the `rules`,
+# and/or b) not included in the `exclude_rules` it will be evaluated.
+# Link to documentation --> https://docs.sqlfluff.com/en/stable/rules.html#rule-LT13
+# Link to class declaration --> https://github.com/sqlfluff/sqlfluff/blob/main/src/sqlfluff/rules/layout/LT13.py
+
+[sqlfluff:rules:layout.start_of_file]
+
+
+#* *** *** * *** *** *#
+#* REFERENCES BUNDLE *#
+#* *** *** * *** *** *#
+
+# *** RF01 *** #
+
+# Use: when enabled, this rule enforces that references cannot reference objects that are not present in the `FROM`
+# clause (including any `JOIN`).
+
+# This rule complements AL05 in making sure that only used tables are present in the query. AL05 makes sure that every
+# reference (table alias) is used, and RF01 makes sure that all invoked tables have an alias.
+
+[sqlfluff:rules:references.from]
+# This rule needs to be `force_enable`d because it's off by default for BigQuery. The documentation cites issues with
+# lateral views and `STRUCT`s. It is not common to experience this issue.
+force_enable = True
+
+
+# *** RF02 *** #
+
+# Use: when enabled, this rule enforces that references must be qualified if there are more than one referenced
+# table or view. An allowed exception is when the `USING` keyword is used for joining, but we should not use the
+# `USING` keyword anyways.
+
+[sqlfluff:rules:references.qualification]
+
+
+# *** RF03 *** #
+
+# Use: when enabled, this rule enforces that references must be consistent in query expressions with one single
+# reference. We are setting it to be consistently qualified. Meaning that, even in queries with only on table in their
+# `FROM` clause, table aliases should still be used.
+
+# Unfortunately, this rule does not work properly for BigQuery. It produces false-positives (i.e. it flags lines as
+# missing their reference) when the reference is coming from `UNNEST`ed arrays. Therefore, this rule is disabled.
+
+[sqlfluff:rules:references.consistent]
+force_enable = False
+single_table_references = qualified
+
+
+# *** RF04 *** #
+
+# Use: when enabled, this rule prevents SQL keywords from been used as identifiers (for example, columns been called
+# `date`). This refers to quoted identifiers, as unquoted ones would already produce parsing errors in many cases.
+
+# We do not need this rule (which would require regular maintenance) due to the reasons explained below.
+
+# This rule is fundamentally flawed. Because SQLFluff seeks to be a tool for all SQL dialects, the definition of what
+# constitutes a "reserved (key)word" is not exactly tailored to BigQuery. To use this rule, we would need to maintain a
+# list of exceptions in the `ignore_words` list.
+# BiqQuery's reserved words: https://cloud.google.com/bigquery/docs/reference/standard-sql/lexical#reserved_keywords
+
+# We would also need to add exceptions (`--noqa: RF04`) in the queries that currently are using these reserved words
+# due to two reasons:
+#   1) legacy issues: there are tables that currently have columns with these names and we cannot just change them as
+#      we might end-up breaking downstream tasks from consumers.
+#   2) schema of the imports: some tables that we import from the applications already have columns with these names
+#      and there's little to nothing that we can do to change that.
+
+# Additionally, the problem of reserved-words as unquoted identifiers is just not an issue in BigQuery. BigQuery SQL
+# fails to parse if we try to use a reserved word as an unquoted identifier.
+
+# The identifiers could only be "confused" with reserved words if the identifier does not have the reference of its
+# table (i.e. an alias). Since we already have those rules, no need to use this one too.
+
+[sqlfluff:rules:references.keywords]
+ignore_words = None
+ignore_words_regex = None
+# The value `all` includes both `aliases` (for tables), and `column_aliases`.
+quoted_identifiers_policy = all
+unquoted_identifiers_policy = all
+
+
+# *** RF05 *** #
+
+# Use: when enabled, this rule prevents the use of special characters in identifiers.
+
+[sqlfluff:rules:references.special_chars]
+additional_allowed_characters = None
+ignore_words = None
+ignore_words_regex = None
+allow_space_in_identifier = False
+# The value `all` includes both `aliases` (for tables), and `column_aliases`.
+quoted_identifiers_policy = all
+unquoted_identifiers_policy = all
+
+
+# *** RF06 *** #
+
+# Use: when enabled, this rule prevents the unnecessary quoting of identifiers.
+
+[sqlfluff:rules:references.quoting]
+# We don't need to `force_enable` this rule as it is on by default for BigQuery.
+# force_enable = True
+ignore_words = None
+ignore_words_regex = None
+# Options for `prefer_quoted_identifiers`:
+#   - True: requires every identifier to be quoted.
+#   - False: does not require every identifier to be quoted.
+prefer_quoted_identifiers = False
+# Options for `prefer_quoted_keywords`:
+#   - True: requires every keyword used as an identifier to be quoted.
+#   - False: does not require every keyword used as an identifier to be quoted.
+prefer_quoted_keywords = False
+
+
+#* *** *** *** **** *#
+#* STRUCTURE BUNDLE *#
+#* **** *** *** *** *#
+
+# *** ST01 *** #
+
+# Use: when enabled, this rule prevents the use of `ELSE NULL` in `CASE WHEN` clauses as they are redundant.
+[sqlfluff:rules:structure.else_null]
+
+
+# *** ST02 *** #
+
+# Use: when enabled, this rule attempts to simplify the "unnecessary" `CASE WHEN` statements that can be resolved with
+# `COALESCE`.
+
+# This rule is excluded. It is very opinionated to say that the `COALESCE` has better readability than using a
+# `CASE WHEN`, especially in more complex cases.
+
+[sqlfluff:rules:structure.simple_case]
+
+
+# *** ST03 *** #
+
+# Use: when enabled, this rule enforces that all declared CTEs are used.
+
+#! WARNING: unfortunately, SQLFluff does not handle nested WITH statements correctly. A CTE that is declared in the
+#! outermost CTE will be expected to be used in an outermost statement, even though this is not a restriction in Google
+#! BigQuery. Given that this is a more organized way of writing queries, we will enable the rule.
+
+[sqlfluff:rules:structure.unused_cte]
+
+
+# *** ST04 *** #
+
+# Use: when enabled, this rule enforces that nested `CASE` statements in the `ELSE` clause be flattened. This is
+# achieved by comparing the statement being evaluated in the different `WHEN` scenarios.
+
+[sqlfluff:rules:structure.nested_case]
+
+
+# *** ST05 *** #
+
+# Use: when enabled, this rule forbids the use of sub-queries, in favor of the use of CTEs.
+
+# Note: this rule is something that we certainly want to have, as CTEs are usually much more readable than sub-queries.
+# Nonetheless, in BigQuery it is sometimes needed to use scalar sub-queries. Because this rule is currently checking
+# only `FROM` and `JOIN` statements (except for `CROSS JOIN`s), this should not be an issue. But if the option to check
+# for `SELECT` or `WHERE` statements becomes available in future versions of SQLFluff we will probably have to update
+# the configuration to skip those.
+
+[sqlfluff:rules:structure.subquery]
+forbid_subquery_in = both
+
+
+# *** ST06 *** #
+
+# Use: when enabled, this rule attempts to establish an order in how columns are selected: first wildcards (`*`), then
+# simple targets (i.e. simply selecting columns by their names), and lastly calculations and aggregations.
+
+# Note: the idea of been able to establish an order in how we write `SELECT` statements is appealing, but this rule
+# allows for no configuration and has a very greedy definition of what a "calculation" is (basically any column that is
+# not a simple select target). Therefore, we can not enable this rule in its current state.
+
+[sqlfluff:rules:structure.column_order]
+
+
+# *** ST07 *** #
+
+# Use: when enabled, this rule enforces the preference of using the `ON` over the `USING` keyword for `JOIN` statements.
+
+# Note: `ON` and `USING` are not equivalent, and `ON` can accommodate situations that `USING` cannot. Therefore, for
+# standardization purposes, we should prefer the use of the `ON` keyword over `USING`.
+# Google doc --> https://cloud.google.com/bigquery/docs/reference/standard-sql/query-syntax#on_and_using_equivalency
+
+[sqlfluff:rules:structure.using]
+
+
+# *** ST08 *** #
+
+# Use: when enabled, this rule forbids surrounding columns with parentheses in a `SELECT DISTINCT` statement. This is
+# done to avoid the confusion of thinking that the `DISTINCT` qualifier will only apply to some columns, when it will
+# actually apply to all, regardless of the parentheses. This is because `DISTINCT` is a qualifier and not a function.
+
+[sqlfluff:rules:structure.distinct]
+
+
+# *** ST09 *** #
+
+# Use: when enabled, this rule enforces that when performing join operations, the keys from the left-most table should
+# be mentioned first.
+
+# Note: this ordering has no effect on the result of the join operation, but standardizing how we code the joins makes
+# for better and improved readability.
+
+#! Note: this rule is disabled due its bugged implementation. Issue --> https://github.com/sqlfluff/sqlfluff/issues/5506
+
+[sqlfluff:rules:structure.join_condition_order]
+preferred_first_table_in_join_clause = earlier
