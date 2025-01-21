@@ -40,9 +40,11 @@ def print_results(results: dict[str, dict[str, int]]):
         f"| {' ' * (len(col_headers[4]) - len(str(total)))}{total} |"
     )
     print(horizontal_rule)
+    print()
 
 
-def create_scenario(pp: list[int]) -> dict[str, dict[str, int]]:
+def create_scenario(pp: list[int], buildings: list[str]) -> dict[str, dict[str, int]]:
+    
     scenario_results: dict[str, dict[str, int]] = {
         "food": {
             "prod_pot": pp[0],
@@ -63,19 +65,27 @@ def create_scenario(pp: list[int]) -> dict[str, dict[str, int]]:
             "total": 0
         }
     }
+    
+    if len(buildings) > 9:
+        print()
+        print("Warning! Too many buildings!")
+        return scenario_results
+    
     return scenario_results
 
 
 scenario_1 = create_scenario(
-    pp = [100, 150, 75]
+    pp = [100, 150, 75],
+    buildings = []
 )
 
 print_results(scenario_1)
 
+print("#" * 60)
 
 scenario_2 = create_scenario(
-    pp = [115, 10, 0]
+    pp = [115, 10, 0],
+    buildings = "a" * 10
 )
 
 print_results(scenario_2)
-print()
