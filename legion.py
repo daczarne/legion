@@ -1,25 +1,4 @@
 
-results: dict[str, dict[str, int]] = {
-    "food": {
-        "prod_pot": 100,
-        "prod_bonus": 185,
-        "maintenance": 24,
-        "total": 600
-    },
-    "ore": {
-        "prod_pot": 100,
-        "prod_bonus": 185,
-        "maintenance": 24,
-        "total": 600
-    },
-    "wood": {
-        "prod_pot": 100,
-        "prod_bonus": 185,
-        "maintenance": 24,
-        "total": 600
-    }
-}
-
 def print_results(results: dict[str, dict[str, int]]):
     col_headers: list[str] = [
         "Resource",
@@ -61,6 +40,42 @@ def print_results(results: dict[str, dict[str, int]]):
         f"| {' ' * (len(col_headers[4]) - len(str(total)))}{total} |"
     )
     print(horizontal_rule)
-    print()
 
-print_results(results)
+
+def create_scenario(pp: list[int]) -> dict[str, dict[str, int]]:
+    scenario_results: dict[str, dict[str, int]] = {
+        "food": {
+            "prod_pot": pp[0],
+            "prod_bonus": 0,
+            "maintenance": 0,
+            "total": 0
+        },
+        "ore": {
+            "prod_pot": pp[1],
+            "prod_bonus": 0,
+            "maintenance": 0,
+            "total": 0
+        },
+        "wood": {
+            "prod_pot": pp[2],
+            "prod_bonus": 0,
+            "maintenance": 0,
+            "total": 0
+        }
+    }
+    return scenario_results
+
+
+scenario_1 = create_scenario(
+    pp = [100, 150, 75]
+)
+
+print_results(scenario_1)
+
+
+scenario_2 = create_scenario(
+    pp = [115, 10, 0]
+)
+
+print_results(scenario_2)
+print()
