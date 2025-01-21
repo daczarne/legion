@@ -1,3 +1,226 @@
+from dataclasses import dataclass, field
+
+@dataclass
+class CityHall:
+    maintenance_cost: dict[str, int] = field(
+        default_factory = lambda: {"food": 1, "ore": 1, "wood": 1}
+    )
+    
+    base_productivity: dict[str, int] = field(
+        default_factory = lambda: {"food": 0, "ore": 0, "wood": 0}
+    )
+    
+    productivity_bonus: dict[str, float] = field(
+        default_factory = lambda: {"food": 0.25, "ore": 0.25, "wood": 0.25}
+    )
+    
+    max_workers: int = 0
+
+
+@dataclass
+class Farm:
+    maintenance_cost: dict[str, int] = field(
+        default_factory = lambda: {"food": 0, "ore": 0, "wood": 0}
+    )
+    
+    base_productivity: dict[str, int] = field(
+        default_factory = lambda: {"food": 12, "ore": 0, "wood": 0}
+    )
+    
+    productivity_bonus: dict[str, float] = field(
+        default_factory = lambda: {"food": 0.0, "ore": 0.0, "wood": 0.0}
+    )
+    
+    max_workers: int = 3
+
+
+@dataclass
+class Vineyard:
+    maintenance_cost: dict[str, int] = field(
+        default_factory = lambda: {"food": 0, "ore": 0, "wood": 0}
+    )
+    
+    base_productivity: dict[str, int] = field(
+        default_factory = lambda: {"food": 10, "ore": 0, "wood": 0}
+    )
+    
+    productivity_bonus: dict[str, float] = field(
+        default_factory = lambda: {"food": 0.10, "ore": 0.10, "wood": 0.10}
+    )
+    
+    max_workers: int = 3
+
+
+@dataclass
+class FishingVillage:
+    maintenance_cost: dict[str, int] = field(
+        default_factory = lambda: {"food": 0, "ore": 0, "wood": 0}
+    )
+    
+    base_productivity: dict[str, int] = field(
+        default_factory = lambda: {"food": 8, "ore": 0, "wood": 0}
+    )
+    
+    productivity_bonus: dict[str, float] = field(
+        default_factory = lambda: {"food": 0.0, "ore": 0.0, "wood": 0.0}
+    )
+    
+    max_workers: int = 3
+
+
+@dataclass
+class Mine:
+    maintenance_cost: dict[str, int] = field(
+        default_factory = lambda: {"food": 0, "ore": 0, "wood": 0}
+    )
+    
+    base_productivity: dict[str, int] = field(
+        default_factory = lambda: {"food": 0, "ore": 12, "wood": 0}
+    )
+    
+    productivity_bonus: dict[str, float] = field(
+        default_factory = lambda: {"food": 0.0, "ore": 0.0, "wood": 0.0}
+    )
+    
+    max_workers: int = 3
+
+
+@dataclass
+class OutcropMine:
+    maintenance_cost: dict[str, int] = field(
+        default_factory = lambda: {"food": 0, "ore": 0, "wood": 0}
+    )
+    
+    base_productivity: dict[str, int] = field(
+        default_factory = lambda: {"food": 0, "ore": 13, "wood": 0}
+    )
+    
+    productivity_bonus: dict[str, float] = field(
+        default_factory = lambda: {"food": 0.0, "ore": 0.0, "wood": 0.0}
+    )
+    
+    max_workers: int = 2
+
+
+@dataclass
+class MountainMine:
+    maintenance_cost: dict[str, int] = field(
+        default_factory = lambda: {"food": 0, "ore": 0, "wood": 0}
+    )
+    
+    base_productivity: dict[str, int] = field(
+        default_factory = lambda: {"food": 0, "ore": 20, "wood": 0}
+    )
+    
+    productivity_bonus: dict[str, float] = field(
+        default_factory = lambda: {"food": 0.0, "ore": 0.0, "wood": 0.0}
+    )
+    
+    max_workers: int = 2
+
+
+@dataclass
+class Basilica:
+    maintenance_cost: dict[str, int] = field(
+        default_factory = lambda: {"food": 3, "ore": 3, "wood": 3}
+    )
+    
+    base_productivity: dict[str, int] = field(
+        default_factory = lambda: {"food": 0, "ore": 0, "wood": 0}
+    )
+    
+    productivity_bonus: dict[str, float] = field(
+        default_factory = lambda: {"food": 0.50, "ore": 0.50, "wood": 0.50}
+    )
+    
+    max_workers: int = 1
+
+
+@dataclass
+class FarmersGuild:
+    maintenance_cost: dict[str, int] = field(
+        default_factory = lambda: {"food": 10, "ore": 0, "wood": 0}
+    )
+    
+    base_productivity: dict[str, int] = field(
+        default_factory = lambda: {"food": 0, "ore": 0, "wood": 0}
+    )
+    
+    productivity_bonus: dict[str, float] = field(
+        default_factory = lambda: {"food": 0.50, "ore": 0.0, "wood": 0.0}
+    )
+    
+    max_workers: int = 0
+
+
+@dataclass
+class MinersGuild:
+    maintenance_cost: dict[str, int] = field(
+        default_factory = lambda: {"food": 0, "ore": 10, "wood": 0}
+    )
+    
+    base_productivity: dict[str, int] = field(
+        default_factory = lambda: {"food": 0, "ore": 0, "wood": 0}
+    )
+    
+    productivity_bonus: dict[str, float] = field(
+        default_factory = lambda: {"food": 0.0, "ore": 0.50, "wood": 0.0}
+    )
+    
+    max_workers: int = 0
+
+
+@dataclass
+class CarpentersGuild:
+    maintenance_cost: dict[str, int] = field(
+        default_factory = lambda: {"food": 0, "ore": 0, "wood": 10}
+    )
+    
+    base_productivity: dict[str, int] = field(
+        default_factory = lambda: {"food": 0, "ore": 0, "wood": 0}
+    )
+    
+    productivity_bonus: dict[str, float] = field(
+        default_factory = lambda: {"food": 0.0, "ore": 0.0, "wood": 0.50}
+    )
+    
+    max_workers: int = 0
+
+
+@dataclass
+class GladiatorSchool:
+    maintenance_cost: dict[str, int] = field(
+        default_factory = lambda: {"food": 0, "ore": 8, "wood": 0}
+    )
+    
+    base_productivity: dict[str, int] = field(
+        default_factory = lambda: {"food": 0, "ore": 0, "wood": 0}
+    )
+    
+    productivity_bonus: dict[str, float] = field(
+        default_factory = lambda: {"food": 0.10, "ore": 0.10, "wood": 0.10}
+    )
+    
+    max_workers: int = 0
+
+
+@dataclass
+class ImperialResidence:
+    maintenance_cost: dict[str, int] = field(
+        default_factory = lambda: {"food": 8, "ore": 8, "wood": 8}
+    )
+    
+    base_productivity: dict[str, int] = field(
+        default_factory = lambda: {"food": 0, "ore": 0, "wood": 0}
+    )
+    
+    productivity_bonus: dict[str, float] = field(
+        default_factory = lambda: {"food": 0.10, "ore": 0.10, "wood": 0.10}
+    )
+    
+    max_workers: int = 0
+
+
 
 def print_results(results: dict[str, dict[str, int]]):
     col_headers: list[str] = [
@@ -74,18 +297,21 @@ def create_scenario(pp: list[int], buildings: list[str]) -> dict[str, dict[str, 
     return scenario_results
 
 
-scenario_1 = create_scenario(
-    pp = [100, 150, 75],
-    buildings = []
-)
+city_hall: CityHall = CityHall()
+print(city_hall.maintenance_cost.get("food"))
 
-print_results(scenario_1)
+# scenario_1 = create_scenario(
+#     pp = [100, 150, 75],
+#     buildings = []
+# )
 
-print("#" * 60)
+# print_results(scenario_1)
 
-scenario_2 = create_scenario(
-    pp = [115, 10, 0],
-    buildings = "a" * 10
-)
+# print("#" * 60)
 
-print_results(scenario_2)
+# scenario_2 = create_scenario(
+#     pp = [115, 10, 0],
+#     buildings = "a" * 10
+# )
+
+# print_results(scenario_2)
