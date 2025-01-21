@@ -236,11 +236,11 @@ BUILDINGS: dict[dict, dict[str, int | float] | int] = {
 }
 
 
-def print_results(results: dict[str, dict[str, int]]):
+def display_production_table(production_table: dict[str, dict[str, int]]):
     col_headers: list[str] = [
         "Resource",
-        "Prod. pot.",
-        "Prod."
+        "Rss. pot.",
+        "Prod.",
         "Bonus",
         "Maintenance",
         "Total"
@@ -248,84 +248,134 @@ def print_results(results: dict[str, dict[str, int]]):
     table_header: str = "| " + " | ".join(col_headers) + " |"
     horizontal_rule: str = "-" * len(table_header)
     
-    print()
+    #* Table header
     print(horizontal_rule)
     print(table_header)
     print(horizontal_rule)
-    prod_pot, prod_bonus, maintenance, total = results.get("food").values()
+    
+    #* Food row
+    prod_pot, base_prod, prod_bonus, maintenance, total = production_table.get("food").values()
     print(
         f"| Food{' ' * 4} "
         f"| {' ' * (len(col_headers[1]) - len(str(prod_pot)))}{prod_pot} "
-        f"| {' ' * (len(col_headers[2]) - len(str(prod_bonus)))}{prod_bonus} "
-        f"| {' ' * (len(col_headers[3]) - len(str(maintenance)))}{maintenance} "
-        f"| {' ' * (len(col_headers[4]) - len(str(total)))}{total} |"
+        f"| {' ' * (len(col_headers[2]) - len(str(base_prod)))}{base_prod} "
+        f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
+        f"| {' ' * (len(col_headers[4]) - len(str(maintenance)))}{maintenance} "
+        f"| {' ' * (len(col_headers[5]) - len(str(total)))}{total} |"
     )
-    prod_pot, prod_bonus, maintenance, total = results.get("ore").values()
+    
+    #* Ore row
+    prod_pot, base_prod, prod_bonus, maintenance, total = production_table.get("ore").values()
     print(
         f"| Ore{' ' * 5} "
         f"| {' ' * (len(col_headers[1]) - len(str(prod_pot)))}{prod_pot} "
-        f"| {' ' * (len(col_headers[2]) - len(str(prod_bonus)))}{prod_bonus} "
-        f"| {' ' * (len(col_headers[3]) - len(str(maintenance)))}{maintenance} "
-        f"| {' ' * (len(col_headers[4]) - len(str(total)))}{total} |"
+        f"| {' ' * (len(col_headers[2]) - len(str(base_prod)))}{base_prod} "
+        f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
+        f"| {' ' * (len(col_headers[4]) - len(str(maintenance)))}{maintenance} "
+        f"| {' ' * (len(col_headers[5]) - len(str(total)))}{total} |"
     )
-    prod_pot, prod_bonus, maintenance, total = results.get("ore").values()
+    
+    #* Wood row
+    prod_pot, base_prod, prod_bonus, maintenance, total = production_table.get("ore").values()
     print(
         f"| Wood{' ' * 4} "
         f"| {' ' * (len(col_headers[1]) - len(str(prod_pot)))}{prod_pot} "
-        f"| {' ' * (len(col_headers[2]) - len(str(prod_bonus)))}{prod_bonus} "
-        f"| {' ' * (len(col_headers[3]) - len(str(maintenance)))}{maintenance} "
-        f"| {' ' * (len(col_headers[4]) - len(str(total)))}{total} |"
+        f"| {' ' * (len(col_headers[2]) - len(str(base_prod)))}{base_prod} "
+        f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
+        f"| {' ' * (len(col_headers[4]) - len(str(maintenance)))}{maintenance} "
+        f"| {' ' * (len(col_headers[5]) - len(str(total)))}{total} |"
     )
+    
+    #* Bottom horizontal row
     print(horizontal_rule)
-    print()
 
 
-def create_scenario(production_potentials: list[int], city_buildings: list[str]) -> dict[str, dict[str, int]]:
+def build_production_table(
+        production_potentials: list[int],
+        city_buildings: dict[str, int]
+    ) -> dict[str, dict[str, int]]:
     
     scenario_results: dict[str, dict[str, int]] = {
         "food": {
             "prod_pot": production_potentials[0],
+            "base_prod": 0,
             "prod_bonus": 0,
             "maintenance": 0,
             "total": 0
         },
         "ore": {
             "prod_pot": production_potentials[1],
+            "base_prod": 0,
             "prod_bonus": 0,
             "maintenance": 0,
             "total": 0
         },
         "wood": {
             "prod_pot": production_potentials[2],
+            "base_prod": 0,
             "prod_bonus": 0,
             "maintenance": 0,
             "total": 0
         }
     }
     
-    if "city_hall" not in city_buildings:
-        city_buildings.append("city_hall")
-    
-    if len(city_buildings) > 9:
-        print()
-        print("Warning! Too many buildings!")
-        return scenario_results
-    
     return scenario_results
 
 
-scenario_1 = create_scenario(
-    production_potentials = [100, 150, 75],
-    city_buildings = []
-)
+def display_city_buildings(city_buildings: list[str]) -> None:
+    print(city_buildings)
 
-print_results(scenario_1)
+
+def calculate_scenario(scenario: dict) -> None:
+    
+    print()
+    
+    #* Validate city buildings
+    # The total number must not exceed 9
+    # City Hall must be included in the buildings
+    city_buildings: dict[str, int] = scenario.get("city_buildings")
+    
+    if "city_hall" not in city_buildings.keys():
+        city_buildings = {**{"city_hall": 1}, **city_buildings}
+    
+    if sum(city_buildings.values()) > 9:
+        print("Warning! Too many buildings!")
+        print()
+        print("The maximum number of buildings is 9 and must include `city_hall`.")
+        print()
+        return False
+    
+    #* Display city buildings
+    display_city_buildings(city_buildings = city_buildings)
+    print()
+    
+    #* Build production table
+    city_production_table: dict[str, dict[str, int]] = build_production_table(
+        scenario.get("production_potentials"),
+        city_buildings = city_buildings
+    )
+    
+    #* Display production table
+    display_production_table(city_production_table)
+    print()
+
+
+calculate_scenario(
+    scenario = {
+        "production_potentials": [100, 150, 75],
+        "city_buildings": {
+            "city_hall": 1
+        }
+    }
+)
 
 print("#" * 60)
 
-scenario_2 = create_scenario(
-    production_potentials = [115, 10, 0],
-    city_buildings = []
+calculate_scenario(
+    scenario = {
+        "production_potentials": [115, 10, 0],
+        "city_buildings": {
+            "farm": 8
+        }
+    }
 )
-
-print_results(scenario_2)
