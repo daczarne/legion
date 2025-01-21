@@ -1,7 +1,6 @@
-# Python projects
+# Legion gold
 
-This template creates a basic repository for Python projects. It includes Python version 3.10.1, `pytest`, and some
-basic linters and editor configurations.
+This project is a CLI that allows to compare different production scenarios for a given city in Legion Gold.
 
 ## Creating a new environment with Pipenv
 
