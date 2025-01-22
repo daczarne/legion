@@ -1,4 +1,6 @@
-BUILDINGS: dict[dict, dict[str, int | float] | int] = {
+from math import floor
+
+BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
     "city_hall": {
         "maintenance_cost": {
             "food": 1,
@@ -84,8 +86,8 @@ BUILDINGS: dict[dict, dict[str, int | float] | int] = {
         },
         "production_per_worker": {
             "food": 0,
-            "ore": 0,
-            "wood": 12
+            "ore": 12,
+            "wood": 0
         },
         "max_workers": 3
     },
@@ -101,8 +103,8 @@ BUILDINGS: dict[dict, dict[str, int | float] | int] = {
             "wood": 0.0
         },
         "production_per_worker": {
-            "food": 13,
-            "ore": 0,
+            "food": 0,
+            "ore": 13,
             "wood": 0
         },
         "max_workers": 2
@@ -119,11 +121,29 @@ BUILDINGS: dict[dict, dict[str, int | float] | int] = {
             "wood": 0.0
         },
         "production_per_worker": {
-            "food": 20,
-            "ore": 0,
+            "food": 0,
+            "ore": 20,
             "wood": 0
         },
         "max_workers": 1
+    },
+    "lumber_mill": {
+        "maintenance_cost": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0
+        },
+        "productivity_bonus": {
+            "food": 0.0,
+            "ore": 0.0,
+            "wood": 0.0
+        },
+        "production_per_worker": {
+            "food": 0,
+            "ore": 0,
+            "wood": 12
+        },
+        "max_workers": 3
     },
     "basilica": {
         "maintenance_cost": {
@@ -384,7 +404,7 @@ def display_production_table(production_table: dict[str, dict[str, int]]):
     )
     
     #* Wood row
-    prod_pot, base_prod, prod_bonus, maintenance, total = production_table.get("ore").values()
+    prod_pot, base_prod, prod_bonus, maintenance, total = production_table.get("wood").values()
     print(
         f"| Wood{' ' * 4} "
         f"| {' ' * (len(col_headers[1]) - len(str(prod_pot)))}{prod_pot} "
@@ -427,14 +447,40 @@ def build_production_table(
         }
     }
     
+    city_prod_potential_food, city_prod_potential_ore, city_prod_potential_wood = production_potentials
+    
     for key, value in city_buildings.items():
         building: str = key
         qty_buildings: int = value
         
         # Calculate production (`base_prod`)
-        building_info: dict[str, dict[str, int] | int] = BUILDINGS.get(building, {})
-        print(f"{building}: {building_info}")
+        building_info: dict[str, dict[str, int] | int] = BUILDINGS.get(building, {}).get("production_per_worker", {})
+        max_workers: dict[str, dict[str, int] | int] = BUILDINGS.get(building, {}).get("max_workers", {})
+        
+        building_prod_per_worker_food, building_prod_per_worker_ore, building_prod_per_worker_wood = [value for value in building_info.values()]
+        
+        # prod_per_worker = floor(prod_potential * prod_per_worker / 100)
+        city_prod_per_worker_food: int = int(floor(city_prod_potential_food * building_prod_per_worker_food / 100.0))
+        city_prod_per_worker_ore: int = int(floor(city_prod_potential_ore * building_prod_per_worker_ore / 100.0))
+        city_prod_per_worker_wood: int = int(floor(city_prod_potential_wood * building_prod_per_worker_wood / 100.0))
+        
+        # base_prod = qty_buildings * prod_per_worker * max_workers
+        city_base_production_food: int = qty_buildings * city_prod_per_worker_food * max_workers
+        city_base_production_ore: int = qty_buildings * city_prod_per_worker_ore * max_workers
+        city_base_production_wood: int = qty_buildings * city_prod_per_worker_wood * max_workers
+        
+        # Store results in scenario results
+        scenario_results["food"]["base_prod"] = scenario_results["food"]["base_prod"] + city_base_production_food
+        scenario_results["ore"]["base_prod"] = scenario_results["ore"]["base_prod"] + city_base_production_ore
+        scenario_results["wood"]["base_prod"] = scenario_results["wood"]["base_prod"] + city_base_production_wood
+        
+        print(
+            f"{building}: "
+            f"prod per worker: {city_prod_per_worker_food} - {city_prod_per_worker_ore} - {city_prod_per_worker_wood} | "
+            f"production: {city_base_production_food} - {city_base_production_ore} - {city_base_production_wood}"
+        )
     
+    print()
     return scenario_results
 
 
@@ -479,18 +525,18 @@ def calculate_scenario(scenario: dict) -> None:
 
 calculate_scenario(
     scenario = {
-        "production_potentials": [100, 150, 75],
+        "production_potentials": [100, 100, 200],
         "city_buildings": {
             "city_hall": 1,
-            "farm": 0,
-            "vineyard": 0,
+            "farm": 1,
+            "vineyard": 1,
             "fishing_village": 0,
             "farmers_guild": 0,
             "mine": 1,
-            "outcrop_mine": 0,
-            "mountain_mine": 0,
-            "miners_guild": 1,
-            "lumber_mill": 0,
+            "outcrop_mine": 1,
+            "mountain_mine": 1,
+            "miners_guild": 0,
+            "lumber_mill": 1,
             "carpenters_guild": 0,
             "basilica": 0,
             "gladiator_school": 0,
@@ -503,9 +549,10 @@ print("#" * 63)
 
 calculate_scenario(
     scenario = {
-        "production_potentials": [115, 10, 0],
+        "production_potentials": [115, 10, 50],
         "city_buildings": {
-            "farm": 8
+            "farm": 1,
+            "lumber_mill": 1
         }
     }
 )
