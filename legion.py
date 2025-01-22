@@ -323,7 +323,8 @@ def build_production_table(
 
 
 def display_city_buildings(city_buildings: list[str]) -> None:
-    print(city_buildings)
+    actual_city_buildings: dict[str, int] = {key: value for key, value in city_buildings.items() if value > 0}
+    print(actual_city_buildings)
 
 
 def calculate_scenario(scenario: dict) -> None:
@@ -364,7 +365,20 @@ calculate_scenario(
     scenario = {
         "production_potentials": [100, 150, 75],
         "city_buildings": {
-            "city_hall": 1
+            "city_hall": 1,
+            "farm": 0,
+            "vineyard": 0,
+            "fishing_village": 0,
+            "farmers_guild": 0,
+            "mine": 0,
+            "outcrop_mine": 0,
+            "mountain_mine": 0,
+            "miners_guild": 1,
+            "lumber_mill": 0,
+            "carpenters_guild": 0,
+            "basilica": 0,
+            "gladiator_school": 0,
+            "imperial_residence": 0,
         }
     }
 )
