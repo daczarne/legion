@@ -561,7 +561,6 @@ def build_production_table(
         scenario_results = scenario_results
     )
     
-    print()
     return scenario_results
 
 
@@ -604,9 +603,11 @@ def calculate_scenario(scenario: dict) -> None:
     print()
 
 
+city_production_potentials: list[int] = [100, 100, 100]
+
 calculate_scenario(
     scenario = {
-        "production_potentials": [100, 100, 0],
+        "production_potentials": city_production_potentials,
         "city_buildings": {
             "city_hall": 1,
             "farm": 5,
@@ -630,7 +631,7 @@ print("#" * 63)
 
 calculate_scenario(
     scenario = {
-        "production_potentials": [100, 100, 0],
+        "production_potentials": city_production_potentials,
         "city_buildings": {
             "city_hall": 1,
             "farm": 6,
