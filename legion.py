@@ -439,7 +439,7 @@ def build_production_table(
 
 
 def display_city_buildings(city_buildings: list[str]) -> None:
-    print(city_buildings)
+    print(f"City buildings: {city_buildings}")
 
 
 def calculate_scenario(scenario: dict) -> None:
@@ -450,6 +450,7 @@ def calculate_scenario(scenario: dict) -> None:
     # The total number must not exceed 9
     # City Hall must be included in the buildings
     city_buildings: dict[str, int] = scenario.get("city_buildings")
+    city_buildings: dict[str, int] = {key: value for key, value in city_buildings.items() if value > 0}
     
     if "city_hall" not in city_buildings.keys():
         city_buildings = {**{"city_hall": 1}, **city_buildings}
@@ -461,16 +462,14 @@ def calculate_scenario(scenario: dict) -> None:
         print()
         return False
     
-    actual_city_buildings: dict[str, int] = {key: value for key, value in city_buildings.items() if value > 0}
-    
     #* Display city buildings
-    display_city_buildings(city_buildings = actual_city_buildings)
+    display_city_buildings(city_buildings = city_buildings)
     print()
     
     #* Build production table
     city_production_table: dict[str, dict[str, int]] = build_production_table(
         production_potentials = scenario.get("production_potentials"),
-        city_buildings = actual_city_buildings
+        city_buildings = city_buildings
     )
     
     #* Display production table
