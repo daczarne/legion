@@ -232,6 +232,114 @@ BUILDINGS: dict[dict, dict[str, int | float] | int] = {
             "wood": 0
         },
         "max_workers": 0
+    },
+    "quartermaster": {
+        "maintenance_cost": {
+            "food": 12,
+            "ore": 8,
+            "wood": 8
+        },
+        "productivity_bonus": {
+            "food": 0.0,
+            "ore": 0.0,
+            "wood": 0.0
+        },
+        "production_per_worker": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0
+        },
+        "max_workers": 0
+    },
+    "large_fort": {
+        "maintenance_cost": {
+            "food": 15,
+            "ore": 0,
+            "wood": 15
+        },
+        "productivity_bonus": {
+            "food": 0.10,
+            "ore": 0.10,
+            "wood": 0.10
+        },
+        "production_per_worker": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0
+        },
+        "max_workers": 0
+    },
+    "stables": {
+        "maintenance_cost": {
+            "food": 5,
+            "ore": 0,
+            "wood": 0
+        },
+        "productivity_bonus": {
+            "food": 0.0,
+            "ore": 0.0,
+            "wood": 0.0
+        },
+        "production_per_worker": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0
+        },
+        "max_workers": 0
+    },
+    "training_ground": {
+        "maintenance_cost": {
+            "food": 10,
+            "ore": 0,
+            "wood": 10
+        },
+        "productivity_bonus": {
+            "food": 0.0,
+            "ore": 0.0,
+            "wood": 0.0
+        },
+        "production_per_worker": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0
+        },
+        "max_workers": 0
+    },
+    "bordello": {
+        "maintenance_cost": {
+            "food": 8,
+            "ore": 4,
+            "wood": 8
+        },
+        "productivity_bonus": {
+            "food": 0.0,
+            "ore": 0.0,
+            "wood": 0.0
+        },
+        "production_per_worker": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0
+        },
+        "max_workers": 0
+    },
+    "hospital": {
+        "maintenance_cost": {
+            "food": 8,
+            "ore": 0,
+            "wood": 0
+        },
+        "productivity_bonus": {
+            "food": 0.0,
+            "ore": 0.0,
+            "wood": 0.0
+        },
+        "production_per_worker": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0
+        },
+        "max_workers": 3
     }
 }
 
