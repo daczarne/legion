@@ -67,7 +67,7 @@ BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
             "wood": 0
         },
         "production_per_worker": {
-            "food": 8,
+            "food": 9,
             "ore": 0,
             "wood": 0
         },
@@ -448,6 +448,12 @@ def calculate_base_city_production(
         city_base_production_ore: int = qty_buildings * city_prod_per_worker_ore * max_workers
         city_base_production_wood: int = qty_buildings * city_prod_per_worker_wood * max_workers
         
+        print(
+            f"{building} \n"
+            f"  - Number of buildings: {qty_buildings} \n"
+            f"  - Worker productivity: {city_prod_per_worker_food} "
+        )
+        
         # Store results in scenario results
         scenario_results["food"]["base_prod"] = scenario_results["food"]["base_prod"] + city_base_production_food
         scenario_results["ore"]["base_prod"] = scenario_results["ore"]["base_prod"] + city_base_production_ore
@@ -564,8 +570,21 @@ def build_production_table(
     return scenario_results
 
 
-def display_city_buildings(city_buildings: list[str]) -> None:
-    print(f"City buildings: {city_buildings}")
+def display_city_buildings(
+        city_buildings: dict[str, int]
+    ) -> None:
+    print(f"City buildings")
+    print(f"--------------")
+    
+    for building, qty in city_buildings.items():
+        print(
+            f"  - {building.replace('_', ' ').capitalize()} "
+            f"("
+            f"Qty. buildings: {qty}"
+            f" | "
+            f"Prod. per worker: {qty}"
+            f")"
+        )
 
 
 def calculate_scenario(
@@ -601,25 +620,25 @@ def calculate_scenario(
     )
     
     #* Display production table
-    display_production_table(city_production_table)
+    display_production_table(production_table = city_production_table)
     print()
 
 
-city_production_potentials: list[int] = [100, 0, 0]
+city_production_potentials: list[int] = [80, 100, 80]
 
 calculate_scenario(
     scenario = {
         "production_potentials": city_production_potentials,
         "city_buildings": {
             "city_hall": 1,
-            "farm": 3,
-            "vineyard": 1,
+            "farm": 0,
+            "vineyard": 0,
             "fishing_village": 1,
-            "farmers_guild": 1,
-            "mine": 0,
+            "farmers_guild": 0,
+            "mine": 4,
             "outcrop_mine": 1,
             "mountain_mine": 0,
-            "miners_guild": 0,
+            "miners_guild": 1,
             "lumber_mill": 0,
             "carpenters_guild": 0,
             "basilica": 1,
@@ -630,49 +649,3 @@ calculate_scenario(
 )
 
 print("#" * 63)
-
-calculate_scenario(
-    scenario = {
-        "production_potentials": city_production_potentials,
-        "city_buildings": {
-            "city_hall": 1,
-            "farm": 4,
-            "vineyard": 0,
-            "fishing_village": 1,
-            "farmers_guild": 1,
-            "mine": 0,
-            "outcrop_mine": 1,
-            "mountain_mine": 0,
-            "miners_guild": 0,
-            "lumber_mill": 0,
-            "carpenters_guild": 0,
-            "basilica": 1,
-            "gladiator_school": 0,
-            "imperial_residence": 0,
-        }
-    }
-)
-
-print("#" * 63)
-
-calculate_scenario(
-    scenario = {
-        "production_potentials": city_production_potentials,
-        "city_buildings": {
-            "city_hall": 1,
-            "farm": 4,
-            "vineyard": 0,
-            "fishing_village": 1,
-            "farmers_guild": 1,
-            "mine": 0,
-            "outcrop_mine": 1,
-            "mountain_mine": 0,
-            "miners_guild": 0,
-            "lumber_mill": 0,
-            "carpenters_guild": 0,
-            "basilica": 1,
-            "gladiator_school": 0,
-            "imperial_residence": 0,
-        }
-    }
-)
