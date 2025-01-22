@@ -448,11 +448,11 @@ def calculate_base_city_production(
         city_base_production_ore: int = qty_buildings * city_prod_per_worker_ore * max_workers
         city_base_production_wood: int = qty_buildings * city_prod_per_worker_wood * max_workers
         
-        print(
-            f"{building} \n"
-            f"  - Number of buildings: {qty_buildings} \n"
-            f"  - Worker productivity: {city_prod_per_worker_food} "
-        )
+        # print(
+        #     f"{building} \n"
+        #     f"  - Number of buildings: {qty_buildings} \n"
+        #     f"  - Worker productivity: {city_prod_per_worker_food} "
+        # )
         
         # Store results in scenario results
         scenario_results["food"]["base_prod"] = scenario_results["food"]["base_prod"] + city_base_production_food
@@ -577,14 +577,7 @@ def display_city_buildings(
     print(f"--------------")
     
     for building, qty in city_buildings.items():
-        print(
-            f"  - {building.replace('_', ' ').capitalize()} "
-            f"("
-            f"Qty. buildings: {qty}"
-            f" | "
-            f"Prod. per worker: {qty}"
-            f")"
-        )
+        print(f"  - {building.replace('_', ' ').capitalize()} ({qty})")
 
 
 def calculate_scenario(
@@ -648,4 +641,4 @@ calculate_scenario(
     }
 )
 
-print("#" * 63)
+# print("#" * 63)
