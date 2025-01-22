@@ -8,9 +8,9 @@ BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
             "wood": 1
         },
         "productivity_bonus": {
-            "food": 0.25,
-            "ore": 0.25,
-            "wood": 0.25
+            "food": 25,
+            "ore": 25,
+            "wood": 25
         },
         "production_per_worker": {
             "food": 0,
@@ -26,9 +26,9 @@ BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
             "wood": 0
         },
         "productivity_bonus": {
-            "food": 0.0,
-            "ore": 0.0,
-            "wood": 0.0
+            "food": 0,
+            "ore": 0,
+            "wood": 0
         },
         "production_per_worker": {
             "food": 12,
@@ -44,9 +44,9 @@ BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
             "wood": 0
         },
         "productivity_bonus": {
-            "food": 0.10,
-            "ore": 0.10,
-            "wood": 0.10
+            "food": 10,
+            "ore": 10,
+            "wood": 10
         },
         "production_per_worker": {
             "food": 10,
@@ -62,9 +62,9 @@ BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
             "wood": 0
         },
         "productivity_bonus": {
-            "food": 0.0,
-            "ore": 0.0,
-            "wood": 0.0
+            "food": 0,
+            "ore": 0,
+            "wood": 0
         },
         "production_per_worker": {
             "food": 8,
@@ -80,9 +80,9 @@ BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
             "wood": 0
         },
         "productivity_bonus": {
-            "food": 0.0,
-            "ore": 0.0,
-            "wood": 0.0
+            "food": 0,
+            "ore": 0,
+            "wood": 0
         },
         "production_per_worker": {
             "food": 0,
@@ -98,9 +98,9 @@ BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
             "wood": 0
         },
         "productivity_bonus": {
-            "food": 0.0,
-            "ore": 0.0,
-            "wood": 0.0
+            "food": 0,
+            "ore": 0,
+            "wood": 0
         },
         "production_per_worker": {
             "food": 0,
@@ -116,9 +116,9 @@ BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
             "wood": 0
         },
         "productivity_bonus": {
-            "food": 0.0,
-            "ore": 0.0,
-            "wood": 0.0
+            "food": 0,
+            "ore": 0,
+            "wood": 0
         },
         "production_per_worker": {
             "food": 0,
@@ -134,9 +134,9 @@ BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
             "wood": 0
         },
         "productivity_bonus": {
-            "food": 0.0,
-            "ore": 0.0,
-            "wood": 0.0
+            "food": 0,
+            "ore": 0,
+            "wood": 0
         },
         "production_per_worker": {
             "food": 0,
@@ -152,9 +152,9 @@ BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
             "wood": 3
         },
         "productivity_bonus": {
-            "food": 0.50,
-            "ore": 0.50,
-            "wood": 0.50
+            "food": 50,
+            "ore": 50,
+            "wood": 50
         },
         "production_per_worker": {
             "food": 0,
@@ -170,9 +170,9 @@ BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
             "wood": 0
         },
         "productivity_bonus": {
-            "food": 0.50,
-            "ore": 0.0,
-            "wood": 0.0
+            "food": 50,
+            "ore": 0,
+            "wood": 0
         },
         "production_per_worker": {
             "food": 0,
@@ -188,9 +188,9 @@ BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
             "wood": 0
         },
         "productivity_bonus": {
-            "food": 0.0,
-            "ore": 0.50,
-            "wood": 0.0
+            "food": 0,
+            "ore": 50,
+            "wood": 0
         },
         "production_per_worker": {
             "food": 0,
@@ -206,9 +206,9 @@ BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
             "wood": 10
         },
         "productivity_bonus": {
-            "food": 0.0,
-            "ore": 0.0,
-            "wood": 0.50
+            "food": 0,
+            "ore": 0,
+            "wood": 50
         },
         "production_per_worker": {
             "food": 0,
@@ -224,9 +224,9 @@ BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
             "wood": 0
         },
         "productivity_bonus": {
-            "food": 0.10,
-            "ore": 0.10,
-            "wood": 0.10
+            "food": 10,
+            "ore": 10,
+            "wood": 10
         },
         "production_per_worker": {
             "food": 0,
@@ -242,9 +242,9 @@ BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
             "wood": 8
         },
         "productivity_bonus": {
-            "food": 0.10,
-            "ore": 0.10,
-            "wood": 0.10
+            "food": 10,
+            "ore": 10,
+            "wood": 10
         },
         "production_per_worker": {
             "food": 0,
@@ -260,9 +260,9 @@ BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
             "wood": 8
         },
         "productivity_bonus": {
-            "food": 0.0,
-            "ore": 0.0,
-            "wood": 0.0
+            "food": 0,
+            "ore": 0,
+            "wood": 0
         },
         "production_per_worker": {
             "food": 0,
@@ -278,9 +278,9 @@ BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
             "wood": 15
         },
         "productivity_bonus": {
-            "food": 0.10,
-            "ore": 0.10,
-            "wood": 0.10
+            "food": 10,
+            "ore": 10,
+            "wood": 10
         },
         "production_per_worker": {
             "food": 0,
@@ -296,9 +296,9 @@ BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
             "wood": 0
         },
         "productivity_bonus": {
-            "food": 0.0,
-            "ore": 0.0,
-            "wood": 0.0
+            "food": 0,
+            "ore": 0,
+            "wood": 0
         },
         "production_per_worker": {
             "food": 0,
@@ -314,9 +314,9 @@ BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
             "wood": 10
         },
         "productivity_bonus": {
-            "food": 0.0,
-            "ore": 0.0,
-            "wood": 0.0
+            "food": 0,
+            "ore": 0,
+            "wood": 0
         },
         "production_per_worker": {
             "food": 0,
@@ -332,9 +332,9 @@ BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
             "wood": 8
         },
         "productivity_bonus": {
-            "food": 0.0,
-            "ore": 0.0,
-            "wood": 0.0
+            "food": 0,
+            "ore": 0,
+            "wood": 0
         },
         "production_per_worker": {
             "food": 0,
@@ -350,9 +350,9 @@ BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
             "wood": 0
         },
         "productivity_bonus": {
-            "food": 0.0,
-            "ore": 0.0,
-            "wood": 0.0
+            "food": 0,
+            "ore": 0,
+            "wood": 0
         },
         "production_per_worker": {
             "food": 0,
@@ -477,6 +477,27 @@ def calculate_city_production_bonus(
     return scenario_results
 
 
+def calculate_city_maintenance_costs(
+        city_buildings:  dict[str, int],
+        scenario_results: dict[str, dict[str, int]],
+    ) -> dict:
+    
+    for key, value in city_buildings.items():
+        building: str = key
+        
+        # Calculate production bonus (`prod_bonus`)
+        building_info: dict[str, dict[str, int] | int] = BUILDINGS.get(building, {}).get("maintenance_cost", {})
+        
+        maintenance_cost_food, maintenance_cost_ore, maintenance_cost_worker_wood = [value for value in building_info.values()]
+        
+        # Store results in scenario results
+        scenario_results["food"]["maintenance"] = scenario_results["food"]["maintenance"] + maintenance_cost_food
+        scenario_results["ore"]["maintenance"] = scenario_results["ore"]["maintenance"] + maintenance_cost_ore
+        scenario_results["wood"]["maintenance"] = scenario_results["wood"]["maintenance"] + maintenance_cost_worker_wood
+    
+    return scenario_results
+
+
 def build_production_table(
         production_potentials: list[int],
         city_buildings: dict[str, int]
@@ -513,6 +534,11 @@ def build_production_table(
     )
     
     scenario_results = calculate_city_production_bonus(
+        city_buildings = city_buildings,
+        scenario_results = scenario_results
+    )
+    
+    scenario_results = calculate_city_maintenance_costs(
         city_buildings = city_buildings,
         scenario_results = scenario_results
     )
@@ -596,7 +622,9 @@ calculate_scenario(
         "city_buildings": {
             "farm": 1,
             "lumber_mill": 1,
-            "farmers_guild": 1
+            "farmers_guild": 1,
+            "imperial_residence": 1,
+            "gladiator_school": 1,
         }
     }
 )
