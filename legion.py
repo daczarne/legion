@@ -427,12 +427,19 @@ def build_production_table(
         }
     }
     
+    for key, value in city_buildings.items():
+        building: str = key
+        qty_buildings: int = value
+        
+        # Calculate production (`base_prod`)
+        building_info: dict[str, dict[str, int] | int] = BUILDINGS.get(building, {})
+        print(f"{building}: {building_info}")
+    
     return scenario_results
 
 
 def display_city_buildings(city_buildings: list[str]) -> None:
-    actual_city_buildings: dict[str, int] = {key: value for key, value in city_buildings.items() if value > 0}
-    print(actual_city_buildings)
+    print(city_buildings)
 
 
 def calculate_scenario(scenario: dict) -> None:
@@ -454,14 +461,16 @@ def calculate_scenario(scenario: dict) -> None:
         print()
         return False
     
+    actual_city_buildings: dict[str, int] = {key: value for key, value in city_buildings.items() if value > 0}
+    
     #* Display city buildings
-    display_city_buildings(city_buildings = city_buildings)
+    display_city_buildings(city_buildings = actual_city_buildings)
     print()
     
     #* Build production table
     city_production_table: dict[str, dict[str, int]] = build_production_table(
-        scenario.get("production_potentials"),
-        city_buildings = city_buildings
+        production_potentials = scenario.get("production_potentials"),
+        city_buildings = actual_city_buildings
     )
     
     #* Display production table
@@ -478,7 +487,7 @@ calculate_scenario(
             "vineyard": 0,
             "fishing_village": 0,
             "farmers_guild": 0,
-            "mine": 0,
+            "mine": 1,
             "outcrop_mine": 0,
             "mountain_mine": 0,
             "miners_guild": 1,
@@ -491,7 +500,7 @@ calculate_scenario(
     }
 )
 
-print("#" * 60)
+print("#" * 63)
 
 calculate_scenario(
     scenario = {
