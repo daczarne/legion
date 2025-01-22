@@ -366,7 +366,7 @@ BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
 MAX_BUILDINGS_PER_CITY: int = 9
 
 
-def display_production_table(production_table: dict[str, dict[str, int]]):
+def display_production_table(production_table: dict[str, dict[str, int]]) -> None:
     col_headers: list[str] = [
         "Resource",
         "Rss. pot.",
@@ -423,7 +423,7 @@ def display_production_table(production_table: dict[str, dict[str, int]]):
 def calculate_base_city_production(
         city_buildings:  dict[str, int],
         production_potentials: list[int],
-        scenario_results: dict[str, dict[str, int]],
+        scenario_results: dict[str, dict[str, int]]
     ) -> dict[str, dict[str, int]]:
     
     city_prod_potential_food, city_prod_potential_ore, city_prod_potential_wood = production_potentials
@@ -464,7 +464,7 @@ def calculate_base_city_production(
 
 def calculate_city_production_bonus(
         city_buildings:  dict[str, int],
-        scenario_results: dict[str, dict[str, int]],
+        scenario_results: dict[str, dict[str, int]]
     ) -> dict[str, dict[str, int]]:
     
     for key, value in city_buildings.items():
@@ -485,7 +485,7 @@ def calculate_city_production_bonus(
 
 def calculate_city_maintenance_costs(
         city_buildings:  dict[str, int],
-        scenario_results: dict[str, dict[str, int]],
+        scenario_results: dict[str, dict[str, int]]
     ) -> dict[str, dict[str, int]]:
     
     for key, value in city_buildings.items():
@@ -504,9 +504,7 @@ def calculate_city_maintenance_costs(
     return scenario_results
 
 
-def calculate_totals(
-        scenario_results: dict[str, dict[str, int]]
-    ) -> dict[str, dict[str, int]]:
+def calculate_totals(scenario_results: dict[str, dict[str, int]]) -> dict[str, dict[str, int]]:
     
     for rss, rss_results in scenario_results.items():
         base_production: int = rss_results.get("base_prod", 0)
@@ -570,9 +568,7 @@ def build_production_table(
     return scenario_results
 
 
-def display_city_buildings(
-        city_buildings: dict[str, int]
-    ) -> None:
+def display_city_buildings(city_buildings: dict[str, int]) -> None:
     print(f"City buildings")
     print(f"--------------")
     
@@ -580,9 +576,7 @@ def display_city_buildings(
         print(f"  - {building.replace('_', ' ').capitalize()} ({qty})")
 
 
-def calculate_scenario(
-        scenario: dict[str, list[int] | dict[str, int]]
-    ) -> None:
+def calculate_scenario(scenario: dict[str, list[int] | dict[str, int]]) -> None:
     
     print()
     
