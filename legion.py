@@ -568,7 +568,9 @@ def display_city_buildings(city_buildings: list[str]) -> None:
     print(f"City buildings: {city_buildings}")
 
 
-def calculate_scenario(scenario: dict) -> None:
+def calculate_scenario(
+        scenario: dict[str, list[int] | dict[str, int]]
+    ) -> None:
     
     print()
     
