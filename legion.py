@@ -424,7 +424,7 @@ def calculate_base_city_production(
         city_buildings:  dict[str, int],
         production_potentials: list[int],
         scenario_results: dict[str, dict[str, int]],
-    ) -> dict:
+    ) -> dict[str, dict[str, int]]:
     
     city_prod_potential_food, city_prod_potential_ore, city_prod_potential_wood = production_potentials
     
@@ -459,7 +459,7 @@ def calculate_base_city_production(
 def calculate_city_production_bonus(
         city_buildings:  dict[str, int],
         scenario_results: dict[str, dict[str, int]],
-    ) -> dict:
+    ) -> dict[str, dict[str, int]]:
     
     for key, value in city_buildings.items():
         building: str = key
@@ -480,7 +480,7 @@ def calculate_city_production_bonus(
 def calculate_city_maintenance_costs(
         city_buildings:  dict[str, int],
         scenario_results: dict[str, dict[str, int]],
-    ) -> dict:
+    ) -> dict[str, dict[str, int]]:
     
     for key, value in city_buildings.items():
         building: str = key
@@ -494,6 +494,20 @@ def calculate_city_maintenance_costs(
         scenario_results["food"]["maintenance"] = scenario_results["food"]["maintenance"] + maintenance_cost_food
         scenario_results["ore"]["maintenance"] = scenario_results["ore"]["maintenance"] + maintenance_cost_ore
         scenario_results["wood"]["maintenance"] = scenario_results["wood"]["maintenance"] + maintenance_cost_worker_wood
+    
+    return scenario_results
+
+
+def calculate_totals(
+        scenario_results: dict[str, dict[str, int]]
+    ) -> dict[str, dict[str, int]]:
+    
+    for rss, rss_results in scenario_results.items():
+        base_production: int = rss_results.get("base_prod", 0)
+        production_bonus: int = rss_results.get("prod_bonus", 0)
+        maintenance_costs: int = rss_results.get("maintenance", 0)
+        total_production: int = int(floor(base_production * (1 + production_bonus / 100) - maintenance_costs))
+        scenario_results[rss]["total"] = total_production
     
     return scenario_results
 
@@ -543,11 +557,9 @@ def build_production_table(
         scenario_results = scenario_results
     )
     
-    # print(
-    #     f"{building}: "
-    #     f"prod per worker: {city_prod_per_worker_food} - {city_prod_per_worker_ore} - {city_prod_per_worker_wood} | "
-    #     f"production: {city_base_production_food} - {city_base_production_ore} - {city_base_production_wood}"
-    # )
+    scenario_results = calculate_totals(
+        scenario_results = scenario_results
+    )
     
     print()
     return scenario_results
@@ -594,20 +606,20 @@ def calculate_scenario(scenario: dict) -> None:
 
 calculate_scenario(
     scenario = {
-        "production_potentials": [100, 100, 200],
+        "production_potentials": [100, 100, 0],
         "city_buildings": {
             "city_hall": 1,
-            "farm": 1,
+            "farm": 5,
             "vineyard": 1,
-            "fishing_village": 1,
-            "farmers_guild": 0,
-            "mine": 1,
-            "outcrop_mine": 1,
-            "mountain_mine": 1,
+            "fishing_village": 0,
+            "farmers_guild": 1,
+            "mine": 0,
+            "outcrop_mine": 0,
+            "mountain_mine": 0,
             "miners_guild": 0,
-            "lumber_mill": 1,
+            "lumber_mill": 0,
             "carpenters_guild": 0,
-            "basilica": 0,
+            "basilica": 1,
             "gladiator_school": 0,
             "imperial_residence": 0,
         }
@@ -618,13 +630,22 @@ print("#" * 63)
 
 calculate_scenario(
     scenario = {
-        "production_potentials": [115, 10, 50],
+        "production_potentials": [100, 100, 0],
         "city_buildings": {
-            "farm": 1,
-            "lumber_mill": 1,
+            "city_hall": 1,
+            "farm": 6,
+            "vineyard": 0,
+            "fishing_village": 0,
             "farmers_guild": 1,
-            "imperial_residence": 1,
-            "gladiator_school": 1,
+            "mine": 0,
+            "outcrop_mine": 0,
+            "mountain_mine": 0,
+            "miners_guild": 0,
+            "lumber_mill": 0,
+            "carpenters_guild": 0,
+            "basilica": 1,
+            "gladiator_school": 0,
+            "imperial_residence": 0,
         }
     }
 )
