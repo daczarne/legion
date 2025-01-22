@@ -605,19 +605,19 @@ def calculate_scenario(
     print()
 
 
-city_production_potentials: list[int] = [100, 100, 100]
+city_production_potentials: list[int] = [100, 0, 0]
 
 calculate_scenario(
     scenario = {
         "production_potentials": city_production_potentials,
         "city_buildings": {
             "city_hall": 1,
-            "farm": 5,
+            "farm": 3,
             "vineyard": 1,
-            "fishing_village": 0,
+            "fishing_village": 1,
             "farmers_guild": 1,
             "mine": 0,
-            "outcrop_mine": 0,
+            "outcrop_mine": 1,
             "mountain_mine": 0,
             "miners_guild": 0,
             "lumber_mill": 0,
@@ -636,12 +636,36 @@ calculate_scenario(
         "production_potentials": city_production_potentials,
         "city_buildings": {
             "city_hall": 1,
-            "farm": 6,
+            "farm": 4,
             "vineyard": 0,
-            "fishing_village": 0,
+            "fishing_village": 1,
             "farmers_guild": 1,
             "mine": 0,
-            "outcrop_mine": 0,
+            "outcrop_mine": 1,
+            "mountain_mine": 0,
+            "miners_guild": 0,
+            "lumber_mill": 0,
+            "carpenters_guild": 0,
+            "basilica": 1,
+            "gladiator_school": 0,
+            "imperial_residence": 0,
+        }
+    }
+)
+
+print("#" * 63)
+
+calculate_scenario(
+    scenario = {
+        "production_potentials": city_production_potentials,
+        "city_buildings": {
+            "city_hall": 1,
+            "farm": 4,
+            "vineyard": 0,
+            "fishing_village": 1,
+            "farmers_guild": 1,
+            "mine": 0,
+            "outcrop_mine": 1,
             "mountain_mine": 0,
             "miners_guild": 0,
             "lumber_mill": 0,
