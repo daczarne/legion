@@ -611,26 +611,28 @@ def calculate_scenario(scenario: dict[str, list[int] | dict[str, int]]) -> None:
     print()
 
 
-city_production_potentials: list[int] = [100, 100, 100]
+city_production_potentials: list[int] = [0, 100, 100]
 
 calculate_scenario(
     scenario = {
         "production_potentials": city_production_potentials,
         "city_buildings": {
             "city_hall": 1,
-            "farm": 5,
-            "vineyard": 1,
+            "farm": 0,
+            "vineyard": 0,
             "fishing_village": 0,
-            "farmers_guild": 1,
-            "mine": 0,
+            "farmers_guild": 0,
+            "mine": 4,
             "outcrop_mine": 0,
-            "mountain_mine": 0,
-            "miners_guild": 0,
+            "mountain_mine": 1,
+            "miners_guild": 1,
             "lumber_mill": 0,
             "carpenters_guild": 0,
             "basilica": 1,
             "gladiator_school": 0,
             "imperial_residence": 0,
+            "quartermaster": 0,
+            "large_fort": 0,
         }
     }
 )
@@ -642,19 +644,21 @@ calculate_scenario(
         "production_potentials": city_production_potentials,
         "city_buildings": {
             "city_hall": 1,
-            "farm": 6,
+            "farm": 0,
             "vineyard": 0,
             "fishing_village": 0,
-            "farmers_guild": 1,
-            "mine": 0,
+            "farmers_guild": 0,
+            "mine": 5,
             "outcrop_mine": 0,
-            "mountain_mine": 0,
+            "mountain_mine": 1,
             "miners_guild": 0,
             "lumber_mill": 0,
             "carpenters_guild": 0,
             "basilica": 1,
             "gladiator_school": 0,
             "imperial_residence": 0,
+            "quartermaster": 0,
+            "large_fort": 0,
         }
     }
 )
