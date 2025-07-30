@@ -1,369 +1,7 @@
 from math import floor
 
-BUILDINGS: dict[str, dict[str, dict[str, int] | int]] = {
-    "city_hall": {
-        "maintenance_cost": {
-            "food": 1,
-            "ore": 1,
-            "wood": 1
-        },
-        "productivity_bonus": {
-            "food": 25,
-            "ore": 25,
-            "wood": 25
-        },
-        "production_per_worker": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "max_workers": 3
-    },
-    "farm": {
-        "maintenance_cost": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "productivity_bonus": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "production_per_worker": {
-            "food": 12,
-            "ore": 0,
-            "wood": 0
-        },
-        "max_workers": 3
-    },
-    "vineyard": {
-        "maintenance_cost": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "productivity_bonus": {
-            "food": 10,
-            "ore": 10,
-            "wood": 10
-        },
-        "production_per_worker": {
-            "food": 10,
-            "ore": 0,
-            "wood": 0
-        },
-        "max_workers": 3
-    },
-    "fishing_village": {
-        "maintenance_cost": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "productivity_bonus": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "production_per_worker": {
-            "food": 9,
-            "ore": 0,
-            "wood": 0
-        },
-        "max_workers": 3
-    },
-    "mine": {
-        "maintenance_cost": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "productivity_bonus": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "production_per_worker": {
-            "food": 0,
-            "ore": 12,
-            "wood": 0
-        },
-        "max_workers": 3
-    },
-    "outcrop_mine": {
-        "maintenance_cost": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "productivity_bonus": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "production_per_worker": {
-            "food": 0,
-            "ore": 13,
-            "wood": 0
-        },
-        "max_workers": 2
-    },
-    "mountain_mine": {
-        "maintenance_cost": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "productivity_bonus": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "production_per_worker": {
-            "food": 0,
-            "ore": 20,
-            "wood": 0
-        },
-        "max_workers": 1
-    },
-    "lumber_mill": {
-        "maintenance_cost": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "productivity_bonus": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "production_per_worker": {
-            "food": 0,
-            "ore": 0,
-            "wood": 12
-        },
-        "max_workers": 3
-    },
-    "basilica": {
-        "maintenance_cost": {
-            "food": 3,
-            "ore": 3,
-            "wood": 3
-        },
-        "productivity_bonus": {
-            "food": 50,
-            "ore": 50,
-            "wood": 50
-        },
-        "production_per_worker": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "max_workers": 1
-    },
-    "farmers_guild": {
-        "maintenance_cost": {
-            "food": 10,
-            "ore": 0,
-            "wood": 0
-        },
-        "productivity_bonus": {
-            "food": 50,
-            "ore": 0,
-            "wood": 0
-        },
-        "production_per_worker": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "max_workers": 0
-    },
-    "miners_guild": {
-        "maintenance_cost": {
-            "food": 0,
-            "ore": 10,
-            "wood": 0
-        },
-        "productivity_bonus": {
-            "food": 0,
-            "ore": 50,
-            "wood": 0
-        },
-        "production_per_worker": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "max_workers": 0
-    },
-    "carpenters_guild": {
-        "maintenance_cost": {
-            "food": 0,
-            "ore": 0,
-            "wood": 10
-        },
-        "productivity_bonus": {
-            "food": 0,
-            "ore": 0,
-            "wood": 50
-        },
-        "production_per_worker": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "max_workers": 0
-    },
-    "gladiator_school": {
-        "maintenance_cost": {
-            "food": 0,
-            "ore": 8,
-            "wood": 0
-        },
-        "productivity_bonus": {
-            "food": 10,
-            "ore": 10,
-            "wood": 10
-        },
-        "production_per_worker": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "max_workers": 0
-    },
-    "imperial_residence": {
-        "maintenance_cost": {
-            "food": 8,
-            "ore": 8,
-            "wood": 8
-        },
-        "productivity_bonus": {
-            "food": 10,
-            "ore": 10,
-            "wood": 10
-        },
-        "production_per_worker": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "max_workers": 0
-    },
-    "quartermaster": {
-        "maintenance_cost": {
-            "food": 12,
-            "ore": 8,
-            "wood": 8
-        },
-        "productivity_bonus": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "production_per_worker": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "max_workers": 0
-    },
-    "large_fort": {
-        "maintenance_cost": {
-            "food": 15,
-            "ore": 0,
-            "wood": 15
-        },
-        "productivity_bonus": {
-            "food": 10,
-            "ore": 10,
-            "wood": 10
-        },
-        "production_per_worker": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "max_workers": 0
-    },
-    "stables": {
-        "maintenance_cost": {
-            "food": 5,
-            "ore": 0,
-            "wood": 0
-        },
-        "productivity_bonus": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "production_per_worker": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "max_workers": 0
-    },
-    "training_ground": {
-        "maintenance_cost": {
-            "food": 10,
-            "ore": 0,
-            "wood": 10
-        },
-        "productivity_bonus": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "production_per_worker": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "max_workers": 0
-    },
-    "bordello": {
-        "maintenance_cost": {
-            "food": 8,
-            "ore": 4,
-            "wood": 8
-        },
-        "productivity_bonus": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "production_per_worker": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "max_workers": 0
-    },
-    "hospital": {
-        "maintenance_cost": {
-            "food": 8,
-            "ore": 0,
-            "wood": 0
-        },
-        "productivity_bonus": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "production_per_worker": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0
-        },
-        "max_workers": 3
-    }
-}
-
-MAX_BUILDINGS_PER_CITY: int = 9
+from modules.buildings import BUILDINGS, MAX_BUILDINGS_PER_CITY
+from modules.scenario import Scenario
 
 
 def display_production_table(production_table: dict[str, dict[str, int]]) -> None:
@@ -423,7 +61,7 @@ def display_production_table(production_table: dict[str, dict[str, int]]) -> Non
 def calculate_base_city_production(
         city_buildings:  dict[str, int],
         production_potentials: list[int],
-        scenario_results: dict[str, dict[str, int]]
+        scenario_results: dict[str, dict[str, int]],
     ) -> dict[str, dict[str, int]]:
     
     city_prod_potential_food, city_prod_potential_ore, city_prod_potential_wood = production_potentials
@@ -576,15 +214,14 @@ def display_city_buildings(city_buildings: dict[str, int]) -> None:
         print(f"  - {building.replace('_', ' ').capitalize()} ({qty})")
 
 
-def calculate_scenario(scenario: dict[str, list[int] | dict[str, int]]) -> None:
+def calculate_scenario(scenario: Scenario) -> None:
     
     print()
     
     #* Validate city buildings
     # The total number must not exceed MAX_BUILDINGS_PER_CITY
     # City Hall must be included in the buildings
-    city_buildings: dict[str, int] = scenario.get("city_buildings")
-    city_buildings: dict[str, int] = {key: value for key, value in city_buildings.items() if value > 0}
+    city_buildings: dict[str, int] = {key: value for key, value in scenario.get("city_buildings").items() if value > 0}
     
     if "city_hall" not in city_buildings.keys():
         city_buildings = {**{"city_hall": 1}, **city_buildings}
@@ -594,7 +231,7 @@ def calculate_scenario(scenario: dict[str, list[int] | dict[str, int]]) -> None:
         print()
         print("The maximum number of buildings is 9 and must include `city_hall`.")
         print()
-        return False
+        return
     
     #* Display city buildings
     display_city_buildings(city_buildings = city_buildings)
@@ -603,7 +240,7 @@ def calculate_scenario(scenario: dict[str, list[int] | dict[str, int]]) -> None:
     #* Build production table
     city_production_table: dict[str, dict[str, int]] = build_production_table(
         production_potentials = scenario.get("production_potentials"),
-        city_buildings = city_buildings
+        city_buildings = city_buildings,
     )
     
     #* Display production table
@@ -611,54 +248,52 @@ def calculate_scenario(scenario: dict[str, list[int] | dict[str, int]]) -> None:
     print()
 
 
-city_production_potentials: list[int] = [0, 100, 100]
+city_production_potentials: list[int] = [100, 80, 0]
 
-calculate_scenario(
-    scenario = {
-        "production_potentials": city_production_potentials,
-        "city_buildings": {
-            "city_hall": 1,
-            "farm": 0,
-            "vineyard": 0,
-            "fishing_village": 0,
-            "farmers_guild": 0,
-            "mine": 4,
-            "outcrop_mine": 0,
-            "mountain_mine": 1,
-            "miners_guild": 1,
-            "lumber_mill": 0,
-            "carpenters_guild": 0,
-            "basilica": 1,
-            "gladiator_school": 0,
-            "imperial_residence": 0,
-            "quartermaster": 0,
-            "large_fort": 0,
-        }
-    }
-)
+scenario: Scenario = {
+    "production_potentials": city_production_potentials,
+    "city_buildings": {
+        "city_hall": 1,
+        "farm": 6,
+        "vineyard": 0,
+        "fishing_village": 0,
+        "farmers_guild": 1,
+        "mine": 0,
+        "outcrop_mine": 0,
+        "mountain_mine": 0,
+        "miners_guild": 0,
+        "lumber_mill": 0,
+        "carpenters_guild": 0,
+        "basilica": 1,
+        "gladiator_school": 0,
+        "imperial_residence": 0,
+        "quartermaster": 0,
+        "large_fort": 0,
+    },
+}
+calculate_scenario(scenario = scenario)
 
 print("#" * 63)
 
-calculate_scenario(
-    scenario = {
-        "production_potentials": city_production_potentials,
-        "city_buildings": {
-            "city_hall": 1,
-            "farm": 0,
-            "vineyard": 0,
-            "fishing_village": 0,
-            "farmers_guild": 0,
-            "mine": 5,
-            "outcrop_mine": 0,
-            "mountain_mine": 1,
-            "miners_guild": 0,
-            "lumber_mill": 0,
-            "carpenters_guild": 0,
-            "basilica": 1,
-            "gladiator_school": 0,
-            "imperial_residence": 0,
-            "quartermaster": 0,
-            "large_fort": 0,
-        }
-    }
-)
+scenario: Scenario = {
+    "production_potentials": city_production_potentials,
+    "city_buildings": {
+        "city_hall": 1,
+        "farm": 0,
+        "vineyard": 0,
+        "fishing_village": 0,
+        "farmers_guild": 0,
+        "mine": 6,
+        "outcrop_mine": 0,
+        "mountain_mine": 0,
+        "miners_guild": 1,
+        "lumber_mill": 0,
+        "carpenters_guild": 0,
+        "basilica": 1,
+        "gladiator_school": 0,
+        "imperial_residence": 0,
+        "quartermaster": 0,
+        "large_fort": 0,
+    },
+}
+calculate_scenario(scenario = scenario)
