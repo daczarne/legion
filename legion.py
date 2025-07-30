@@ -1,6 +1,6 @@
 from math import floor
 
-from modules.buildings import BUILDINGS, MAX_BUILDINGS_PER_CITY
+from modules.buildings import BUILDINGS, MAX_BUILDINGS_PER_CITY, BuildingsCount
 from modules.scenario import Scenario
 
 
@@ -77,14 +77,14 @@ def calculate_base_city_production(
         building_prod_per_worker_food, building_prod_per_worker_ore, building_prod_per_worker_wood = [value for value in building_info.values()]
         
         # prod_per_worker = floor(prod_potential * prod_per_worker / 100)
-        city_prod_per_worker_food: int = int(floor(city_prod_potential_food * building_prod_per_worker_food / 100.0))
-        city_prod_per_worker_ore: int = int(floor(city_prod_potential_ore * building_prod_per_worker_ore / 100.0))
-        city_prod_per_worker_wood: int = int(floor(city_prod_potential_wood * building_prod_per_worker_wood / 100.0))
+        city_prod_per_worker_food = int(floor(city_prod_potential_food * building_prod_per_worker_food / 100.0))
+        city_prod_per_worker_ore = int(floor(city_prod_potential_ore * building_prod_per_worker_ore / 100.0))
+        city_prod_per_worker_wood = int(floor(city_prod_potential_wood * building_prod_per_worker_wood / 100.0))
         
         # base_prod = qty_buildings * prod_per_worker * max_workers
-        city_base_production_food: int = qty_buildings * city_prod_per_worker_food * max_workers
-        city_base_production_ore: int = qty_buildings * city_prod_per_worker_ore * max_workers
-        city_base_production_wood: int = qty_buildings * city_prod_per_worker_wood * max_workers
+        city_base_production_food = qty_buildings * city_prod_per_worker_food * max_workers
+        city_base_production_ore = qty_buildings * city_prod_per_worker_ore * max_workers
+        city_base_production_wood = qty_buildings * city_prod_per_worker_wood * max_workers
         
         # print(
         #     f"{building} \n"
@@ -101,15 +101,15 @@ def calculate_base_city_production(
 
 
 def calculate_city_production_bonus(
-        city_buildings:  dict[str, int],
-        scenario_results: dict[str, dict[str, int]]
-    ) -> dict[str, dict[str, int]]:
+        city_buildings,
+        scenario_results,
+    ):
     
     for key, value in city_buildings.items():
         building: str = key
         
         # Calculate production bonus (`prod_bonus`)
-        building_info: dict[str, dict[str, int] | int] = BUILDINGS.get(building, {}).get("productivity_bonus", {})
+        building_info = BUILDINGS.get(building, {}).get("productivity_bonus", {})
         
         city_prod_bonus_food, city_prod_bonus_ore, city_prod_bonus_worker_wood = [value for value in building_info.values()]
         
@@ -122,15 +122,15 @@ def calculate_city_production_bonus(
 
 
 def calculate_city_maintenance_costs(
-        city_buildings:  dict[str, int],
-        scenario_results: dict[str, dict[str, int]]
-    ) -> dict[str, dict[str, int]]:
+        city_buildings,
+        scenario_results,
+    ):
     
     for key, value in city_buildings.items():
         building: str = key
         
         # Calculate production bonus (`prod_bonus`)
-        building_info: dict[str, dict[str, int] | int] = BUILDINGS.get(building, {}).get("maintenance_cost", {})
+        building_info = BUILDINGS.get(building, {}).get("maintenance_cost", {})
         
         maintenance_cost_food, maintenance_cost_ore, maintenance_cost_worker_wood = [value for value in building_info.values()]
         
@@ -179,8 +179,8 @@ def build_production_table(
             "base_prod": 0,
             "prod_bonus": 0,
             "maintenance": 0,
-            "total": 0
-        }
+            "total": 0,
+        },
     }
     
     scenario_results = calculate_base_city_production(
@@ -206,7 +206,7 @@ def build_production_table(
     return scenario_results
 
 
-def display_city_buildings(city_buildings: dict[str, int]) -> None:
+def display_city_buildings(city_buildings: BuildingsCount) -> None:
     print(f"City buildings")
     print(f"--------------")
     
@@ -221,7 +221,7 @@ def calculate_scenario(scenario: Scenario) -> None:
     #* Validate city buildings
     # The total number must not exceed MAX_BUILDINGS_PER_CITY
     # City Hall must be included in the buildings
-    city_buildings: dict[str, int] = {key: value for key, value in scenario.get("city_buildings").items() if value > 0}
+    city_buildings: BuildingsCount = {key: value for key, value in scenario.get("city_buildings").items() if value > 0}
     
     if "city_hall" not in city_buildings.keys():
         city_buildings = {**{"city_hall": 1}, **city_buildings}
@@ -233,17 +233,14 @@ def calculate_scenario(scenario: Scenario) -> None:
         print()
         return
     
-    #* Display city buildings
     display_city_buildings(city_buildings = city_buildings)
     print()
     
-    #* Build production table
     city_production_table: dict[str, dict[str, int]] = build_production_table(
         production_potentials = scenario.get("production_potentials"),
         city_buildings = city_buildings,
     )
     
-    #* Display production table
     display_production_table(production_table = city_production_table)
     print()
 

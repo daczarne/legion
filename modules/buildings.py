@@ -1,4 +1,4 @@
-from typing import TypedDict
+from typing import TypedDict, TypeAlias
 
 
 class BuildingResources(TypedDict):
@@ -12,6 +12,9 @@ class Building(TypedDict):
     productivity_bonus: BuildingResources
     production_per_worker: BuildingResources
     max_workers: int
+
+
+BuildingsCount: TypeAlias = dict[str, int]
 
 
 MAX_BUILDINGS_PER_CITY: int = 9
