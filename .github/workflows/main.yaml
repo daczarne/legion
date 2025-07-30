@@ -1,9 +1,7 @@
 name: Main
 
 env:
-  PYTHON_VERSION: "3.10"
-  PYYAML_VERSION: "6.0"
-  YAMLLINT_VERSION: "1.32"
+  PYTHON_VERSION: 3.13.3
 
 on:
   pull_request:
@@ -16,7 +14,7 @@ on:
       - edited
   push:
     branches:
-      - "**/**"
+      - main
     tags:
       - "**/**"
 
@@ -25,6 +23,9 @@ jobs:
     name: Label PR
     runs-on: ubuntu-latest
     if: ${{ github.event.pull_request }}
+    permissions:
+      contents: read
+      pull-requests: write
     outputs:
       labels: ${{ steps.pr_labeler.outputs.all-labels }}
     steps:
@@ -33,7 +34,7 @@ jobs:
         uses: actions/labeler@v5
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          configuration-path: .github/labeller.yaml
+          configuration-path: .github/labeler.yaml
           sync-labels: true
           dot: true
       - name: Show labels 👀
@@ -54,32 +55,32 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-      - name: Install YAML lint 🌴
-        id: install_yamllint
-        run: pip install "yamllint==${{ env.YAMLLINT_VERSION }}"
+      - name: Setup pipenv 🌴
+        id: setup_pipenv
+        run: |
+          pip install pipenv
+          pipenv install --system --dev
       - name: Run YAML lint 🧪
-        id: run_yamllint
+        id: run_yaml_lint
         run: yamllint -c .yamllint.yaml .
-      - name: Install Markdown lint 🌴
-        id: install_markdownlint
-        run: npm install markdownlint-cli2 --global
       - name: Run Markdown lint 🧪
-        id: run_markdownlint
-        uses: DavidAnson/markdownlint-cli2-action@v17
+        id: run_markdown_lint
+        uses: DavidAnson/markdownlint-cli2-action@v20
         with:
           config: .markdownlint.yaml
           globs: "**/*.md"
 
   spell-check:
-    name: Spell check Md files
+    name: Spell check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v2
+        id: checkout
+        uses: actions/checkout@v4
       - name: Run CSpell
-        uses: streetsidesoftware/cspell-action@v2
+        id: run_spell_checking
+        uses: streetsidesoftware/cspell-action@v7
         with:
-          github_token: ${{ github.token }}
           root: .
           check_dot_files: true
           inline: error
@@ -87,3 +88,29 @@ jobs:
           config: .cspell.json
           verbose: true
           incremental_files_only: false
+
+  unit-tests:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    needs:
+      - label-pr
+      - lint
+      - spell-check
+    steps:
+      - name: Checkout 🛎️
+        id: checkout
+        uses: actions/checkout@v4
+      - name: Setup Python 🐍
+        id: setup_python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Setup pipenv 🌴
+        id: setup_pipenv
+        run: |
+          pip install pipenv
+          pipenv install --system --dev
+      - name: Run unit tests 🧪
+        id: run_unit_tests
+        run: |
+          pipenv run pytest
