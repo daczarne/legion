@@ -11,7 +11,7 @@ cities:
         mountains: 0
         lakes: 0
         forests: 0
-      capabilities:
+      effects:
         troop_training: 25
         population_growth: 0
         intelligence: 0
@@ -26,7 +26,7 @@ cities:
         mountains: 0
         lakes: 0
         forests:
-      capabilities:
+      effects:
         troop_training: 25
         population_growth: 0
         intelligence: 0
@@ -41,7 +41,7 @@ cities:
         mountains: 0
         lakes: 0
         forests: 0
-      capabilities:
+      effects:
         troop_training: 25
         population_growth: 0
         intelligence: 0
@@ -56,7 +56,7 @@ cities:
         mountains: 0
         lakes: 0
         forests:
-      capabilities:
+      effects:
         troop_training: 10
         population_growth: 0
         intelligence: 0
@@ -71,7 +71,7 @@ cities:
         mountains: 0
         lakes: 0
         forests: 0
-      capabilities:
+      effects:
         troop_training: 25
         population_growth: 0
         intelligence: 0
@@ -86,7 +86,7 @@ cities:
         mountains: 0
         lakes: 0
         forests: 1
-      capabilities:
+      effects:
         troop_training: 25
         population_growth: 0
         intelligence: 0
@@ -101,7 +101,7 @@ cities:
         mountains: 0
         lakes: 0
         forests: 0
-      capabilities:
+      effects:
         troop_training: 25
         population_growth: 0
         intelligence: 0
@@ -117,7 +117,7 @@ cities:
         mountains: 0
         lakes: 0
         forests:
-      capabilities:
+      effects:
         troop_training: 10
         population_growth: 0
         intelligence: 0
@@ -133,7 +133,7 @@ cities:
         mountains: 1
         lakes: 0
         forests: 0
-      capabilities:
+      effects:
         troop_training: 25
         population_growth: 0
         intelligence: 0
@@ -148,7 +148,7 @@ cities:
         mountains: 0
         lakes: 0
         forests:
-      capabilities:
+      effects:
         troop_training: 0
         population_growth: 0
         intelligence: 0
@@ -163,7 +163,7 @@ cities:
         mountains: 0
         lakes: 0
         forests: 1
-      capabilities:
+      effects:
         troop_training: 25
         population_growth: 0
         intelligence: 0
@@ -178,7 +178,7 @@ cities:
         mountains: 0
         lakes: 0
         forests: 0
-      capabilities:
+      effects:
         troop_training: 0
         population_growth: 0
         intelligence: 0
@@ -193,7 +193,7 @@ cities:
         mountains: 0
         lakes: 0
         forests: 0
-      capabilities:
+      effects:
         troop_training: 25
         population_growth: 0
         intelligence: 0
@@ -208,7 +208,7 @@ cities:
         mountains: 0
         lakes: 0
         forests: 0
-      capabilities:
+      effects:
         troop_training: 25
         population_growth: 0
         intelligence: 0
@@ -223,7 +223,7 @@ cities:
         mountains: 0
         lakes: 0
         forests: 0
-      capabilities:
+      effects:
         troop_training: 25
         population_growth: 0
         intelligence: 0
@@ -238,7 +238,7 @@ cities:
         mountains: 0
         lakes: 0
         forests:
-      capabilities:
+      effects:
         troop_training: 0
         population_growth: 0
         intelligence: 0
@@ -253,7 +253,7 @@ cities:
         mountains: 0
         lakes: 0
         forests: 1
-      capabilities:
+      effects:
         troop_training: 25
         population_growth: 0
         intelligence: 0
@@ -271,7 +271,7 @@ cities:
         mountains: 0
         lakes: 1
         forests:
-      capabilities:
+      effects:
         troop_training: 0
         population_growth: 0
         intelligence: 0
@@ -286,7 +286,7 @@ cities:
         mountains: 0
         lakes: 0
         forests:
-      capabilities:
+      effects:
         troop_training: 0
         population_growth: 0
         intelligence: 0
@@ -301,7 +301,7 @@ cities:
         mountains: 0
         lakes: 0
         forests:
-      capabilities:
+      effects:
         troop_training: 25
         population_growth: 0
         intelligence: 0
@@ -317,7 +317,7 @@ cities:
         mountains: 1
         lakes: 0
         forests:
-      capabilities:
+      effects:
         troop_training: 0
         population_growth: 0
         intelligence: 0
@@ -333,7 +333,7 @@ cities:
         mountains: 0
         lakes: 0
         forests: 0
-      capabilities:
+      effects:
         troop_training: 0
         population_growth: 0
         intelligence: 0
@@ -348,7 +348,7 @@ cities:
         mountains: 0
         lakes: 1
         forests: 0
-      capabilities:
+      effects:
         troop_training: 0
         population_growth: 0
         intelligence: 0
@@ -363,7 +363,7 @@ cities:
         mountains: 1
         lakes: 0
         forests: 0
-      capabilities:
+      effects:
         troop_training: 25
         population_growth: 0
         intelligence: 0
@@ -378,7 +378,7 @@ cities:
         mountains: 0
         lakes: 1
         forests: 0
-      capabilities:
+      effects:
         troop_training: 25
         population_growth: 0
         intelligence: 0
@@ -397,7 +397,7 @@ cities:
         mountains: 0
         lakes: 0
         forests: 1
-      capabilities:
+      effects:
         troop_training: 0
         population_growth: 0
         intelligence: 0
@@ -412,7 +412,7 @@ cities:
         mountains: 0
         lakes: 0
         forests:
-      capabilities:
+      effects:
         troop_training: 10
         population_growth: 0
         intelligence: 0
@@ -428,7 +428,7 @@ cities:
         mountains: 0
         lakes: 0
         forests: 0
-      capabilities:
+      effects:
         troop_training: 25
         population_growth: 0
         intelligence: 0
@@ -443,7 +443,7 @@ cities:
         mountains: 0
         lakes: 0
         forests: 0
-      capabilities:
+      effects:
         troop_training: 25
         population_growth: 0
         intelligence: 0
@@ -458,7 +458,7 @@ cities:
         mountains: 0
         lakes: 0
         forests:
-      capabilities:
+      effects:
         troop_training: 0
         population_growth: 0
         intelligence: 0
@@ -474,7 +474,7 @@ cities:
         mountains: 0
         lakes: 0
         forests: 0
-      capabilities:
+      effects:
         troop_training: 0
         population_growth: 0
         intelligence: 0
@@ -489,7 +489,7 @@ cities:
         mountains: 0
         lakes: 1
         forests: 0
-      capabilities:
+      effects:
         troop_training: 0
         population_growth: 0
         intelligence: 0
@@ -506,7 +506,7 @@ cities:
         mountains: 0
         lakes: 0
         forests: 0
-      capabilities:
+      effects:
         troop_training: 25
         population_growth: 0
         intelligence: 0
@@ -521,7 +521,7 @@ cities:
         mountains: 0
         lakes: 0
         forests: 0
-      capabilities:
+      effects:
         troop_training: 0
         population_growth: 0
         intelligence: 0
@@ -536,7 +536,7 @@ cities:
         mountains: 0
         lakes: 0
         forests: 0
-      capabilities:
+      effects:
         troop_training: 25
         population_growth: 0
         intelligence: 0
@@ -551,7 +551,7 @@ cities:
         mountains: 0
         lakes: 0
         forests:
-      capabilities:
+      effects:
         troop_training: 25
         population_growth: 0
         intelligence: 0
@@ -566,7 +566,7 @@ cities:
         mountains: 0
         lakes: 0
         forests:
-      capabilities:
+      effects:
         troop_training: 0
         population_growth: 0
         intelligence: 0
@@ -583,7 +583,7 @@ cities:
         mountains: 2
         lakes: 0
         forests: 0
-      capabilities:
+      effects:
         troop_training: 25
         population_growth: 0
         intelligence: 0
@@ -598,7 +598,7 @@ cities:
         mountains: 0
         lakes: 0
         forests: 0
-      capabilities:
+      effects:
         troop_training: 0
         population_growth: 0
         intelligence: 0
@@ -614,7 +614,7 @@ cities:
         mountains: 0
         lakes: 0
         forests:
-      capabilities:
+      effects:
         troop_training: 10
         population_growth: 0
         intelligence: 0
@@ -629,7 +629,7 @@ cities:
         mountains: 0
         lakes: 0
         forests:
-      capabilities:
+      effects:
         troop_training: 25
         population_growth: 0
         intelligence: 0
@@ -644,7 +644,7 @@ cities:
         mountains: 1
         lakes: 0
         forests:
-      capabilities:
+      effects:
         troop_training: 25
         population_growth: 0
         intelligence: 0
@@ -660,7 +660,7 @@ cities:
         mountains: 0
         lakes: 0
         forests:
-      capabilities:
+      effects:
         troop_training: 0
         population_growth: 0
         intelligence: 0
@@ -675,7 +675,7 @@ cities:
         mountains: 0
         lakes: 0
         forests: 0
-      capabilities:
+      effects:
         troop_training: 0
         population_growth: 0
         intelligence: 0
@@ -692,7 +692,7 @@ cities:
         mountains: 0
         lakes: 1
         forests:
-      capabilities:
+      effects:
         troop_training: 0
         population_growth: 0
         intelligence: 0

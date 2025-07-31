@@ -6,12 +6,17 @@ class BuildingResources(TypedDict):
     ore: int
     wood: int
 
+class EffectBonuses(TypedDict):
+    troop_training: int
+    population_growth: int
+    intelligence: int
+
 
 class Building(TypedDict):
     maintenance_cost: BuildingResources
     productivity_bonus: BuildingResources
     production_per_worker: BuildingResources
-    # capability_bonus: dict[str, int]
+    effect_bonuses: EffectBonuses
     max_workers: int
 
 
@@ -35,6 +40,11 @@ BUILDINGS: dict[str, Building] = {
             "ore": 0,
             "wood": 0,
         },
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 0,
+            "intelligence": 0,
+        },
         "max_workers": 3,
     },
     "hunters_lodge": {
@@ -52,6 +62,11 @@ BUILDINGS: dict[str, Building] = {
             "food": 2,
             "ore": 2,
             "wood": 2,
+        },
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 0,
+            "intelligence": 0,
         },
         "max_workers": 3,
     },
@@ -71,6 +86,11 @@ BUILDINGS: dict[str, Building] = {
             "ore": 0,
             "wood": 0,
         },
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 0,
+            "intelligence": 0,
+        },
         "max_workers": 3,
     },
     "vineyard": {
@@ -88,6 +108,11 @@ BUILDINGS: dict[str, Building] = {
             "food": 10,
             "ore": 0,
             "wood": 0,
+        },
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 0,
+            "intelligence": 0,
         },
         "max_workers": 3,
     },
@@ -107,6 +132,11 @@ BUILDINGS: dict[str, Building] = {
             "ore": 0,
             "wood": 0,
         },
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 0,
+            "intelligence": 0,
+        },
         "max_workers": 3,
     },
     "farmers_guild": {
@@ -124,6 +154,11 @@ BUILDINGS: dict[str, Building] = {
             "food": 0,
             "ore": 0,
             "wood": 0,
+        },
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 0,
+            "intelligence": 0,
         },
         "max_workers": 0,
     },
@@ -143,6 +178,11 @@ BUILDINGS: dict[str, Building] = {
             "ore": 0,
             "wood": 0,
         },
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 0,
+            "intelligence": 0,
+        },
         "max_workers": 0,
     },
     "mine": {
@@ -160,6 +200,11 @@ BUILDINGS: dict[str, Building] = {
             "food": 0,
             "ore": 12,
             "wood": 0,
+        },
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 0,
+            "intelligence": 0,
         },
         "max_workers": 3,
     },
@@ -179,6 +224,11 @@ BUILDINGS: dict[str, Building] = {
             "ore": 13,
             "wood": 0,
         },
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 0,
+            "intelligence": 0,
+        },
         "max_workers": 2,
     },
     "mountain_mine": {
@@ -196,6 +246,11 @@ BUILDINGS: dict[str, Building] = {
             "food": 0,
             "ore": 20,
             "wood": 0,
+        },
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 0,
+            "intelligence": 0,
         },
         "max_workers": 1,
     },
@@ -215,6 +270,11 @@ BUILDINGS: dict[str, Building] = {
             "ore": 0,
             "wood": 0,
         },
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 0,
+            "intelligence": 0,
+        },
         "max_workers": 0,
     },
     "blacksmith": {
@@ -232,6 +292,11 @@ BUILDINGS: dict[str, Building] = {
             "food": 0,
             "ore": 0,
             "wood": 0,
+        },
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 0,
+            "intelligence": 0,
         },
         "max_workers": 0,
     },
@@ -251,6 +316,11 @@ BUILDINGS: dict[str, Building] = {
             "ore": 0,
             "wood": 12,
         },
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 0,
+            "intelligence": 0,
+        },
         "max_workers": 3,
     },
     "carpenters_guild": {
@@ -268,6 +338,11 @@ BUILDINGS: dict[str, Building] = {
             "food": 0,
             "ore": 0,
             "wood": 0,
+        },
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 0,
+            "intelligence": 0,
         },
         "max_workers": 0,
     },
@@ -287,6 +362,11 @@ BUILDINGS: dict[str, Building] = {
             "ore": 0,
             "wood": 0,
         },
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 0,
+            "intelligence": 0,
+        },
         "max_workers": 0,
     },
     "basilica": {
@@ -305,9 +385,13 @@ BUILDINGS: dict[str, Building] = {
             "ore": 0,
             "wood": 0,
         },
-        # capability_bonus
         # Having it in the city => +0 population growth
         # Manning it => +50 pop growth
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 50,
+            "intelligence": 0,
+        },
         "max_workers": 1,
     },
     "temple": {
@@ -326,9 +410,13 @@ BUILDINGS: dict[str, Building] = {
             "ore": 0,
             "wood": 0,
         },
-        # capability_bonus
         # Having it in the city => +0 population growth
         # Manning it => +40 pop growth (+25 for the shrine)
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 40,
+            "intelligence": 0,
+        },
         "max_workers": 1,
     },
     "hidden_grove": {
@@ -349,9 +437,13 @@ BUILDINGS: dict[str, Building] = {
             "ore": 0,
             "wood": 0,
         },
-        # capability_bonus
         # Having it in the city => +50 population growth
         # Manning it => +50 pop growth per worker
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 200,
+            "intelligence": 0,
+        },
         "max_workers": 3,
     },
     "apothecary": {
@@ -370,10 +462,14 @@ BUILDINGS: dict[str, Building] = {
             "ore": 0,
             "wood": 0,
         },
-        # capability_bonus
         # Having it in the city => +50 pop growth
         # Manning it => +20 pop growth per worker
-        "max_workers": 3,
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 90,
+            "intelligence": 0,
+        },
+        "max_workers": 2,
     },
     "hospital": {
         "maintenance_cost": {
@@ -391,9 +487,13 @@ BUILDINGS: dict[str, Building] = {
             "ore": 0,
             "wood": 0,
         },
-        # capability_bonus
         # Having it in the city => +100 pop growth (+50 for baths)
         # Manning it => +40 pop growth per worker (+25 for baths)
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 220,
+            "intelligence": 0,
+        },
         "max_workers": 3,
     },
     "training_ground": {
@@ -412,9 +512,13 @@ BUILDINGS: dict[str, Building] = {
             "ore": 0,
             "wood": 0,
         },
-        # capability_bonus
         # Having it in the city => +20 troop training
         # Manning it => +5 troop training
+        "effect_bonuses": {
+            "troop_training": 25,
+            "population_growth": 0,
+            "intelligence": 0,
+        },
         "max_workers": 1,
     },
     "bordello": {
@@ -433,8 +537,12 @@ BUILDINGS: dict[str, Building] = {
             "ore": 0,
             "wood": 0,
         },
-        # capability_bonus
         # Having it in the city => +10 troop training
+        "effect_bonuses": {
+            "troop_training": 10,
+            "population_growth": 0,
+            "intelligence": 0,
+        },
         "max_workers": 0,
     },
     "gladiator_school": {
@@ -452,6 +560,11 @@ BUILDINGS: dict[str, Building] = {
             "food": 0,
             "ore": 0,
             "wood": 0,
+        },
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 0,
+            "intelligence": 0,
         },
         "max_workers": 0,
     },
@@ -471,6 +584,11 @@ BUILDINGS: dict[str, Building] = {
             "ore": 0,
             "wood": 0,
         },
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 0,
+            "intelligence": 0,
+        },
         "max_workers": 0,
     },
     "quartermaster": {
@@ -488,6 +606,11 @@ BUILDINGS: dict[str, Building] = {
             "food": 0,
             "ore": 0,
             "wood": 0,
+        },
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 0,
+            "intelligence": 0,
         },
         "max_workers": 0,
     },
@@ -507,8 +630,12 @@ BUILDINGS: dict[str, Building] = {
             "ore": 0,
             "wood": 0,
         },
-        # capability_bonus
         # +10 intelligence (all fort sizes)
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 0,
+            "intelligence": 10,
+        },
         "max_workers": 0,
     },
     "market": {
@@ -527,8 +654,13 @@ BUILDINGS: dict[str, Building] = {
             "ore": 0,
             "wood": 0,
         },
-        # Intelligence +15 for having it in the city
-        "max_workers": 3,
+        # Intelligence +15 for having it in the city (+10 for the small market)
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 0,
+            "intelligence": 15,
+        },
+        "max_workers": 2,
     },
     "watch_tower": {
         "maintenance_cost": {
@@ -548,6 +680,11 @@ BUILDINGS: dict[str, Building] = {
         },
         # Intelligence +20 for having it in the city
         # Intelligence +15 per each worker
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 0,
+            "intelligence": 50,
+        },
         "max_workers": 2,
     },
     "warehouse": {
@@ -565,6 +702,11 @@ BUILDINGS: dict[str, Building] = {
             "food": 0,
             "ore": 0,
             "wood": 0,
+        },
+        "effect_bonuses": {
+            "troop_training": 0,
+            "population_growth": 0,
+            "intelligence": 0,
         },
         "max_workers": 0,
     },
