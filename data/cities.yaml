@@ -1,20 +1,20 @@
 cities:
   italica:
     # A
-    - name:
+    - name: Arpi
       resource_potential:
-        food:
-        ore:
-        wood:
+        food: 90
+        ore: 0
+        wood: 100
       geo_features:
         rock_outcrops: 0
         mountains: 0
         lakes: 0
       capabilities:
-        troop_training: 0
+        troop_training: 25
         population_growth: 0
         intelligence: 0
-      garrison:
+      garrison: Archers
     # B
     # C
     - name: Caercini
