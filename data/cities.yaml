@@ -222,7 +222,7 @@ cities:
         rock_outcrops: 1
         mountains: 0
         lakes: 0
-        forests:
+        forests: 0
       capabilities:
         troop_training: 25
         population_growth: 0
@@ -252,7 +252,7 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 0
-        forests:
+        forests: 1
       capabilities:
         troop_training: 25
         population_growth: 0
@@ -338,6 +338,21 @@ cities:
         population_growth: 0
         intelligence: 0
       garrison: Hoplites
+    - name: Hernici
+      resource_potential:
+        food: 80
+        ore: 100
+        wood: 80
+      geo_features:
+        rock_outcrops: 1
+        mountains: 0
+        lakes: 1
+        forests: 0
+      capabilities:
+        troop_training: 0
+        population_growth: 0
+        intelligence: 0
+      garrison: Auxilia
     - name: Hirpini
       resource_potential:
         food: 50
@@ -372,6 +387,21 @@ cities:
     # J
     # K
     # L
+    - name: Lantis
+      resource_potential:
+        food: 50
+        ore: 0
+        wood: 125
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+        forests: 1
+      capabilities:
+        troop_training: 0
+        population_growth: 0
+        intelligence: 0
+      garrison: Auxiliary Archers
     - name: Lingones
       resource_potential:
         food: 0
@@ -558,6 +588,21 @@ cities:
         population_growth: 0
         intelligence: 0
       garrison: Hill Tribe Warriors
+    - name: Roma
+      resource_potential:
+        food: 125
+        ore: 0
+        wood: 50
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+        forests: 0
+      capabilities:
+        troop_training: 0
+        population_growth: 0
+        intelligence: 0
+      garrison: Legion
     # S
     - name: Sena
       resource_potential:
@@ -629,9 +674,9 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 0
-        forests:
+        forests: 0
       capabilities:
-        troop_training: 25
+        troop_training: 0
         population_growth: 0
         intelligence: 0
       garrison: Italiot Greek Cavalry
