@@ -5,7 +5,7 @@ from modules.city import City, CityBuildings
 from modules.scenario import Scenario
 
 scenario_1: City = City(
-    campaign = "Italica",
+    campaign = "Italy",
     name = "Roma",
     resource_potentials = {
         "food": 125,

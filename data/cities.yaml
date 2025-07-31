@@ -1,6 +1,20 @@
 cities:
-  italica:
+  italy:
     # A
+    - name: Apulians
+      resource_potential:
+        food: 125
+        ore: 0
+        wood: 50
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+      capabilities:
+        troop_training: 25
+        population_growth: 0
+        intelligence: 0
+      garrison: Italiot Greek Cavalry
     - name: Arpi
       resource_potential:
         food: 90
@@ -44,7 +58,21 @@ cities:
         troop_training: 0
         population_growth: 0
         intelligence: 0
-      garrison:
+      garrison: Javelinmen
+    - name: Capua
+      resource_potential:
+        food: 100
+        ore: 75
+        wood: 0
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+      capabilities:
+        troop_training: 0
+        population_growth: 0
+        intelligence: 0
+      garrison: Peltasts
     - name: Caudini
       resource_potential:
         food: 50
@@ -58,7 +86,7 @@ cities:
         troop_training: 25
         population_growth: 0
         intelligence: 0
-      garrison:
+      garrison: Archers
     - name: Consentia
       resource_potential:
         food: 100
