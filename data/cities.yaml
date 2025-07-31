@@ -1,6 +1,21 @@
 cities:
   italy:
     # A
+    - name: Anxur
+      resource_potential:
+        food: 125
+        ore: 0
+        wood: 50
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+        forests: 0
+      capabilities:
+        troop_training: 25
+        population_growth: 0
+        intelligence: 0
+      garrison: Italiot Greek Cavalry
     - name: Apuani
       resource_potential:
         food: 50
@@ -10,6 +25,7 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 0
+        forests:
       capabilities:
         troop_training: 25
         population_growth: 0
@@ -24,11 +40,27 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 0
+        forests: 0
       capabilities:
         troop_training: 25
         population_growth: 0
         intelligence: 0
       garrison: Italiot Greek Cavalry
+    - name: Ariminum
+      resource_potential:
+        food: 130
+        ore: 50
+        wood: 0
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+        forests:
+      capabilities:
+        troop_training: 10
+        population_growth: 0
+        intelligence: 0
+      garrison: Celtic Fanatics
     - name: Arpi
       resource_potential:
         food: 90
@@ -38,11 +70,42 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 0
+        forests: 0
       capabilities:
         troop_training: 25
         population_growth: 0
         intelligence: 0
       garrison: Archers
+    - name: Asculum
+      resource_potential:
+        food: 50
+        ore: 0
+        wood: 125
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+        forests: 1
+      capabilities:
+        troop_training: 25
+        population_growth: 0
+        intelligence: 0
+      garrison: Javelinmen
+    - name: Aurunci
+      resource_potential:
+        food: 100
+        ore: 100
+        wood: 0
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+        forests: 0
+      capabilities:
+        troop_training: 25
+        population_growth: 0
+        intelligence: 0
+      garrison: Hill Tribe Warriors
     # B
     - name: Boii
       resource_potential:
@@ -53,6 +116,7 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 0
+        forests:
       capabilities:
         troop_training: 10
         population_growth: 0
@@ -68,6 +132,7 @@ cities:
         rock_outcrops: 1
         mountains: 1
         lakes: 0
+        forests: 0
       capabilities:
         troop_training: 25
         population_growth: 0
@@ -82,6 +147,7 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 0
+        forests:
       capabilities:
         troop_training: 0
         population_growth: 0
@@ -96,8 +162,9 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 0
+        forests: 1
       capabilities:
-        troop_training: 0
+        troop_training: 25
         population_growth: 0
         intelligence: 0
       garrison: Javelinmen
@@ -110,11 +177,27 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 0
+        forests: 0
       capabilities:
         troop_training: 0
         population_growth: 0
         intelligence: 0
       garrison: Peltasts
+    - name: Carsioli
+      resource_potential:
+        food: 0
+        ore: 100
+        wood: 100
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+        forests: 0
+      capabilities:
+        troop_training: 25
+        population_growth: 0
+        intelligence: 0
+      garrison: Hill Tribe Warriors
     - name: Caudini
       resource_potential:
         food: 50
@@ -124,6 +207,7 @@ cities:
         rock_outcrops: 1
         mountains: 0
         lakes: 0
+        forests: 0
       capabilities:
         troop_training: 25
         population_growth: 0
@@ -138,6 +222,7 @@ cities:
         rock_outcrops: 1
         mountains: 0
         lakes: 0
+        forests:
       capabilities:
         troop_training: 25
         population_growth: 0
@@ -152,6 +237,7 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 0
+        forests:
       capabilities:
         troop_training: 0
         population_growth: 0
@@ -166,6 +252,7 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 0
+        forests:
       capabilities:
         troop_training: 25
         population_growth: 0
@@ -183,6 +270,7 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 1
+        forests:
       capabilities:
         troop_training: 0
         population_growth: 0
@@ -197,6 +285,7 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 0
+        forests:
       capabilities:
         troop_training: 0
         population_growth: 0
@@ -211,6 +300,7 @@ cities:
         rock_outcrops: 1
         mountains: 0
         lakes: 0
+        forests:
       capabilities:
         troop_training: 25
         population_growth: 0
@@ -226,6 +316,7 @@ cities:
         rock_outcrops: 1
         mountains: 1
         lakes: 0
+        forests:
       capabilities:
         troop_training: 0
         population_growth: 0
@@ -241,10 +332,11 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 0
+        forests: 0
       capabilities:
-        troop_training:
-        population_growth:
-        intelligence:
+        troop_training: 0
+        population_growth: 0
+        intelligence: 0
       garrison: Hoplites
     - name: Hirpini
       resource_potential:
@@ -255,11 +347,27 @@ cities:
         rock_outcrops: 0
         mountains: 1
         lakes: 0
+        forests: 0
       capabilities:
         troop_training: 25
         population_growth: 0
         intelligence: 0
       garrison: Hill Tribe Warriors
+    - name: Histonium
+      resource_potential:
+        food: 150
+        ore: 0
+        wood: 0
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 1
+        forests: 0
+      capabilities:
+        troop_training: 25
+        population_growth: 0
+        intelligence: 0
+      garrison: Italiot Greek Cavalry
     # I
     # J
     # K
@@ -273,12 +381,43 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 0
+        forests:
       capabilities:
         troop_training: 10
         population_growth: 0
         intelligence: 0
       garrison: Celtic Warband
     # M
+    - name: Marrucini
+      resource_potential:
+        food: 110
+        ore: 50
+        wood: 0
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+        forests: 0
+      capabilities:
+        troop_training: 25
+        population_growth: 0
+        intelligence: 0
+      garrison: Italiot Greek Cavalry
+    - name: Marsi
+      resource_potential:
+        food: 75
+        ore: 100
+        wood: 50
+      geo_features:
+        rock_outcrops: 1
+        mountains: 0
+        lakes: 0
+        forests: 0
+      capabilities:
+        troop_training: 25
+        population_growth: 0
+        intelligence: 0
+      garrison: Hill Tribe Warriors
     - name: Messapi
       resource_potential:
         food: 50
@@ -288,6 +427,7 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 0
+        forests:
       capabilities:
         troop_training: 0
         population_growth: 0
@@ -303,6 +443,7 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 0
+        forests: 0
       capabilities:
         troop_training: 0
         population_growth: 0
@@ -317,6 +458,7 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 1
+        forests: 0
       capabilities:
         troop_training: 0
         population_growth: 0
@@ -324,6 +466,21 @@ cities:
       garrison: Hoplites
     # O
     # P
+    - name: Paeligni
+      resource_potential:
+        food: 100
+        ore: 0
+        wood: 100
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+        forests: 0
+      capabilities:
+        troop_training: 25
+        population_growth: 0
+        intelligence: 0
+      garrison: Archers
     - name: Paestum
       resource_potential:
         food: 125
@@ -333,6 +490,7 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 0
+        forests: 0
       capabilities:
         troop_training: 0
         population_growth: 0
@@ -347,6 +505,7 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 0
+        forests: 0
       capabilities:
         troop_training: 25
         population_growth: 0
@@ -361,6 +520,7 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 0
+        forests:
       capabilities:
         troop_training: 25
         population_growth: 0
@@ -375,6 +535,7 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 0
+        forests:
       capabilities:
         troop_training: 0
         population_growth: 0
@@ -382,7 +543,67 @@ cities:
       garrison: Italiot Greek Cavalry
     # Q
     # R
+    - name: Reate
+      resource_potential:
+        food: 50
+        ore: 150
+        wood: 0
+      geo_features:
+        rock_outcrops: 0
+        mountains: 2
+        lakes: 0
+        forests: 0
+      capabilities:
+        troop_training: 25
+        population_growth: 0
+        intelligence: 0
+      garrison: Hill Tribe Warriors
     # S
+    - name: Sena
+      resource_potential:
+        food: 120
+        ore: 0
+        wood: 50
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+        forests:
+      capabilities:
+        troop_training: 10
+        population_growth: 0
+        intelligence: 0
+      garrison: Celtic Cavalry
+    - name: Sentinum
+      resource_potential:
+        food: 110
+        ore: 0
+        wood: 50
+      geo_features:
+        rock_outcrops: 1
+        mountains: 0
+        lakes: 0
+        forests:
+      capabilities:
+        troop_training: 25
+        population_growth: 0
+        intelligence: 0
+      garrison: Italiot Greek Cavalry
+    - name: Spoletium
+      resource_potential:
+        food: 50
+        ore: 100
+        wood: 75
+      geo_features:
+        rock_outcrops: 0
+        mountains: 1
+        lakes: 0
+        forests:
+      capabilities:
+        troop_training: 25
+        population_growth: 0
+        intelligence: 0
+      garrison: Hill Tribe Warriors
     # T
     - name: Tarentum
       resource_potential:
@@ -393,6 +614,7 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 0
+        forests:
       capabilities:
         troop_training: 0
         population_growth: 0
@@ -407,6 +629,7 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 0
+        forests:
       capabilities:
         troop_training: 25
         population_growth: 0
@@ -423,6 +646,7 @@ cities:
         rock_outcrops: 0
         mountains: 0
         lakes: 1
+        forests:
       capabilities:
         troop_training: 0
         population_growth: 0

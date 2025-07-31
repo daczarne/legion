@@ -37,6 +37,24 @@ BUILDINGS: dict[str, Building] = {
         },
         "max_workers": 3,
     },
+    "hunters_lodge": {
+        "maintenance_cost": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        "productivity_bonus": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        "production_per_worker": {
+            "food": 2,
+            "ore": 2,
+            "wood": 2,
+        },
+        "max_workers": 3,
+    },
     "farm": {
         "maintenance_cost": {
             "food": 0,
@@ -199,6 +217,24 @@ BUILDINGS: dict[str, Building] = {
         },
         "max_workers": 0,
     },
+    "blacksmith": {
+        "maintenance_cost": {
+            "food": 0,
+            "ore": 5,
+            "wood": 0,
+        },
+        "productivity_bonus": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        "production_per_worker": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        "max_workers": 0,
+    },
     "lumber_mill": {
         "maintenance_cost": {
             "food": 0,
@@ -273,6 +309,71 @@ BUILDINGS: dict[str, Building] = {
         # Having it in the city => +0 population growth
         # Manning it => +50 pop growth
         "max_workers": 1,
+    },
+    "temple": {
+        "maintenance_cost": {
+            "food": 2,
+            "ore": 2,
+            "wood": 2,
+        },
+        "productivity_bonus": {
+            "food": 25,
+            "ore": 25,
+            "wood": 25,
+        },
+        "production_per_worker": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        # capability_bonus
+        # Having it in the city => +0 population growth
+        # Manning it => +40 pop growth (+25 for the shrine)
+        "max_workers": 1,
+    },
+    "hidden_grove": {
+        # Requires a forest to be present in the city. If the forest is
+        # destroyed, it cannot be built any more.
+        "maintenance_cost": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        "productivity_bonus": {
+            "food": 15,
+            "ore": 15,
+            "wood": 15,
+        },
+        "production_per_worker": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        # capability_bonus
+        # Having it in the city => +50 population growth
+        # Manning it => +50 pop growth per worker
+        "max_workers": 3,
+    },
+    "apothecary": {
+        "maintenance_cost": {
+            "food": 5,
+            "ore": 0,
+            "wood": 0,
+        },
+        "productivity_bonus": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        "production_per_worker": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        # capability_bonus
+        # Having it in the city => +50 pop growth
+        # Manning it => +20 pop growth per worker
+        "max_workers": 3,
     },
     "hospital": {
         "maintenance_cost": {
