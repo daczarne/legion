@@ -530,6 +530,26 @@ BUILDINGS: dict[str, Building] = {
         # Intelligence +15 for having it in the city
         "max_workers": 3,
     },
+    "watch_tower": {
+        "maintenance_cost": {
+            "food": 8,
+            "ore": 0,
+            "wood": 4,
+        },
+        "productivity_bonus": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        "production_per_worker": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        # Intelligence +20 for having it in the city
+        # Intelligence +15 per each worker
+        "max_workers": 2,
+    },
     "warehouse": {
         "maintenance_cost": {
             "food": 0,
