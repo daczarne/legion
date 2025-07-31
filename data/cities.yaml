@@ -1,6 +1,20 @@
 cities:
   italy:
     # A
+    - name: Apuani
+      resource_potential:
+        food: 50
+        ore: 0
+        wood: 125
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+      capabilities:
+        troop_training: 25
+        population_growth: 0
+        intelligence: 0
+      garrison: Javelinmen
     - name: Apulians
       resource_potential:
         food: 125
@@ -30,6 +44,20 @@ cities:
         intelligence: 0
       garrison: Archers
     # B
+    - name: Boii
+      resource_potential:
+        food: 50
+        ore: 80
+        wood: 100
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+      capabilities:
+        troop_training: 10
+        population_growth: 0
+        intelligence: 0
+      garrison: Celtic Warband
     # C
     - name: Caercini
       resource_potential:
@@ -45,6 +73,20 @@ cities:
         population_growth: 0
         intelligence: 0
       garrison: Hill Tribe Warriors
+    - name: Caere
+      resource_potential:
+        food: 75
+        ore: 0
+        wood: 110
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+      capabilities:
+        troop_training: 0
+        population_growth: 0
+        intelligence: 0
+      garrison: Hoplites
     - name: Canusium
       resource_potential:
         food: 50
@@ -101,6 +143,20 @@ cities:
         population_growth: 0
         intelligence: 0
       garrison: Italiot Greek Cavalry
+    - name: Clusium
+      resource_potential:
+        food: 80
+        ore: 50
+        wood: 100
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+      capabilities:
+        troop_training: 0
+        population_growth: 0
+        intelligence: 0
+      garrison: Hoplites
     - name: Croton
       resource_potential:
         food: 80
@@ -111,13 +167,55 @@ cities:
         mountains: 0
         lakes: 0
       capabilities:
-        troop_training:
-        population_growth:
-        intelligence:
+        troop_training: 25
+        population_growth: 0
+        intelligence: 0
       garrison: Archers
     # D
     # E
     # F
+    - name: Faesula
+      resource_potential:
+        food: 90
+        ore: 90
+        wood: 50
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 1
+      capabilities:
+        troop_training: 0
+        population_growth: 0
+        intelligence: 0
+      garrison: Hoplites
+    - name: Falerii
+      resource_potential:
+        food: 100
+        ore: 60
+        wood: 50
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+      capabilities:
+        troop_training: 0
+        population_growth: 0
+        intelligence: 0
+      garrison: Hoplites
+    - name: Friniates
+      resource_potential:
+        food: 0
+        ore: 100
+        wood: 100
+      geo_features:
+        rock_outcrops: 1
+        mountains: 0
+        lakes: 0
+      capabilities:
+        troop_training: 25
+        population_growth: 0
+        intelligence: 0
+      garrison: Archers
     # G
     - name: Grumentum
       resource_potential:
@@ -155,8 +253,8 @@ cities:
         wood: 0
       geo_features:
         rock_outcrops: 0
-        mountains: 0
-        lakes: 1
+        mountains: 1
+        lakes: 0
       capabilities:
         troop_training: 25
         population_growth: 0
@@ -166,6 +264,20 @@ cities:
     # J
     # K
     # L
+    - name: Lingones
+      resource_potential:
+        food: 0
+        ore: 0
+        wood: 150
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+      capabilities:
+        troop_training: 10
+        population_growth: 0
+        intelligence: 0
+      garrison: Celtic Warband
     # M
     - name: Messapi
       resource_potential:
@@ -240,6 +352,34 @@ cities:
         population_growth: 0
         intelligence: 0
       garrison: Italiot Greek Cavalry
+    - name: Pisae
+      resource_potential:
+        food: 75
+        ore: 0
+        wood: 110
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+      capabilities:
+        troop_training: 25
+        population_growth: 0
+        intelligence: 0
+      garrison: Archers
+    - name: Populonia
+      resource_potential:
+        food: 150
+        ore: 0
+        wood: 0
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+      capabilities:
+        troop_training: 0
+        population_growth: 0
+        intelligence: 0
+      garrison: Italiot Greek Cavalry
     # Q
     # R
     # S
@@ -274,6 +414,20 @@ cities:
       garrison: Italiot Greek Cavalry
     # U
     # V
+    - name: Volsinii
+      resource_potential:
+        food: 75
+        ore: 0
+        wood: 125
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 1
+      capabilities:
+        troop_training: 0
+        population_growth: 0
+        intelligence: 0
+      garrison: Archers
     # W
     # X
     # Y

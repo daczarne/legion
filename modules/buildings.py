@@ -91,6 +91,42 @@ BUILDINGS: dict[str, Building] = {
         },
         "max_workers": 3,
     },
+    "farmers_guild": {
+        "maintenance_cost": {
+            "food": 10,
+            "ore": 0,
+            "wood": 0,
+        },
+        "productivity_bonus": {
+            "food": 50,
+            "ore": 0,
+            "wood": 0,
+        },
+        "production_per_worker": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        "max_workers": 0,
+    },
+    "stables": {
+        "maintenance_cost": {
+            "food": 5,
+            "ore": 0,
+            "wood": 0,
+        },
+        "productivity_bonus": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        "production_per_worker": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        "max_workers": 0,
+    },
     "mine": {
         "maintenance_cost": {
             "food": 0,
@@ -145,6 +181,24 @@ BUILDINGS: dict[str, Building] = {
         },
         "max_workers": 1,
     },
+    "miners_guild": {
+        "maintenance_cost": {
+            "food": 0,
+            "ore": 10,
+            "wood": 0,
+        },
+        "productivity_bonus": {
+            "food": 0,
+            "ore": 50,
+            "wood": 0,
+        },
+        "production_per_worker": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        "max_workers": 0,
+    },
     "lumber_mill": {
         "maintenance_cost": {
             "food": 0,
@@ -162,6 +216,42 @@ BUILDINGS: dict[str, Building] = {
             "wood": 12,
         },
         "max_workers": 3,
+    },
+    "carpenters_guild": {
+        "maintenance_cost": {
+            "food": 0,
+            "ore": 0,
+            "wood": 10,
+        },
+        "productivity_bonus": {
+            "food": 0,
+            "ore": 0,
+            "wood": 50,
+        },
+        "production_per_worker": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        "max_workers": 0,
+    },
+    "fletcher": {
+        "maintenance_cost": {
+            "food": 0,
+            "ore": 0,
+            "wood": 5,
+        },
+        "productivity_bonus": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        "production_per_worker": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        "max_workers": 0,
     },
     "basilica": {
         "maintenance_cost": {
@@ -184,58 +274,66 @@ BUILDINGS: dict[str, Building] = {
         # Manning it => +50 pop growth
         "max_workers": 1,
     },
-    "farmers_guild": {
+    "hospital": {
+        "maintenance_cost": {
+            "food": 8,
+            "ore": 0,
+            "wood": 0,
+        },
+        "productivity_bonus": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        "production_per_worker": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        # capability_bonus
+        # Having it in the city => +100 pop growth (+50 for baths)
+        # Manning it => +40 pop growth per worker (+25 for baths)
+        "max_workers": 3,
+    },
+    "training_ground": {
         "maintenance_cost": {
             "food": 10,
-            "ore": 0,
-            "wood": 0,
-        },
-        "productivity_bonus": {
-            "food": 50,
-            "ore": 0,
-            "wood": 0,
-        },
-        "production_per_worker": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0,
-        },
-        "max_workers": 0,
-    },
-    "miners_guild": {
-        "maintenance_cost": {
-            "food": 0,
-            "ore": 10,
-            "wood": 0,
-        },
-        "productivity_bonus": {
-            "food": 0,
-            "ore": 50,
-            "wood": 0,
-        },
-        "production_per_worker": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0,
-        },
-        "max_workers": 0,
-    },
-    "carpenters_guild": {
-        "maintenance_cost": {
-            "food": 0,
             "ore": 0,
             "wood": 10,
         },
         "productivity_bonus": {
             "food": 0,
             "ore": 0,
-            "wood": 50,
+            "wood": 0,
         },
         "production_per_worker": {
             "food": 0,
             "ore": 0,
             "wood": 0,
         },
+        # capability_bonus
+        # Having it in the city => +20 troop training
+        # Manning it => +5 troop training
+        "max_workers": 1,
+    },
+    "bordello": {
+        "maintenance_cost": {
+            "food": 8,
+            "ore": 4,
+            "wood": 8
+        },
+        "productivity_bonus": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        "production_per_worker": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        # capability_bonus
+        # Having it in the city => +10 troop training
         "max_workers": 0,
     },
     "gladiator_school": {
@@ -312,11 +410,11 @@ BUILDINGS: dict[str, Building] = {
         # +10 intelligence (all fort sizes)
         "max_workers": 0,
     },
-    "stables": {
+    "market": {
         "maintenance_cost": {
-            "food": 5,
-            "ore": 0,
-            "wood": 0,
+            "food": -5,
+            "ore": -5,
+            "wood": -5,
         },
         "productivity_bonus": {
             "food": 0,
@@ -328,73 +426,25 @@ BUILDINGS: dict[str, Building] = {
             "ore": 0,
             "wood": 0,
         },
-        "max_workers": 0,
-    },
-    "training_ground": {
-        "maintenance_cost": {
-            "food": 10,
-            "ore": 0,
-            "wood": 10,
-        },
-        "productivity_bonus": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0,
-        },
-        "production_per_worker": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0,
-        },
-        # capability_bonus
-        # Having it in the city => +20 troop training
-        # Manning it => +5 troop training
-        "max_workers": 0,
-    },
-    "bordello": {
-        "maintenance_cost": {
-            "food": 8,
-            "ore": 4,
-            "wood": 8
-        },
-        "productivity_bonus": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0,
-        },
-        "production_per_worker": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0,
-        },
-        # capability_bonus
-        # Having it in the city => +10 troop training
-        "max_workers": 0,
-    },
-    "hospital": {
-        "maintenance_cost": {
-            "food": 8,
-            "ore": 0,
-            "wood": 0,
-        },
-        "productivity_bonus": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0,
-        },
-        "production_per_worker": {
-            "food": 0,
-            "ore": 0,
-            "wood": 0,
-        },
-        # capability_bonus
-        # Having it in the city => +100 pop growth (+50 for baths)
-        # Manning it => +40 pop growth per worker (+25 for baths)
+        # Intelligence +15 for having it in the city
         "max_workers": 3,
     },
+    "warehouse": {
+        "maintenance_cost": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        "productivity_bonus": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        "production_per_worker": {
+            "food": 0,
+            "ore": 0,
+            "wood": 0,
+        },
+        "max_workers": 0,
+    },
 }
-
-# Market
-# Intelligence +10 for having it in the city
-# Large Market
-# Intelligence +15 for having it in the city
