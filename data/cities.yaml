@@ -182,6 +182,20 @@ cities:
         intelligence: 0
       garrison: Javelinmen
     # N
+    - name: Neapolis
+      resource_potential:
+        food: 125
+        ore: 0
+        wood: 50
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+      capabilities:
+        troop_training: 0
+        population_growth: 0
+        intelligence: 0
+      garrison: Italiot Greek Cavalry
     - name: Nuceria
       resource_potential:
         food: 125
@@ -192,9 +206,9 @@ cities:
         mountains: 0
         lakes: 1
       capabilities:
-        troop_training:
-        population_growth:
-        intelligence:
+        troop_training: 0
+        population_growth: 0
+        intelligence: 0
       garrison: Hoplites
     # O
     # P
@@ -254,9 +268,9 @@ cities:
         mountains: 0
         lakes: 0
       capabilities:
-        troop_training:
-        population_growth:
-        intelligence:
+        troop_training: 25
+        population_growth: 0
+        intelligence: 0
       garrison: Italiot Greek Cavalry
     # U
     # V
