@@ -1,18 +1,18 @@
 from dataclasses import dataclass, field
 from typing import TypedDict, ClassVar
 
-from .buildings import Building, BUILDINGS
+from .buildings import Building, BUILDINGS, BuildingsCount
 
-
-class ResourcesPotential(TypedDict):
-    food: int
-    ore: int
-    wood: int
+@dataclass
+class ResourcesPotential:
+    food: int = 0
+    ore: int = 0
+    wood: int = 0
 
 
 @dataclass
 class CityBuildings:
-    buildings: dict[str, int] = field(default_factory = dict)
+    buildings: BuildingsCount = field(default_factory = dict)
     
     MAX_NUMBER_OF_BUILDINGS_PER_CITY: ClassVar[int] = 9
     
@@ -31,9 +31,6 @@ class CityBuildings:
     
     def get_count(self, name: str) -> int:
         return self.buildings.get(name, 0)
-    
-    def get_all_counts(self) -> dict[str, int]:
-        return {name: self.buildings.get(name, 0) for name in BUILDINGS.keys()}
 
 
 @dataclass
@@ -44,22 +41,37 @@ class City:
     buildings: CityBuildings
     
     RSS_BASE_PRODUCTIVITY_PER_WORKER: ClassVar[int] = 12
+    MAX_WORKERS: ClassVar[int] = 18
     
     #~ Methods to add:
     
     #* Validate city buildings
-    # This method should validate the city buildings. This is because a city with, for example, rss potential
-    # of 0 for food, cannot create food-producing buildings (like farms, vinyards, or fishing villages), even if it
-    # has a lake (the lake is, sadly, a waisted building spot in this case). Additionally, if there are no farms, there
-    # can be no farmers guild. Similarly, if there are no lumber mills, there can be no carpenters guild, and so on.
-    
-    #* Create buildings from dict
-    # This method should take a dict supplied by the user. The dict keys will be the building
-    # name, and the value the quantity of that building. This method should add the city_hall.
-    # {
-    #     "farm": 6,
-    #     "blacksmith": 1,
-    # }
+    # Validations need to include the following situations.
+    # 
+    # Rss buildings are allowed. This is because a city with, for example, rss potential of 0 for food, cannot create
+    # food-producing buildings (like farms, vinyards, or fishing villages), even if it has a lake (the lake is, sadly,
+    # a waisted building spot in this case).
+    # 
+    # Guilds. Building guilds requires the production building itself. For example, if there are no farms, there can be
+    # no farmers guild. Similarly, if there are no lumber mills, there can be no carpenters guild, and so on.
+    #
+    # Additionally, there are other dependencies between buildings. For example, a city needs:
+    #   farm or vinyard => stables
+    #   lumber mill => fletcher
+    #   mine (not outcrop or mountain) => blacksmith
+    #   fort => quartermaster
+    #   training grounds => other training facilities (like gladiator school, imperial residence, bordello)
+    #
+    # But, all dependencies can be bypassed by building the required building (e.g. a farm), then building the 
+    # dependent building (e.g. stables), and then deleting the required building and using that spot to build something
+    # else. Some of these dependencies makes sense to validate them because the dependent building makes no sense
+    # without the dependency building. For example, no sense in having a city with a farmers guild, if the city has no
+    # farms.
+    #
+    # Lastly, not all cities can accept all potential building scenarios. For example, a city with a lake and enough
+    # food potential for a fishing village, "cannot" build 6 mines. Since there are only a maximum of 18 workers per
+    # city, this configuration (1 fishing village + 6 mines) would mean that at least one of the buildings is not
+    # staffed (potentially, even empty). The validation should warn agains this scenario.
     
     #* Calculate base production
     # This method should take the city buildings and the city production potentials and
@@ -90,4 +102,82 @@ class City:
     #   floor(base_production * (1 + production_bonus / 100) - maintenance_costs))
     
     #* Display results
-    # This method should display the results in the terminal
+    def _display_city_information(self) -> None:
+        print(f"Campaign: {self.campaign} - City: {self.name}")
+        print()
+    
+    def _display_city_buildings(self) -> None:
+        # This method should display the results in the terminal
+        print(f"--------------")
+        print(f"City buildings")
+        print(f"--------------")
+        
+        for building, qty in self.buildings.buildings.items():
+            print(f"  - {building.replace('_', ' ').capitalize()} ({qty})")
+    
+    def _display_city_production(self) -> None:
+        col_headers: list[str] = [
+            "Resource",
+            "Rss. pot.",
+            "Prod.",
+            "Bonus",
+            "Maintenance",
+            "Total"
+        ]
+        table_header: str = "| " + " | ".join(col_headers) + " |"
+        horizontal_rule: str = "-" * len(table_header)
+        
+        # Table header row
+        print(horizontal_rule)
+        print(table_header)
+        print(horizontal_rule)
+        
+        # Food row
+        prod_pot: str = str(self.resource_potentials.food)
+        # base_prod, prod_bonus, maintenance, total = production_table.get("food", {}).values()
+        print(
+            f"| Food{' ' * 4} "
+            f"| {' ' * (len(col_headers[1]) - len(prod_pot))}{prod_pot} "
+            # f"| {' ' * (len(col_headers[2]) - len(str(base_prod)))}{base_prod} "
+            # f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
+            # f"| {' ' * (len(col_headers[4]) - len(str(maintenance)))}{maintenance} "
+            # f"| {' ' * (len(col_headers[5]) - len(str(total)))}{total} |"
+        )
+        
+        # Ore row
+        prod_pot: str = str(self.resource_potentials.ore)
+        # base_prod, prod_bonus, maintenance, total = production_table.get("ore", {}).values()
+        print(
+            f"| Ore{' ' * 5} "
+            f"| {' ' * (len(col_headers[1]) - len(prod_pot))}{prod_pot} "
+            # f"| {' ' * (len(col_headers[2]) - len(str(base_prod)))}{base_prod} "
+            # f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
+            # f"| {' ' * (len(col_headers[4]) - len(str(maintenance)))}{maintenance} "
+            # f"| {' ' * (len(col_headers[5]) - len(str(total)))}{total} |"
+        )
+        
+        #* Wood row
+        prod_pot: str = str(self.resource_potentials.wood)
+        # base_prod, prod_bonus, maintenance, total = production_table.get("wood", {}).values()
+        print(
+            f"| Wood{' ' * 4} "
+            f"| {' ' * (len(col_headers[1]) - len(prod_pot))}{prod_pot} "
+            # f"| {' ' * (len(col_headers[2]) - len(str(base_prod)))}{base_prod} "
+            # f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
+            # f"| {' ' * (len(col_headers[4]) - len(str(maintenance)))}{maintenance} "
+            # f"| {' ' * (len(col_headers[5]) - len(str(total)))}{total} |"
+        )
+        
+        #* Bottom horizontal row
+        print(horizontal_rule)
+    
+    
+    def display_results(self, include_city_information: bool = False) -> None:
+        if include_city_information:
+            self._display_city_information()
+        
+        self._display_city_buildings()
+        
+        print()
+        
+        self._display_city_production()

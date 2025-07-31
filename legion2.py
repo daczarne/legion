@@ -1,8 +1,9 @@
 from math import floor
 
-from modules.buildings import BUILDINGS, MAX_BUILDINGS_PER_CITY, BuildingsCount
+from modules.buildings import BUILDINGS, BuildingsCount
 from modules.scenario import Scenario
 
+MAX_BUILDINGS_PER_CITY: int = 9
 
 def display_production_table(production_table: dict[str, dict[str, int]]) -> None:
     col_headers: list[str] = [
@@ -204,6 +205,7 @@ def build_production_table(
     return scenario_results
 
 
+#! migrated
 def display_city_buildings(city_buildings: BuildingsCount) -> None:
     print(f"City buildings")
     print(f"--------------")

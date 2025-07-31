@@ -17,9 +17,6 @@ class Building(TypedDict):
 
 BuildingsCount: TypeAlias = dict[str, int]
 
-#! Deprecated
-MAX_BUILDINGS_PER_CITY: int = 9
-
 
 BUILDINGS: dict[str, Building] = {
     "city_hall": {
