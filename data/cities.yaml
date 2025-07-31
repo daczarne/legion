@@ -1,0 +1,238 @@
+cities:
+  italica:
+    # A
+    - name:
+      resource_potential:
+        food:
+        ore:
+        wood:
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+      capabilities:
+        troop_training: 0
+        population_growth: 0
+        intelligence: 0
+      garrison:
+    # B
+    # C
+    - name: Caercini
+      resource_potential:
+        food: 50
+        ore: 125
+        wood: 0
+      geo_features:
+        rock_outcrops: 1
+        mountains: 1
+        lakes: 0
+      capabilities:
+        troop_training: 25
+        population_growth: 0
+        intelligence: 0
+      garrison: Hill Tribe Warriors
+    - name: Canusium
+      resource_potential:
+        food: 50
+        ore: 50
+        wood: 80
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+      capabilities:
+        troop_training: 0
+        population_growth: 0
+        intelligence: 0
+      garrison:
+    - name: Caudini
+      resource_potential:
+        food: 50
+        ore: 80
+        wood: 90
+      geo_features:
+        rock_outcrops: 1
+        mountains: 0
+        lakes: 0
+      capabilities:
+        troop_training: 25
+        population_growth: 0
+        intelligence: 0
+      garrison:
+    - name: Consentia
+      resource_potential:
+        food: 100
+        ore: 70
+        wood: 0
+      geo_features:
+        rock_outcrops: 1
+        mountains: 0
+        lakes: 0
+      capabilities:
+        troop_training:
+        population_growth:
+        intelligence:
+      garrison: Italiot Greek Cavalry
+    - name: Croton
+      resource_potential:
+        food: 80
+        ore: 0
+        wood: 100
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+      capabilities:
+        troop_training:
+        population_growth:
+        intelligence:
+      garrison: Archers
+    # D
+    # E
+    # F
+    # G
+    - name: Grumentum
+      resource_potential:
+        food: 50
+        ore: 115
+        wood: 50
+      geo_features:
+        rock_outcrops: 1
+        mountains: 1
+        lakes: 0
+      capabilities:
+        troop_training: 0
+        population_growth: 0
+        intelligence: 0
+      garrison: Peltasts
+    # H
+    - name: Heraclea
+      resource_potential:
+        food: 100
+        ore: 100
+        wood: 0
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+      capabilities:
+        troop_training:
+        population_growth:
+        intelligence:
+      garrison: Hoplites
+    - name: Hirpini
+      resource_potential:
+        food: 50
+        ore: 125
+        wood: 0
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 1
+      capabilities:
+        troop_training: 25
+        population_growth: 0
+        intelligence: 0
+      garrison: Hill Tribe Warriors
+    # I
+    # J
+    # K
+    # L
+    # M
+    - name: Messapi
+      resource_potential:
+        food: 50
+        ore: 0
+        wood: 125
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+      capabilities:
+        troop_training: 0
+        population_growth: 0
+        intelligence: 0
+      garrison: Javelinmen
+    # N
+    - name: Nuceria
+      resource_potential:
+        food: 125
+        ore: 50
+        wood: 0
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 1
+      capabilities:
+        troop_training:
+        population_growth:
+        intelligence:
+      garrison: Hoplites
+    # O
+    # P
+    - name: Paestum
+      resource_potential:
+        food: 125
+        ore: 50
+        wood: 0
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+      capabilities:
+        troop_training: 0
+        population_growth: 0
+        intelligence: 0
+      garrison: Italiot Greek Cavalry
+    - name: Pentri
+      resource_potential:
+        food: 75
+        ore: 110
+        wood: 0
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+      capabilities:
+        troop_training: 25
+        population_growth: 0
+        intelligence: 0
+      garrison: Italiot Greek Cavalry
+    # Q
+    # R
+    # S
+    # T
+    - name: Tarentum
+      resource_potential:
+        food: 50
+        ore: 90
+        wood: 80
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+      capabilities:
+        troop_training: 0
+        population_growth: 0
+        intelligence: 0
+      garrison: Peltasts
+    - name: Thurii
+      resource_potential:
+        food: 100
+        ore: 80
+        wood: 0
+      geo_features:
+        rock_outcrops: 0
+        mountains: 0
+        lakes: 0
+      capabilities:
+        troop_training:
+        population_growth:
+        intelligence:
+      garrison: Italiot Greek Cavalry
+    # U
+    # V
+    # W
+    # X
+    # Y
+    # Z
