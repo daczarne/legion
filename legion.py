@@ -22,3 +22,6 @@ scenario_1: City = City(
 )
 
 scenario_1.display_results(include_city_information=True)
+
+print()
+print(scenario_1._calculate_base_production())
