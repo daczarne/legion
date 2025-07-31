@@ -11,6 +11,7 @@ class Building(TypedDict):
     maintenance_cost: BuildingResources
     productivity_bonus: BuildingResources
     production_per_worker: BuildingResources
+    # capability_bonus: dict[str, int]
     max_workers: int
 
 
@@ -181,6 +182,9 @@ BUILDINGS: dict[str, Building] = {
             "ore": 0,
             "wood": 0,
         },
+        # capability_bonus
+        # Having it in the city => +0 population growth
+        # Manning it => +50 pop growth
         "max_workers": 1,
     },
     "farmers_guild": {
@@ -307,6 +311,8 @@ BUILDINGS: dict[str, Building] = {
             "ore": 0,
             "wood": 0,
         },
+        # capability_bonus
+        # +10 intelligence (all fort sizes)
         "max_workers": 0,
     },
     "stables": {
@@ -343,6 +349,9 @@ BUILDINGS: dict[str, Building] = {
             "ore": 0,
             "wood": 0,
         },
+        # capability_bonus
+        # Having it in the city => +20 troop training
+        # Manning it => +5 troop training
         "max_workers": 0,
     },
     "bordello": {
@@ -361,6 +370,8 @@ BUILDINGS: dict[str, Building] = {
             "ore": 0,
             "wood": 0,
         },
+        # capability_bonus
+        # Having it in the city => +10 troop training
         "max_workers": 0,
     },
     "hospital": {
@@ -379,6 +390,14 @@ BUILDINGS: dict[str, Building] = {
             "ore": 0,
             "wood": 0,
         },
+        # capability_bonus
+        # Having it in the city => +100 pop growth (+50 for baths)
+        # Manning it => +40 pop growth per worker (+25 for baths)
         "max_workers": 3,
     },
 }
+
+# Market
+# Intelligence +10 for having it in the city
+# Large Market
+# Intelligence +15 for having it in the city

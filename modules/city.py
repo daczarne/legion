@@ -47,6 +47,12 @@ class City:
     
     #~ Methods to add:
     
+    #* Validate city buildings
+    # This method should validate the city buildings. This is because a city with, for example, rss potential
+    # of 0 for food, cannot create food-producing buildings (like farms, vinyards, or fishing villages), even if it
+    # has a lake (the lake is, sadly, a waisted building spot in this case). Additionally, if there are no farms, there
+    # can be no farmers guild. Similarly, if there are no lumber mills, there can be no carpenters guild, and so on.
+    
     #* Create buildings from dict
     # This method should take a dict supplied by the user. The dict keys will be the building
     # name, and the value the quantity of that building. This method should add the city_hall.

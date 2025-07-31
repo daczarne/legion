@@ -8,9 +8,9 @@ scenario_1: City = City(
     campaign = "Italica",
     name = "Roma",
     resource_potentials = {
-        "food": 100,
-        "ore": 100,
-        "wood": 100,
+        "food": 125,
+        "ore": 0,
+        "wood": 50,
     },
     buildings = CityBuildings(
         buildings = {
