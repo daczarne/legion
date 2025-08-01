@@ -80,7 +80,7 @@ class City:
     # Lastly, not all cities can accept all potential building scenarios. For example, a city with a lake and enough
     # food potential for a fishing village, "cannot" build 6 mines. Since there are only a maximum of 18 workers per
     # city, this configuration (1 fishing village + 6 mines) would mean that at least one of the buildings is not
-    # staffed (potentially, even empty). The validation should warn agains this scenario.
+    # staffed (potentially, even empty). The validation should warn against this scenario.
     
     #* Calculate base production
     def _calculate_base_production(self) -> RssCollection:
