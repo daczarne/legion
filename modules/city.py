@@ -40,6 +40,7 @@ class City:
     base_production: RssCollection = field(init = False)
     productivity_bonuses: RssCollection = field(init = False)
     total_production: RssCollection = field(init = False)
+    maintenance_costs: RssCollection = field(init = False)
     
     # Class variables
     RSS_BASE_PRODUCTIVITY_PER_WORKER: ClassVar[int] = 12
@@ -138,10 +139,18 @@ class City:
         return total_production
     
     #* Calculate maintenance costs
-    # This method should take the buildings information and calculate the maintenance cost
-    # for each rss. It should return a dict with the maintenance cost for food, ore, and wood.
-    # This should be a post init. Once the buildings are supplied by the user, the maintenance
-    # cost of the city is determined by them.
+    def _calculate_maintenance_costs(self) -> RssCollection:
+        """
+        Based on the buildings found in the city, it calculates the maintenance costs for each resource.
+        """
+        maintenance_costs: RssCollection = RssCollection()
+        
+        for building in self.buildings.buildings:
+            maintenance_costs.food = maintenance_costs.food + BUILDINGS[building]["maintenance_cost"].food
+            maintenance_costs.ore = maintenance_costs.ore + BUILDINGS[building]["maintenance_cost"].ore
+            maintenance_costs.wood = maintenance_costs.wood + BUILDINGS[building]["maintenance_cost"].wood
+        
+        return maintenance_costs
     
     #* Calculate totals
     # This method should calculate the "profits" for each rss. Formula:
@@ -151,6 +160,7 @@ class City:
         self.base_production = self._calculate_base_production()
         self.productivity_bonuses = self._calculate_productivity_bonuses()
         self.total_production = self._calculate_total_production()
+        self.maintenance_costs = self._calculate_maintenance_costs()
     
     #* Display results
     def _display_city_information(self) -> None:
@@ -189,14 +199,14 @@ class City:
         base_production: int = self.base_production.food
         prod_bonus: int = self.productivity_bonuses.food
         total_production: int = self.total_production.food
-        #, maintenance, total = production_table.get("food", {}).values()
+        maintenance_cost: int = self.maintenance_costs.food * (-1 if self.maintenance_costs.food > 0 else 1)
         print(
             f"| Food{' ' * 4} "
             f"| {' ' * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
             f"| {' ' * (len(col_headers[2]) - len(str(base_production)))}{base_production} "
             f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
             f"| {' ' * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
-            # f"| {' ' * (len(col_headers[5]) - len(str(total)))}{total} |"
+            f"| {' ' * (len(col_headers[5]) - len(str(maintenance_cost)))}{maintenance_cost} "
         )
         
         # Ore row
@@ -204,13 +214,14 @@ class City:
         base_production: int = self.base_production.ore
         prod_bonus: int = self.productivity_bonuses.ore
         total_production: int = self.total_production.ore
+        maintenance_cost: int = self.maintenance_costs.ore * (-1 if self.maintenance_costs.food > 0 else 1)
         print(
             f"| Ore{' ' * 5} "
             f"| {' ' * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
             f"| {' ' * (len(col_headers[2]) - len(str(base_production)))}{base_production} "
             f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
             f"| {' ' * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
-            # f"| {' ' * (len(col_headers[5]) - len(str(total)))}{total} |"
+            f"| {' ' * (len(col_headers[5]) - len(str(maintenance_cost)))}{maintenance_cost} "
         )
         
         #* Wood row
@@ -218,13 +229,14 @@ class City:
         base_production: int = self.base_production.wood
         prod_bonus: int = self.productivity_bonuses.wood
         total_production: int = self.total_production.wood
+        maintenance_cost: int = self.maintenance_costs.wood * (-1 if self.maintenance_costs.food > 0 else 1)
         print(
             f"| Wood{' ' * 4} "
             f"| {' ' * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
             f"| {' ' * (len(col_headers[2]) - len(str(base_production)))}{base_production} "
             f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
             f"| {' ' * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
-            # f"| {' ' * (len(col_headers[5]) - len(str(total)))}{total} |"
+            f"| {' ' * (len(col_headers[5]) - len(str(maintenance_cost)))}{maintenance_cost} "
         )
         
         #* Bottom horizontal row
