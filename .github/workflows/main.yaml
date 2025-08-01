@@ -1,7 +1,7 @@
 name: Main
 
 env:
-  PYTHON_VERSION: "3.10.x"
+  PYTHON_VERSION: 3.10.x
 
 on:
   pull_request:
