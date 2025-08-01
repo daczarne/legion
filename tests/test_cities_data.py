@@ -186,7 +186,7 @@ class TestCitiesData:
             _cities: list[CityData],
         ) -> None:
         """
-        Test all `geo_features` are integers.
+        Validate `geo_features`.
         """
         
         for city in _cities:

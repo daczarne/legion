@@ -1,7 +1,7 @@
 cities:
-  #* ******************** *#
-  #* Unification of Italy *#
-  #* ******************** *#
+  # ************************ #
+  # * Unification of Italy * #
+  # ************************ #
   # A
   - name: Anxur
     campaign: Unification of Italy
@@ -737,9 +737,9 @@ cities:
       intelligence: 0
     garrison: Archers
   # yamllint disable rule:comments-indentation
-  #* ******************* *#
-  #* Conquest of Britain *#
-  #* ******************* *#
+  # *********************** #
+  # * Conquest of Britain * #
+  # *********************** #
   # A
   # B
   # C
@@ -765,9 +765,9 @@ cities:
   # X
   # Y
   # Z
-  #* ******** *#
-  #* Germania *#
-  #* ******** *#
+  # ************ #
+  # * Germania * #
+  # ************ #
   # A
   # B
   # C
@@ -793,9 +793,9 @@ cities:
   # X
   # Y
   # Z
-  #* ******** *#
-  #* Hispania *#
-  #* ******** *#
+  # ************ #
+  # * Hispania * #
+  # ************ #
   # A
   # B
   # C
@@ -821,9 +821,9 @@ cities:
   # X
   # Y
   # Z
-  #* ******************* *#
-  #* Pacifying the North *#
-  #* ******************* *#
+  # *********************** #
+  # * Pacifying the North * #
+  # *********************** #
   # A
   # B
   # C
@@ -849,9 +849,9 @@ cities:
   # X
   # Y
   # Z
-  #* *************** *#
-  #* The Gallic Wars *#
-  #* *************** *#
+  # ******************* #
+  # * The Gallic Wars * #
+  # ******************* #
   # A
   # B
   # C
