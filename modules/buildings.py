@@ -1,6 +1,5 @@
 from typing import TypedDict
 from dataclasses import dataclass
-from xxlimited import foo
 
 
 @dataclass
