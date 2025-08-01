@@ -121,7 +121,6 @@ cspell lint --config ".cspell.json" "**/*.md"
 - [CSpell CLI][5]
 
 [pyyaml-repo]: https://github.com/yaml/pyyaml
-[sqlfluff-repo]: https://github.com/sqlfluff/sqlfluff
 [yamllint-repo]: https://github.com/adrienverge/yamllint
 [pytest-repo]: https://github.com/pytest-dev/pytest
 
