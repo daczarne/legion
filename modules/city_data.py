@@ -22,7 +22,7 @@ class CityEffectsData(TypedDict):
 class CityData(TypedDict):
     name: str
     campaign: str
-    resource_potention: CityResourcePotentialsData
+    resource_potentials: CityResourcePotentialsData
     geo_features: CityGeoFeaturesData
     effects: CityEffectsData
     garrison: str
