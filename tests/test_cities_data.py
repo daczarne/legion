@@ -211,3 +211,65 @@ class TestCitiesData:
                     _errors.append(error)
         
         assert len(_errors) == 0, _errors
+    
+    def test_all_effects_have_all_expected_keys(
+            self,
+            _errors: list,
+            _cities: list[CityData],
+        ) -> None:
+        expected_keys: list[str] = [
+            "troop_training",
+            "population_growth",
+            "intelligence",
+        ]
+        
+        for city in _cities:
+            city_name: str = city.get("name")
+            campaign: str = city.get("campaign")
+            keys_found: list[str] = list(city["effects"].keys())
+            
+            if not Counter(keys_found) == Counter(expected_keys):
+                missing_keys: list[str] = list(set(Counter(expected_keys)) - set(Counter(keys_found)))
+                extra_keys: list[str] = list(set(Counter(keys_found)) - set(Counter(expected_keys)))
+                
+                error: dict[str, dict[str, list[str]]] = {
+                    f"{campaign} - {city_name}": {
+                        "extra_keys": extra_keys,
+                        "missing_keys": missing_keys,
+                    },
+                }
+                _errors.append(error)
+        
+        assert len(_errors) == 0, _errors
+    
+    def test_all_effects_are_int(
+            self,
+            _errors: list[dict[str, str]],
+            _cities: list[CityData],
+        ) -> None:
+        """
+        Validates `effects`
+        """
+        
+        for city in _cities:
+            city_name: str = city.get("name")
+            campaign: str = city.get("campaign")
+            
+            for effect, size in city.get("effects").items():
+                if not isinstance(size, int):
+                    error: dict[str, str] = {
+                        "city": city_name,
+                        "campaign": campaign,
+                        "geo_feature": f"{effect}: {type(size)}",
+                    }
+                    _errors.append(error)
+                
+                if not 0 <= size: # type: ignore[reportOperatorIssue]
+                    error: dict[str, str] = {
+                        "city": city_name,
+                        "campaign": campaign,
+                        "effect": f"{effect}: {size}",
+                    }
+                    _errors.append(error)
+        
+        assert len(_errors) == 0, _errors
