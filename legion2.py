@@ -59,6 +59,7 @@ def display_production_table(production_table: dict[str, dict[str, int]]) -> Non
     print(horizontal_rule)
 
 
+#! migrated
 def calculate_base_city_production(
         city_buildings: BuildingsCount,
         production_potentials: list[int],
@@ -87,6 +88,7 @@ def calculate_base_city_production(
     return scenario_results
 
 
+#! migrated
 def calculate_city_production_bonus(
         city_buildings,
         scenario_results,

@@ -145,7 +145,7 @@ class City:
     def __post_init__(self) -> None:
         self.base_production = self._calculate_base_production()
         self.productivity_bonuses = self._calculate_productivity_bonuses()
-
+    
     #* Display results
     def _display_city_information(self) -> None:
         print(f"Campaign: {self.campaign} - City: {self.name}")
@@ -164,7 +164,7 @@ class City:
         col_headers: list[str] = [
             "Resource",
             "Rss. pot.",
-            "Prod.",
+            "Base prod.",
             "Bonus",
             "Maintenance",
             "Total"
