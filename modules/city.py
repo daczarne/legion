@@ -1,9 +1,14 @@
 from dataclasses import dataclass, field
-from typing import Any, TypedDict, ClassVar
+from typing import ClassVar, TypeAlias
 
-from modules.buildings import RssCollection
 
-from .buildings import BUILDINGS, BuildingsCount
+from .buildings import (
+    RssCollection,
+    BUILDINGS,
+)
+
+
+BuildingsCount: TypeAlias = dict[str, int]
 
 
 @dataclass

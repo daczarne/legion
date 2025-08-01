@@ -1,5 +1,4 @@
 from modules.city import City, CityBuildings, RssCollection
-from modules.scenario import Scenario
 
 
 scenario_1: City = City(

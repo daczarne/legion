@@ -1,5 +1,6 @@
-from typing import TypedDict, TypeAlias
+from typing import TypedDict
 from dataclasses import dataclass
+from xxlimited import foo
 
 
 @dataclass
@@ -22,9 +23,6 @@ class Building(TypedDict):
     productivity_per_worker: RssCollection
     effect_bonuses: EffectBonuses
     max_workers: int
-
-
-BuildingsCount: TypeAlias = dict[str, int]
 
 
 BUILDINGS: dict[str, Building] = {
@@ -248,6 +246,13 @@ BUILDINGS: dict[str, Building] = {
         "productivity_bonus": RssCollection(),
         "productivity_per_worker": RssCollection(),
         "effect_bonuses": EffectBonuses(),
+        "max_workers": 0,
+    },
+    "supply_dump": {
+        "maintenance_cost": RssCollection(food = -1, ore = -10, wood = -10),
+        "productivity_bonus": RssCollection(),
+        "productivity_per_worker": RssCollection(),
+        "effect_bonuses": EffectBonuses(population_growth = 100),
         "max_workers": 0,
     },
 }
