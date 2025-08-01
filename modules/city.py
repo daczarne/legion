@@ -5,12 +5,6 @@ from modules.buildings import RssCollection
 
 from .buildings import BUILDINGS, BuildingsCount
 
-@dataclass
-class ResourcesPotential:
-    food: int = 0
-    ore: int = 0
-    wood: int = 0
-
 
 @dataclass
 class CityBuildings:
@@ -39,7 +33,7 @@ class CityBuildings:
 class City:
     campaign: str
     name: str
-    resource_potentials: ResourcesPotential
+    resource_potentials: RssCollection
     buildings: CityBuildings
     
     # Post init attrs

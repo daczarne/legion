@@ -1,11 +1,11 @@
-from modules.city import City, CityBuildings, ResourcesPotential
+from modules.city import City, CityBuildings, RssCollection
 from modules.scenario import Scenario
 
 
 scenario_1: City = City(
     campaign = "Italy",
     name = "Roma",
-    resource_potentials = ResourcesPotential(
+    resource_potentials = RssCollection(
         food = 125,
         ore = 0,
         wood = 50,
