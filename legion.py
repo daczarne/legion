@@ -1,8 +1,6 @@
-from math import floor
-
-
 from modules.city import City, CityBuildings, ResourcesPotential
 from modules.scenario import Scenario
+
 
 scenario_1: City = City(
     campaign = "Italy",

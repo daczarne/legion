@@ -231,7 +231,7 @@ BUILDINGS: dict[str, Building] = {
         "productivity_per_worker": RssCollection(),
         # Intelligence +15 for having it in the city (+10 for the small market)
         "effect_bonuses": EffectBonuses(intelligence = 15),
-        "max_workers": 2,
+        "max_workers": 0,
     },
     "watch_tower": {
         "maintenance_cost": RssCollection(food = 8, wood = 4),
