@@ -149,6 +149,37 @@ class TestCitiesData:
         
         assert len(_errors) == 0, _errors
     
+    def test_all_geo_features_have_all_expected_keys(
+            self,
+            _errors: list,
+            _cities: list[CityData],
+        ) -> None:
+        expected_keys: list[str] = [
+            "rock_outcrops",
+            "mountains",
+            "lakes",
+            "forests",
+        ]
+        
+        for city in _cities:
+            city_name: str = city.get("name")
+            campaign: str = city.get("campaign")
+            keys_found: list[str] = list(city["geo_features"].keys())
+            
+            if not Counter(keys_found) == Counter(expected_keys):
+                missing_keys: list[str] = list(set(Counter(expected_keys)) - set(Counter(keys_found)))
+                extra_keys: list[str] = list(set(Counter(keys_found)) - set(Counter(expected_keys)))
+                
+                error: dict[str, dict[str, list[str]]] = {
+                    f"{campaign} - {city_name}": {
+                        "extra_keys": extra_keys,
+                        "missing_keys": missing_keys,
+                    },
+                }
+                _errors.append(error)
+        
+        assert len(_errors) == 0, _errors
+    
     def test_all_geo_features_are_int(
             self,
             _errors: list[dict[str, str]],
