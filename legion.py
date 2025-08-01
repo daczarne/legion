@@ -12,16 +12,19 @@ scenario_1: City = City(
     ),
     buildings = CityBuildings(
         buildings = {
-            "farm": 6,
+            "farm": 5,
+            "vineyard": 1,
             "basilica": 1,
             "farmers_guild": 1,
         },
     ),
 )
 
-scenario_1.display_results(include_city_information=True)
+# scenario_1.display_results(include_city_information = True)
 
 print()
-print(scenario_1._calculate_base_production())
-print()
+print("Base production")
 print(scenario_1.base_production)
+print()
+print("Productivity bonuses")
+print(scenario_1.productivity_bonuses)

@@ -8,6 +8,7 @@ class EffectBonuses:
     population_growth: int = 0
     intelligence: int = 0
 
+
 @dataclass
 class RssCollection:
     food: int = 0
