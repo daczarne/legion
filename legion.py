@@ -19,7 +19,7 @@ scenario_1: City = City(
     ),
 )
 
-scenario_1.display_results(include_city_information = False)
+scenario_1.display_results()
 
 
 scenario_2: City = City(
@@ -41,4 +41,4 @@ scenario_2: City = City(
     ),
 )
 
-scenario_2.display_results(include_city_information = False)
+scenario_2.display_results()

@@ -265,13 +265,25 @@ class City:
         #* Bottom horizontal row
         print(horizontal_rule)
     
-    
-    def display_results(self, include_city_information: bool = False) -> None:
+    def display_results(
+            self,
+            include_city_information: bool = False,
+            include_city_buildings: bool = True,
+            include_city_production: bool = True,
+            include_city_effects: bool = False,
+        ) -> None:
         if include_city_information:
             self._display_city_information()
+            print()
         
-        self._display_city_buildings()
+        if include_city_buildings:
+            self._display_city_buildings()
+            print()
         
-        print()
+        if include_city_production:
+            self._display_city_production()
+            print()
         
-        self._display_city_production()
+        if include_city_effects:
+            print("Coming soon!")
+            print()
