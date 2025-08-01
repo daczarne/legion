@@ -697,10 +697,12 @@ cities:
         population_growth: 0
         intelligence: 0
       garrison: Archers
+    # yamllint disable rule:comments-indentation
     # W
     # X
     # Y
     # Z
+    # yamllint enable rule:comments-indentation
   hispania: []
   gaul: []
   germania: []
