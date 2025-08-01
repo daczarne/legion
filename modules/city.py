@@ -58,14 +58,14 @@ class City:
     # Validations need to include the following situations.
     # 
     # Rss buildings are allowed. This is because a city with, for example, rss potential of 0 for food, cannot create
-    # food-producing buildings (like farms, vinyards, or fishing villages), even if it has a lake (the lake is, sadly,
+    # food-producing buildings (like farms, vineyards, or fishing villages), even if it has a lake (the lake is, sadly,
     # a waisted building spot in this case).
     # 
     # Guilds. Building guilds requires the production building itself. For example, if there are no farms, there can be
     # no farmers guild. Similarly, if there are no lumber mills, there can be no carpenters guild, and so on.
     #
     # Additionally, there are other dependencies between buildings. For example, a city needs:
-    #   farm or vinyard => stables
+    #   farm or vineyard => stables
     #   lumber mill => fletcher
     #   mine (not outcrop or mountain) => blacksmith
     #   fort => quartermaster
