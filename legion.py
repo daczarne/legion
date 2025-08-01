@@ -6,7 +6,7 @@ scenario_1: City = City(
     campaign = "Italy",
     name = "Roma",
     resource_potentials = RssCollection(
-        food = 125,
+        food = 100,
         ore = 0,
         wood = 50,
     ),
@@ -23,8 +23,7 @@ scenario_1: City = City(
 scenario_1.display_results(include_city_information = True)
 
 print()
-print("Base production")
-print(scenario_1.base_production)
+print(f"Base production: {scenario_1.base_production}")
+print(f"Productivity bonuses: {scenario_1.productivity_bonuses}")
+print(f"Total production: {scenario_1.total_production}")
 print()
-print("Productivity bonuses")
-print(scenario_1.productivity_bonuses)

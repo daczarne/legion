@@ -37,8 +37,9 @@ class City:
     buildings: CityBuildings
     
     # Post init attrs
-    base_production: RssCollection | None = field(init = False)
-    productivity_bonuses: RssCollection | None = field(init = False)
+    base_production: RssCollection = field(init = False)
+    productivity_bonuses: RssCollection = field(init = False)
+    total_production: RssCollection = field(init = False)
     
     # Class variables
     RSS_BASE_PRODUCTIVITY_PER_WORKER: ClassVar[int] = 12
@@ -112,19 +113,29 @@ class City:
         """
         Based on the buildings found in the city, it calculates the productivity bonuses for each resource.
         """
-        production_bonuses: RssCollection = RssCollection()
+        productivity_bonuses: RssCollection = RssCollection()
         
         for building in self.buildings.buildings:
-            production_bonuses.food = production_bonuses.food + BUILDINGS[building]["productivity_bonus"].food
-            production_bonuses.ore = production_bonuses.ore + BUILDINGS[building]["productivity_bonus"].ore
-            production_bonuses.wood = production_bonuses.wood + BUILDINGS[building]["productivity_bonus"].wood
+            productivity_bonuses.food = productivity_bonuses.food + BUILDINGS[building]["productivity_bonus"].food
+            productivity_bonuses.ore = productivity_bonuses.ore + BUILDINGS[building]["productivity_bonus"].ore
+            productivity_bonuses.wood = productivity_bonuses.wood + BUILDINGS[building]["productivity_bonus"].wood
         
-        return production_bonuses
+        return productivity_bonuses
     
     #* Calculate production
-    # This should take the resource_potentials, the production multipliers, and
-    # the buldings and return a dict with the production for food, ore, and wood.
-    # This should be a post init attr.
+    def _calculate_total_production(self) -> RssCollection:
+        """
+        Given the base production and the productivity bonuses of a city, it calculates the total production.
+        """
+        from math import floor
+        
+        total_production: RssCollection = RssCollection()
+        
+        total_production.food = int(floor(self.base_production.food * (1 + self.productivity_bonuses.food / 100)))
+        total_production.ore = int(floor(self.base_production.ore * (1 + self.productivity_bonuses.ore / 100)))
+        total_production.wood = int(floor(self.base_production.wood * (1 + self.productivity_bonuses.wood / 100)))
+        
+        return total_production
     
     #* Calculate maintenance costs
     # This method should take the buildings information and calculate the maintenance cost
@@ -139,6 +150,7 @@ class City:
     def __post_init__(self) -> None:
         self.base_production = self._calculate_base_production()
         self.productivity_bonuses = self._calculate_productivity_bonuses()
+        self.total_production = self._calculate_total_production()
     
     #* Display results
     def _display_city_information(self) -> None:
@@ -159,9 +171,10 @@ class City:
             "Resource",
             "Rss. pot.",
             "Base prod.",
-            "Bonus",
+            "Prod. bonus",
+            "Total prod.",
             "Maintenance",
-            "Total"
+            "Total",
         ]
         table_header: str = "| " + " | ".join(col_headers) + " |"
         horizontal_rule: str = "-" * len(table_header)
@@ -172,38 +185,45 @@ class City:
         print(horizontal_rule)
         
         # Food row
-        prod_pot: str = str(self.resource_potentials.food)
-        # base_prod, prod_bonus, maintenance, total = production_table.get("food", {}).values()
+        rss_potential: int = self.resource_potentials.food
+        base_production: int = self.base_production.food
+        prod_bonus: int = self.productivity_bonuses.food
+        total_production: int = self.total_production.food
+        #, maintenance, total = production_table.get("food", {}).values()
         print(
             f"| Food{' ' * 4} "
-            f"| {' ' * (len(col_headers[1]) - len(prod_pot))}{prod_pot} "
-            # f"| {' ' * (len(col_headers[2]) - len(str(base_prod)))}{base_prod} "
-            # f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
-            # f"| {' ' * (len(col_headers[4]) - len(str(maintenance)))}{maintenance} "
+            f"| {' ' * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
+            f"| {' ' * (len(col_headers[2]) - len(str(base_production)))}{base_production} "
+            f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
+            f"| {' ' * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
             # f"| {' ' * (len(col_headers[5]) - len(str(total)))}{total} |"
         )
         
         # Ore row
-        prod_pot: str = str(self.resource_potentials.ore)
-        # base_prod, prod_bonus, maintenance, total = production_table.get("ore", {}).values()
+        rss_potential: int = self.resource_potentials.ore
+        base_production: int = self.base_production.ore
+        prod_bonus: int = self.productivity_bonuses.ore
+        total_production: int = self.total_production.ore
         print(
             f"| Ore{' ' * 5} "
-            f"| {' ' * (len(col_headers[1]) - len(prod_pot))}{prod_pot} "
-            # f"| {' ' * (len(col_headers[2]) - len(str(base_prod)))}{base_prod} "
-            # f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
-            # f"| {' ' * (len(col_headers[4]) - len(str(maintenance)))}{maintenance} "
+            f"| {' ' * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
+            f"| {' ' * (len(col_headers[2]) - len(str(base_production)))}{base_production} "
+            f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
+            f"| {' ' * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
             # f"| {' ' * (len(col_headers[5]) - len(str(total)))}{total} |"
         )
         
         #* Wood row
-        prod_pot: str = str(self.resource_potentials.wood)
-        # base_prod, prod_bonus, maintenance, total = production_table.get("wood", {}).values()
+        rss_potential: int = self.resource_potentials.wood
+        base_production: int = self.base_production.wood
+        prod_bonus: int = self.productivity_bonuses.wood
+        total_production: int = self.total_production.wood
         print(
             f"| Wood{' ' * 4} "
-            f"| {' ' * (len(col_headers[1]) - len(prod_pot))}{prod_pot} "
-            # f"| {' ' * (len(col_headers[2]) - len(str(base_prod)))}{base_prod} "
-            # f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
-            # f"| {' ' * (len(col_headers[4]) - len(str(maintenance)))}{maintenance} "
+            f"| {' ' * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
+            f"| {' ' * (len(col_headers[2]) - len(str(base_production)))}{base_production} "
+            f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
+            f"| {' ' * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
             # f"| {' ' * (len(col_headers[5]) - len(str(total)))}{total} |"
         )
         
