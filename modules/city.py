@@ -41,6 +41,7 @@ class City:
     productivity_bonuses: RssCollection = field(init = False)
     total_production: RssCollection = field(init = False)
     maintenance_costs: RssCollection = field(init = False)
+    balance: RssCollection = field(init = False)
     
     # Class variables
     RSS_BASE_PRODUCTIVITY_PER_WORKER: ClassVar[int] = 12
@@ -152,15 +153,26 @@ class City:
         
         return maintenance_costs
     
-    #* Calculate totals
-    # This method should calculate the "profits" for each rss. Formula:
-    #   floor(base_production * (1 + production_bonus / 100) - maintenance_costs))
+    #* Calculate balance
+    def _calculate_balance(self) -> RssCollection:
+        """
+        Calculate the balance for each rss. The balance is the difference between the total production and the
+        maintenance costs.
+        """
+        balance: RssCollection = RssCollection()
+        
+        balance.food = self.total_production.food - self.maintenance_costs.food
+        balance.ore = self.total_production.ore - self.maintenance_costs.ore
+        balance.wood = self.total_production.wood - self.maintenance_costs.wood
+        
+        return balance
     
     def __post_init__(self) -> None:
         self.base_production = self._calculate_base_production()
         self.productivity_bonuses = self._calculate_productivity_bonuses()
         self.total_production = self._calculate_total_production()
         self.maintenance_costs = self._calculate_maintenance_costs()
+        self.balance = self._calculate_balance()
     
     #* Display results
     def _display_city_information(self) -> None:
@@ -184,7 +196,7 @@ class City:
             "Prod. bonus",
             "Total prod.",
             "Maintenance",
-            "Total",
+            "Balance",
         ]
         table_header: str = "| " + " | ".join(col_headers) + " |"
         horizontal_rule: str = "-" * len(table_header)
@@ -200,6 +212,7 @@ class City:
         prod_bonus: int = self.productivity_bonuses.food
         total_production: int = self.total_production.food
         maintenance_cost: int = self.maintenance_costs.food * (-1 if self.maintenance_costs.food > 0 else 1)
+        balance: int = self.balance.food
         print(
             f"| Food{' ' * 4} "
             f"| {' ' * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
@@ -207,6 +220,7 @@ class City:
             f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
             f"| {' ' * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
             f"| {' ' * (len(col_headers[5]) - len(str(maintenance_cost)))}{maintenance_cost} "
+            f"| {' ' * (len(col_headers[6]) - len(str(balance)))}{balance} |"
         )
         
         # Ore row
@@ -215,6 +229,7 @@ class City:
         prod_bonus: int = self.productivity_bonuses.ore
         total_production: int = self.total_production.ore
         maintenance_cost: int = self.maintenance_costs.ore * (-1 if self.maintenance_costs.food > 0 else 1)
+        balance: int = self.balance.ore
         print(
             f"| Ore{' ' * 5} "
             f"| {' ' * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
@@ -222,6 +237,7 @@ class City:
             f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
             f"| {' ' * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
             f"| {' ' * (len(col_headers[5]) - len(str(maintenance_cost)))}{maintenance_cost} "
+            f"| {' ' * (len(col_headers[6]) - len(str(balance)))}{balance} |"
         )
         
         #* Wood row
@@ -230,6 +246,7 @@ class City:
         prod_bonus: int = self.productivity_bonuses.wood
         total_production: int = self.total_production.wood
         maintenance_cost: int = self.maintenance_costs.wood * (-1 if self.maintenance_costs.food > 0 else 1)
+        balance: int = self.balance.wood
         print(
             f"| Wood{' ' * 4} "
             f"| {' ' * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
@@ -237,6 +254,7 @@ class City:
             f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
             f"| {' ' * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
             f"| {' ' * (len(col_headers[5]) - len(str(maintenance_cost)))}{maintenance_cost} "
+            f"| {' ' * (len(col_headers[6]) - len(str(balance)))}{balance} |"
         )
         
         #* Bottom horizontal row
