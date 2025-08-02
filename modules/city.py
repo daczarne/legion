@@ -268,83 +268,49 @@ class City:
         for building, qty in self.buildings.buildings.items():
             print(f"  - {building.replace("_", " ").capitalize()} ({qty})")
     
-    def _display_city_production(self) -> None:
-        col_headers: list[str] = [
-            "Resource",
-            "Rss. pot.",
-            "Base prod.",
-            "Prod. bonus",
-            "Total prod.",
-            "Maintenance",
-            "Balance",
-        ]
-        table_header: str = "| " + " | ".join(col_headers) + " |"
-        horizontal_rule: str = "-" * len(table_header)
+    def _build_city_production_table(self) -> Table:
+        table: Table = Table(title = "Production")
         
-        #* Table header row
-        print(horizontal_rule)
-        print(table_header)
-        print(horizontal_rule)
+        table.add_column(header = "Resource", header_style = "bold", justify = "left")
+        table.add_column(header = "Rss. pot.", header_style = "bold", justify = "right")
+        table.add_column(header = "Base prod.", header_style = "bold", justify = "right")
+        table.add_column(header = "Prod. bonus", header_style = "bold", justify = "right")
+        table.add_column(header = "Total prod", header_style = "bold", justify = "right")
+        table.add_column(header = "Maintenance", header_style = "bold", justify = "right")
+        table.add_column(header = "Balance", header_style = "bold", justify = "right")
         
-        #* Food row
-        rss_potential: int = self.resource_potentials.food
-        base_production: int = self.base_production.food
-        prod_bonus: int = self.productivity_bonuses.food
-        total_production: int = self.total_production.food
-        maintenance_cost: int = self.maintenance_costs.food * (-1 if self.maintenance_costs.food > 0 else 1)
-        balance: int = self.balance.food
-        print(
-            f"| Food{" " * 4} "
-            f"| {" " * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
-            f"| {" " * (len(col_headers[2]) - len(str(base_production)))}{base_production} "
-            f"| {" " * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
-            f"| {" " * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
-            f"| {" " * (len(col_headers[5]) - len(str(maintenance_cost)))}{maintenance_cost} "
-            f"| {" " * (len(col_headers[6]) - len(str(balance)))}{balance} "
-            f"|"
+        table.add_row(
+            f"Food",
+            f"{self.resource_potentials.food}",
+            f"{self.base_production.food}",
+            f"{self.productivity_bonuses.food}",
+            f"{self.total_production.food}",
+            f"{self.maintenance_costs.food}",
+            f"{self.balance.food}",
+        )
+        table.add_row(
+            f"Ore",
+            f"{self.resource_potentials.ore}",
+            f"{self.base_production.ore}",
+            f"{self.productivity_bonuses.ore}",
+            f"{self.total_production.ore}",
+            f"{self.maintenance_costs.ore}",
+            f"{self.balance.ore}",
+        )
+        table.add_row(
+            f"Wood",
+            f"{self.resource_potentials.wood}",
+            f"{self.base_production.wood}",
+            f"{self.productivity_bonuses.wood}",
+            f"{self.total_production.wood}",
+            f"{self.maintenance_costs.wood}",
+            f"{self.balance.wood}",
         )
         
-        #* Ore row
-        rss_potential: int = self.resource_potentials.ore
-        base_production: int = self.base_production.ore
-        prod_bonus: int = self.productivity_bonuses.ore
-        total_production: int = self.total_production.ore
-        maintenance_cost: int = self.maintenance_costs.ore * (-1 if self.maintenance_costs.food > 0 else 1)
-        balance: int = self.balance.ore
-        print(
-            f"| Ore{" " * 5} "
-            f"| {" " * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
-            f"| {" " * (len(col_headers[2]) - len(str(base_production)))}{base_production} "
-            f"| {" " * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
-            f"| {" " * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
-            f"| {" " * (len(col_headers[5]) - len(str(maintenance_cost)))}{maintenance_cost} "
-            f"| {" " * (len(col_headers[6]) - len(str(balance)))}{balance} "
-            f"|"
-        )
-        
-        #* Wood row
-        rss_potential: int = self.resource_potentials.wood
-        base_production: int = self.base_production.wood
-        prod_bonus: int = self.productivity_bonuses.wood
-        total_production: int = self.total_production.wood
-        maintenance_cost: int = self.maintenance_costs.wood * (-1 if self.maintenance_costs.food > 0 else 1)
-        balance: int = self.balance.wood
-        print(
-            f"| Wood{" " * 4} "
-            f"| {" " * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
-            f"| {" " * (len(col_headers[2]) - len(str(base_production)))}{base_production} "
-            f"| {" " * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
-            f"| {" " * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
-            f"| {" " * (len(col_headers[5]) - len(str(maintenance_cost)))}{maintenance_cost} "
-            f"| {" " * (len(col_headers[6]) - len(str(balance)))}{balance} "
-            f"|"
-        )
-        
-        #* Bottom horizontal row
-        print(horizontal_rule)
+        return table
     
     def _build_city_effects_table(self) -> Table:
-        table: Table = Table(title = "City effects")
+        table: Table = Table(title = "Effects")
         
         table.add_column(header = "Effect", header_style = "bold", justify = "center")
         table.add_column(header = "Total", header_style = "bold", justify = "right")
@@ -374,7 +340,8 @@ class City:
             print()
         
         if include_city_production:
-            self._display_city_production()
+            city_production_table: Table = self._build_city_production_table()
+            console.print(city_production_table)
             print()
         
         if include_city_effects:
