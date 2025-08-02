@@ -254,7 +254,10 @@ class City:
     
     #* Display results
     def _display_city_information(self) -> None:
-        print(f"Campaign: {self.campaign} - City: {self.name}")
+        print(
+            f"Campaign: {self.campaign}"
+            f"City: {self.name}"
+        )
     
     def _display_city_buildings(self) -> None:
         # This method should display the results in the terminal
@@ -263,7 +266,7 @@ class City:
         print(f"--------------")
         
         for building, qty in self.buildings.buildings.items():
-            print(f"  - {building.replace('_', ' ').capitalize()} ({qty})")
+            print(f"  - {building.replace("_", " ").capitalize()} ({qty})")
     
     def _display_city_production(self) -> None:
         col_headers: list[str] = [
@@ -291,13 +294,14 @@ class City:
         maintenance_cost: int = self.maintenance_costs.food * (-1 if self.maintenance_costs.food > 0 else 1)
         balance: int = self.balance.food
         print(
-            f"| Food{' ' * 4} "
-            f"| {' ' * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
-            f"| {' ' * (len(col_headers[2]) - len(str(base_production)))}{base_production} "
-            f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
-            f"| {' ' * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
-            f"| {' ' * (len(col_headers[5]) - len(str(maintenance_cost)))}{maintenance_cost} "
-            f"| {' ' * (len(col_headers[6]) - len(str(balance)))}{balance} |"
+            f"| Food{" " * 4} "
+            f"| {" " * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
+            f"| {" " * (len(col_headers[2]) - len(str(base_production)))}{base_production} "
+            f"| {" " * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
+            f"| {" " * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
+            f"| {" " * (len(col_headers[5]) - len(str(maintenance_cost)))}{maintenance_cost} "
+            f"| {" " * (len(col_headers[6]) - len(str(balance)))}{balance} "
+            f"|"
         )
         
         #* Ore row
@@ -308,13 +312,14 @@ class City:
         maintenance_cost: int = self.maintenance_costs.ore * (-1 if self.maintenance_costs.food > 0 else 1)
         balance: int = self.balance.ore
         print(
-            f"| Ore{' ' * 5} "
-            f"| {' ' * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
-            f"| {' ' * (len(col_headers[2]) - len(str(base_production)))}{base_production} "
-            f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
-            f"| {' ' * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
-            f"| {' ' * (len(col_headers[5]) - len(str(maintenance_cost)))}{maintenance_cost} "
-            f"| {' ' * (len(col_headers[6]) - len(str(balance)))}{balance} |"
+            f"| Ore{" " * 5} "
+            f"| {" " * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
+            f"| {" " * (len(col_headers[2]) - len(str(base_production)))}{base_production} "
+            f"| {" " * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
+            f"| {" " * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
+            f"| {" " * (len(col_headers[5]) - len(str(maintenance_cost)))}{maintenance_cost} "
+            f"| {" " * (len(col_headers[6]) - len(str(balance)))}{balance} "
+            f"|"
         )
         
         #* Wood row
@@ -325,13 +330,14 @@ class City:
         maintenance_cost: int = self.maintenance_costs.wood * (-1 if self.maintenance_costs.food > 0 else 1)
         balance: int = self.balance.wood
         print(
-            f"| Wood{' ' * 4} "
-            f"| {' ' * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
-            f"| {' ' * (len(col_headers[2]) - len(str(base_production)))}{base_production} "
-            f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
-            f"| {' ' * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
-            f"| {' ' * (len(col_headers[5]) - len(str(maintenance_cost)))}{maintenance_cost} "
-            f"| {' ' * (len(col_headers[6]) - len(str(balance)))}{balance} |"
+            f"| Wood{" " * 4} "
+            f"| {" " * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
+            f"| {" " * (len(col_headers[2]) - len(str(base_production)))}{base_production} "
+            f"| {" " * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
+            f"| {" " * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
+            f"| {" " * (len(col_headers[5]) - len(str(maintenance_cost)))}{maintenance_cost} "
+            f"| {" " * (len(col_headers[6]) - len(str(balance)))}{balance} "
+            f"|"
         )
         
         #* Bottom horizontal row
