@@ -2,7 +2,7 @@ from modules.city import City, CityBuildings, RssCollection
 
 
 scenario_1: City = City(
-    campaign = "Italy",
+    campaign = "Unification of Italy",
     name = "Roma",
     resource_potentials = RssCollection(
         food = 100,
@@ -23,7 +23,7 @@ scenario_1.display_results()
 
 
 scenario_2: City = City(
-    campaign = "Italy",
+    campaign = "Unification of Italy",
     name = "Roma",
     resource_potentials = RssCollection(
         food = 100,
