@@ -7,8 +7,25 @@ from .buildings import (
     BUILDINGS,
 )
 
+from .city_data import CITIES
+
 
 BuildingsCount: TypeAlias = dict[str, int]
+
+
+@dataclass
+class CityGeoFeatures:
+    rock_outcrops: int = 0
+    mountains: int = 0
+    lakes: int = 0
+    forests: int = 0
+
+
+@dataclass
+class CityEffects:
+    troop_training: int = 0
+    population_growth: int = 0
+    intelligence: int = 0
 
 
 @dataclass
@@ -38,10 +55,12 @@ class CityBuildings:
 class City:
     campaign: str
     name: str
-    resource_potentials: RssCollection
     buildings: CityBuildings
     
     # Post init attrs
+    resource_potentials: RssCollection = field(init = False)
+    geo_features: CityGeoFeatures = field(init = False)
+    city_effects: CityEffects = field(init = False)
     base_production: RssCollection = field(init = False)
     productivity_bonuses: RssCollection = field(init = False)
     total_production: RssCollection = field(init = False)
@@ -52,7 +71,45 @@ class City:
     RSS_BASE_PRODUCTIVITY_PER_WORKER: ClassVar[int] = 12
     MAX_WORKERS: ClassVar[int] = 18
     
-    #~ Methods to add:
+    
+    def _get_rss_potentials(self) -> RssCollection:
+        """
+        Finds the city supplied by the user in the directory of cities and returns its resource potentials.
+        """
+        for city in CITIES:
+            if (
+                city["campaign"] == self.campaign
+                and city["name"] == self.name
+            ):
+                return RssCollection(**city["resource_potentials"])
+        
+        return RssCollection()
+    
+    def _get_geo_features(self) -> CityGeoFeatures:
+        """
+        Finds the city supplied by the user in the directory of cities and returns its geo-features.
+        """
+        for city in CITIES:
+            if (
+                city["campaign"] == self.campaign
+                and city["name"] == self.name
+            ):
+                return CityGeoFeatures(**city["geo_features"])
+        
+        return CityGeoFeatures()
+    
+    def _get_base_effects(self) -> CityEffects:
+        """
+        Finds the city supplied by the user in the directory of cities and returns its effects.
+        """
+        for city in CITIES:
+            if (
+                city["campaign"] == self.campaign
+                and city["name"] == self.name
+            ):
+                return CityEffects(**city["effects"])
+        
+        return CityEffects()
     
     #* Validate city buildings
     # Validations need to include the following situations.
@@ -82,7 +139,7 @@ class City:
     # city, this configuration (1 fishing village + 6 mines) would mean that at least one of the buildings is not
     # staffed (potentially, even empty). The validation should warn against this scenario.
     
-    #* Calculate base production
+    #* Production calculations
     def _calculate_base_production(self) -> RssCollection:
         """
         Given the buildings in the city, it calculates the base production of those buildings for each resource. Base
@@ -115,7 +172,6 @@ class City:
         
         return base_production
     
-    #* Calculate production bonuses
     def _calculate_productivity_bonuses(self) -> RssCollection:
         """
         Based on the buildings found in the city, it calculates the productivity bonuses for each resource.
@@ -129,7 +185,6 @@ class City:
         
         return productivity_bonuses
     
-    #* Calculate production
     def _calculate_total_production(self) -> RssCollection:
         """
         Given the base production and the productivity bonuses of a city, it calculates the total production.
@@ -144,7 +199,6 @@ class City:
         
         return total_production
     
-    #* Calculate maintenance costs
     def _calculate_maintenance_costs(self) -> RssCollection:
         """
         Based on the buildings found in the city, it calculates the maintenance costs for each resource.
@@ -158,7 +212,6 @@ class City:
         
         return maintenance_costs
     
-    #* Calculate balance
     def _calculate_balance(self) -> RssCollection:
         """
         Calculate the balance for each rss. The balance is the difference between the total production and the
@@ -172,17 +225,39 @@ class City:
         
         return balance
     
+    
+    #* Effects calculations
+    def _calculate_city_effects(self) -> CityEffects:
+        """
+        Calculate the total city effects (base + given by buildings).
+        """
+        city_effects: CityEffects = self._get_base_effects()
+        
+        for building in self.buildings.buildings:
+            city_effects.troop_training = city_effects.troop_training + BUILDINGS[building]["effect_bonuses"].troop_training
+            city_effects.population_growth = city_effects.population_growth + BUILDINGS[building]["effect_bonuses"].population_growth
+            city_effects.intelligence = city_effects.intelligence + BUILDINGS[building]["effect_bonuses"].intelligence
+        
+        return city_effects
+    
+    
     def __post_init__(self) -> None:
+        self.resource_potentials = self._get_rss_potentials()
+        self.geo_features = self._get_geo_features()
+        self.city_effects = self._calculate_city_effects()
         self.base_production = self._calculate_base_production()
         self.productivity_bonuses = self._calculate_productivity_bonuses()
         self.total_production = self._calculate_total_production()
         self.maintenance_costs = self._calculate_maintenance_costs()
         self.balance = self._calculate_balance()
     
+    
     #* Display results
     def _display_city_information(self) -> None:
-        print(f"Campaign: {self.campaign} - City: {self.name}")
-        print()
+        print(
+            f"Campaign: {self.campaign}"
+            f"City: {self.name}"
+        )
     
     def _display_city_buildings(self) -> None:
         # This method should display the results in the terminal
@@ -191,7 +266,7 @@ class City:
         print(f"--------------")
         
         for building, qty in self.buildings.buildings.items():
-            print(f"  - {building.replace('_', ' ').capitalize()} ({qty})")
+            print(f"  - {building.replace("_", " ").capitalize()} ({qty})")
     
     def _display_city_production(self) -> None:
         col_headers: list[str] = [
@@ -206,12 +281,12 @@ class City:
         table_header: str = "| " + " | ".join(col_headers) + " |"
         horizontal_rule: str = "-" * len(table_header)
         
-        # Table header row
+        #* Table header row
         print(horizontal_rule)
         print(table_header)
         print(horizontal_rule)
         
-        # Food row
+        #* Food row
         rss_potential: int = self.resource_potentials.food
         base_production: int = self.base_production.food
         prod_bonus: int = self.productivity_bonuses.food
@@ -219,16 +294,17 @@ class City:
         maintenance_cost: int = self.maintenance_costs.food * (-1 if self.maintenance_costs.food > 0 else 1)
         balance: int = self.balance.food
         print(
-            f"| Food{' ' * 4} "
-            f"| {' ' * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
-            f"| {' ' * (len(col_headers[2]) - len(str(base_production)))}{base_production} "
-            f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
-            f"| {' ' * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
-            f"| {' ' * (len(col_headers[5]) - len(str(maintenance_cost)))}{maintenance_cost} "
-            f"| {' ' * (len(col_headers[6]) - len(str(balance)))}{balance} |"
+            f"| Food{" " * 4} "
+            f"| {" " * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
+            f"| {" " * (len(col_headers[2]) - len(str(base_production)))}{base_production} "
+            f"| {" " * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
+            f"| {" " * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
+            f"| {" " * (len(col_headers[5]) - len(str(maintenance_cost)))}{maintenance_cost} "
+            f"| {" " * (len(col_headers[6]) - len(str(balance)))}{balance} "
+            f"|"
         )
         
-        # Ore row
+        #* Ore row
         rss_potential: int = self.resource_potentials.ore
         base_production: int = self.base_production.ore
         prod_bonus: int = self.productivity_bonuses.ore
@@ -236,13 +312,14 @@ class City:
         maintenance_cost: int = self.maintenance_costs.ore * (-1 if self.maintenance_costs.food > 0 else 1)
         balance: int = self.balance.ore
         print(
-            f"| Ore{' ' * 5} "
-            f"| {' ' * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
-            f"| {' ' * (len(col_headers[2]) - len(str(base_production)))}{base_production} "
-            f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
-            f"| {' ' * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
-            f"| {' ' * (len(col_headers[5]) - len(str(maintenance_cost)))}{maintenance_cost} "
-            f"| {' ' * (len(col_headers[6]) - len(str(balance)))}{balance} |"
+            f"| Ore{" " * 5} "
+            f"| {" " * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
+            f"| {" " * (len(col_headers[2]) - len(str(base_production)))}{base_production} "
+            f"| {" " * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
+            f"| {" " * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
+            f"| {" " * (len(col_headers[5]) - len(str(maintenance_cost)))}{maintenance_cost} "
+            f"| {" " * (len(col_headers[6]) - len(str(balance)))}{balance} "
+            f"|"
         )
         
         #* Wood row
@@ -253,16 +330,63 @@ class City:
         maintenance_cost: int = self.maintenance_costs.wood * (-1 if self.maintenance_costs.food > 0 else 1)
         balance: int = self.balance.wood
         print(
-            f"| Wood{' ' * 4} "
-            f"| {' ' * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
-            f"| {' ' * (len(col_headers[2]) - len(str(base_production)))}{base_production} "
-            f"| {' ' * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
-            f"| {' ' * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
-            f"| {' ' * (len(col_headers[5]) - len(str(maintenance_cost)))}{maintenance_cost} "
-            f"| {' ' * (len(col_headers[6]) - len(str(balance)))}{balance} |"
+            f"| Wood{" " * 4} "
+            f"| {" " * (len(col_headers[1]) - len(str(rss_potential)))}{rss_potential} "
+            f"| {" " * (len(col_headers[2]) - len(str(base_production)))}{base_production} "
+            f"| {" " * (len(col_headers[3]) - len(str(prod_bonus)))}{prod_bonus} "
+            f"| {" " * (len(col_headers[4]) - len(str(total_production)))}{total_production} "
+            f"| {" " * (len(col_headers[5]) - len(str(maintenance_cost)))}{maintenance_cost} "
+            f"| {" " * (len(col_headers[6]) - len(str(balance)))}{balance} "
+            f"|"
         )
         
         #* Bottom horizontal row
+        print(horizontal_rule)
+    
+    def _display_city_effects(self) -> None:
+        col_headers: list[str] = [
+            "Effect",
+            "Total",
+        ]
+        
+        rows: list[str] = [
+            "Troop training",
+            "Population growth",
+            "Intelligence",
+        ]
+        
+        row_lengths: list[int] = [len(row) for row in rows]
+        
+        table_header: str = f"| {col_headers[0]}{" " * (max(row_lengths) - len(col_headers[0]) + 1)}| {col_headers[1]} |"
+        horizontal_rule: str = "-" * len(table_header)
+        
+        #* Table header row
+        print(horizontal_rule)
+        print(table_header)
+        print(horizontal_rule)
+        
+        #* Troop training row
+        print(
+            f"| Troop training{" " * 4}"
+            f"| {" " * (len(col_headers[1]) - len(str(self.city_effects.troop_training)))}{self.city_effects.troop_training} "
+            f"|"
+        )
+        
+        #* Population growth row
+        print(
+            f"| Population growth "
+            f"| {' ' * (len(col_headers[1]) - len(str(self.city_effects.population_growth)))}{self.city_effects.population_growth} "
+            f"|"
+        )
+        
+        #* Intelligence row
+        print(
+            f"| Intelligence{" " * 6}"
+            f"| {' ' * (len(col_headers[1]) - len(str(self.city_effects.intelligence)))}{self.city_effects.intelligence} "
+            f"|"
+        )
+        
+        #* Bottom horizontal rule
         print(horizontal_rule)
     
     def display_results(
@@ -285,5 +409,5 @@ class City:
             print()
         
         if include_city_effects:
-            print("Coming soon!")
+            self._display_city_effects()
             print()
