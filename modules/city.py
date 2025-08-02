@@ -349,7 +349,9 @@ class City:
             "Intelligence",
         ]
         
-        table_header: str = f"| {col_headers[0]}{" " * (len("Population growth") - len(col_headers[0]) + 1)}| {col_headers[1]} |"
+        row_lengths: list[int] = [len(row) for row in rows]
+        
+        table_header: str = f"| {col_headers[0]}{" " * (max(row_lengths) - len(col_headers[0]) + 1)}| {col_headers[1]} |"
         horizontal_rule: str = "-" * len(table_header)
         
         #* Table header row

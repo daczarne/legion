@@ -18,8 +18,6 @@ scenario_1.display_results(
     include_city_effects = True,
 )
 
-print(f"City effects: {scenario_1.city_effects}")
-
 # scenario_2: City = City(
 #     campaign = "Unification of Italy",
 #     name = "Roma",
