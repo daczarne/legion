@@ -1,23 +1,23 @@
 from modules.city import City, CityBuildings, RssCollection
 
 
-scenario_1: City = City(
-    campaign = "Unification of Italy",
-    name = "Roma",
-    buildings = CityBuildings(
-        buildings = {
-            "large_farm": 5,
-            "vineyard": 1,
-            "basilica": 1,
-            "farmers_guild": 1,
-        },
-    ),
-)
+# scenario_1: City = City(
+#     campaign = "Unification of Italy",
+#     name = "Roma",
+#     buildings = CityBuildings(
+#         buildings = {
+#             "large_farm": 5,
+#             "vineyard": 1,
+#             "basilica": 1,
+#             "farmers_guild": 1,
+#         },
+#     ),
+# )
 
-scenario_1.display_results(
-    include_city_information = True,
-    include_city_effects = True,
-)
+# scenario_1.display_results(
+#     include_city_information = True,
+#     include_city_effects = True,
+# )
 
 #* Military city
 

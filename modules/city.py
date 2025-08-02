@@ -1,6 +1,8 @@
 from dataclasses import dataclass, field
 from typing import ClassVar, TypeAlias
-
+from rich.console import Console
+from rich.table import Table
+from rich.align import Align
 
 from .buildings import (
     RssCollection,
@@ -341,51 +343,17 @@ class City:
         #* Bottom horizontal row
         print(horizontal_rule)
     
-    def _display_city_effects(self) -> None:
-        col_headers: list[str] = [
-            "Effect",
-            "Total",
-        ]
+    def _build_city_effects_table(self) -> Table:
+        table: Table = Table(title = "City effects")
         
-        rows: list[str] = [
-            "Troop training",
-            "Population growth",
-            "Intelligence",
-        ]
+        table.add_column(header = "Effect", header_style = "bold", justify = "center")
+        table.add_column(header = "Total", header_style = "bold", justify = "right")
         
-        row_lengths: list[int] = [len(row) for row in rows]
+        table.add_row("Troop training", f"{str(self.city_effects.troop_training)}")
+        table.add_row("Population growth", f"{str(self.city_effects.population_growth)}")
+        table.add_row("Intelligence", f"{str(self.city_effects.intelligence)}")
         
-        table_header: str = f"| {col_headers[0]}{" " * (max(row_lengths) - len(col_headers[0]) + 1)}| {col_headers[1]} |"
-        horizontal_rule: str = "-" * len(table_header)
-        
-        #* Table header row
-        print(horizontal_rule)
-        print(table_header)
-        print(horizontal_rule)
-        
-        #* Troop training row
-        print(
-            f"| Troop training{" " * 4}"
-            f"| {" " * (len(col_headers[1]) - len(str(self.city_effects.troop_training)))}{self.city_effects.troop_training} "
-            f"|"
-        )
-        
-        #* Population growth row
-        print(
-            f"| Population growth "
-            f"| {' ' * (len(col_headers[1]) - len(str(self.city_effects.population_growth)))}{self.city_effects.population_growth} "
-            f"|"
-        )
-        
-        #* Intelligence row
-        print(
-            f"| Intelligence{" " * 6}"
-            f"| {' ' * (len(col_headers[1]) - len(str(self.city_effects.intelligence)))}{self.city_effects.intelligence} "
-            f"|"
-        )
-        
-        #* Bottom horizontal rule
-        print(horizontal_rule)
+        return table
     
     def display_results(
             self,
@@ -395,6 +363,7 @@ class City:
             include_city_effects: bool = False,
         ) -> None:
         print()
+        console: Console = Console()
         
         if include_city_information:
             self._display_city_information()
@@ -409,5 +378,6 @@ class City:
             print()
         
         if include_city_effects:
-            self._display_city_effects()
+            city_effects_table: Table = self._build_city_effects_table()
+            console.print(city_effects_table)
             print()
