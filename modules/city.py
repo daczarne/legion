@@ -2,7 +2,8 @@ from dataclasses import dataclass, field
 from typing import ClassVar, TypeAlias
 from rich.console import Console
 from rich.table import Table
-from rich.align import Align
+from rich.tree import Tree
+from rich.text import Text
 
 from .buildings import (
     RssCollection,
@@ -260,13 +261,17 @@ class City:
         print(f"Campaign: {self.campaign}")
         print(f"City: {self.name}")
     
-    def _display_city_buildings(self) -> None:
-        
-        print(f"City buildings")
-        print(f"==============")
+    def _build_city_buildings_table(self) -> Table:
+        city_buildings_text: Text = Text()
         
         for building, qty in self.buildings.buildings.items():
-            print(f"  - {building.replace("_", " ").capitalize()} ({qty})")
+            city_buildings_text.append(text = f"  - {building.replace("_", " ").capitalize()} ({qty})\n")
+        
+        city_buildings_table: Table = Table(title = "Buildings", show_header = False, box = None, padding=(0, 1))
+        city_buildings_table.add_column()
+        city_buildings_table.add_row(city_buildings_text)
+        
+        return city_buildings_table
     
     def _build_city_production_table(self) -> Table:
         table: Table = Table(title = "Production")
@@ -336,7 +341,8 @@ class City:
             print()
         
         if include_city_buildings:
-            self._display_city_buildings()
+            city_buildings_tree: Table = self._build_city_buildings_table()
+            console.print(city_buildings_tree)
             print()
         
         if include_city_production:
