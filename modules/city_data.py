@@ -6,6 +6,7 @@ class CityResourcePotentialsData(TypedDict):
     ore: int
     wood: int
 
+
 class CityGeoFeaturesData(TypedDict):
     rock_outcrops: int
     mountains: int
