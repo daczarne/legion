@@ -1,3 +1,4 @@
+import yaml
 from typing import TypedDict, TypeAlias, Literal
 
 
@@ -30,3 +31,9 @@ class CityData(TypedDict):
 
 
 CitiesData: TypeAlias = dict[Literal["cities"], list[CityData]]
+
+
+with open(file = "./data/cities.yaml", mode = "r") as file:
+    cities_data: CitiesData = yaml.safe_load(stream = file)
+
+CITIES: list[CityData] = cities_data["cities"]

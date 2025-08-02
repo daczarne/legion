@@ -7,8 +7,25 @@ from .buildings import (
     BUILDINGS,
 )
 
+from .city_data import CITIES
+
 
 BuildingsCount: TypeAlias = dict[str, int]
+
+
+@dataclass
+class CityGeoFeatures:
+    rock_outcrops: int = 0
+    mountains: int = 0
+    lakes: int = 0
+    forests: int = 0
+
+
+@dataclass
+class CityEffects:
+    troop_training: int = 0
+    population_growth: int = 0
+    intelligence: int = 0
 
 
 @dataclass
@@ -38,10 +55,12 @@ class CityBuildings:
 class City:
     campaign: str
     name: str
-    resource_potentials: RssCollection
     buildings: CityBuildings
     
     # Post init attrs
+    resource_potentials: RssCollection = field(init = False)
+    geo_features: CityGeoFeatures = field(init = False)
+    effects: CityEffects = field(init = False)
     base_production: RssCollection = field(init = False)
     productivity_bonuses: RssCollection = field(init = False)
     total_production: RssCollection = field(init = False)
@@ -53,6 +72,45 @@ class City:
     MAX_WORKERS: ClassVar[int] = 18
     
     #~ Methods to add:
+    
+    def _get_rss_potentials(self) -> RssCollection:
+        """
+        Finds the city supplied by the user in the directory of cities and returns its resource potentials.
+        """
+        for city in CITIES:
+            if (
+                city["campaign"] == self.campaign
+                and city["name"] == self.name
+            ):
+                return RssCollection(**city["resource_potentials"])
+        
+        return RssCollection()
+    
+    def _get_geo_features(self) -> CityGeoFeatures:
+        """
+        Finds the city supplied by the user in the directory of cities and returns its geo-features.
+        """
+        for city in CITIES:
+            if (
+                city["campaign"] == self.campaign
+                and city["name"] == self.name
+            ):
+                return CityGeoFeatures(**city["geo_features"])
+        
+        return CityGeoFeatures()
+    
+    def _get_effects(self) -> CityEffects:
+        """
+        Finds the city supplied by the user in the directory of cities and returns its effects.
+        """
+        for city in CITIES:
+            if (
+                city["campaign"] == self.campaign
+                and city["name"] == self.name
+            ):
+                return CityEffects(**city["effects"])
+        
+        return CityEffects()
     
     #* Validate city buildings
     # Validations need to include the following situations.
@@ -173,6 +231,9 @@ class City:
         return balance
     
     def __post_init__(self) -> None:
+        self.resource_potentials = self._get_rss_potentials()
+        self.geo_features = self._get_geo_features()
+        self.effects = self._get_effects()
         self.base_production = self._calculate_base_production()
         self.productivity_bonuses = self._calculate_productivity_bonuses()
         self.total_production = self._calculate_total_production()
@@ -182,7 +243,6 @@ class City:
     #* Display results
     def _display_city_information(self) -> None:
         print(f"Campaign: {self.campaign} - City: {self.name}")
-        print()
     
     def _display_city_buildings(self) -> None:
         # This method should display the results in the terminal
