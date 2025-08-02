@@ -254,16 +254,14 @@ class City:
     
     #* Display results
     def _display_city_information(self) -> None:
-        print(
-            f"Campaign: {self.campaign}"
-            f"City: {self.name}"
-        )
+        
+        print(f"Campaign: {self.campaign}")
+        print(f"City: {self.name}")
     
     def _display_city_buildings(self) -> None:
-        # This method should display the results in the terminal
-        print(f"--------------")
+        
         print(f"City buildings")
-        print(f"--------------")
+        print(f"==============")
         
         for building, qty in self.buildings.buildings.items():
             print(f"  - {building.replace("_", " ").capitalize()} ({qty})")
@@ -396,6 +394,8 @@ class City:
             include_city_production: bool = True,
             include_city_effects: bool = False,
         ) -> None:
+        print()
+        
         if include_city_information:
             self._display_city_information()
             print()
