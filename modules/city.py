@@ -60,7 +60,7 @@ class City:
     # Post init attrs
     resource_potentials: RssCollection = field(init = False)
     geo_features: CityGeoFeatures = field(init = False)
-    effects: CityEffects = field(init = False)
+    city_effects: CityEffects = field(init = False)
     base_production: RssCollection = field(init = False)
     productivity_bonuses: RssCollection = field(init = False)
     total_production: RssCollection = field(init = False)
@@ -71,7 +71,6 @@ class City:
     RSS_BASE_PRODUCTIVITY_PER_WORKER: ClassVar[int] = 12
     MAX_WORKERS: ClassVar[int] = 18
     
-    #~ Methods to add:
     
     def _get_rss_potentials(self) -> RssCollection:
         """
@@ -99,7 +98,7 @@ class City:
         
         return CityGeoFeatures()
     
-    def _get_effects(self) -> CityEffects:
+    def _get_base_effects(self) -> CityEffects:
         """
         Finds the city supplied by the user in the directory of cities and returns its effects.
         """
@@ -140,7 +139,7 @@ class City:
     # city, this configuration (1 fishing village + 6 mines) would mean that at least one of the buildings is not
     # staffed (potentially, even empty). The validation should warn against this scenario.
     
-    #* Calculate base production
+    #* Production calculations
     def _calculate_base_production(self) -> RssCollection:
         """
         Given the buildings in the city, it calculates the base production of those buildings for each resource. Base
@@ -173,7 +172,6 @@ class City:
         
         return base_production
     
-    #* Calculate production bonuses
     def _calculate_productivity_bonuses(self) -> RssCollection:
         """
         Based on the buildings found in the city, it calculates the productivity bonuses for each resource.
@@ -187,7 +185,6 @@ class City:
         
         return productivity_bonuses
     
-    #* Calculate production
     def _calculate_total_production(self) -> RssCollection:
         """
         Given the base production and the productivity bonuses of a city, it calculates the total production.
@@ -202,7 +199,6 @@ class City:
         
         return total_production
     
-    #* Calculate maintenance costs
     def _calculate_maintenance_costs(self) -> RssCollection:
         """
         Based on the buildings found in the city, it calculates the maintenance costs for each resource.
@@ -216,7 +212,6 @@ class City:
         
         return maintenance_costs
     
-    #* Calculate balance
     def _calculate_balance(self) -> RssCollection:
         """
         Calculate the balance for each rss. The balance is the difference between the total production and the
@@ -230,15 +225,32 @@ class City:
         
         return balance
     
+    
+    #* Effects calculations
+    def _calculate_city_effects(self) -> CityEffects:
+        """
+        Calculate the total city effects (base + given by buildings).
+        """
+        city_effects: CityEffects = self._get_base_effects()
+        
+        for building in self.buildings.buildings:
+            city_effects.troop_training = city_effects.troop_training + BUILDINGS[building]["effect_bonuses"].troop_training
+            city_effects.population_growth = city_effects.population_growth + BUILDINGS[building]["effect_bonuses"].population_growth
+            city_effects.intelligence = city_effects.intelligence + BUILDINGS[building]["effect_bonuses"].intelligence
+        
+        return city_effects
+    
+    
     def __post_init__(self) -> None:
         self.resource_potentials = self._get_rss_potentials()
         self.geo_features = self._get_geo_features()
-        self.effects = self._get_effects()
+        self.city_effects = self._calculate_city_effects()
         self.base_production = self._calculate_base_production()
         self.productivity_bonuses = self._calculate_productivity_bonuses()
         self.total_production = self._calculate_total_production()
         self.maintenance_costs = self._calculate_maintenance_costs()
         self.balance = self._calculate_balance()
+    
     
     #* Display results
     def _display_city_information(self) -> None:
@@ -325,6 +337,50 @@ class City:
         #* Bottom horizontal row
         print(horizontal_rule)
     
+    def _display_city_effects(self) -> None:
+        col_headers: list[str] = [
+            "Effect",
+            "Total",
+        ]
+        
+        rows: list[str] = [
+            "Troop training",
+            "Population growth",
+            "Intelligence",
+        ]
+        
+        table_header: str = f"| {col_headers[0]}{" " * (len("Population growth") - len(col_headers[0]) + 1)}| {col_headers[1]} |"
+        horizontal_rule: str = "-" * len(table_header)
+        
+        #* Table header row
+        print(horizontal_rule)
+        print(table_header)
+        print(horizontal_rule)
+        
+        #* Troop training row
+        print(
+            f"| Troop training{" " * 4}"
+            f"| {" " * (len(col_headers[1]) - len(str(self.city_effects.troop_training)))}{self.city_effects.troop_training} "
+            f"|"
+        )
+        
+        #* Population growth row
+        print(
+            f"| Population growth "
+            f"| {' ' * (len(col_headers[1]) - len(str(self.city_effects.population_growth)))}{self.city_effects.population_growth} "
+            f"|"
+        )
+        
+        #* Intelligence row
+        print(
+            f"| Intelligence{" " * 6}"
+            f"| {' ' * (len(col_headers[1]) - len(str(self.city_effects.intelligence)))}{self.city_effects.intelligence} "
+            f"|"
+        )
+        
+        #* Bottom horizontal rule
+        print(horizontal_rule)
+    
     def display_results(
             self,
             include_city_information: bool = False,
@@ -345,5 +401,5 @@ class City:
             print()
         
         if include_city_effects:
-            print("Coming soon!")
+            self._display_city_effects()
             print()

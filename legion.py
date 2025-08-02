@@ -6,8 +6,7 @@ scenario_1: City = City(
     name = "Roma",
     buildings = CityBuildings(
         buildings = {
-            "mine": 5,
-            "outcrop_mine": 1,
+            "large_fort": 1,
             "basilica": 1,
             "miners_guild": 1,
         },
@@ -16,7 +15,10 @@ scenario_1: City = City(
 
 scenario_1.display_results(
     include_city_information = True,
+    include_city_effects = True,
 )
+
+print(f"City effects: {scenario_1.city_effects}")
 
 # scenario_2: City = City(
 #     campaign = "Unification of Italy",
