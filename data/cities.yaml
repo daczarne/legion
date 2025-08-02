@@ -1,710 +1,880 @@
 cities:
-  italy:
-    # A
-    - name: Anxur
-      resource_potential:
-        food: 125
-        ore: 0
-        wood: 50
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests: 0
-      effects:
-        troop_training: 25
-        population_growth: 0
-        intelligence: 0
-      garrison: Italiot Greek Cavalry
-    - name: Apuani
-      resource_potential:
-        food: 50
-        ore: 0
-        wood: 125
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests:
-      effects:
-        troop_training: 25
-        population_growth: 0
-        intelligence: 0
-      garrison: Javelinmen
-    - name: Apulians
-      resource_potential:
-        food: 125
-        ore: 0
-        wood: 50
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests: 0
-      effects:
-        troop_training: 25
-        population_growth: 0
-        intelligence: 0
-      garrison: Italiot Greek Cavalry
-    - name: Ariminum
-      resource_potential:
-        food: 130
-        ore: 50
-        wood: 0
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests:
-      effects:
-        troop_training: 10
-        population_growth: 0
-        intelligence: 0
-      garrison: Celtic Fanatics
-    - name: Arpi
-      resource_potential:
-        food: 90
-        ore: 0
-        wood: 100
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests: 0
-      effects:
-        troop_training: 25
-        population_growth: 0
-        intelligence: 0
-      garrison: Archers
-    - name: Asculum
-      resource_potential:
-        food: 50
-        ore: 0
-        wood: 125
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests: 1
-      effects:
-        troop_training: 25
-        population_growth: 0
-        intelligence: 0
-      garrison: Javelinmen
-    - name: Aurunci
-      resource_potential:
-        food: 100
-        ore: 100
-        wood: 0
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests: 0
-      effects:
-        troop_training: 25
-        population_growth: 0
-        intelligence: 0
-      garrison: Hill Tribe Warriors
-    # B
-    - name: Boii
-      resource_potential:
-        food: 50
-        ore: 80
-        wood: 100
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests:
-      effects:
-        troop_training: 10
-        population_growth: 0
-        intelligence: 0
-      garrison: Celtic Warband
-    # C
-    - name: Caercini
-      resource_potential:
-        food: 50
-        ore: 125
-        wood: 0
-      geo_features:
-        rock_outcrops: 1
-        mountains: 1
-        lakes: 0
-        forests: 0
-      effects:
-        troop_training: 25
-        population_growth: 0
-        intelligence: 0
-      garrison: Hill Tribe Warriors
-    - name: Caere
-      resource_potential:
-        food: 75
-        ore: 0
-        wood: 110
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests:
-      effects:
-        troop_training: 0
-        population_growth: 0
-        intelligence: 0
-      garrison: Hoplites
-    - name: Canusium
-      resource_potential:
-        food: 50
-        ore: 50
-        wood: 80
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests: 1
-      effects:
-        troop_training: 25
-        population_growth: 0
-        intelligence: 0
-      garrison: Javelinmen
-    - name: Capua
-      resource_potential:
-        food: 100
-        ore: 75
-        wood: 0
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests: 0
-      effects:
-        troop_training: 0
-        population_growth: 0
-        intelligence: 0
-      garrison: Peltasts
-    - name: Carsioli
-      resource_potential:
-        food: 0
-        ore: 100
-        wood: 100
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests: 0
-      effects:
-        troop_training: 25
-        population_growth: 0
-        intelligence: 0
-      garrison: Hill Tribe Warriors
-    - name: Caudini
-      resource_potential:
-        food: 50
-        ore: 80
-        wood: 90
-      geo_features:
-        rock_outcrops: 1
-        mountains: 0
-        lakes: 0
-        forests: 0
-      effects:
-        troop_training: 25
-        population_growth: 0
-        intelligence: 0
-      garrison: Archers
-    - name: Consentia
-      resource_potential:
-        food: 100
-        ore: 70
-        wood: 0
-      geo_features:
-        rock_outcrops: 1
-        mountains: 0
-        lakes: 0
-        forests: 0
-      effects:
-        troop_training: 25
-        population_growth: 0
-        intelligence: 0
-      garrison: Italiot Greek Cavalry
-    - name: Clusium
-      resource_potential:
-        food: 80
-        ore: 50
-        wood: 100
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests:
-      effects:
-        troop_training: 0
-        population_growth: 0
-        intelligence: 0
-      garrison: Hoplites
-    - name: Croton
-      resource_potential:
-        food: 80
-        ore: 0
-        wood: 100
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests: 1
-      effects:
-        troop_training: 25
-        population_growth: 0
-        intelligence: 0
-      garrison: Archers
-    # D
-    # E
-    # F
-    - name: Faesula
-      resource_potential:
-        food: 90
-        ore: 90
-        wood: 50
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 1
-        forests:
-      effects:
-        troop_training: 0
-        population_growth: 0
-        intelligence: 0
-      garrison: Hoplites
-    - name: Falerii
-      resource_potential:
-        food: 100
-        ore: 60
-        wood: 50
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests:
-      effects:
-        troop_training: 0
-        population_growth: 0
-        intelligence: 0
-      garrison: Hoplites
-    - name: Friniates
-      resource_potential:
-        food: 0
-        ore: 100
-        wood: 100
-      geo_features:
-        rock_outcrops: 1
-        mountains: 0
-        lakes: 0
-        forests:
-      effects:
-        troop_training: 25
-        population_growth: 0
-        intelligence: 0
-      garrison: Archers
-    # G
-    - name: Grumentum
-      resource_potential:
-        food: 50
-        ore: 115
-        wood: 50
-      geo_features:
-        rock_outcrops: 1
-        mountains: 1
-        lakes: 0
-        forests:
-      effects:
-        troop_training: 0
-        population_growth: 0
-        intelligence: 0
-      garrison: Peltasts
-    # H
-    - name: Heraclea
-      resource_potential:
-        food: 100
-        ore: 100
-        wood: 0
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests: 0
-      effects:
-        troop_training: 0
-        population_growth: 0
-        intelligence: 0
-      garrison: Hoplites
-    - name: Hernici
-      resource_potential:
-        food: 80
-        ore: 100
-        wood: 80
-      geo_features:
-        rock_outcrops: 1
-        mountains: 0
-        lakes: 1
-        forests: 0
-      effects:
-        troop_training: 0
-        population_growth: 0
-        intelligence: 0
-      garrison: Auxilia
-    - name: Hirpini
-      resource_potential:
-        food: 50
-        ore: 125
-        wood: 0
-      geo_features:
-        rock_outcrops: 0
-        mountains: 1
-        lakes: 0
-        forests: 0
-      effects:
-        troop_training: 25
-        population_growth: 0
-        intelligence: 0
-      garrison: Hill Tribe Warriors
-    - name: Histonium
-      resource_potential:
-        food: 150
-        ore: 0
-        wood: 0
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 1
-        forests: 0
-      effects:
-        troop_training: 25
-        population_growth: 0
-        intelligence: 0
-      garrison: Italiot Greek Cavalry
-    # I
-    # J
-    # K
-    # L
-    - name: Lantis
-      resource_potential:
-        food: 50
-        ore: 0
-        wood: 125
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests: 1
-      effects:
-        troop_training: 0
-        population_growth: 0
-        intelligence: 0
-      garrison: Auxiliary Archers
-    - name: Lingones
-      resource_potential:
-        food: 0
-        ore: 0
-        wood: 150
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests:
-      effects:
-        troop_training: 10
-        population_growth: 0
-        intelligence: 0
-      garrison: Celtic Warband
-    # M
-    - name: Marrucini
-      resource_potential:
-        food: 110
-        ore: 50
-        wood: 0
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests: 0
-      effects:
-        troop_training: 25
-        population_growth: 0
-        intelligence: 0
-      garrison: Italiot Greek Cavalry
-    - name: Marsi
-      resource_potential:
-        food: 75
-        ore: 100
-        wood: 50
-      geo_features:
-        rock_outcrops: 1
-        mountains: 0
-        lakes: 0
-        forests: 0
-      effects:
-        troop_training: 25
-        population_growth: 0
-        intelligence: 0
-      garrison: Hill Tribe Warriors
-    - name: Messapi
-      resource_potential:
-        food: 50
-        ore: 0
-        wood: 125
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests:
-      effects:
-        troop_training: 0
-        population_growth: 0
-        intelligence: 0
-      garrison: Javelinmen
-    # N
-    - name: Neapolis
-      resource_potential:
-        food: 125
-        ore: 0
-        wood: 50
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests: 0
-      effects:
-        troop_training: 0
-        population_growth: 0
-        intelligence: 0
-      garrison: Italiot Greek Cavalry
-    - name: Nuceria
-      resource_potential:
-        food: 125
-        ore: 50
-        wood: 0
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 1
-        forests: 0
-      effects:
-        troop_training: 0
-        population_growth: 0
-        intelligence: 0
-      garrison: Hoplites
-    # O
-    # P
-    - name: Paeligni
-      resource_potential:
-        food: 100
-        ore: 0
-        wood: 100
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests: 0
-      effects:
-        troop_training: 25
-        population_growth: 0
-        intelligence: 0
-      garrison: Archers
-    - name: Paestum
-      resource_potential:
-        food: 125
-        ore: 50
-        wood: 0
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests: 0
-      effects:
-        troop_training: 0
-        population_growth: 0
-        intelligence: 0
-      garrison: Italiot Greek Cavalry
-    - name: Pentri
-      resource_potential:
-        food: 75
-        ore: 110
-        wood: 0
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests: 0
-      effects:
-        troop_training: 25
-        population_growth: 0
-        intelligence: 0
-      garrison: Italiot Greek Cavalry
-    - name: Pisae
-      resource_potential:
-        food: 75
-        ore: 0
-        wood: 110
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests:
-      effects:
-        troop_training: 25
-        population_growth: 0
-        intelligence: 0
-      garrison: Archers
-    - name: Populonia
-      resource_potential:
-        food: 150
-        ore: 0
-        wood: 0
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests:
-      effects:
-        troop_training: 0
-        population_growth: 0
-        intelligence: 0
-      garrison: Italiot Greek Cavalry
-    # Q
-    # R
-    - name: Reate
-      resource_potential:
-        food: 50
-        ore: 150
-        wood: 0
-      geo_features:
-        rock_outcrops: 0
-        mountains: 2
-        lakes: 0
-        forests: 0
-      effects:
-        troop_training: 25
-        population_growth: 0
-        intelligence: 0
-      garrison: Hill Tribe Warriors
-    - name: Roma
-      resource_potential:
-        food: 125
-        ore: 0
-        wood: 50
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests: 0
-      effects:
-        troop_training: 0
-        population_growth: 0
-        intelligence: 0
-      garrison: Legion
-    # S
-    - name: Sena
-      resource_potential:
-        food: 120
-        ore: 0
-        wood: 50
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests:
-      effects:
-        troop_training: 10
-        population_growth: 0
-        intelligence: 0
-      garrison: Celtic Cavalry
-    - name: Sentinum
-      resource_potential:
-        food: 110
-        ore: 0
-        wood: 50
-      geo_features:
-        rock_outcrops: 1
-        mountains: 0
-        lakes: 0
-        forests:
-      effects:
-        troop_training: 25
-        population_growth: 0
-        intelligence: 0
-      garrison: Italiot Greek Cavalry
-    - name: Spoletium
-      resource_potential:
-        food: 50
-        ore: 100
-        wood: 75
-      geo_features:
-        rock_outcrops: 0
-        mountains: 1
-        lakes: 0
-        forests:
-      effects:
-        troop_training: 25
-        population_growth: 0
-        intelligence: 0
-      garrison: Hill Tribe Warriors
-    # T
-    - name: Tarentum
-      resource_potential:
-        food: 50
-        ore: 90
-        wood: 80
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests:
-      effects:
-        troop_training: 0
-        population_growth: 0
-        intelligence: 0
-      garrison: Peltasts
-    - name: Thurii
-      resource_potential:
-        food: 100
-        ore: 80
-        wood: 0
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 0
-        forests: 0
-      effects:
-        troop_training: 0
-        population_growth: 0
-        intelligence: 0
-      garrison: Italiot Greek Cavalry
-    # U
-    # V
-    - name: Volsinii
-      resource_potential:
-        food: 75
-        ore: 0
-        wood: 125
-      geo_features:
-        rock_outcrops: 0
-        mountains: 0
-        lakes: 1
-        forests:
-      effects:
-        troop_training: 0
-        population_growth: 0
-        intelligence: 0
-      garrison: Archers
-    # yamllint disable rule:comments-indentation
-    # W
-    # X
-    # Y
-    # Z
-    # yamllint enable rule:comments-indentation
-  hispania: []
-  gaul: []
-  germania: []
-  britain: []
-  scotland: []
+  # ************************ #
+  # * Unification of Italy * #
+  # ************************ #
+  # A
+  - name: Anxur
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 125
+      ore: 0
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Italiot Greek Cavalry
+  - name: Apuani
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 50
+      ore: 0
+      wood: 125
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Javelinmen
+  - name: Apulians
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 125
+      ore: 0
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Italiot Greek Cavalry
+  - name: Ariminum
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 130
+      ore: 50
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Fanatics
+  - name: Arpi
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 90
+      ore: 0
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Asculum
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 50
+      ore: 0
+      wood: 125
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Javelinmen
+  - name: Aurunci
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 100
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Hill Tribe Warriors
+  # B
+  - name: Boii
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 50
+      ore: 80
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Warband
+  # C
+  - name: Caercini
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 50
+      ore: 125
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Hill Tribe Warriors
+  - name: Caere
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 75
+      ore: 0
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Hoplites
+  - name: Canusium
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 50
+      ore: 50
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Javelinmen
+  - name: Capua
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 100
+      ore: 75
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Peltasts
+  - name: Carsioli
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 0
+      ore: 100
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Hill Tribe Warriors
+  - name: Caudini
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 50
+      ore: 80
+      wood: 90
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Consentia
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 100
+      ore: 70
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Italiot Greek Cavalry
+  - name: Clusium
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 80
+      ore: 50
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Hoplites
+  - name: Croton
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 80
+      ore: 0
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  # F
+  - name: Faesula
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 90
+      ore: 90
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 1
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Hoplites
+  - name: Falerii
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 100
+      ore: 60
+      wood: 50
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Hoplites
+  - name: Friniates
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 0
+      ore: 100
+      wood: 100
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  # G
+  - name: Grumentum
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 50
+      ore: 115
+      wood: 50
+    geo_features:
+      rock_outcrops: 1
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Peltasts
+  # H
+  - name: Heraclea
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 100
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Hoplites
+  - name: Hernici
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 80
+      ore: 100
+      wood: 80
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 1
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Auxilia
+  - name: Hirpini
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 50
+      ore: 125
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Hill Tribe Warriors
+  - name: Histonium
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 150
+      ore: 0
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 1
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Italiot Greek Cavalry
+  # L
+  - name: Lantis
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 50
+      ore: 0
+      wood: 125
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Auxiliary Archers
+  - name: Lingones
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 0
+      ore: 0
+      wood: 150
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Warband
+  # M
+  - name: Marrucini
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 110
+      ore: 50
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Italiot Greek Cavalry
+  - name: Marsi
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 75
+      ore: 100
+      wood: 50
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Hill Tribe Warriors
+  - name: Messapi
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 50
+      ore: 0
+      wood: 125
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Javelinmen
+  # N
+  - name: Neapolis
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 125
+      ore: 0
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Italiot Greek Cavalry
+  - name: Nuceria
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 125
+      ore: 50
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 1
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Hoplites
+  # P
+  - name: Paeligni
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Paestum
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 125
+      ore: 50
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Italiot Greek Cavalry
+  - name: Pentri
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 75
+      ore: 110
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Italiot Greek Cavalry
+  - name: Pisae
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 75
+      ore: 0
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Populonia
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 150
+      ore: 0
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Italiot Greek Cavalry
+  # R
+  - name: Reate
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 50
+      ore: 150
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 2
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Hill Tribe Warriors
+  - name: Roma
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 125
+      ore: 0
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Legion
+  # S
+  - name: Sena
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 120
+      ore: 0
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  - name: Sentinum
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 110
+      ore: 0
+      wood: 50
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Italiot Greek Cavalry
+  - name: Spoletium
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 50
+      ore: 100
+      wood: 75
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Hill Tribe Warriors
+  # T
+  - name: Tarentum
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 50
+      ore: 90
+      wood: 80
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 1
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Peltasts
+  - name: Thurii
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 100
+      ore: 80
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Italiot Greek Cavalry
+  # V
+  - name: Volsinii
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 75
+      ore: 0
+      wood: 125
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 1
+      forests: 1
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  # yamllint disable rule:comments-indentation
+  # *********************** #
+  # * Conquest of Britain * #
+  # *********************** #
+  # A
+  # B
+  # C
+  # D
+  # E
+  # F
+  # G
+  # H
+  # I
+  # J
+  # K
+  # L
+  # M
+  # N
+  # O
+  # P
+  # Q
+  # R
+  # S
+  # U
+  # V
+  # W
+  # X
+  # Y
+  # Z
+  # ************ #
+  # * Germania * #
+  # ************ #
+  # A
+  # B
+  # C
+  # D
+  # E
+  # F
+  # G
+  # H
+  # I
+  # J
+  # K
+  # L
+  # M
+  # N
+  # O
+  # P
+  # Q
+  # R
+  # S
+  # U
+  # V
+  # W
+  # X
+  # Y
+  # Z
+  # ************ #
+  # * Hispania * #
+  # ************ #
+  # A
+  # B
+  # C
+  # D
+  # E
+  # F
+  # G
+  # H
+  # I
+  # J
+  # K
+  # L
+  # M
+  # N
+  # O
+  # P
+  # Q
+  # R
+  # S
+  # U
+  # V
+  # W
+  # X
+  # Y
+  # Z
+  # *********************** #
+  # * Pacifying the North * #
+  # *********************** #
+  # A
+  # B
+  # C
+  # D
+  # E
+  # F
+  # G
+  # H
+  # I
+  # J
+  # K
+  # L
+  # M
+  # N
+  # O
+  # P
+  # Q
+  # R
+  # S
+  # U
+  # V
+  # W
+  # X
+  # Y
+  # Z
+  # ******************* #
+  # * The Gallic Wars * #
+  # ******************* #
+  # A
+  # B
+  # C
+  # D
+  # E
+  # F
+  # G
+  # H
+  # I
+  # J
+  # K
+  # L
+  # M
+  # N
+  # O
+  # P
+  # Q
+  # R
+  # S
+  # U
+  # V
+  # W
+  # X
+  # Y
+  # Z
+  # yamllint enable rule:comments-indentation

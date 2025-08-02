@@ -17,6 +17,7 @@ class RssCollection:
 
 
 class Building(TypedDict):
+    name: str
     maintenance_cost: RssCollection
     productivity_bonus: RssCollection
     productivity_per_worker: RssCollection
@@ -26,6 +27,7 @@ class Building(TypedDict):
 
 BUILDINGS: dict[str, Building] = {
     "city_hall": {
+        "name": "City hall",
         "maintenance_cost": RssCollection(food = 1, ore = 1, wood = 1),
         "productivity_bonus": RssCollection(food = 25, ore = 25, wood = 25),
         "productivity_per_worker": RssCollection(),
@@ -33,13 +35,15 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 0,
     },
     "hunters_lodge": {
+        "name": "Hunters' lodge",
         "maintenance_cost": RssCollection(),
         "productivity_bonus": RssCollection(),
         "productivity_per_worker": RssCollection(food = 2, ore = 2, wood = 2),
         "effect_bonuses": EffectBonuses(),
         "max_workers": 3,
     },
-    "farm": {
+    "large_farm": {
+        "name": "Large farm",
         "maintenance_cost": RssCollection(),
         "productivity_bonus": RssCollection(),
         "productivity_per_worker": RssCollection(food = 12),
@@ -47,6 +51,7 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 3,
     },
     "vineyard": {
+        "name": "Vineyard",
         "maintenance_cost": RssCollection(),
         "productivity_bonus": RssCollection(food = 10, ore = 10, wood = 10),
         "productivity_per_worker": RssCollection(food = 10),
@@ -54,6 +59,7 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 3,
     },
     "fishing_village": {
+        "name": "Fishing village",
         "maintenance_cost": RssCollection(),
         "productivity_bonus": RssCollection(),
         "productivity_per_worker": RssCollection(food = 9),
@@ -61,6 +67,7 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 3,
     },
     "farmers_guild": {
+        "name": "Farmers' guild",
         "maintenance_cost": RssCollection(food = 10),
         "productivity_bonus": RssCollection(food = 50),
         "productivity_per_worker": RssCollection(),
@@ -68,13 +75,15 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 0,
     },
     "stables": {
+        "name": "Stables",
         "maintenance_cost": RssCollection(food = 5),
         "productivity_bonus": RssCollection(),
         "productivity_per_worker": RssCollection(),
         "effect_bonuses": EffectBonuses(),
         "max_workers": 0,
     },
-    "mine": {
+    "large_mine": {
+        "name": "Large mine",
         "maintenance_cost": RssCollection(),
         "productivity_bonus": RssCollection(),
         "productivity_per_worker": RssCollection(ore = 12),
@@ -82,6 +91,7 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 3,
     },
     "outcrop_mine": {
+        "name": "Outcrop mine",
         "maintenance_cost": RssCollection(),
         "productivity_bonus": RssCollection(),
         "productivity_per_worker": RssCollection(ore = 13),
@@ -89,6 +99,7 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 2,
     },
     "mountain_mine": {
+        "name": "Mountain mine",
         "maintenance_cost": RssCollection(),
         "productivity_bonus": RssCollection(),
         "productivity_per_worker": RssCollection(ore = 20),
@@ -96,6 +107,7 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 1,
     },
     "miners_guild": {
+        "name": "Miners' guild",
         "maintenance_cost": RssCollection(ore = 10),
         "productivity_bonus": RssCollection(ore = 50),
         "productivity_per_worker": RssCollection(),
@@ -103,13 +115,15 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 0,
     },
     "blacksmith": {
+        "name": "Blacksmith",
         "maintenance_cost": RssCollection(ore = 5),
         "productivity_bonus": RssCollection(),
         "productivity_per_worker": RssCollection(),
         "effect_bonuses": EffectBonuses(),
         "max_workers": 0,
     },
-    "lumber_mill": {
+    "large_lumber_mill": {
+        "name": "Large lumber mill",
         "maintenance_cost": RssCollection(),
         "productivity_bonus": RssCollection(),
         "productivity_per_worker": RssCollection(wood = 12),
@@ -117,6 +131,7 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 3,
     },
     "carpenters_guild": {
+        "name": "Carpenters' guild",
         "maintenance_cost": RssCollection(wood = 10),
         "productivity_bonus": RssCollection(wood = 50),
         "productivity_per_worker": RssCollection(),
@@ -124,6 +139,7 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 0,
     },
     "fletcher": {
+        "name": "Fletcher",
         "maintenance_cost": RssCollection(wood = 5),
         "productivity_bonus": RssCollection(),
         "productivity_per_worker": RssCollection(),
@@ -131,6 +147,7 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 0,
     },
     "basilica": {
+        "name": "Basilica",
         "maintenance_cost": RssCollection(food = 3, ore = 3, wood = 3),
         "productivity_bonus": RssCollection(food = 50, ore = 50, wood = 50),
         "productivity_per_worker": RssCollection(),
@@ -140,6 +157,7 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 1,
     },
     "temple": {
+        "name": "Temple",
         "maintenance_cost": RssCollection(food = 2, ore = 2, wood = 2),
         "productivity_bonus": RssCollection(food = 25, ore = 25, wood = 25),
         "productivity_per_worker": RssCollection(),
@@ -151,6 +169,7 @@ BUILDINGS: dict[str, Building] = {
     "hidden_grove": {
         # Requires a forest to be present in the city. If the forest is
         # destroyed, it cannot be built any more.
+        "name": "Hidden grove",
         "maintenance_cost": RssCollection(),
         "productivity_bonus": RssCollection(food = 15, ore = 15, wood = 15),
         "productivity_per_worker": RssCollection(),
@@ -160,6 +179,7 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 3,
     },
     "apothecary": {
+        "name": "Apothecary",
         "maintenance_cost": RssCollection(food = 5),
         "productivity_bonus": RssCollection(),
         "productivity_per_worker": RssCollection(),
@@ -169,6 +189,7 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 2,
     },
     "hospital": {
+        "name": "Hospital",
         "maintenance_cost": RssCollection(food = 8),
         "productivity_bonus": RssCollection(),
         "productivity_per_worker": RssCollection(),
@@ -178,6 +199,7 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 3,
     },
     "training_ground": {
+        "name": "Training ground",
         "maintenance_cost": RssCollection(food = 10, wood = 10),
         "productivity_bonus": RssCollection(),
         "productivity_per_worker": RssCollection(),
@@ -187,6 +209,7 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 1,
     },
     "bordello": {
+        "name": "Bordello",
         "maintenance_cost": RssCollection(food = 8, ore = 4, wood = 8),
         "productivity_bonus": RssCollection(),
         "productivity_per_worker": RssCollection(),
@@ -195,6 +218,7 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 0,
     },
     "gladiator_school": {
+        "name": "Gladiator school",
         "maintenance_cost": RssCollection(ore = 8),
         "productivity_bonus": RssCollection(food = 10, ore = 10, wood = 10),
         "productivity_per_worker": RssCollection(),
@@ -202,6 +226,7 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 0,
     },
     "imperial_residence": {
+        "name": "Imperial residence",
         "maintenance_cost": RssCollection(food = 8, ore = 8, wood = 8),
         "productivity_bonus": RssCollection(food = 10, ore = 10, wood = 10),
         "productivity_per_worker": RssCollection(),
@@ -209,6 +234,7 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 0,
     },
     "quartermaster": {
+        "name": "Quartermaster",
         "maintenance_cost": RssCollection(food = 12, ore = 8, wood = 8),
         "productivity_bonus": RssCollection(),
         "productivity_per_worker": RssCollection(),
@@ -216,6 +242,7 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 0,
     },
     "large_fort": {
+        "name": "Large fort",
         "maintenance_cost": RssCollection(food = 15, wood = 15),
         "productivity_bonus": RssCollection(food = 10, ore = 10, wood = 10),
         "productivity_per_worker": RssCollection(),
@@ -223,7 +250,8 @@ BUILDINGS: dict[str, Building] = {
         "effect_bonuses": EffectBonuses(intelligence = 10),
         "max_workers": 0,
     },
-    "market": {
+    "large_market": {
+        "name": "Large market",
         "maintenance_cost": RssCollection(food = -5, ore = -5, wood = -5),
         "productivity_bonus": RssCollection(),
         "productivity_per_worker": RssCollection(),
@@ -232,6 +260,7 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 0,
     },
     "watch_tower": {
+        "name": "Watch tower",
         "maintenance_cost": RssCollection(food = 8, wood = 4),
         "productivity_bonus": RssCollection(),
         "productivity_per_worker": RssCollection(),
@@ -241,6 +270,7 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 2,
     },
     "warehouse": {
+        "name": "Warehouse",
         "maintenance_cost": RssCollection(),
         "productivity_bonus": RssCollection(),
         "productivity_per_worker": RssCollection(),
@@ -248,7 +278,8 @@ BUILDINGS: dict[str, Building] = {
         "max_workers": 0,
     },
     "supply_dump": {
-        "maintenance_cost": RssCollection(food = -1, ore = -10, wood = -10),
+        "name": "Supply dump",
+        "maintenance_cost": RssCollection(food = -10, ore = -10, wood = -10),
         "productivity_bonus": RssCollection(),
         "productivity_per_worker": RssCollection(),
         "effect_bonuses": EffectBonuses(population_growth = 100),
