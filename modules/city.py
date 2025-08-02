@@ -206,12 +206,12 @@ class City:
         table_header: str = "| " + " | ".join(col_headers) + " |"
         horizontal_rule: str = "-" * len(table_header)
         
-        # Table header row
+        #* Table header row
         print(horizontal_rule)
         print(table_header)
         print(horizontal_rule)
         
-        # Food row
+        #* Food row
         rss_potential: int = self.resource_potentials.food
         base_production: int = self.base_production.food
         prod_bonus: int = self.productivity_bonuses.food
@@ -228,7 +228,7 @@ class City:
             f"| {' ' * (len(col_headers[6]) - len(str(balance)))}{balance} |"
         )
         
-        # Ore row
+        #* Ore row
         rss_potential: int = self.resource_potentials.ore
         base_production: int = self.base_production.ore
         prod_bonus: int = self.productivity_bonuses.ore
