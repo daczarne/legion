@@ -38,7 +38,4 @@ scenario_2: City = City(
     ),
 )
 
-scenario_2.display_results(
-    include_city_information = True,
-    include_city_effects = True,
-)
+scenario_2.display_results()

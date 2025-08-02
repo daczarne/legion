@@ -2,8 +2,10 @@ from dataclasses import dataclass, field
 from typing import ClassVar, TypeAlias
 from rich.console import Console
 from rich.table import Table
-from rich.tree import Tree
 from rich.text import Text
+from rich.layout import Layout
+from rich.panel import Panel
+from rich.align import Align
 
 from .buildings import (
     RssCollection,
@@ -256,12 +258,15 @@ class City:
     
     
     #* Display results
-    def _display_city_information(self) -> None:
-        
-        print(f"Campaign: {self.campaign}")
-        print(f"City: {self.name}")
+    def _build_city_information(self) -> Text:
+        city_information: Text = Text(
+            text = f" {self.campaign} --- {self.name} ",
+            style = "bold black on white",
+            justify = "center",
+        )
+        return city_information
     
-    def _build_city_buildings_table(self) -> Table:
+    def _build_city_buildings_list(self) -> Table:
         city_buildings_text: Text = Text()
         
         for building, qty in self.buildings.buildings.items():
@@ -326,31 +331,32 @@ class City:
         
         return table
     
-    def display_results(
-            self,
-            include_city_information: bool = False,
-            include_city_buildings: bool = True,
-            include_city_production: bool = True,
-            include_city_effects: bool = False,
-        ) -> None:
-        print()
+    def display_results(self) -> None:
         console: Console = Console()
+        layout: Layout = Layout()
         
-        if include_city_information:
-            self._display_city_information()
-            print()
+        layout.split(
+            Layout(name = "header", size = 2),
+            Layout(name = "main", ratio = 1),
+        )
         
-        if include_city_buildings:
-            city_buildings_tree: Table = self._build_city_buildings_table()
-            console.print(city_buildings_tree)
-            print()
+        layout["main"].split(
+            Layout(name = "top", size = 8),
+            Layout(name = "bottom", size = 8),
+        )
         
-        if include_city_production:
-            city_production_table: Table = self._build_city_production_table()
-            console.print(city_production_table)
-            print()
+        layout["top"].split_row(
+            Layout(
+                renderable = Align(renderable = self._build_city_buildings_list(), align = "center"),
+                name = "left"
+            ),
+            Layout(
+                renderable = Align(renderable = self._build_city_effects_table(), align = "center"),
+                name = "right"
+            )
+        )
+        layout["header"].update(renderable = Align(renderable = self._build_city_information(), align = "center"))
+        layout["bottom"].update(renderable = self._build_city_production_table())
         
-        if include_city_effects:
-            city_effects_table: Table = self._build_city_effects_table()
-            console.print(city_effects_table)
-            print()
+        panel: Panel = Panel(renderable = layout, width = 92, height = 20)
+        console.print(panel)
