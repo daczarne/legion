@@ -9,7 +9,7 @@ from rich.table import Table
 from rich.text import Text
 
 from .buildings import (
-    RssCollection,
+    ResourceCollection,
     BUILDINGS,
 )
 
@@ -42,8 +42,8 @@ class CityBuildings:
     
     def __post_init__(self) -> None:
         # Ensure city_hall is always present
-        if "city_hall" not in self.buildings:
-            self.buildings["city_hall"] = 1
+        # if "city_hall" not in self.buildings:
+        #     self.buildings["city_hall"] = 1
         
         unknown: set[str] = set(self.buildings) - BUILDINGS.keys()
         if unknown:
@@ -64,21 +64,21 @@ class City:
     buildings: CityBuildings
     
     # Post init attrs
-    resource_potentials: RssCollection = field(init = False)
+    resource_potentials: ResourceCollection = field(init = False)
     geo_features: CityGeoFeatures = field(init = False)
     city_effects: CityEffects = field(init = False)
-    base_production: RssCollection = field(init = False)
-    productivity_bonuses: RssCollection = field(init = False)
-    total_production: RssCollection = field(init = False)
-    maintenance_costs: RssCollection = field(init = False)
-    balance: RssCollection = field(init = False)
+    base_production: ResourceCollection = field(init = False)
+    productivity_bonuses: ResourceCollection = field(init = False)
+    total_production: ResourceCollection = field(init = False)
+    maintenance_costs: ResourceCollection = field(init = False)
+    balance: ResourceCollection = field(init = False)
     
     # Class variables
     RSS_BASE_PRODUCTIVITY_PER_WORKER: ClassVar[int] = 12
     MAX_WORKERS: ClassVar[int] = 18
     
     
-    def _get_rss_potentials(self) -> RssCollection:
+    def _get_rss_potentials(self) -> ResourceCollection:
         """
         Finds the city supplied by the user in the directory of cities and returns its resource potentials.
         """
@@ -87,9 +87,9 @@ class City:
                 city["campaign"] == self.campaign
                 and city["name"] == self.name
             ):
-                return RssCollection(**city["resource_potentials"])
+                return ResourceCollection(**city["resource_potentials"])
         
-        return RssCollection()
+        return ResourceCollection()
     
     def _get_geo_features(self) -> CityGeoFeatures:
         """
@@ -149,7 +149,7 @@ class City:
     # staffed (potentially, even empty). The validation should warn against this scenario.
     
     #* Production calculations
-    def _calculate_base_production(self) -> RssCollection:
+    def _calculate_base_production(self) -> ResourceCollection:
         """
         Given the buildings in the city, it calculates the base production of those buildings for each resource. Base
         production is defined here as production before productivity bonuses. It is determined only by the buildings
@@ -158,12 +158,12 @@ class City:
         """
         from math import floor
         
-        base_production: RssCollection = RssCollection()
+        base_production: ResourceCollection = ResourceCollection()
         
         for building, qty_buildings in self.buildings.buildings.items():
             
-            production_per_worker: RssCollection = BUILDINGS[building]["productivity_per_worker"]
-            max_workers: int = BUILDINGS[building]["max_workers"]
+            production_per_worker: ResourceCollection = BUILDINGS[building].productivity_per_worker
+            max_workers: int = BUILDINGS[building].max_workers
             
             # Production per worker
             prod_per_worker_food: int = int(floor(production_per_worker.food * self.resource_potentials.food / 100.0))
@@ -181,26 +181,26 @@ class City:
         
         return base_production
     
-    def _calculate_productivity_bonuses(self) -> RssCollection:
+    def _calculate_productivity_bonuses(self) -> ResourceCollection:
         """
         Based on the buildings found in the city, it calculates the productivity bonuses for each resource.
         """
-        productivity_bonuses: RssCollection = RssCollection()
+        productivity_bonuses: ResourceCollection = ResourceCollection()
         
         for building in self.buildings.buildings:
-            productivity_bonuses.food = productivity_bonuses.food + BUILDINGS[building]["productivity_bonuses"].food
-            productivity_bonuses.ore = productivity_bonuses.ore + BUILDINGS[building]["productivity_bonuses"].ore
-            productivity_bonuses.wood = productivity_bonuses.wood + BUILDINGS[building]["productivity_bonuses"].wood
+            productivity_bonuses.food = productivity_bonuses.food + BUILDINGS[building].productivity_bonuses.food
+            productivity_bonuses.ore = productivity_bonuses.ore + BUILDINGS[building].productivity_bonuses.ore
+            productivity_bonuses.wood = productivity_bonuses.wood + BUILDINGS[building].productivity_bonuses.wood
         
         return productivity_bonuses
     
-    def _calculate_total_production(self) -> RssCollection:
+    def _calculate_total_production(self) -> ResourceCollection:
         """
         Given the base production and the productivity bonuses of a city, it calculates the total production.
         """
         from math import floor
         
-        total_production: RssCollection = RssCollection()
+        total_production: ResourceCollection = ResourceCollection()
         
         total_production.food = int(floor(self.base_production.food * (1 + self.productivity_bonuses.food / 100)))
         total_production.ore = int(floor(self.base_production.ore * (1 + self.productivity_bonuses.ore / 100)))
@@ -208,25 +208,25 @@ class City:
         
         return total_production
     
-    def _calculate_maintenance_costs(self) -> RssCollection:
+    def _calculate_maintenance_costs(self) -> ResourceCollection:
         """
         Based on the buildings found in the city, it calculates the maintenance costs for each resource.
         """
-        maintenance_costs: RssCollection = RssCollection()
+        maintenance_costs: ResourceCollection = ResourceCollection()
         
         for building in self.buildings.buildings:
-            maintenance_costs.food = maintenance_costs.food + BUILDINGS[building]["maintenance_cost"].food
-            maintenance_costs.ore = maintenance_costs.ore + BUILDINGS[building]["maintenance_cost"].ore
-            maintenance_costs.wood = maintenance_costs.wood + BUILDINGS[building]["maintenance_cost"].wood
+            maintenance_costs.food = maintenance_costs.food + BUILDINGS[building].maintenance_cost.food
+            maintenance_costs.ore = maintenance_costs.ore + BUILDINGS[building].maintenance_cost.ore
+            maintenance_costs.wood = maintenance_costs.wood + BUILDINGS[building].maintenance_cost.wood
         
         return maintenance_costs
     
-    def _calculate_balance(self) -> RssCollection:
+    def _calculate_balance(self) -> ResourceCollection:
         """
         Calculate the balance for each rss. The balance is the difference between the total production and the
         maintenance costs.
         """
-        balance: RssCollection = RssCollection()
+        balance: ResourceCollection = ResourceCollection()
         
         balance.food = self.total_production.food - self.maintenance_costs.food
         balance.ore = self.total_production.ore - self.maintenance_costs.ore
@@ -243,9 +243,9 @@ class City:
         city_effects: CityEffects = self._get_base_effects()
         
         for building in self.buildings.buildings:
-            city_effects.troop_training = city_effects.troop_training + BUILDINGS[building]["effect_bonuses"].troop_training
-            city_effects.population_growth = city_effects.population_growth + BUILDINGS[building]["effect_bonuses"].population_growth
-            city_effects.intelligence = city_effects.intelligence + BUILDINGS[building]["effect_bonuses"].intelligence
+            city_effects.troop_training = city_effects.troop_training + BUILDINGS[building].effect_bonuses.troop_training
+            city_effects.population_growth = city_effects.population_growth + BUILDINGS[building].effect_bonuses.population_growth
+            city_effects.intelligence = city_effects.intelligence + BUILDINGS[building].effect_bonuses.intelligence
         
         return city_effects
     
@@ -299,7 +299,7 @@ class City:
             f"{self.base_production.food}",
             f"{self.productivity_bonuses.food}",
             f"{self.total_production.food}",
-            f"{self.maintenance_costs.food}",
+            f"{-1 * self.maintenance_costs.food}",
             f"{self.balance.food}",
         )
         table.add_row(
@@ -308,7 +308,7 @@ class City:
             f"{self.base_production.ore}",
             f"{self.productivity_bonuses.ore}",
             f"{self.total_production.ore}",
-            f"{self.maintenance_costs.ore}",
+            f"{-1 * self.maintenance_costs.ore}",
             f"{self.balance.ore}",
         )
         table.add_row(
@@ -317,7 +317,7 @@ class City:
             f"{self.base_production.wood}",
             f"{self.productivity_bonuses.wood}",
             f"{self.total_production.wood}",
-            f"{self.maintenance_costs.wood}",
+            f"{-1 * self.maintenance_costs.wood}",
             f"{self.balance.wood}",
         )
         
