@@ -9,6 +9,12 @@ class GeoFeatureData(Enum):
     FOREST = "forest"
 
 
+class RssData(Enum):
+    FOOD = "food"
+    ORE = "ore"
+    WOOD = "wood"
+
+
 class RssCollectionData(TypedDict):
     food: int
     ore: int
@@ -29,11 +35,15 @@ class BuildingData(TypedDict):
     productivity_bonuses: RssCollectionData
     productivity_per_worker: RssCollectionData
     effect_bonuses: EffectsData
-    effect_per_worker: EffectsData
+    effect_bonuses_per_worker: EffectsData
     max_workers: int
     is_buildable: bool
     is_deletable: bool
     is_upgradeable: bool
     required_geo: GeoFeatureData | None
-    required_buildings: list[str]
+    # Dependencies here need to be interpreted as an OR. Either of the listed buildings unblocks the building. For
+    # example, a Stable requires either a Farm, or Large Farm, or Vineyard, or a Fishing Village. A Blacksmith requires
+    # either a Mine, or a Large Mine, or a Mountain Mine, or an Outcrop Mine.
+    required_rss: RssData | None
+    required_building: list[str]
     replaces: str | None

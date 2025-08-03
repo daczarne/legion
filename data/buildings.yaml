@@ -1,5 +1,7 @@
 buildings:
-  # Halls
+  # ********* #
+  # * Halls * #
+  # ********* #
   - id: village_hall
     name: Village Hall
     building_cost:
@@ -22,7 +24,7 @@ buildings:
       troop_training: 0
       population_growth: 0
       intelligence: 0
-    effect_per_worker:
+    effect_bonuses_per_worker:
       troop_training: 0
       population_growth: 0
       intelligence: 0
@@ -31,7 +33,8 @@ buildings:
     is_deletable: false
     is_upgradeable: true
     required_geo: null
-    required_buildings: []
+    required_rss: null
+    required_building: []
     replaces: null
   - id: town_hall
     name: Town Hall
@@ -55,7 +58,7 @@ buildings:
       troop_training: 0
       population_growth: 0
       intelligence: 0
-    effect_per_worker:
+    effect_bonuses_per_worker:
       troop_training: 0
       population_growth: 0
       intelligence: 0
@@ -64,7 +67,8 @@ buildings:
     is_deletable: false
     is_upgradeable: true
     required_geo: null
-    required_buildings:
+    required_rss: null
+    required_building:
       - village_hall
     replaces: village_hall
   - id: city_hall
@@ -89,7 +93,7 @@ buildings:
       troop_training: 0
       population_growth: 0
       intelligence: 0
-    effect_per_worker:
+    effect_bonuses_per_worker:
       troop_training: 0
       population_growth: 0
       intelligence: 0
@@ -98,10 +102,13 @@ buildings:
     is_deletable: false
     is_upgradeable: false
     required_geo: null
-    required_buildings:
+    required_rss: null
+    required_building:
       - town_hall
     replaces: town_hall
-  # Food production
+  # ******************* #
+  # * Food production * #
+  # ******************* #
   - id: farm
     name: Farm
     building_cost:
@@ -124,7 +131,7 @@ buildings:
       troop_training: 0
       population_growth: 0
       intelligence: 0
-    effect_per_worker:
+    effect_bonuses_per_worker:
       troop_training: 0
       population_growth: 0
       intelligence: 0
@@ -133,11 +140,12 @@ buildings:
     is_deletable: true
     is_upgradeable: true
     required_geo: null
-    required_buildings:
+    required_rss: food
+    required_building:
       - village_hall
     replaces: null
   - id: large_farm
-    name: Large farm
+    name: Large Farm
     building_cost:
       food: 0
       ore: 150
@@ -158,7 +166,7 @@ buildings:
       troop_training: 0
       population_growth: 0
       intelligence: 0
-    effect_per_worker:
+    effect_bonuses_per_worker:
       troop_training: 0
       population_growth: 0
       intelligence: 0
@@ -167,7 +175,8 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_buildings:
+    required_rss: food
+    required_building:
       - farm
     replaces: farm
   - id: vineyard
@@ -192,7 +201,7 @@ buildings:
       troop_training: 0
       population_growth: 0
       intelligence: 0
-    effect_per_worker:
+    effect_bonuses_per_worker:
       troop_training: 0
       population_growth: 0
       intelligence: 0
@@ -201,7 +210,8 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_buildings:
+    required_rss: food
+    required_building:
       - farm
     replaces: farm
   - id: fishing_village
@@ -226,7 +236,7 @@ buildings:
       troop_training: 0
       population_growth: 0
       intelligence: 0
-    effect_per_worker:
+    effect_bonuses_per_worker:
       troop_training: 0
       population_growth: 0
       intelligence: 0
@@ -235,6 +245,42 @@ buildings:
     is_deletable: false
     is_upgradeable: false
     required_geo: lake
-    required_buildings:
+    required_rss: food
+    required_building:
       - village_hall
+    replaces: null
+  - id: farmers_guild
+    name: Farmers' guild
+    building_cost:
+      food: 250
+      ore: 250
+      wood: 250
+    maintenance_cost:
+      food: 10
+      ore: 0
+      wood: 0
+    productivity_bonuses:
+      food: 50
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 0
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    effect_bonuses_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    max_workers: 0
+    is_buildable: true
+    is_deletable: true
+    is_upgradeable: false
+    required_geo: null
+    required_rss: food
+    required_building:
+      - large_farm
     replaces: null
