@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 pyyaml = "==6.0.2"
+rich = "==14.1.0"
 
 [dev-packages]
 pytest = "==8.3.3"
