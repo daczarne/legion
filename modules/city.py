@@ -1,11 +1,12 @@
 from dataclasses import dataclass, field
 from typing import ClassVar, TypeAlias
+
 from rich.console import Console
+from rich.panel import Panel
+from rich.layout import Layout
+from rich.align import Align
 from rich.table import Table
 from rich.text import Text
-from rich.layout import Layout
-from rich.panel import Panel
-from rich.align import Align
 
 from .buildings import (
     RssCollection,
