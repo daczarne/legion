@@ -22,3 +22,14 @@ def _cities() -> Generator[list[CityData]]:
         cities_data: CitiesData = yaml.safe_load(stream = file)
     
     yield cities_data["cities"]
+
+
+@fixture(scope = "session")
+def _buildings() -> Generator[list]:
+    """
+    Loads the buildings.yaml file.
+    """
+    with open(file = "./data/buildings.yaml", mode = "r") as file:
+        buildings_data = yaml.safe_load(stream = file)
+    
+    yield buildings_data["buildings"]
