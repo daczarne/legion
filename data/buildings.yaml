@@ -1,0 +1,240 @@
+buildings:
+  # Halls
+  - id: village_hall
+    name: Village Hall
+    building_cost:
+      food: 0
+      ore: 0
+      wood: 0
+    maintenance_cost:
+      food: -5
+      ore: -5
+      wood: -5
+    productivity_bonuses:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 0
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    effect_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    max_workers: 0
+    is_buildable: false
+    is_deletable: false
+    is_upgradeable: true
+    required_geo: null
+    required_buildings: []
+    replaces: null
+  - id: town_hall
+    name: Town Hall
+    building_cost:
+      food: 250
+      ore: 0
+      wood: 250
+    maintenance_cost:
+      food: -3
+      ore: -3
+      wood: -3
+    productivity_bonuses:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 0
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    effect_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    max_workers: 0
+    is_buildable: true
+    is_deletable: false
+    is_upgradeable: true
+    required_geo: null
+    required_buildings:
+      - village_hall
+    replaces: village_hall
+  - id: city_hall
+    name: City Hall
+    building_cost:
+      food: 350
+      ore: 100
+      wood: 350
+    maintenance_cost:
+      food: 1
+      ore: 1
+      wood: 1
+    productivity_bonuses:
+      food: 25
+      ore: 25
+      wood: 25
+    productivity_per_worker:
+      food: 0
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    effect_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    max_workers: 0
+    is_buildable: true
+    is_deletable: false
+    is_upgradeable: false
+    required_geo: null
+    required_buildings:
+      - town_hall
+    replaces: town_hall
+  # Food production
+  - id: farm
+    name: Farm
+    building_cost:
+      food: 0
+      ore: 100
+      wood: 0
+    maintenance_cost:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_bonuses:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 7
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    effect_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    max_workers: 3
+    is_buildable: true
+    is_deletable: true
+    is_upgradeable: true
+    required_geo: null
+    required_buildings:
+      - village_hall
+    replaces: null
+  - id: large_farm
+    name: Large farm
+    building_cost:
+      food: 0
+      ore: 150
+      wood: 150
+    maintenance_cost:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_bonuses:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 12
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    effect_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    max_workers: 3
+    is_buildable: true
+    is_deletable: true
+    is_upgradeable: false
+    required_geo: null
+    required_buildings:
+      - farm
+    replaces: farm
+  - id: vineyard
+    name: Vineyard
+    building_cost:
+      food: 0
+      ore: 150
+      wood: 150
+    maintenance_cost:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_bonuses:
+      food: 10
+      ore: 10
+      wood: 10
+    productivity_per_worker:
+      food: 10
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    effect_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    max_workers: 3
+    is_buildable: true
+    is_deletable: true
+    is_upgradeable: false
+    required_geo: null
+    required_buildings:
+      - farm
+    replaces: farm
+  - id: fishing_village
+    name: Fishing village
+    building_cost:
+      food: 0
+      ore: 50
+      wood: 0
+    maintenance_cost:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_bonuses:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 9
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    effect_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    max_workers: 3
+    is_buildable: true
+    is_deletable: false
+    is_upgradeable: false
+    required_geo: lake
+    required_buildings:
+      - village_hall
+    replaces: null
