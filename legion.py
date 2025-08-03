@@ -1,4 +1,4 @@
-from modules.city import City, CityBuildings, RssCollection
+from modules.city import City, CityBuildings
 
 
 scenario_1: City = City(
@@ -14,12 +14,8 @@ scenario_1: City = City(
     ),
 )
 
-scenario_1.display_results(
-    include_city_information = True,
-    include_city_effects = True,
-)
+scenario_1.display_results()
 
-#* Military city
 
 scenario_2: City = City(
     campaign = "Unification of Italy",
@@ -38,7 +34,4 @@ scenario_2: City = City(
     ),
 )
 
-scenario_2.display_results(
-    include_city_information = True,
-    include_city_effects = True,
-)
+scenario_2.display_results()
