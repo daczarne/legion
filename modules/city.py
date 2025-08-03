@@ -46,7 +46,7 @@ class CityBuildings:
         
         unknown: set[str] = set(self.buildings) - BUILDINGS.keys()
         if unknown:
-            raise ValueError(f"Unknown building(s): {', '.join(unknown)}")
+            raise ValueError(f"Unknown building(s): {", ".join(unknown)}")
         
         total: int = sum(self.buildings.values())
         if total > self.MAX_NUMBER_OF_BUILDINGS_PER_CITY:
