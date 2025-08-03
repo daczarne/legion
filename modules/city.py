@@ -149,8 +149,8 @@ class City:
         """
         Given the buildings in the city, it calculates the base production of those buildings for each resource. Base
         production is defined here as production before productivity bonuses. It is determined only by the buildings
-        and the city's production potential for each rss. Buildings are assumed to be fully staffed and fully upgraded.
-        For example, "1 mine" means "1 large mine with all 3 workers".
+        and the city's production potential for each rss. Buildings are assumed to be fully staffed. For example, "1
+        large mine" means "1 large mine with all 3 workers".
         """
         from math import floor
         
