@@ -188,9 +188,9 @@ class City:
         productivity_bonuses: RssCollection = RssCollection()
         
         for building in self.buildings.buildings:
-            productivity_bonuses.food = productivity_bonuses.food + BUILDINGS[building]["productivity_bonus"].food
-            productivity_bonuses.ore = productivity_bonuses.ore + BUILDINGS[building]["productivity_bonus"].ore
-            productivity_bonuses.wood = productivity_bonuses.wood + BUILDINGS[building]["productivity_bonus"].wood
+            productivity_bonuses.food = productivity_bonuses.food + BUILDINGS[building]["productivity_bonuses"].food
+            productivity_bonuses.ore = productivity_bonuses.ore + BUILDINGS[building]["productivity_bonuses"].ore
+            productivity_bonuses.wood = productivity_bonuses.wood + BUILDINGS[building]["productivity_bonuses"].wood
         
         return productivity_bonuses
     
