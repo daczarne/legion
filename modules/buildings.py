@@ -1,5 +1,13 @@
-from typing import TypedDict
+from typing import TypedDict, Any
 from dataclasses import dataclass
+from enum import Enum
+
+
+class GeoFeature(Enum):
+    LAKE = "lake"
+    OUTCROP_ROCK = "outcrop_rock"
+    MOUNTAIN = "mountain"
+    FOREST = "forest"
 
 
 @dataclass
@@ -16,7 +24,25 @@ class RssCollection:
     wood: int = 0
 
 
-class Building(TypedDict):
+@dataclass
+class Building:
+    id: str
+    name: str
+    building_cost: RssCollection
+    maintenance_cost: RssCollection
+    productivity_bonuses: RssCollection
+    productivity_per_worker: RssCollection
+    effect_bonuses: EffectBonuses
+    effect_bonuses_per_worker: EffectBonuses
+    storage_capacity: RssCollection
+    max_workers: int
+    is_buildable: bool
+    is_deletable: bool
+    is_upgradeable: bool
+    required_geo: GeoFeature | None
+
+
+class Building2(TypedDict):
     name: str
     maintenance_cost: RssCollection
     productivity_bonuses: RssCollection
@@ -25,7 +51,7 @@ class Building(TypedDict):
     max_workers: int
 
 
-BUILDINGS: dict[str, Building] = {
+BUILDINGS: dict[str, Building2] = {
     "city_hall": {
         "name": "City hall",
         "maintenance_cost": RssCollection(food = 1, ore = 1, wood = 1),

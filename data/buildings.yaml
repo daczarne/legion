@@ -28,6 +28,10 @@ buildings:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    storage_capacity:
+      food:
+      ore:
+      wood:
     max_workers: 0
     is_buildable: false
     is_deletable: false
@@ -62,6 +66,10 @@ buildings:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    storage_capacity:
+      food:
+      ore:
+      wood:
     max_workers: 0
     is_buildable: true
     is_deletable: false
@@ -97,6 +105,10 @@ buildings:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    storage_capacity:
+      food:
+      ore:
+      wood:
     max_workers: 0
     is_buildable: true
     is_deletable: false
@@ -135,6 +147,10 @@ buildings:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    storage_capacity:
+      food:
+      ore:
+      wood:
     max_workers: 3
     is_buildable: true
     is_deletable: true
@@ -170,6 +186,10 @@ buildings:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    storage_capacity:
+      food:
+      ore:
+      wood:
     max_workers: 3
     is_buildable: true
     is_deletable: true
@@ -205,6 +225,10 @@ buildings:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    storage_capacity:
+      food:
+      ore:
+      wood:
     max_workers: 3
     is_buildable: true
     is_deletable: true
@@ -240,6 +264,10 @@ buildings:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    storage_capacity:
+      food:
+      ore:
+      wood:
     max_workers: 3
     is_buildable: true
     is_deletable: false
@@ -275,6 +303,10 @@ buildings:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    storage_capacity:
+      food:
+      ore: 0
+      wood: 0
     max_workers: 0
     is_buildable: true
     is_deletable: true
