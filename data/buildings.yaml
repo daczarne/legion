@@ -955,6 +955,245 @@ buildings:
     required_building:
       - city_hall
     replaces: null
+  - id: small_fort
+    name: Small Fort
+    building_cost:
+      food: 150
+      ore: 0
+      wood: 150
+    maintenance_cost:
+      food: 5
+      ore: 0
+      wood: 5
+    productivity_bonuses:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 0
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 10
+    effect_bonuses_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    storage_capacity:
+      food: 0
+      ore: 0
+      wood: 0
+    max_workers: 0
+    is_buildable: true
+    is_deletable: true
+    is_upgradeable: true
+    required_geo: null
+    required_rss: null
+    required_building:
+      - village_hall
+    replaces: null
+  - id: medium_fort
+    name: Medium Fort
+    building_cost:
+      food: 200
+      ore: 0
+      wood: 200
+    maintenance_cost:
+      food: 10
+      ore: 0
+      wood: 10
+    productivity_bonuses:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 0
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 10
+    effect_bonuses_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    storage_capacity:
+      food: 0
+      ore: 0
+      wood: 0
+    max_workers: 0
+    is_buildable: true
+    is_deletable: true
+    is_upgradeable: true
+    required_geo: null
+    required_rss: null
+    required_building:
+      - small_fort
+      - town_hall
+    replaces: small_fort
+  - id: large_fort
+    name: Large Fort
+    building_cost:
+      food: 250
+      ore: 0
+      wood: 250
+    maintenance_cost:
+      food: 15
+      ore: 0
+      wood: 15
+    productivity_bonuses:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 0
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 10
+    effect_bonuses_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    storage_capacity:
+      food: 0
+      ore: 0
+      wood: 0
+    max_workers: 0
+    is_buildable: true
+    is_deletable: true
+    is_upgradeable: false
+    required_geo: null
+    required_rss: null
+    required_building:
+      - medium_fort
+      - city_hall
+    replaces: medium_fort
+  - id: barracks
+    name: Barracks
+    building_cost:
+      food: 0
+      ore: 150
+      wood: 250
+    maintenance_cost:
+      food: 0
+      ore: 5
+      wood: 10
+    productivity_bonuses:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 0
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    effect_bonuses_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    storage_capacity:
+      food: 0
+      ore: 0
+      wood: 0
+    max_workers: 0
+    is_buildable: true
+    is_deletable: true
+    is_upgradeable: true
+    required_geo: null
+    required_rss: null
+    required_building:
+      - town_hall
+      - small_fort
+    replaces: null
+  - id: quartermaster
+    name: Quartermaster
+    building_cost:
+      food: 400
+      ore: 200
+      wood: 200
+    maintenance_cost:
+      food: 12
+      ore: 8
+      wood: 8
+    productivity_bonuses:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 0
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    effect_bonuses_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    storage_capacity:
+      food: 0
+      ore: 0
+      wood: 0
+    max_workers: 0
+    is_buildable: true
+    is_deletable: true
+    is_upgradeable: false
+    required_geo: null
+    required_rss: null
+    required_building:
+      - barracks
+      - city_hall
+    replaces: barracks
+  - id: watch_tower
+    name: Watch Tower
+    building_cost:
+      food: 150
+      ore: 0
+      wood: 100
+    maintenance_cost:
+      food: 8
+      ore: 0
+      wood: 4
+    productivity_bonuses:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 0
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 20
+    effect_bonuses_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 15
+    storage_capacity:
+      food: 0
+      ore: 0
+      wood: 0
+    max_workers: 2
+    is_buildable: true
+    is_deletable: true
+    is_upgradeable: false
+    required_geo: null
+    required_rss: null
+    required_building:
+      - small_fort
+      - village_hall
+    replaces: null
   # *********** #
   # * Support * #
   # *********** #
@@ -1153,6 +1392,201 @@ buildings:
     required_building:
       - bath_house
     replaces: bath_house
+  - id: warehouse
+    name: Warehouse
+    building_cost:
+      food: 50
+      ore: 0
+      wood: 50
+    maintenance_cost:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_bonuses:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 0
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    effect_bonuses_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    storage_capacity:
+      food:
+      ore:
+      wood:
+    max_workers: 0
+    is_buildable: true
+    is_deletable: true
+    is_upgradeable: false
+    required_geo: null
+    required_rss: null
+    required_building:
+      -  village_hall
+    replaces: null
+  - id: small_market
+    name: Small Market
+    building_cost:
+      food: 50
+      ore: 50
+      wood: 50
+    maintenance_cost:
+      food: -3
+      ore: -3
+      wood: -3
+    productivity_bonuses:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 0
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 10
+    effect_bonuses_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    storage_capacity:
+      food: 0
+      ore: 0
+      wood: 0
+    max_workers: 0
+    is_buildable: true
+    is_deletable: true
+    is_upgradeable: true
+    required_geo: null
+    required_rss: null
+    required_building:
+      -  village_hall
+    replaces: null
+  - id: large_market
+    name: Large Market
+    building_cost:
+      food: 150
+      ore: 150
+      wood: 150
+    maintenance_cost:
+      food: -5
+      ore: -5
+      wood: -5
+    productivity_bonuses:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 0
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 15
+    effect_bonuses_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    storage_capacity:
+      food: 0
+      ore: 0
+      wood: 0
+    max_workers: 0
+    is_buildable: true
+    is_deletable: true
+    is_upgradeable: false
+    required_geo: null
+    required_rss: null
+    required_building:
+      -  village_hall
+      -  small_market
+    replaces: small_market
+  - id: hunters_lodge
+    name: Hunters' Lodge
+    building_cost:
+      food: 0
+      ore: 0
+      wood: 0
+    maintenance_cost:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_bonuses:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 2
+      ore: 2
+      wood: 2
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    effect_bonuses_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    storage_capacity:
+      food:
+      ore:
+      wood:
+    max_workers: 3
+    is_buildable: true
+    is_deletable: true
+    is_upgradeable: false
+    required_geo: null
+    required_rss: null
+    required_building:
+      -  village_hall
+    replaces: null
   # ********* #
   # * Other * #
   # ********* #
+  - id: supply_dump
+    name: Supply Dump
+    building_cost:
+      food: 0
+      ore: 0
+      wood: 0
+    maintenance_cost:
+      food: -10
+      ore: -10
+      wood: -10
+    productivity_bonuses:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 0
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 100
+      intelligence: 0
+    effect_bonuses_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    storage_capacity:
+      food: 0
+      ore: 0
+      wood: 0
+    max_workers: 0
+    is_buildable: false
+    is_deletable: false
+    is_upgradeable: false
+    required_geo: null
+    required_rss: null
+    required_building: []
+    replaces: null
