@@ -1419,9 +1419,9 @@ buildings:
       population_growth: 0
       intelligence: 0
     storage_capacity:
-      food:
-      ore:
-      wood:
+      food: 250
+      ore: 250
+      wood: 250
     max_workers: 0
     is_buildable: true
     is_deletable: true
@@ -1537,9 +1537,9 @@ buildings:
       population_growth: 0
       intelligence: 0
     storage_capacity:
-      food:
-      ore:
-      wood:
+      food: 25
+      ore: 0
+      wood: 0
     max_workers: 3
     is_buildable: true
     is_deletable: true
