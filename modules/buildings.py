@@ -1,5 +1,28 @@
-from typing import TypedDict
+import yaml
+
+from typing import TypeAlias, Literal, Any
+from enum import Enum
 from dataclasses import dataclass
+
+
+class GeoFeature(Enum):
+    LAKE = "lake"
+    OUTCROP_ROCK = "outcrop_rock"
+    MOUNTAIN = "mountain"
+    FOREST = "forest"
+
+
+class Resource(Enum):
+    FOOD = "food"
+    ORE = "ore"
+    WOOD = "wood"
+
+
+@dataclass
+class ResourceCollection:
+    food: int = 0
+    ore: int = 0
+    wood: int = 0
 
 
 @dataclass
@@ -10,279 +33,57 @@ class EffectBonuses:
 
 
 @dataclass
-class RssCollection:
-    food: int = 0
-    ore: int = 0
-    wood: int = 0
-
-
-class Building(TypedDict):
+class Building:
+    id: str
     name: str
-    maintenance_cost: RssCollection
-    productivity_bonus: RssCollection
-    productivity_per_worker: RssCollection
+    building_cost: ResourceCollection
+    maintenance_cost: ResourceCollection
+    productivity_bonuses: ResourceCollection
+    productivity_per_worker: ResourceCollection
     effect_bonuses: EffectBonuses
+    effect_bonuses_per_worker: EffectBonuses
+    storage_capacity: ResourceCollection
     max_workers: int
+    is_buildable: bool
+    is_deletable: bool
+    is_upgradeable: bool
+    required_geo: GeoFeature | None
+    # Dependencies here need to be interpreted as an OR. Either of the listed buildings unblocks the building. For
+    # example, a Stable requires either a Farm, or Large Farm, or Vineyard, or a Fishing Village. If the city has any
+    # one for them it can build a Stable. Similarly, a Blacksmith requires either a Mine, or a Large Mine, or a
+    # Mountain Mine, or an Outcrop Mine.
+    required_rss: Resource | None
+    required_building: list[str]
+    replaces: str | None
 
 
-BUILDINGS: dict[str, Building] = {
-    "city_hall": {
-        "name": "City hall",
-        "maintenance_cost": RssCollection(food = 1, ore = 1, wood = 1),
-        "productivity_bonus": RssCollection(food = 25, ore = 25, wood = 25),
-        "productivity_per_worker": RssCollection(),
-        "effect_bonuses": EffectBonuses(),
-        "max_workers": 0,
-    },
-    "hunters_lodge": {
-        "name": "Hunters' lodge",
-        "maintenance_cost": RssCollection(),
-        "productivity_bonus": RssCollection(),
-        "productivity_per_worker": RssCollection(food = 2, ore = 2, wood = 2),
-        "effect_bonuses": EffectBonuses(),
-        "max_workers": 3,
-    },
-    "large_farm": {
-        "name": "Large farm",
-        "maintenance_cost": RssCollection(),
-        "productivity_bonus": RssCollection(),
-        "productivity_per_worker": RssCollection(food = 12),
-        "effect_bonuses": EffectBonuses(),
-        "max_workers": 3,
-    },
-    "vineyard": {
-        "name": "Vineyard",
-        "maintenance_cost": RssCollection(),
-        "productivity_bonus": RssCollection(food = 10, ore = 10, wood = 10),
-        "productivity_per_worker": RssCollection(food = 10),
-        "effect_bonuses": EffectBonuses(),
-        "max_workers": 3,
-    },
-    "fishing_village": {
-        "name": "Fishing village",
-        "maintenance_cost": RssCollection(),
-        "productivity_bonus": RssCollection(),
-        "productivity_per_worker": RssCollection(food = 9),
-        "effect_bonuses": EffectBonuses(),
-        "max_workers": 3,
-    },
-    "farmers_guild": {
-        "name": "Farmers' guild",
-        "maintenance_cost": RssCollection(food = 10),
-        "productivity_bonus": RssCollection(food = 50),
-        "productivity_per_worker": RssCollection(),
-        "effect_bonuses": EffectBonuses(),
-        "max_workers": 0,
-    },
-    "stables": {
-        "name": "Stables",
-        "maintenance_cost": RssCollection(food = 5),
-        "productivity_bonus": RssCollection(),
-        "productivity_per_worker": RssCollection(),
-        "effect_bonuses": EffectBonuses(),
-        "max_workers": 0,
-    },
-    "large_mine": {
-        "name": "Large mine",
-        "maintenance_cost": RssCollection(),
-        "productivity_bonus": RssCollection(),
-        "productivity_per_worker": RssCollection(ore = 12),
-        "effect_bonuses": EffectBonuses(),
-        "max_workers": 3,
-    },
-    "outcrop_mine": {
-        "name": "Outcrop mine",
-        "maintenance_cost": RssCollection(),
-        "productivity_bonus": RssCollection(),
-        "productivity_per_worker": RssCollection(ore = 13),
-        "effect_bonuses": EffectBonuses(),
-        "max_workers": 2,
-    },
-    "mountain_mine": {
-        "name": "Mountain mine",
-        "maintenance_cost": RssCollection(),
-        "productivity_bonus": RssCollection(),
-        "productivity_per_worker": RssCollection(ore = 20),
-        "effect_bonuses": EffectBonuses(),
-        "max_workers": 1,
-    },
-    "miners_guild": {
-        "name": "Miners' guild",
-        "maintenance_cost": RssCollection(ore = 10),
-        "productivity_bonus": RssCollection(ore = 50),
-        "productivity_per_worker": RssCollection(),
-        "effect_bonuses": EffectBonuses(),
-        "max_workers": 0,
-    },
-    "blacksmith": {
-        "name": "Blacksmith",
-        "maintenance_cost": RssCollection(ore = 5),
-        "productivity_bonus": RssCollection(),
-        "productivity_per_worker": RssCollection(),
-        "effect_bonuses": EffectBonuses(),
-        "max_workers": 0,
-    },
-    "large_lumber_mill": {
-        "name": "Large lumber mill",
-        "maintenance_cost": RssCollection(),
-        "productivity_bonus": RssCollection(),
-        "productivity_per_worker": RssCollection(wood = 12),
-        "effect_bonuses": EffectBonuses(),
-        "max_workers": 3,
-    },
-    "carpenters_guild": {
-        "name": "Carpenters' guild",
-        "maintenance_cost": RssCollection(wood = 10),
-        "productivity_bonus": RssCollection(wood = 50),
-        "productivity_per_worker": RssCollection(),
-        "effect_bonuses": EffectBonuses(),
-        "max_workers": 0,
-    },
-    "fletcher": {
-        "name": "Fletcher",
-        "maintenance_cost": RssCollection(wood = 5),
-        "productivity_bonus": RssCollection(),
-        "productivity_per_worker": RssCollection(),
-        "effect_bonuses": EffectBonuses(),
-        "max_workers": 0,
-    },
-    "basilica": {
-        "name": "Basilica",
-        "maintenance_cost": RssCollection(food = 3, ore = 3, wood = 3),
-        "productivity_bonus": RssCollection(food = 50, ore = 50, wood = 50),
-        "productivity_per_worker": RssCollection(),
-        # Having it in the city => +0 population growth
-        # Manning it => +50 pop growth
-        "effect_bonuses": EffectBonuses(population_growth = 50),
-        "max_workers": 1,
-    },
-    "temple": {
-        "name": "Temple",
-        "maintenance_cost": RssCollection(food = 2, ore = 2, wood = 2),
-        "productivity_bonus": RssCollection(food = 25, ore = 25, wood = 25),
-        "productivity_per_worker": RssCollection(),
-        # Having it in the city => +0 population growth
-        # Manning it => +40 pop growth (+25 for the shrine)
-        "effect_bonuses": EffectBonuses(population_growth = 40),
-        "max_workers": 1,
-    },
-    "hidden_grove": {
-        # Requires a forest to be present in the city. If the forest is
-        # destroyed, it cannot be built any more.
-        "name": "Hidden grove",
-        "maintenance_cost": RssCollection(),
-        "productivity_bonus": RssCollection(food = 15, ore = 15, wood = 15),
-        "productivity_per_worker": RssCollection(),
-        # Having it in the city => +50 population growth
-        # Manning it => +50 pop growth per worker
-        "effect_bonuses": EffectBonuses(population_growth = 200),
-        "max_workers": 3,
-    },
-    "apothecary": {
-        "name": "Apothecary",
-        "maintenance_cost": RssCollection(food = 5),
-        "productivity_bonus": RssCollection(),
-        "productivity_per_worker": RssCollection(),
-        # Having it in the city => +50 pop growth
-        # Manning it => +20 pop growth per worker
-        "effect_bonuses": EffectBonuses(population_growth = 90),
-        "max_workers": 2,
-    },
-    "hospital": {
-        "name": "Hospital",
-        "maintenance_cost": RssCollection(food = 8),
-        "productivity_bonus": RssCollection(),
-        "productivity_per_worker": RssCollection(),
-        # Having it in the city => +100 pop growth (+50 for baths)
-        # Manning it => +40 pop growth per worker (+25 for baths)
-        "effect_bonuses": EffectBonuses(population_growth = 220),
-        "max_workers": 3,
-    },
-    "training_ground": {
-        "name": "Training ground",
-        "maintenance_cost": RssCollection(food = 10, wood = 10),
-        "productivity_bonus": RssCollection(),
-        "productivity_per_worker": RssCollection(),
-        # Having it in the city => +20 troop training
-        # Manning it => +5 troop training
-        "effect_bonuses": EffectBonuses(troop_training = 25),
-        "max_workers": 1,
-    },
-    "bordello": {
-        "name": "Bordello",
-        "maintenance_cost": RssCollection(food = 8, ore = 4, wood = 8),
-        "productivity_bonus": RssCollection(),
-        "productivity_per_worker": RssCollection(),
-        # Having it in the city => +10 troop training
-        "effect_bonuses": EffectBonuses(troop_training = 10),
-        "max_workers": 0,
-    },
-    "gladiator_school": {
-        "name": "Gladiator school",
-        "maintenance_cost": RssCollection(ore = 8),
-        "productivity_bonus": RssCollection(food = 10, ore = 10, wood = 10),
-        "productivity_per_worker": RssCollection(),
-        "effect_bonuses": EffectBonuses(),
-        "max_workers": 0,
-    },
-    "imperial_residence": {
-        "name": "Imperial residence",
-        "maintenance_cost": RssCollection(food = 8, ore = 8, wood = 8),
-        "productivity_bonus": RssCollection(food = 10, ore = 10, wood = 10),
-        "productivity_per_worker": RssCollection(),
-        "effect_bonuses": EffectBonuses(),
-        "max_workers": 0,
-    },
-    "quartermaster": {
-        "name": "Quartermaster",
-        "maintenance_cost": RssCollection(food = 12, ore = 8, wood = 8),
-        "productivity_bonus": RssCollection(),
-        "productivity_per_worker": RssCollection(),
-        "effect_bonuses": EffectBonuses(),
-        "max_workers": 0,
-    },
-    "large_fort": {
-        "name": "Large fort",
-        "maintenance_cost": RssCollection(food = 15, wood = 15),
-        "productivity_bonus": RssCollection(food = 10, ore = 10, wood = 10),
-        "productivity_per_worker": RssCollection(),
-        # +10 intelligence (all fort sizes)
-        "effect_bonuses": EffectBonuses(intelligence = 10),
-        "max_workers": 0,
-    },
-    "large_market": {
-        "name": "Large market",
-        "maintenance_cost": RssCollection(food = -5, ore = -5, wood = -5),
-        "productivity_bonus": RssCollection(),
-        "productivity_per_worker": RssCollection(),
-        # Intelligence +15 for having it in the city (+10 for the small market)
-        "effect_bonuses": EffectBonuses(intelligence = 15),
-        "max_workers": 0,
-    },
-    "watch_tower": {
-        "name": "Watch tower",
-        "maintenance_cost": RssCollection(food = 8, wood = 4),
-        "productivity_bonus": RssCollection(),
-        "productivity_per_worker": RssCollection(),
-        # Intelligence +20 for having it in the city
-        # Intelligence +15 per each worker
-        "effect_bonuses": EffectBonuses(intelligence = 50),
-        "max_workers": 2,
-    },
-    "warehouse": {
-        "name": "Warehouse",
-        "maintenance_cost": RssCollection(),
-        "productivity_bonus": RssCollection(),
-        "productivity_per_worker": RssCollection(),
-        "effect_bonuses": EffectBonuses(),
-        "max_workers": 0,
-    },
-    "supply_dump": {
-        "name": "Supply dump",
-        "maintenance_cost": RssCollection(food = -10, ore = -10, wood = -10),
-        "productivity_bonus": RssCollection(),
-        "productivity_per_worker": RssCollection(),
-        "effect_bonuses": EffectBonuses(population_growth = 100),
-        "max_workers": 0,
-    },
-}
+Buildings: TypeAlias = dict[str, Building]
+
+
+with open(file = "./data/buildings.yaml", mode = "r") as file:
+    buildings_data: dict[Literal["buildings"], list[dict[str, Any]]] = yaml.safe_load(stream = file)
+
+buildings_list: list[dict[str, Any]] = buildings_data["buildings"]
+
+BUILDINGS: Buildings = {}
+
+for building in buildings_list:
+    BUILDINGS[building["id"]] = Building(
+        id = building["id"],
+        name = building["name"],
+        building_cost = ResourceCollection(**building["building_cost"]),
+        maintenance_cost = ResourceCollection(**building["maintenance_cost"]),
+        productivity_bonuses = ResourceCollection(**building["productivity_bonuses"]),
+        productivity_per_worker = ResourceCollection(**building["productivity_per_worker"]),
+        effect_bonuses = EffectBonuses(**building["effect_bonuses"]),
+        effect_bonuses_per_worker = EffectBonuses(**building["effect_bonuses_per_worker"]),
+        storage_capacity = ResourceCollection(**building["storage_capacity"]),
+        max_workers = building["max_workers"],
+        is_buildable = building["is_buildable"],
+        is_deletable = building["is_deletable"],
+        is_upgradeable = building["is_upgradeable"],
+        required_geo = GeoFeature(value = building["required_geo"]) if building["required_geo"] else None,
+        required_rss = Resource(value = building["required_rss"]) if building["required_rss"] else None,
+        required_building = building["required_building"],
+        replaces = building["replaces"],
+    )
