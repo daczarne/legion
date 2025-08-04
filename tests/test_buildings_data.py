@@ -10,7 +10,7 @@ class TestBuildingsData:
     
     def test_all_buildings_have_all_expected_keys(
             self,
-            _errors: list,
+            _errors: list[dict[str, dict[str, list[str]]]],
             _buildings: list[dict[str, Any]],
         ) -> None:
         expected_keys: list[str] = [
@@ -53,7 +53,7 @@ class TestBuildingsData:
     
     def test_each_building_is_unique(
             self,
-            _errors: list,
+            _errors: list[str],
             _buildings: list[dict[str, Any]],
         ) -> None:
         building_ids: list[str] = []
@@ -81,7 +81,7 @@ class TestBuildingsData:
     def test_all_building_rss_collections_have_all_expected_keys(
             self,
             collection: str,
-            _errors: list,
+            _errors: list[dict[str, dict[str, list[str]]]],
             _buildings: list[dict[str, Any]],
         ) -> None:
         expected_keys: list[str] = [
@@ -118,7 +118,7 @@ class TestBuildingsData:
     def test_all_building_effects_collections_have_all_expected_keys(
             self,
             collection: str,
-            _errors: list,
+            _errors: list[dict[str, dict[str, list[str]]]],
             _buildings: list[dict[str, Any]],
         ) -> None:
         expected_keys: list[str] = [
@@ -175,9 +175,43 @@ class TestBuildingsData:
         
         assert len(_errors) == 0, _errors
     
+    @mark.parametrize(
+        argnames = "collection",
+        argvalues = [
+            ("effect_bonuses"),
+            ("effect_bonuses_per_worker"),
+        ],
+    )
+    def test_all_effects_collection_values_are_int(
+            self,
+            collection: str,
+            _errors: list[dict[str, str]],
+            _buildings: list[dict[str, Any]],
+        ) -> None:
+        
+        for building in _buildings:
+            building_id: str = building["id"]
+            
+            for effect, effect_value in building[collection].items():
+                if not isinstance(effect_value, int):
+                    error: dict[str, str] = {
+                        "building_id": building_id,
+                        f"{collection}": f"{effect}: {type(effect_value)}",
+                    }
+                    _errors.append(error)
+                
+                if not 0 <= effect_value:
+                    error: dict[str, str] = {
+                        "building_id": building_id,
+                        f"{collection}": f"{effect}: {effect_value}",
+                    }
+                    _errors.append(error)
+        
+        assert len(_errors) == 0, _errors
+    
     def test_all_required_geo_are_of_expected_value(
             self,
-            _errors: list,
+            _errors: list[tuple[str, str]],
             _buildings: list[dict[str, Any]],
         ) -> None:
         
@@ -196,7 +230,7 @@ class TestBuildingsData:
     
     def test_all_required_rss_are_of_expected_value(
             self,
-            _errors: list,
+            _errors: list[tuple[str, str]],
             _buildings: list[dict[str, Any]],
         ) -> None:
         
@@ -215,7 +249,7 @@ class TestBuildingsData:
     
     def test_all_required_buildings_are_building_ids(
             self,
-            _errors: list,
+            _errors: list[tuple[str, str]],
             _buildings: list[dict[str, Any]],
         ) -> None:
         all_building_ids: list[str] = [building["id"] for building in _buildings]
@@ -233,7 +267,7 @@ class TestBuildingsData:
     
     def test_all_replaces_are_building_ids(
             self,
-            _errors: list,
+            _errors: list[tuple[str, str]],
             _buildings: list[dict[str, Any]],
         ) -> None:
         all_building_ids: list[str] = [building["id"] for building in _buildings]
