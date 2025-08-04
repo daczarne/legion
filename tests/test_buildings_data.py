@@ -152,7 +152,7 @@ class TestBuildingsData:
             ("maintenance_cost"),
             ("productivity_bonuses"),
             ("productivity_per_worker"),
-            # ("storage_capacity"),
+            ("storage_capacity"),
         ],
     )
     def test_all_rss_collection_values_are_int(
