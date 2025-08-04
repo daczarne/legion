@@ -1429,7 +1429,7 @@ buildings:
     required_geo: null
     required_rss: null
     required_building:
-      -  village_hall
+      - village_hall
     replaces: null
   - id: small_market
     name: Small Market
@@ -1468,7 +1468,7 @@ buildings:
     required_geo: null
     required_rss: null
     required_building:
-      -  village_hall
+      - village_hall
     replaces: null
   - id: large_market
     name: Large Market
@@ -1507,8 +1507,8 @@ buildings:
     required_geo: null
     required_rss: null
     required_building:
-      -  village_hall
-      -  small_market
+      - village_hall
+      - small_market
     replaces: small_market
   - id: hunters_lodge
     name: Hunters' Lodge
@@ -1547,7 +1547,7 @@ buildings:
     required_geo: null
     required_rss: null
     required_building:
-      -  village_hall
+      - village_hall
     replaces: null
   # ********* #
   # * Other * #
