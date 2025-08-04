@@ -1,6 +1,7 @@
 from pytest import fixture
 import yaml
 from collections.abc import Generator
+from typing import Literal, Any
 
 from modules.city_data import CitiesData, CityData
 
@@ -22,3 +23,14 @@ def _cities() -> Generator[list[CityData]]:
         cities_data: CitiesData = yaml.safe_load(stream = file)
     
     yield cities_data["cities"]
+
+
+@fixture(scope = "session")
+def _buildings() -> Generator[list]:
+    """
+    Loads the buildings.yaml file.
+    """
+    with open(file = "./data/buildings.yaml", mode = "r") as file:
+        buildings_data: dict[Literal["buildings"], list[dict[str, Any]]] = yaml.safe_load(stream = file)
+    
+    yield buildings_data["buildings"]
