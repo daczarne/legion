@@ -257,7 +257,7 @@ cities:
       lakes: 0
       forests: 1
     effects:
-      troop_training: 0
+      troop_training: 25
       population_growth: 0
       intelligence: 0
     garrison: Hoplites
@@ -325,7 +325,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
-    garrison: Archers
+    garrison: Hill Tribe Warriors
   # G
   - name: Grumentum
     campaign: Unification of Italy
