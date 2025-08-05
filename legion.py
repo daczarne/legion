@@ -1,18 +1,29 @@
 from modules.city import City, CityBuildings
 
 
-scenario: City = City(
+City(
     campaign = "Unification of Italy",
-    name = "Canusium",
+    name = "Clusium",
     buildings = CityBuildings(
         buildings = {
-            "large_farm": 5,
-            "vineyard": 1,
-            "village_hall": 1,
-            "farmers_guild": 1,
-            # "miners_guild": 1,
+            "city_hall": 1,
+            "basilica": 1,
+            "hidden_grove": 1,
+            "large_mine": 6,
         },
     ),
-)
+).display_results()
 
-scenario.display_results()
+
+City(
+    campaign = "Unification of Italy",
+    name = "Clusium",
+    buildings = CityBuildings(
+        buildings = {
+            "city_hall": 1,
+            "basilica": 1,
+            "miners_guild": 1,
+            "large_mine": 6,
+        },
+    ),
+).display_results()
