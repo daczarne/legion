@@ -1392,6 +1392,45 @@ buildings:
     required_building:
       - bath_house
     replaces: bath_house
+  - id: hidden_grove
+    name: Hidden Grove
+    building_cost:
+      food: 0
+      ore: 0
+      wood: 200
+    maintenance_cost:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_bonuses:
+      food: 15
+      ore: 15
+      wood: 15
+    productivity_per_worker:
+      food: 0
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 50
+      intelligence: 0
+    effect_bonuses_per_worker:
+      troop_training: 0
+      population_growth: 50
+      intelligence: 0
+    storage_capacity:
+      food: 0
+      ore: 0
+      wood: 0
+    max_workers: 3
+    is_buildable: true
+    is_deletable: true
+    is_upgradeable: false
+    required_geo: forest
+    required_rss: null
+    required_building:
+      - forest
+    replaces: forest
   - id: warehouse
     name: Warehouse
     building_cost:
