@@ -1227,7 +1227,7 @@ buildings:
       food: 0
       ore: 0
       wood: 0
-    max_workers: 0
+    max_workers: 1
     is_buildable: true
     is_deletable: true
     is_upgradeable: true
@@ -1266,7 +1266,7 @@ buildings:
       food: 0
       ore: 0
       wood: 0
-    max_workers: 0
+    max_workers: 1
     is_buildable: true
     is_deletable: true
     is_upgradeable: true
@@ -1305,7 +1305,7 @@ buildings:
       food: 0
       ore: 0
       wood: 0
-    max_workers: 0
+    max_workers: 1
     is_buildable: true
     is_deletable: true
     is_upgradeable: false

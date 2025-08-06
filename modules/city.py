@@ -48,8 +48,8 @@ class City:
     geo_features: GeoFeatures = field(init = False)
     
     settlement_effects: EffectBonuses = field(init = False)
-    building_base_effects: EffectBonuses = field(init = False)
-    building_worker_effects: EffectBonuses = field(init = False)
+    building_effects: EffectBonuses = field(init = False)
+    worker_effects: EffectBonuses = field(init = False)
     total_effects: EffectBonuses = field(init = False)
     
     base_production: ResourceCollection = field(init = False)
@@ -258,31 +258,31 @@ class City:
     
     
     #* Effects calculations
-    def _calculate_building_base_effects(self) -> EffectBonuses:
+    def _calculate_building_effects(self) -> EffectBonuses:
         """
         Calculates the base effects produced by buildings. These do not include worker level effects.
         """
-        building_base_effects: EffectBonuses = EffectBonuses()
+        building_effects: EffectBonuses = EffectBonuses()
         
         for building in self.buildings:
-            building_base_effects.troop_training = building_base_effects.troop_training + BUILDINGS[building].effect_bonuses.troop_training
-            building_base_effects.population_growth = building_base_effects.population_growth + BUILDINGS[building].effect_bonuses.population_growth
-            building_base_effects.intelligence = building_base_effects.intelligence + BUILDINGS[building].effect_bonuses.intelligence
+            building_effects.troop_training = building_effects.troop_training + BUILDINGS[building].effect_bonuses.troop_training
+            building_effects.population_growth = building_effects.population_growth + BUILDINGS[building].effect_bonuses.population_growth
+            building_effects.intelligence = building_effects.intelligence + BUILDINGS[building].effect_bonuses.intelligence
         
-        return building_base_effects
+        return building_effects
     
-    def _calculate_building_worker_effects(self) -> EffectBonuses:
+    def _calculate_worker_effects(self) -> EffectBonuses:
         """
         Calculates the effects produced by building workers.
         """
-        building_worker_effects: EffectBonuses = EffectBonuses()
+        worker_effects: EffectBonuses = EffectBonuses()
         
         for building in self.buildings:
-            building_worker_effects.troop_training = building_worker_effects.troop_training + BUILDINGS[building].effect_bonuses_per_worker.troop_training * BUILDINGS[building].max_workers
-            building_worker_effects.population_growth = building_worker_effects.population_growth + BUILDINGS[building].effect_bonuses_per_worker.population_growth * BUILDINGS[building].max_workers
-            building_worker_effects.intelligence = building_worker_effects.intelligence + BUILDINGS[building].effect_bonuses_per_worker.intelligence * BUILDINGS[building].max_workers
+            worker_effects.troop_training = worker_effects.troop_training + BUILDINGS[building].effect_bonuses_per_worker.troop_training * BUILDINGS[building].max_workers
+            worker_effects.population_growth = worker_effects.population_growth + BUILDINGS[building].effect_bonuses_per_worker.population_growth * BUILDINGS[building].max_workers
+            worker_effects.intelligence = worker_effects.intelligence + BUILDINGS[building].effect_bonuses_per_worker.intelligence * BUILDINGS[building].max_workers
         
-        return building_worker_effects
+        return worker_effects
     
     def _calculate_total_effects(self) -> EffectBonuses:
         """
@@ -292,18 +292,18 @@ class City:
         
         total_effects.troop_training = (
             self.settlement_effects.troop_training
-            + self.building_base_effects.troop_training
-            + self.building_worker_effects.troop_training
+            + self.building_effects.troop_training
+            + self.worker_effects.troop_training
         )
         total_effects.population_growth = (
             self.settlement_effects.population_growth
-            + self.building_base_effects.population_growth
-            + self.building_worker_effects.population_growth
+            + self.building_effects.population_growth
+            + self.worker_effects.population_growth
         )
         total_effects.intelligence = (
             self.settlement_effects.intelligence
-            + self.building_base_effects.intelligence
-            + self.building_worker_effects.intelligence
+            + self.building_effects.intelligence
+            + self.worker_effects.intelligence
         )
         
         return total_effects
@@ -320,8 +320,8 @@ class City:
         
         #* Effects
         self.settlement_effects = self._get_settlement_effects()
-        self.building_base_effects = self._calculate_building_base_effects()
-        self.building_worker_effects = self._calculate_building_worker_effects()
+        self.building_effects = self._calculate_building_effects()
+        self.worker_effects = self._calculate_worker_effects()
         self.total_effects = self._calculate_total_effects()
         
         #* Production
@@ -406,22 +406,22 @@ class City:
         table.add_row(
             "Troop training",
             f"{str(self.settlement_effects.troop_training)}",
-            f"{str(self.building_base_effects.troop_training)}",
-            f"{str(self.building_worker_effects.troop_training)}",
+            f"{str(self.building_effects.troop_training)}",
+            f"{str(self.worker_effects.troop_training)}",
             f"{str(self.total_effects.troop_training)}",
         )
         table.add_row(
             "Population growth",
             f"{str(self.settlement_effects.population_growth)}",
-            f"{str(self.building_base_effects.population_growth)}",
-            f"{str(self.building_worker_effects.population_growth)}",
+            f"{str(self.building_effects.population_growth)}",
+            f"{str(self.worker_effects.population_growth)}",
             f"{str(self.total_effects.population_growth)}",
         )
         table.add_row(
             "Intelligence",
             f"{str(self.settlement_effects.intelligence)}",
-            f"{str(self.building_base_effects.intelligence)}",
-            f"{str(self.building_worker_effects.intelligence)}",
+            f"{str(self.building_effects.intelligence)}",
+            f"{str(self.worker_effects.intelligence)}",
             f"{str(self.total_effects.intelligence)}",
         )
         
