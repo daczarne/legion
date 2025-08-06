@@ -399,7 +399,7 @@ class City:
         table: Table = Table(title = "Effects")
         
         table.add_column(header = "Effect", header_style = "bold", justify = "center")
-        table.add_column(header = "Base", header_style = "bold", justify = "right")
+        table.add_column(header = "Settlement", header_style = "bold", justify = "right")
         table.add_column(header = "Buildings", header_style = "bold", justify = "right")
         table.add_column(header = "Workers", header_style = "bold", justify = "right")
         table.add_column(header = "Total", header_style = "bold", justify = "right")
@@ -412,7 +412,7 @@ class City:
             f"{str(self.total_effects.troop_training)}",
         )
         table.add_row(
-            "Population growth",
+            "Pop. growth",
             f"{str(self.settlement_effects.population_growth)}",
             f"{str(self.building_effects.population_growth)}",
             f"{str(self.worker_effects.population_growth)}",
