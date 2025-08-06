@@ -1,10 +1,10 @@
 import yaml
-from typing import TypeAlias, Literal, TypedDict
 from dataclasses import dataclass
+from typing import TypedDict, Literal, TypeAlias
 
-from .effects import EffectBonuses, EffectBonusesData
+from .effects import EffectBonusesData, EffectBonuses
 from .geo_features import GeoFeature
-from .resources import Resource, ResourceCollection, ResourceCollectionData
+from .resources import Resource, ResourceCollectionData, ResourceCollection
 
 BuildingsCount: TypeAlias = dict[str, int]
 
