@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import ClassVar, TypeAlias, TypedDict
+from typing import ClassVar, Literal, TypeAlias
 
 from rich.console import Console
 from rich.panel import Panel
@@ -51,8 +51,12 @@ class City:
     balance: ResourceCollection = field(init = False)
     
     # Class variables
-    RSS_BASE_PRODUCTIVITY_PER_WORKER: ClassVar[int] = 12
     MAX_WORKERS: ClassVar[int] = 18
+    MAX_BUILDINGS_PER_CITY: ClassVar[dict[str, int]] = {
+        "village_hall": 4,
+        "town_hall": 6,
+        "city_hall": 8,
+    }
     
     
     def _get_rss_potentials(self) -> ResourceCollection:
@@ -95,6 +99,19 @@ class City:
         return CityEffects()
     
     #* Validate city buildings
+    def _validate_halls(self) -> None:
+        hall_keys: set[str] = {"village_hall", "town_hall", "city_hall"}
+        halls: dict[str, int] = {k: v for k, v in self.buildings.items() if k in hall_keys}
+        
+        if not halls:
+            raise ValueError(f"City must include a hall (village, town, or city)")
+        
+        if len(halls) > 1:
+            raise ValueError(f"Too many halls for this city")
+        
+        if list(halls.values())[0] != 1:
+            raise ValueError(f"Too many halls for this city")
+    
     # Validations need to include the following situations.
     # 
     #~ Rss buildings are allowed.
@@ -228,6 +245,7 @@ class City:
     
     
     def __post_init__(self) -> None:
+        self._validate_halls()
         self.resource_potentials = self._get_rss_potentials()
         self.geo_features = self._get_geo_features()
         self.city_effects = self._calculate_city_effects()
