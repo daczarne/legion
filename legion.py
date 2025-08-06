@@ -1,4 +1,4 @@
-from modules.city import City, CityBuildings
+from modules.city import City
 
 
 City(

@@ -17,7 +17,7 @@ from .city_data import CITIES
 
 
 BuildingsCount: TypeAlias = dict[str, int]
-
+CityBuildings: TypeAlias = dict[str, int]
 
 @dataclass
 class CityGeoFeatures:
@@ -32,50 +32,6 @@ class CityEffects:
     troop_training: int = 0
     population_growth: int = 0
     intelligence: int = 0
-
-
-class CityBuildings(TypedDict, total = False):
-    barracks: int
-    basilica: int
-    bath_house: int
-    blacksmith: int
-    bordello: int
-    carpenters_guild: int
-    city_hall: int
-    farm: int
-    farmers_guild: int
-    fishing_village: int
-    fletcher: int
-    forest: int
-    gladiator_school: int
-    hidden_grove: int
-    hospital: int
-    hunters_lodge: int
-    imperial_residence: int
-    large_farm: int
-    large_fort: int
-    large_lumber_mill: int
-    large_market: int
-    large_mine: int
-    lumber_mill: int
-    medium_fort: int
-    mine: int
-    miners_guild: int
-    mountain_mine: int
-    outcrop_mine: int
-    quartermaster: int
-    shrine: int
-    small_fort: int
-    small_market: int
-    stables: int
-    supply_dump: int
-    temple: int
-    town_hall: int
-    training_ground: int
-    village_hall: int
-    vineyard: int
-    warehouse: int
-    watch_tower: int
 
 
 @dataclass
@@ -208,7 +164,7 @@ class City:
         """
         productivity_bonuses: ResourceCollection = ResourceCollection()
         
-        for building in self.buildings.buildings:
+        for building in self.buildings:
             productivity_bonuses.food = productivity_bonuses.food + BUILDINGS[building].productivity_bonuses.food
             productivity_bonuses.ore = productivity_bonuses.ore + BUILDINGS[building].productivity_bonuses.ore
             productivity_bonuses.wood = productivity_bonuses.wood + BUILDINGS[building].productivity_bonuses.wood
@@ -235,7 +191,7 @@ class City:
         """
         maintenance_costs: ResourceCollection = ResourceCollection()
         
-        for building in self.buildings.buildings:
+        for building in self.buildings:
             maintenance_costs.food = maintenance_costs.food + BUILDINGS[building].maintenance_cost.food
             maintenance_costs.ore = maintenance_costs.ore + BUILDINGS[building].maintenance_cost.ore
             maintenance_costs.wood = maintenance_costs.wood + BUILDINGS[building].maintenance_cost.wood
@@ -263,7 +219,7 @@ class City:
         """
         city_effects: CityEffects = self._get_base_effects()
         
-        for building in self.buildings.buildings:
+        for building in self.buildings:
             city_effects.troop_training = city_effects.troop_training + BUILDINGS[building].effect_bonuses.troop_training
             city_effects.population_growth = city_effects.population_growth + BUILDINGS[building].effect_bonuses.population_growth
             city_effects.intelligence = city_effects.intelligence + BUILDINGS[building].effect_bonuses.intelligence
@@ -294,7 +250,7 @@ class City:
     def _build_city_buildings_list(self) -> Table:
         city_buildings_text: Text = Text()
         
-        for building, qty in self.buildings.buildings.items():
+        for building, qty in self.buildings.items():
             city_buildings_text.append(text = f"  - {building.replace("_", " ").capitalize()} ({qty})\n")
         
         city_buildings_table: Table = Table(title = "Buildings", show_header = False, box = None, padding=(0, 1))
