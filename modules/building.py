@@ -1,5 +1,5 @@
 import yaml
-from typing import TypeAlias, Literal, Any, TypedDict
+from typing import TypeAlias, Literal, TypedDict
 from dataclasses import dataclass
 
 from .effects import EffectBonuses, EffectBonusesData
