@@ -349,6 +349,7 @@ class City:
         
         city_buildings_table: Table = Table(title = "Buildings", show_header = False, box = None, padding=(0, 1))
         city_buildings_table.add_column()
+        city_buildings_table.add_row()
         city_buildings_table.add_row(city_buildings_text)
         
         return city_buildings_table
@@ -445,32 +446,41 @@ class City:
         # |---------------------------|
         layout: Layout = Layout()
         
+        header_height: int = 2
+        main_height: int = 21
+        total_layout_height: int = header_height + main_height
+        total_layout_width: int = 98
+        
         layout.split(
-            Layout(name = "header", size = 3),
-            Layout(name = "main", size = 15),
+            Layout(name = "header", size = header_height),
+            Layout(name = "main", size = main_height),
+        )
+        
+        layout["header"].update(
+            renderable = Align(renderable = self._build_city_information(), align = "center"),
         )
         
         layout["main"].split(
-            Layout(name = "buildings_and_effects", size = 8),
-            Layout(name = "production", size = 8),
+            Layout(name = "buildings_and_effects", size = 11),
+            Layout(name = "production", size = 15),
         )
         
         layout["buildings_and_effects"].split_row(
             Layout(name = "buildings", ratio = 1),
             Layout(name = "effects", ratio = 2),
         )
-        # layout["top"].split_row(
-        #     Layout(
-        #         renderable = Align(renderable = self._build_city_buildings_list(), align = "center"),
-        #         name = "left",
-        #     ),
-        #     Layout(
-        #         renderable = Align(renderable = self._build_city_effects_table(), align = "center"),
-        #         name = "right",
-        #     )
-        # )
-        # layout["header"].update(renderable = Align(renderable = self._build_city_information(), align = "center"))
-        # layout["bottom"].update(renderable = self._build_city_production_table())
         
-        panel: Panel = Panel(renderable = layout, width = 130, height = 21)
+        layout["buildings"].update(
+            renderable = Layout(renderable = Align(renderable = self._build_city_buildings_list(), align = "center")),
+        )
+        
+        layout["effects"].update(
+            renderable = Layout(renderable = Align(renderable = self._build_city_effects_table(), align = "center")),
+        )
+        
+        layout["production"].update(
+            renderable = Layout(renderable = Align(renderable = self._build_city_production_table(), align = "center")),
+        )
+        
+        panel: Panel = Panel(renderable = layout, width = total_layout_width, height = total_layout_height)
         console.print(panel)
