@@ -46,7 +46,12 @@ class City:
     # Post init attrs
     resource_potentials: ResourceCollection = field(init = False)
     geo_features: GeoFeatures = field(init = False)
-    city_effects: EffectBonuses = field(init = False)
+    
+    settlement_effects: EffectBonuses = field(init = False)
+    building_effects: EffectBonuses = field(init = False)
+    worker_effects: EffectBonuses = field(init = False)
+    total_effects: EffectBonuses = field(init = False)
+    
     base_production: ResourceCollection = field(init = False)
     productivity_bonuses: ResourceCollection = field(init = False)
     total_production: ResourceCollection = field(init = False)
@@ -89,7 +94,7 @@ class City:
         
         return GeoFeatures()
     
-    def _get_base_effects(self) -> EffectBonuses:
+    def _get_settlement_effects(self) -> EffectBonuses:
         """
         Finds the city supplied by the user in the directory of cities and returns its effects.
         """
@@ -253,27 +258,73 @@ class City:
     
     
     #* Effects calculations
-    def _calculate_city_effects(self) -> EffectBonuses:
+    def _calculate_building_effects(self) -> EffectBonuses:
         """
-        Calculate the total city effects (base + given by buildings).
+        Calculates the base effects produced by buildings. These do not include worker level effects.
         """
-        city_effects: EffectBonuses = self._get_base_effects()
+        building_effects: EffectBonuses = EffectBonuses()
         
         for building in self.buildings:
-            city_effects.troop_training = city_effects.troop_training + BUILDINGS[building].effect_bonuses.troop_training
-            city_effects.population_growth = city_effects.population_growth + BUILDINGS[building].effect_bonuses.population_growth
-            city_effects.intelligence = city_effects.intelligence + BUILDINGS[building].effect_bonuses.intelligence
+            building_effects.troop_training = building_effects.troop_training + BUILDINGS[building].effect_bonuses.troop_training
+            building_effects.population_growth = building_effects.population_growth + BUILDINGS[building].effect_bonuses.population_growth
+            building_effects.intelligence = building_effects.intelligence + BUILDINGS[building].effect_bonuses.intelligence
         
-        return city_effects
+        return building_effects
+    
+    def _calculate_worker_effects(self) -> EffectBonuses:
+        """
+        Calculates the effects produced by building workers.
+        """
+        worker_effects: EffectBonuses = EffectBonuses()
+        
+        for building in self.buildings:
+            worker_effects.troop_training = worker_effects.troop_training + BUILDINGS[building].effect_bonuses_per_worker.troop_training * BUILDINGS[building].max_workers
+            worker_effects.population_growth = worker_effects.population_growth + BUILDINGS[building].effect_bonuses_per_worker.population_growth * BUILDINGS[building].max_workers
+            worker_effects.intelligence = worker_effects.intelligence + BUILDINGS[building].effect_bonuses_per_worker.intelligence * BUILDINGS[building].max_workers
+        
+        return worker_effects
+    
+    def _calculate_total_effects(self) -> EffectBonuses:
+        """
+        Calculate the total effects (base + given by buildings and its workers).
+        """
+        total_effects: EffectBonuses = EffectBonuses()
+        
+        total_effects.troop_training = (
+            self.settlement_effects.troop_training
+            + self.building_effects.troop_training
+            + self.worker_effects.troop_training
+        )
+        total_effects.population_growth = (
+            self.settlement_effects.population_growth
+            + self.building_effects.population_growth
+            + self.worker_effects.population_growth
+        )
+        total_effects.intelligence = (
+            self.settlement_effects.intelligence
+            + self.building_effects.intelligence
+            + self.worker_effects.intelligence
+        )
+        
+        return total_effects
     
     
     def __post_init__(self) -> None:
+        self.resource_potentials = self._get_rss_potentials()
+        self.geo_features = self._get_geo_features()
+        
+        #* Validate settlement
         self._validate_unknown_buildings()
         self._validate_halls()
         self._validate_number_of_buildings()
-        self.resource_potentials = self._get_rss_potentials()
-        self.geo_features = self._get_geo_features()
-        self.city_effects = self._calculate_city_effects()
+        
+        #* Effects
+        self.settlement_effects = self._get_settlement_effects()
+        self.building_effects = self._calculate_building_effects()
+        self.worker_effects = self._calculate_worker_effects()
+        self.total_effects = self._calculate_total_effects()
+        
+        #* Production
         self.base_production = self._calculate_base_production()
         self.productivity_bonuses = self._calculate_productivity_bonuses()
         self.total_production = self._calculate_total_production()
@@ -298,6 +349,7 @@ class City:
         
         city_buildings_table: Table = Table(title = "Buildings", show_header = False, box = None, padding=(0, 1))
         city_buildings_table.add_column()
+        city_buildings_table.add_row()
         city_buildings_table.add_row(city_buildings_text)
         
         return city_buildings_table
@@ -347,40 +399,88 @@ class City:
         table: Table = Table(title = "Effects")
         
         table.add_column(header = "Effect", header_style = "bold", justify = "center")
+        table.add_column(header = "Settlement", header_style = "bold", justify = "right")
+        table.add_column(header = "Buildings", header_style = "bold", justify = "right")
+        table.add_column(header = "Workers", header_style = "bold", justify = "right")
         table.add_column(header = "Total", header_style = "bold", justify = "right")
         
-        table.add_row("Troop training", f"{str(self.city_effects.troop_training)}")
-        table.add_row("Population growth", f"{str(self.city_effects.population_growth)}")
-        table.add_row("Intelligence", f"{str(self.city_effects.intelligence)}")
+        table.add_row(
+            "Troop training",
+            f"{str(self.settlement_effects.troop_training)}",
+            f"{str(self.building_effects.troop_training)}",
+            f"{str(self.worker_effects.troop_training)}",
+            f"{str(self.total_effects.troop_training)}",
+        )
+        table.add_row(
+            "Pop. growth",
+            f"{str(self.settlement_effects.population_growth)}",
+            f"{str(self.building_effects.population_growth)}",
+            f"{str(self.worker_effects.population_growth)}",
+            f"{str(self.total_effects.population_growth)}",
+        )
+        table.add_row(
+            "Intelligence",
+            f"{str(self.settlement_effects.intelligence)}",
+            f"{str(self.building_effects.intelligence)}",
+            f"{str(self.worker_effects.intelligence)}",
+            f"{str(self.total_effects.intelligence)}",
+        )
         
         return table
     
     def display_results(self) -> None:
         console: Console = Console()
+        
+        # Expected Layout
+        # |---------------------------|
+        # |      Campaign - City      |
+        # |- - - - - - - - - - - - - -|
+        # | List  |   Effects table   |
+        # | of                        |
+        # | build |                   |
+        # | ings                      |
+        # |- - - - - - - - - - - - - -|
+        # |     Production table      |
+        # |- - - - - - - - - - - - - -|
+        # |    Defenses information   |
+        # |---------------------------|
         layout: Layout = Layout()
         
+        header_height: int = 2
+        main_height: int = 21
+        total_layout_height: int = header_height + main_height
+        total_layout_width: int = 98
+        
         layout.split(
-            Layout(name = "header", size = 2),
-            Layout(name = "main", ratio = 1),
+            Layout(name = "header", size = header_height),
+            Layout(name = "main", size = main_height),
+        )
+        
+        layout["header"].update(
+            renderable = Align(renderable = self._build_city_information(), align = "center"),
         )
         
         layout["main"].split(
-            Layout(name = "top", size = 8),
-            Layout(name = "bottom", size = 8),
+            Layout(name = "buildings_and_effects"),
+            Layout(name = "production"),
         )
         
-        layout["top"].split_row(
-            Layout(
-                renderable = Align(renderable = self._build_city_buildings_list(), align = "center"),
-                name = "left"
-            ),
-            Layout(
-                renderable = Align(renderable = self._build_city_effects_table(), align = "center"),
-                name = "right"
-            )
+        layout["buildings_and_effects"].split_row(
+            Layout(name = "buildings", ratio = 1),
+            Layout(name = "effects", ratio = 2),
         )
-        layout["header"].update(renderable = Align(renderable = self._build_city_information(), align = "center"))
-        layout["bottom"].update(renderable = self._build_city_production_table())
         
-        panel: Panel = Panel(renderable = layout, width = 92, height = 20)
+        layout["buildings"].update(
+            renderable = Layout(renderable = Align(renderable = self._build_city_buildings_list(), align = "center")),
+        )
+        
+        layout["effects"].update(
+            renderable = Layout(renderable = Align(renderable = self._build_city_effects_table(), align = "center")),
+        )
+        
+        layout["production"].update(
+            renderable = Layout(renderable = Align(renderable = self._build_city_production_table(), align = "center")),
+        )
+        
+        panel: Panel = Panel(renderable = layout, width = total_layout_width, height = total_layout_height)
         console.print(panel)
