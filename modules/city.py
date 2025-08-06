@@ -1,5 +1,5 @@
-from dataclasses import dataclass, field, fields
-from typing import ClassVar, TypeAlias
+from dataclasses import dataclass, field
+from typing import ClassVar, TypeAlias, TypedDict
 
 from rich.console import Console
 from rich.panel import Panel
@@ -34,68 +34,48 @@ class CityEffects:
     intelligence: int = 0
 
 
-@dataclass
-class CityBuildings:
-    # buildings: BuildingsCount = field(default_factory = dict)
-    village_hall: int = 0
-    town_hall: int = 0
-    city_hall: int = 0
-    farm: int = 0
-    large_farm: int = 0
-    vineyard: int = 0
-    fishing_village: int = 0
-    farmers_guild: int = 0
-    mine: int = 0
-    large_mine: int = 0
-    outcrop_mine: int = 0
-    mountain_mine: int = 0
-    miners_guild: int = 0
-    lumber_mill: int = 0
-    large_lumber_mill: int = 0
-    forest: int = 0
-    carpenters_guild: int = 0
-    training_ground: int = 0
-    gladiator_school: int = 0
-    bordello: int = 0
-    stables: int = 0
-    blacksmith: int = 0
-    fletcher: int = 0
-    imperial_residence: int = 0
-    small_fort: int = 0
-    medium_fort: int = 0
-    large_fort: int = 0
-    barracks: int = 0
-    quartermaster: int = 0
-    watch_tower: int = 0
-    shrine: int = 0
-    temple: int = 0
-    basilica: int = 0
-    bath_house: int = 0
-    hospital: int = 0
-    hidden_grove: int = 0
-    warehouse: int = 0
-    small_market: int = 0
-    large_market: int = 0
-    hunters_lodge: int = 0
-    supply_dump: int = 0
-    
-    MAX_NUMBER_OF_BUILDINGS_PER_CITY: ClassVar[int] = 9
-    
-    def __post_init__(self) -> None:
-        # Ensure city_hall is always present
-        # if "city_hall" not in self.buildings:
-        #     self.buildings["city_hall"] = 1
-        
-        unknown = set(fields(self)) - BUILDINGS.keys()
-        if unknown:
-            raise ValueError(f"Unknown building(s): {", ".join(unknown)}")
-        
-        total: int = sum(self.buildings.values())
-        if total > self.MAX_NUMBER_OF_BUILDINGS_PER_CITY:
-            raise ValueError(f"Too many buildings: {total} (max allowed is {self.MAX_NUMBER_OF_BUILDINGS_PER_CITY})")
-    
-    def get_count(self, name: str) -> int:
-        return self.buildings.get(name, 0)
+class CityBuildings(TypedDict, total = False):
+    village_hall: int
+    town_hall: int
+    city_hall: int
+    farm: int
+    large_farm: int
+    vineyard: int
+    fishing_village: int
+    farmers_guild: int
+    mine: int
+    large_mine: int
+    outcrop_mine: int
+    mountain_mine: int
+    miners_guild: int
+    lumber_mill: int
+    large_lumber_mill: int
+    forest: int
+    carpenters_guild: int
+    training_ground: int
+    gladiator_school: int
+    bordello: int
+    stables: int
+    blacksmith: int
+    fletcher: int
+    imperial_residence: int
+    small_fort: int
+    medium_fort: int
+    large_fort: int
+    barracks: int
+    quartermaster: int
+    watch_tower: int
+    shrine: int
+    temple: int
+    basilica: int
+    bath_house: int
+    hospital: int
+    hidden_grove: int
+    warehouse: int
+    small_market: int
+    large_market: int
+    hunters_lodge: int
+    supply_dump: int
 
 
 @dataclass
@@ -201,7 +181,7 @@ class City:
         
         base_production: ResourceCollection = ResourceCollection()
         
-        for building, qty_buildings in self.buildings.buildings.items():
+        for building, qty_buildings in self.buildings.items():
             
             production_per_worker: ResourceCollection = BUILDINGS[building].productivity_per_worker
             max_workers: int = BUILDINGS[building].max_workers
