@@ -1,36 +1,17 @@
 import yaml
-
-from typing import TypeAlias, Literal, Any
-from enum import Enum
+from typing import TypeAlias, Literal, Any, TypedDict
 from dataclasses import dataclass
 
+from .effects import EffectBonuses, EffectBonusesData
+from .geo_features import GeoFeature
+from .resources import Resource, ResourceCollection, ResourceCollectionData
 
-class GeoFeature(Enum):
-    LAKE = "lake"
-    OUTCROP_ROCK = "outcrop_rock"
-    MOUNTAIN = "mountain"
-    FOREST = "forest"
-
-
-class Resource(Enum):
-    FOOD = "food"
-    ORE = "ore"
-    WOOD = "wood"
+BuildingsCount: TypeAlias = dict[str, int]
 
 
-@dataclass
-class ResourceCollection:
-    food: int = 0
-    ore: int = 0
-    wood: int = 0
-
-
-@dataclass
-class EffectBonuses:
-    troop_training: int = 0
-    population_growth: int = 0
-    intelligence: int = 0
-
+# * ******** * #
+# * BUILDING * #
+# * ********** #
 
 @dataclass
 class Building:
@@ -57,17 +38,36 @@ class Building:
     replaces: str | None
 
 
-Buildings: TypeAlias = dict[str, Building]
+# * ************** * #
+# * BUILDINGS DATA * #
+# * ************** * #
+
+class BuildingData(TypedDict):
+    id: str
+    name: str
+    building_cost: ResourceCollectionData
+    maintenance_cost: ResourceCollectionData
+    productivity_bonuses: ResourceCollectionData
+    productivity_per_worker: ResourceCollectionData
+    effect_bonuses: EffectBonusesData
+    effect_bonuses_per_worker: EffectBonusesData
+    storage_capacity: ResourceCollectionData
+    max_workers: int
+    is_buildable: bool
+    is_deletable: bool
+    is_upgradeable: bool
+    required_geo: GeoFeature | None
+    required_rss: Resource | None
+    required_building: list[str]
+    replaces: str | None
 
 
 with open(file = "./data/buildings.yaml", mode = "r") as file:
-    buildings_data: dict[Literal["buildings"], list[dict[str, Any]]] = yaml.safe_load(stream = file)
+    buildings_data: dict[Literal["buildings"], list[BuildingData]] = yaml.safe_load(stream = file)
 
-buildings_list: list[dict[str, Any]] = buildings_data["buildings"]
+BUILDINGS: dict[str, Building] = {}
 
-BUILDINGS: Buildings = {}
-
-for building in buildings_list:
+for building in buildings_data["buildings"]:
     BUILDINGS[building["id"]] = Building(
         id = building["id"],
         name = building["name"],
