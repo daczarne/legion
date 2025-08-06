@@ -9,14 +9,14 @@ class Resource(Enum):
     WOOD = "wood"
 
 
-class ResourceCollectionData(TypedDict):
+class ResourcesData(TypedDict):
     food: int
     ore: int
     wood: int
 
 
 @dataclass
-class ResourceCollection:
+class Resources:
     food: int = 0
     ore: int = 0
     wood: int = 0

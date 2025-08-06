@@ -4,6 +4,7 @@ from collections.abc import Generator
 from typing import Literal, Any
 
 from modules.city import CityData
+from modules.building import BuildingData
 
 
 @fixture(scope = "function")
@@ -26,11 +27,11 @@ def _cities() -> Generator[list[CityData]]:
 
 
 @fixture(scope = "session")
-def _buildings() -> Generator[list]:
+def _buildings() -> Generator[list[BuildingData]]:
     """
     Loads the buildings.yaml file.
     """
     with open(file = "./data/buildings.yaml", mode = "r") as file:
-        buildings_data: dict[Literal["buildings"], list[dict[str, Any]]] = yaml.safe_load(stream = file)
+        buildings_data: dict[Literal["buildings"], list[BuildingData]] = yaml.safe_load(stream = file)
     
     yield buildings_data["buildings"]

@@ -9,10 +9,10 @@ from rich.align import Align
 from rich.table import Table
 from rich.text import Text
 
-from .buildings import BuildingsCount, BUILDINGS
+from .building import BuildingsCount, BUILDINGS
 from .effects import EffectBonuses, EffectBonusesData
 from .geo_features import GeoFeatures, GeoFeaturesData
-from .resources import ResourceCollection, ResourceCollectionData
+from .resources import Resources, ResourcesData
 
 
 # * *********** * #
@@ -22,7 +22,7 @@ from .resources import ResourceCollection, ResourceCollectionData
 class CityData(TypedDict):
     name: str
     campaign: str
-    resource_potentials: ResourceCollectionData
+    resource_potentials: ResourcesData
     geo_features: GeoFeaturesData
     effects: EffectBonusesData
     garrison: str
@@ -44,14 +44,14 @@ class City:
     buildings: BuildingsCount
     
     # Post init attrs
-    resource_potentials: ResourceCollection = field(init = False)
+    resource_potentials: Resources = field(init = False)
     geo_features: GeoFeatures = field(init = False)
     city_effects: EffectBonuses = field(init = False)
-    base_production: ResourceCollection = field(init = False)
-    productivity_bonuses: ResourceCollection = field(init = False)
-    total_production: ResourceCollection = field(init = False)
-    maintenance_costs: ResourceCollection = field(init = False)
-    balance: ResourceCollection = field(init = False)
+    base_production: Resources = field(init = False)
+    productivity_bonuses: Resources = field(init = False)
+    total_production: Resources = field(init = False)
+    maintenance_costs: Resources = field(init = False)
+    balance: Resources = field(init = False)
     
     # Class variables
     MAX_WORKERS: ClassVar[int] = 18
@@ -63,7 +63,7 @@ class City:
     }
     
     
-    def _get_rss_potentials(self) -> ResourceCollection:
+    def _get_rss_potentials(self) -> Resources:
         """
         Finds the city supplied by the user in the directory of cities and returns its resource potentials.
         """
@@ -72,9 +72,9 @@ class City:
                 city["campaign"] == self.campaign
                 and city["name"] == self.name
             ):
-                return ResourceCollection(**city["resource_potentials"])
+                return Resources(**city["resource_potentials"])
         
-        return ResourceCollection()
+        return Resources()
     
     def _get_geo_features(self) -> GeoFeatures:
         """
@@ -166,7 +166,7 @@ class City:
     # staffed (potentially, even empty). The validation should warn against this scenario.
     
     #* Production calculations
-    def _calculate_base_production(self) -> ResourceCollection:
+    def _calculate_base_production(self) -> Resources:
         """
         Given the buildings in the city, it calculates the base production of those buildings for each resource. Base
         production is defined here as production before productivity bonuses. It is determined only by the buildings
@@ -175,11 +175,11 @@ class City:
         """
         from math import floor
         
-        base_production: ResourceCollection = ResourceCollection()
+        base_production: Resources = Resources()
         
         for building, qty_buildings in self.buildings.items():
             
-            production_per_worker: ResourceCollection = BUILDINGS[building].productivity_per_worker
+            production_per_worker: Resources = BUILDINGS[building].productivity_per_worker
             max_workers: int = BUILDINGS[building].max_workers
             
             # Production per worker
@@ -198,11 +198,11 @@ class City:
         
         return base_production
     
-    def _calculate_productivity_bonuses(self) -> ResourceCollection:
+    def _calculate_productivity_bonuses(self) -> Resources:
         """
         Based on the buildings found in the city, it calculates the productivity bonuses for each resource.
         """
-        productivity_bonuses: ResourceCollection = ResourceCollection()
+        productivity_bonuses: Resources = Resources()
         
         for building in self.buildings:
             productivity_bonuses.food = productivity_bonuses.food + BUILDINGS[building].productivity_bonuses.food
@@ -211,13 +211,13 @@ class City:
         
         return productivity_bonuses
     
-    def _calculate_total_production(self) -> ResourceCollection:
+    def _calculate_total_production(self) -> Resources:
         """
         Given the base production and the productivity bonuses of a city, it calculates the total production.
         """
         from math import floor
         
-        total_production: ResourceCollection = ResourceCollection()
+        total_production: Resources = Resources()
         
         total_production.food = int(floor(self.base_production.food * (1 + self.productivity_bonuses.food / 100)))
         total_production.ore = int(floor(self.base_production.ore * (1 + self.productivity_bonuses.ore / 100)))
@@ -225,11 +225,11 @@ class City:
         
         return total_production
     
-    def _calculate_maintenance_costs(self) -> ResourceCollection:
+    def _calculate_maintenance_costs(self) -> Resources:
         """
         Based on the buildings found in the city, it calculates the maintenance costs for each resource.
         """
-        maintenance_costs: ResourceCollection = ResourceCollection()
+        maintenance_costs: Resources = Resources()
         
         for building in self.buildings:
             maintenance_costs.food = maintenance_costs.food + BUILDINGS[building].maintenance_cost.food
@@ -238,12 +238,12 @@ class City:
         
         return maintenance_costs
     
-    def _calculate_balance(self) -> ResourceCollection:
+    def _calculate_balance(self) -> Resources:
         """
         Calculate the balance for each rss. The balance is the difference between the total production and the
         maintenance costs.
         """
-        balance: ResourceCollection = ResourceCollection()
+        balance: Resources = Resources()
         
         balance.food = self.total_production.food - self.maintenance_costs.food
         balance.ore = self.total_production.ore - self.maintenance_costs.ore
