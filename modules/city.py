@@ -1,6 +1,6 @@
 import yaml
 from dataclasses import dataclass, field
-from typing import ClassVar, TypedDict, TypeAlias, Literal
+from typing import ClassVar, TypedDict, Literal
 
 from rich.console import Console
 from rich.panel import Panel
