@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 from .effects import EffectBonuses, EffectBonusesData
 from .geo_features import GeoFeature
-from .resources import Resource, Resources, ResourcesData
+from .resources import Resource, ResourceCollection, ResourceCollectionData
 
 BuildingsCount: TypeAlias = dict[str, int]
 
@@ -17,13 +17,13 @@ BuildingsCount: TypeAlias = dict[str, int]
 class Building:
     id: str
     name: str
-    building_cost: Resources
-    maintenance_cost: Resources
-    productivity_bonuses: Resources
-    productivity_per_worker: Resources
+    building_cost: ResourceCollection
+    maintenance_cost: ResourceCollection
+    productivity_bonuses: ResourceCollection
+    productivity_per_worker: ResourceCollection
     effect_bonuses: EffectBonuses
     effect_bonuses_per_worker: EffectBonuses
-    storage_capacity: Resources
+    storage_capacity: ResourceCollection
     max_workers: int
     is_buildable: bool
     is_deletable: bool
@@ -45,13 +45,13 @@ class Building:
 class BuildingData(TypedDict):
     id: str
     name: str
-    building_cost: ResourcesData
-    maintenance_cost: ResourcesData
-    productivity_bonuses: ResourcesData
-    productivity_per_worker: ResourcesData
+    building_cost: ResourceCollectionData
+    maintenance_cost: ResourceCollectionData
+    productivity_bonuses: ResourceCollectionData
+    productivity_per_worker: ResourceCollectionData
     effect_bonuses: EffectBonusesData
     effect_bonuses_per_worker: EffectBonusesData
-    storage_capacity: ResourcesData
+    storage_capacity: ResourceCollectionData
     max_workers: int
     is_buildable: bool
     is_deletable: bool
@@ -71,13 +71,13 @@ for building in buildings_data["buildings"]:
     BUILDINGS[building["id"]] = Building(
         id = building["id"],
         name = building["name"],
-        building_cost = Resources(**building["building_cost"]),
-        maintenance_cost = Resources(**building["maintenance_cost"]),
-        productivity_bonuses = Resources(**building["productivity_bonuses"]),
-        productivity_per_worker = Resources(**building["productivity_per_worker"]),
+        building_cost = ResourceCollection(**building["building_cost"]),
+        maintenance_cost = ResourceCollection(**building["maintenance_cost"]),
+        productivity_bonuses = ResourceCollection(**building["productivity_bonuses"]),
+        productivity_per_worker = ResourceCollection(**building["productivity_per_worker"]),
         effect_bonuses = EffectBonuses(**building["effect_bonuses"]),
         effect_bonuses_per_worker = EffectBonuses(**building["effect_bonuses_per_worker"]),
-        storage_capacity = Resources(**building["storage_capacity"]),
+        storage_capacity = ResourceCollection(**building["storage_capacity"]),
         max_workers = building["max_workers"],
         is_buildable = building["is_buildable"],
         is_deletable = building["is_deletable"],
