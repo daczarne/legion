@@ -1,3 +1,4 @@
+from pickle import BUILD
 import yaml
 from dataclasses import dataclass, field
 from typing import TypedDict, Literal, ClassVar
@@ -57,6 +58,12 @@ class City:
     total_production: ResourceCollection = field(init = False)
     maintenance_costs: ResourceCollection = field(init = False)
     balance: ResourceCollection = field(init = False)
+    
+    settlement_storage: ResourceCollection = field(init = False)
+    buildings_storage: ResourceCollection = field(init = False)
+    warehouse_storage: ResourceCollection = field(init = False)
+    supply_dump_storage: ResourceCollection = field(init = False)
+    total_storage: ResourceCollection = field(init = False)
     
     # Class variables
     MAX_WORKERS: ClassVar[int] = 18
@@ -170,7 +177,7 @@ class City:
     # city, this configuration (1 fishing village + 6 mines) would mean that at least one of the buildings is not
     # staffed (potentially, even empty). The validation should warn against this scenario.
     
-    #* Production calculations
+    #* Production
     def _calculate_base_production(self) -> ResourceCollection:
         """
         Given the buildings in the city, it calculates the base production of those buildings for each resource. Base
@@ -257,7 +264,7 @@ class City:
         return balance
     
     
-    #* Effects calculations
+    #* Effects bonuses
     def _calculate_building_effects(self) -> EffectBonuses:
         """
         Calculates the base effects produced by buildings. These do not include worker level effects.
@@ -309,6 +316,61 @@ class City:
         return total_effects
     
     
+    #* Storage capacity
+    def _calculate_settlement_storage(self) -> ResourceCollection:
+        return BUILDINGS[self._get_settlement_hall()].storage_capacity
+    
+    def _calculate_buildings_storage(self) -> ResourceCollection:
+        buildings_storage: ResourceCollection = ResourceCollection()
+        
+        for building, qty in self.buildings.items():
+            if building not in [*self.POSSIBLE_SETTLEMENT_HALLS, "warehouse", "supply_dump"]:
+                buildings_storage.food = buildings_storage.food + BUILDINGS[building].storage_capacity.food * qty
+                buildings_storage.ore = buildings_storage.ore + BUILDINGS[building].storage_capacity.ore * qty
+                buildings_storage.wood = buildings_storage.wood + BUILDINGS[building].storage_capacity.wood * qty
+        
+        return buildings_storage
+    
+    def _calculate_warehouse_storage(self) -> ResourceCollection:
+        if "warehouse" in self.buildings:
+            return BUILDINGS["warehouse"].storage_capacity
+        
+        return ResourceCollection()
+    
+    def _calculate_supply_dump_storage(self) -> ResourceCollection:
+        if "supply_dump" in self.buildings:
+            return BUILDINGS["supply_dump"].storage_capacity
+        
+        return ResourceCollection()
+    
+    def _calculate_total_storage_capacity(self) -> ResourceCollection:
+        """
+        Calculate the total effects (base + given by buildings and its workers).
+        """
+        total_storage: ResourceCollection = ResourceCollection()
+        
+        total_storage.food = (
+            self.settlement_storage.food
+            + self.buildings_storage.food
+            + self.warehouse_storage.food
+            + self.supply_dump_storage.food
+        )
+        total_storage.ore = (
+            self.settlement_storage.ore
+            + self.buildings_storage.ore
+            + self.warehouse_storage.ore
+            + self.supply_dump_storage.ore
+        )
+        total_storage.wood = (
+            self.settlement_storage.wood
+            + self.buildings_storage.wood
+            + self.warehouse_storage.wood
+            + self.supply_dump_storage.wood
+        )
+        
+        return total_storage
+    
+    
     def __post_init__(self) -> None:
         self.resource_potentials = self._get_rss_potentials()
         self.geo_features = self._get_geo_features()
@@ -330,6 +392,13 @@ class City:
         self.total_production = self._calculate_total_production()
         self.maintenance_costs = self._calculate_maintenance_costs()
         self.balance = self._calculate_balance()
+        
+        #* Storage
+        self.settlement_storage = self._calculate_settlement_storage()
+        self.buildings_storage = self._calculate_buildings_storage()
+        self.warehouse_storage = self._calculate_warehouse_storage()
+        self.supply_dump_storage = self._calculate_supply_dump_storage()
+        self.total_storage = self._calculate_total_storage_capacity()
     
     
     #* Display results
@@ -428,6 +497,43 @@ class City:
         
         return table
     
+    def _build_settlement_storage_table(self) -> Table:
+        table: Table = Table(title = "Storage capacity")
+        
+        table.add_column(header = "Resource", header_style = "bold", justify = "left")
+        table.add_column(header = "Settlement", header_style = "bold", justify = "right")
+        table.add_column(header = "Buildings", header_style = "bold", justify = "right")
+        table.add_column(header = "Warehouse", header_style = "bold", justify = "right")
+        table.add_column(header = "Supply dump", header_style = "bold", justify = "right")
+        table.add_column(header = "Total", header_style = "bold", justify = "right")
+        
+        table.add_row(
+            "Food",
+            f"{str(self.settlement_storage.food)}",
+            f"{str(self.buildings_storage.food)}",
+            f"{str(self.warehouse_storage.food)}",
+            f"{str(self.supply_dump_storage.food)}",
+            f"{str(self.total_storage.food)}",
+        )
+        table.add_row(
+            "Ore",
+            f"{str(self.settlement_storage.ore)}",
+            f"{str(self.buildings_storage.ore)}",
+            f"{str(self.warehouse_storage.ore)}",
+            f"{str(self.supply_dump_storage.ore)}",
+            f"{str(self.total_storage.ore)}",
+        )
+        table.add_row(
+            "Wood",
+            f"{str(self.settlement_storage.wood)}",
+            f"{str(self.buildings_storage.wood)}",
+            f"{str(self.warehouse_storage.wood)}",
+            f"{str(self.supply_dump_storage.wood)}",
+            f"{str(self.total_storage.wood)}",
+        )
+        
+        return table
+    
     def display_results(self) -> None:
         console: Console = Console()
         
@@ -442,12 +548,15 @@ class City:
         # |- - - - - - - - - - - - - -|
         # |     Production table      |
         # |- - - - - - - - - - - - - -|
-        # |    Defenses information   |
+        # |  Storage capacity table   |
         # |---------------------------|
         layout: Layout = Layout()
         
         header_height: int = 2
-        main_height: int = 21
+        buildings_and_effects_height: int = 10
+        production_height: int = 8
+        storage_height: int = 10
+        main_height: int = buildings_and_effects_height + production_height + storage_height
         total_layout_height: int = header_height + main_height
         total_layout_width: int = 98
         
@@ -461,8 +570,9 @@ class City:
         )
         
         layout["main"].split(
-            Layout(name = "buildings_and_effects"),
-            Layout(name = "production"),
+            Layout(name = "buildings_and_effects", size = buildings_and_effects_height),
+            Layout(name = "production", size = production_height),
+            Layout(name = "storage_capacity", size = storage_height),
         )
         
         layout["buildings_and_effects"].split_row(
@@ -480,6 +590,10 @@ class City:
         
         layout["production"].update(
             renderable = Layout(renderable = Align(renderable = self._build_city_production_table(), align = "center")),
+        )
+        
+        layout["storage_capacity"].update(
+            renderable = Layout(renderable = Align(renderable = self._build_settlement_storage_table(), align = "center")),
         )
         
         panel: Panel = Panel(renderable = layout, width = total_layout_width, height = total_layout_height)
