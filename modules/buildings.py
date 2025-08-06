@@ -49,8 +49,8 @@ class Building:
     is_upgradeable: bool
     required_geo: GeoFeature | None
     # Dependencies here need to be interpreted as an OR. Either of the listed buildings unblocks the building. For
-    # example, a Stable requires either a Farm, or Large Farm, or Vineyard, or a Fishing Village. If the city has any
-    # one for them it can build a Stable. Similarly, a Blacksmith requires either a Mine, or a Large Mine, or a
+    # example, a Stable requires either a Farm, or a Large Farm, or a Vineyard, or a Fishing Village. If the city has
+    # any one for them it can build a Stable. Similarly, a Blacksmith requires either a Mine, or a Large Mine, or a
     # Mountain Mine, or an Outcrop Mine.
     required_rss: Resource | None
     required_building: list[str]

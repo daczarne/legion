@@ -17,7 +17,7 @@ from .city_data import CITIES
 
 
 BuildingsCount: TypeAlias = dict[str, int]
-
+CityBuildings: TypeAlias = dict[str, int]
 
 @dataclass
 class CityGeoFeatures:
@@ -32,29 +32,6 @@ class CityEffects:
     troop_training: int = 0
     population_growth: int = 0
     intelligence: int = 0
-
-
-@dataclass
-class CityBuildings:
-    buildings: BuildingsCount = field(default_factory = dict)
-    
-    MAX_NUMBER_OF_BUILDINGS_PER_CITY: ClassVar[int] = 9
-    
-    def __post_init__(self) -> None:
-        # Ensure city_hall is always present
-        # if "city_hall" not in self.buildings:
-        #     self.buildings["city_hall"] = 1
-        
-        unknown: set[str] = set(self.buildings) - BUILDINGS.keys()
-        if unknown:
-            raise ValueError(f"Unknown building(s): {", ".join(unknown)}")
-        
-        total: int = sum(self.buildings.values())
-        if total > self.MAX_NUMBER_OF_BUILDINGS_PER_CITY:
-            raise ValueError(f"Too many buildings: {total} (max allowed is {self.MAX_NUMBER_OF_BUILDINGS_PER_CITY})")
-    
-    def get_count(self, name: str) -> int:
-        return self.buildings.get(name, 0)
 
 
 @dataclass
@@ -74,8 +51,13 @@ class City:
     balance: ResourceCollection = field(init = False)
     
     # Class variables
-    RSS_BASE_PRODUCTIVITY_PER_WORKER: ClassVar[int] = 12
     MAX_WORKERS: ClassVar[int] = 18
+    POSSIBLE_SETTLEMENT_HALLS: ClassVar[set[str]] = {"village_hall", "town_hall", "city_hall"}
+    MAX_BUILDINGS_PER_SETTLEMENT: ClassVar[dict[str, int]] = {
+        "village_hall": 4,
+        "town_hall": 6,
+        "city_hall": 8,
+    }
     
     
     def _get_rss_potentials(self) -> ResourceCollection:
@@ -118,6 +100,38 @@ class City:
         return CityEffects()
     
     #* Validate city buildings
+    def _validate_halls(self) -> None:
+        halls: dict[str, int] = {k: v for k, v in self.buildings.items() if k in self.POSSIBLE_SETTLEMENT_HALLS}
+        
+        if not halls:
+            raise ValueError(f"Settlement must include a hall (village, town, or city)")
+        
+        if len(halls) > 1:
+            raise ValueError(f"Too many halls for this city")
+        
+        if list(halls.values())[0] != 1:
+            raise ValueError(f"Too many halls for this city")
+    
+    def _get_settlement_hall(self) -> str:
+        halls: dict[str, int] = {k: v for k, v in self.buildings.items() if k in self.POSSIBLE_SETTLEMENT_HALLS}
+        return list(halls.keys())[0]
+    
+    def _validate_number_of_buildings(self) -> None:
+        number_of_declared_buildings: int = sum(self.buildings.values())
+        max_number_of_buildings_in_settlement: int = self.MAX_BUILDINGS_PER_SETTLEMENT[self._get_settlement_hall()]
+        
+        if number_of_declared_buildings > max_number_of_buildings_in_settlement + 1:
+            raise ValueError(
+                f"Too many buildings for this settlement: "
+                f"{number_of_declared_buildings} provided, "
+                f"max of {max_number_of_buildings_in_settlement + 1} possible ({max_number_of_buildings_in_settlement} + hall)"
+            )
+    
+    def _validate_unknown_buildings(self) -> None:
+        unknown: set[str] = set(self.buildings) - BUILDINGS.keys()
+        if unknown:
+            raise ValueError(f"Unknown building(s): {", ".join(unknown)}")
+    
     # Validations need to include the following situations.
     # 
     #~ Rss buildings are allowed.
@@ -160,7 +174,7 @@ class City:
         
         base_production: ResourceCollection = ResourceCollection()
         
-        for building, qty_buildings in self.buildings.buildings.items():
+        for building, qty_buildings in self.buildings.items():
             
             production_per_worker: ResourceCollection = BUILDINGS[building].productivity_per_worker
             max_workers: int = BUILDINGS[building].max_workers
@@ -187,7 +201,7 @@ class City:
         """
         productivity_bonuses: ResourceCollection = ResourceCollection()
         
-        for building in self.buildings.buildings:
+        for building in self.buildings:
             productivity_bonuses.food = productivity_bonuses.food + BUILDINGS[building].productivity_bonuses.food
             productivity_bonuses.ore = productivity_bonuses.ore + BUILDINGS[building].productivity_bonuses.ore
             productivity_bonuses.wood = productivity_bonuses.wood + BUILDINGS[building].productivity_bonuses.wood
@@ -214,7 +228,7 @@ class City:
         """
         maintenance_costs: ResourceCollection = ResourceCollection()
         
-        for building in self.buildings.buildings:
+        for building in self.buildings:
             maintenance_costs.food = maintenance_costs.food + BUILDINGS[building].maintenance_cost.food
             maintenance_costs.ore = maintenance_costs.ore + BUILDINGS[building].maintenance_cost.ore
             maintenance_costs.wood = maintenance_costs.wood + BUILDINGS[building].maintenance_cost.wood
@@ -242,7 +256,7 @@ class City:
         """
         city_effects: CityEffects = self._get_base_effects()
         
-        for building in self.buildings.buildings:
+        for building in self.buildings:
             city_effects.troop_training = city_effects.troop_training + BUILDINGS[building].effect_bonuses.troop_training
             city_effects.population_growth = city_effects.population_growth + BUILDINGS[building].effect_bonuses.population_growth
             city_effects.intelligence = city_effects.intelligence + BUILDINGS[building].effect_bonuses.intelligence
@@ -251,6 +265,9 @@ class City:
     
     
     def __post_init__(self) -> None:
+        self._validate_unknown_buildings()
+        self._validate_halls()
+        self._validate_number_of_buildings()
         self.resource_potentials = self._get_rss_potentials()
         self.geo_features = self._get_geo_features()
         self.city_effects = self._calculate_city_effects()
@@ -273,7 +290,7 @@ class City:
     def _build_city_buildings_list(self) -> Table:
         city_buildings_text: Text = Text()
         
-        for building, qty in self.buildings.buildings.items():
+        for building, qty in self.buildings.items():
             city_buildings_text.append(text = f"  - {building.replace("_", " ").capitalize()} ({qty})\n")
         
         city_buildings_table: Table = Table(title = "Buildings", show_header = False, box = None, padding=(0, 1))
