@@ -461,8 +461,8 @@ class City:
         )
         
         layout["main"].split(
-            Layout(name = "buildings_and_effects", size = 11),
-            Layout(name = "production", size = 15),
+            Layout(name = "buildings_and_effects"),
+            Layout(name = "production"),
         )
         
         layout["buildings_and_effects"].split_row(
