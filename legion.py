@@ -8,6 +8,6 @@ City(
         "city_hall": 1,
         "basilica": 1,
         "hidden_grove": 1,
-        "large_mine": 6,
+        "large_lumber_mill": 6,
     },
 ).display_results()

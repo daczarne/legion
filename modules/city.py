@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import ClassVar, Literal, TypeAlias
+from typing import ClassVar, TypeAlias
 
 from rich.console import Console
 from rich.panel import Panel
@@ -52,7 +52,8 @@ class City:
     
     # Class variables
     MAX_WORKERS: ClassVar[int] = 18
-    MAX_BUILDINGS_PER_CITY: ClassVar[dict[str, int]] = {
+    POSSIBLE_SETTLEMENT_HALLS: ClassVar[set[str]] = {"village_hall", "town_hall", "city_hall"}
+    MAX_BUILDINGS_PER_SETTLEMENT: ClassVar[dict[str, int]] = {
         "village_hall": 4,
         "town_hall": 6,
         "city_hall": 8,
@@ -100,8 +101,7 @@ class City:
     
     #* Validate city buildings
     def _validate_halls(self) -> None:
-        hall_keys: set[str] = {"village_hall", "town_hall", "city_hall"}
-        halls: dict[str, int] = {k: v for k, v in self.buildings.items() if k in hall_keys}
+        halls: dict[str, int] = {k: v for k, v in self.buildings.items() if k in self.POSSIBLE_SETTLEMENT_HALLS}
         
         if not halls:
             raise ValueError(f"City must include a hall (village, town, or city)")
@@ -111,6 +111,17 @@ class City:
         
         if list(halls.values())[0] != 1:
             raise ValueError(f"Too many halls for this city")
+    
+    def _get_settlement_hall(self) -> str:
+        halls: dict[str, int] = {k: v for k, v in self.buildings.items() if k in self.POSSIBLE_SETTLEMENT_HALLS}
+        return list(halls.keys())[0]
+    
+    def _validate_number_of_buildings(self) -> None:
+        number_of_declared_buildings: int = sum(list(self.buildings.values()))
+        max_number_of_buildings_in_settlement: int = self.MAX_BUILDINGS_PER_SETTLEMENT[self._get_settlement_hall()]
+        
+        if number_of_declared_buildings > max_number_of_buildings_in_settlement + 1:
+            raise ValueError(f"Too many buildings for this settlement: {number_of_declared_buildings} provided, max of {max_number_of_buildings_in_settlement} possible")
     
     # Validations need to include the following situations.
     # 
@@ -246,6 +257,7 @@ class City:
     
     def __post_init__(self) -> None:
         self._validate_halls()
+        self._validate_number_of_buildings()
         self.resource_potentials = self._get_rss_potentials()
         self.geo_features = self._get_geo_features()
         self.city_effects = self._calculate_city_effects()
