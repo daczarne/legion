@@ -313,7 +313,7 @@ class City:
         self.resource_potentials = self._get_rss_potentials()
         self.geo_features = self._get_geo_features()
         
-        #* Validate settelement
+        #* Validate settlement
         self._validate_unknown_buildings()
         self._validate_halls()
         self._validate_number_of_buildings()
