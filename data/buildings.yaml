@@ -1549,6 +1549,9 @@ buildings:
       - village_hall
       - small_market
     replaces: small_market
+  # ********* #
+  # * Other * #
+  # ********* #
   - id: hunters_lodge
     name: Hunters' Lodge
     building_cost:
@@ -1588,9 +1591,6 @@ buildings:
     required_building:
       - village_hall
     replaces: null
-  # ********* #
-  # * Other * #
-  # ********* #
   - id: supply_dump
     name: Supply Dump
     building_cost:
