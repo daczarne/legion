@@ -121,7 +121,7 @@ class City:
         max_number_of_buildings_in_settlement: int = self.MAX_BUILDINGS_PER_SETTLEMENT[self._get_settlement_hall()]
         
         if number_of_declared_buildings > max_number_of_buildings_in_settlement + 1:
-            raise ValueError(f"Too many buildings for this settlement: {number_of_declared_buildings} provided, max of {max_number_of_buildings_in_settlement} possible")
+            raise ValueError(f"Too many buildings for this settlement: {number_of_declared_buildings} provided, max of {max_number_of_buildings_in_settlement + 1} possible")
     
     # Validations need to include the following situations.
     # 

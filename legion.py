@@ -7,7 +7,7 @@ City(
     buildings = {
         "city_hall": 1,
         "basilica": 1,
-        "hidden_grove": 1,
+        "carpenters_guild": 1,
         "large_lumber_mill": 6,
     },
 ).display_results()
