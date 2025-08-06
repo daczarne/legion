@@ -35,47 +35,47 @@ class CityEffects:
 
 
 class CityBuildings(TypedDict, total = False):
-    village_hall: int
-    town_hall: int
-    city_hall: int
-    farm: int
-    large_farm: int
-    vineyard: int
-    fishing_village: int
-    farmers_guild: int
-    mine: int
-    large_mine: int
-    outcrop_mine: int
-    mountain_mine: int
-    miners_guild: int
-    lumber_mill: int
-    large_lumber_mill: int
-    forest: int
-    carpenters_guild: int
-    training_ground: int
-    gladiator_school: int
-    bordello: int
-    stables: int
-    blacksmith: int
-    fletcher: int
-    imperial_residence: int
-    small_fort: int
-    medium_fort: int
-    large_fort: int
     barracks: int
-    quartermaster: int
-    watch_tower: int
-    shrine: int
-    temple: int
     basilica: int
     bath_house: int
-    hospital: int
+    blacksmith: int
+    bordello: int
+    carpenters_guild: int
+    city_hall: int
+    farm: int
+    farmers_guild: int
+    fishing_village: int
+    fletcher: int
+    forest: int
+    gladiator_school: int
     hidden_grove: int
-    warehouse: int
-    small_market: int
-    large_market: int
+    hospital: int
     hunters_lodge: int
+    imperial_residence: int
+    large_farm: int
+    large_fort: int
+    large_lumber_mill: int
+    large_market: int
+    large_mine: int
+    lumber_mill: int
+    medium_fort: int
+    mine: int
+    miners_guild: int
+    mountain_mine: int
+    outcrop_mine: int
+    quartermaster: int
+    shrine: int
+    small_fort: int
+    small_market: int
+    stables: int
     supply_dump: int
+    temple: int
+    town_hall: int
+    training_ground: int
+    village_hall: int
+    vineyard: int
+    warehouse: int
+    watch_tower: int
 
 
 @dataclass
