@@ -1,4 +1,4 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, fields
 from typing import ClassVar, TypeAlias
 
 from rich.console import Console
@@ -36,7 +36,48 @@ class CityEffects:
 
 @dataclass
 class CityBuildings:
-    buildings: BuildingsCount = field(default_factory = dict)
+    # buildings: BuildingsCount = field(default_factory = dict)
+    village_hall: int = 0
+    town_hall: int = 0
+    city_hall: int = 0
+    farm: int = 0
+    large_farm: int = 0
+    vineyard: int = 0
+    fishing_village: int = 0
+    farmers_guild: int = 0
+    mine: int = 0
+    large_mine: int = 0
+    outcrop_mine: int = 0
+    mountain_mine: int = 0
+    miners_guild: int = 0
+    lumber_mill: int = 0
+    large_lumber_mill: int = 0
+    forest: int = 0
+    carpenters_guild: int = 0
+    training_ground: int = 0
+    gladiator_school: int = 0
+    bordello: int = 0
+    stables: int = 0
+    blacksmith: int = 0
+    fletcher: int = 0
+    imperial_residence: int = 0
+    small_fort: int = 0
+    medium_fort: int = 0
+    large_fort: int = 0
+    barracks: int = 0
+    quartermaster: int = 0
+    watch_tower: int = 0
+    shrine: int = 0
+    temple: int = 0
+    basilica: int = 0
+    bath_house: int = 0
+    hospital: int = 0
+    hidden_grove: int = 0
+    warehouse: int = 0
+    small_market: int = 0
+    large_market: int = 0
+    hunters_lodge: int = 0
+    supply_dump: int = 0
     
     MAX_NUMBER_OF_BUILDINGS_PER_CITY: ClassVar[int] = 9
     
@@ -45,7 +86,7 @@ class CityBuildings:
         # if "city_hall" not in self.buildings:
         #     self.buildings["city_hall"] = 1
         
-        unknown: set[str] = set(self.buildings) - BUILDINGS.keys()
+        unknown = set(fields(self)) - BUILDINGS.keys()
         if unknown:
             raise ValueError(f"Unknown building(s): {", ".join(unknown)}")
         
