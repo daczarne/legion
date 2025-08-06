@@ -1,49 +1,52 @@
+import yaml
 from dataclasses import dataclass, field
-from typing import ClassVar, TypeAlias
+from typing import TypedDict, Literal, ClassVar
 
-from rich.console import Console
-from rich.panel import Panel
-from rich.layout import Layout
 from rich.align import Align
+from rich.console import Console
+from rich.layout import Layout
+from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 
-from .buildings import (
-    ResourceCollection,
-    BUILDINGS,
-)
-
-from .city_data import CITIES
+from .building import BuildingsCount, BUILDINGS
+from .effects import EffectBonusesData, EffectBonuses
+from .geo_features import GeoFeaturesData, GeoFeatures
+from .resources import ResourceCollectionData, ResourceCollection
 
 
-BuildingsCount: TypeAlias = dict[str, int]
-CityBuildings: TypeAlias = dict[str, int]
+# * *********** * #
+# * CITIES DATA * #
+# * *********** * #
 
-@dataclass
-class CityGeoFeatures:
-    rock_outcrops: int = 0
-    mountains: int = 0
-    lakes: int = 0
-    forests: int = 0
+class CityData(TypedDict):
+    name: str
+    campaign: str
+    resource_potentials: ResourceCollectionData
+    geo_features: GeoFeaturesData
+    effects: EffectBonusesData
+    garrison: str
+
+with open(file = "./data/cities.yaml", mode = "r") as file:
+    cities_data: dict[Literal["cities"], list[CityData]] = yaml.safe_load(stream = file)
+
+CITIES: list[CityData] = cities_data["cities"]
 
 
-@dataclass
-class CityEffects:
-    troop_training: int = 0
-    population_growth: int = 0
-    intelligence: int = 0
-
+# * **** * #
+# * CITY * #
+# * **** * #
 
 @dataclass
 class City:
     campaign: str
     name: str
-    buildings: CityBuildings
+    buildings: BuildingsCount
     
     # Post init attrs
     resource_potentials: ResourceCollection = field(init = False)
-    geo_features: CityGeoFeatures = field(init = False)
-    city_effects: CityEffects = field(init = False)
+    geo_features: GeoFeatures = field(init = False)
+    city_effects: EffectBonuses = field(init = False)
     base_production: ResourceCollection = field(init = False)
     productivity_bonuses: ResourceCollection = field(init = False)
     total_production: ResourceCollection = field(init = False)
@@ -73,7 +76,7 @@ class City:
         
         return ResourceCollection()
     
-    def _get_geo_features(self) -> CityGeoFeatures:
+    def _get_geo_features(self) -> GeoFeatures:
         """
         Finds the city supplied by the user in the directory of cities and returns its geo-features.
         """
@@ -82,11 +85,11 @@ class City:
                 city["campaign"] == self.campaign
                 and city["name"] == self.name
             ):
-                return CityGeoFeatures(**city["geo_features"])
+                return GeoFeatures(**city["geo_features"])
         
-        return CityGeoFeatures()
+        return GeoFeatures()
     
-    def _get_base_effects(self) -> CityEffects:
+    def _get_base_effects(self) -> EffectBonuses:
         """
         Finds the city supplied by the user in the directory of cities and returns its effects.
         """
@@ -95,9 +98,9 @@ class City:
                 city["campaign"] == self.campaign
                 and city["name"] == self.name
             ):
-                return CityEffects(**city["effects"])
+                return EffectBonuses(**city["effects"])
         
-        return CityEffects()
+        return EffectBonuses()
     
     #* Validate city buildings
     def _validate_halls(self) -> None:
@@ -250,11 +253,11 @@ class City:
     
     
     #* Effects calculations
-    def _calculate_city_effects(self) -> CityEffects:
+    def _calculate_city_effects(self) -> EffectBonuses:
         """
         Calculate the total city effects (base + given by buildings).
         """
-        city_effects: CityEffects = self._get_base_effects()
+        city_effects: EffectBonuses = self._get_base_effects()
         
         for building in self.buildings:
             city_effects.troop_training = city_effects.troop_training + BUILDINGS[building].effect_bonuses.troop_training

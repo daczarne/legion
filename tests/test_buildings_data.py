@@ -2,7 +2,8 @@ from pytest import mark
 from collections import Counter
 from typing import Any
 
-from modules.buildings import GeoFeature, Resource
+from modules.geo_features import GeoFeature
+from modules.resources import Resource
 
 
 @mark.buildings_data
