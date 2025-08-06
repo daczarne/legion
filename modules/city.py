@@ -265,9 +265,9 @@ class City:
     
     
     def __post_init__(self) -> None:
+        self._validate_unknown_buildings()
         self._validate_halls()
         self._validate_number_of_buildings()
-        self._validate_unknown_buildings()
         self.resource_potentials = self._get_rss_potentials()
         self.geo_features = self._get_geo_features()
         self.city_effects = self._calculate_city_effects()
