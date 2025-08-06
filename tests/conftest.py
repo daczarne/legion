@@ -3,7 +3,7 @@ import yaml
 from collections.abc import Generator
 from typing import Literal, Any
 
-from modules.city_data import CitiesData, CityData
+from modules.city import CityData
 
 
 @fixture(scope = "function")
@@ -20,7 +20,7 @@ def _cities() -> Generator[list[CityData]]:
     Loads the cities.yaml file.
     """
     with open(file = "./data/cities.yaml", mode = "r") as file:
-        cities_data: CitiesData = yaml.safe_load(stream = file)
+        cities_data: dict[Literal["cities"], list[CityData]] = yaml.safe_load(stream = file)
     
     yield cities_data["cities"]
 

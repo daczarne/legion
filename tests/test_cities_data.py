@@ -1,7 +1,7 @@
 from pytest import mark
 from collections import Counter
 
-from modules.city_data import CityData
+from modules.city import CityData
 
 
 @mark.cities_data
