@@ -429,30 +429,48 @@ class City:
     
     def display_results(self) -> None:
         console: Console = Console()
+        
+        # Expected Layout
+        # |---------------------------|
+        # |      Campaign - City      |
+        # |- - - - - - - - - - - - - -|
+        # | List  |   Effects table   |
+        # | of                        |
+        # | build |                   |
+        # | ings                      |
+        # |- - - - - - - - - - - - - -|
+        # |     Production table      |
+        # |- - - - - - - - - - - - - -|
+        # |    Defenses information   |
+        # |---------------------------|
         layout: Layout = Layout()
         
         layout.split(
-            Layout(name = "header", size = 2),
-            Layout(name = "main", ratio = 1),
+            Layout(name = "header", size = 3),
+            Layout(name = "main", size = 15),
         )
         
         layout["main"].split(
-            Layout(name = "top", size = 8),
-            Layout(name = "bottom", size = 8),
+            Layout(name = "buildings_and_effects", size = 8),
+            Layout(name = "production", size = 8),
         )
         
-        layout["top"].split_row(
-            Layout(
-                renderable = Align(renderable = self._build_city_buildings_list(), align = "center"),
-                name = "left",
-            ),
-            Layout(
-                renderable = Align(renderable = self._build_city_effects_table(), align = "center"),
-                name = "right",
-            )
+        layout["buildings_and_effects"].split_row(
+            Layout(name = "buildings", ratio = 1),
+            Layout(name = "effects", ratio = 2),
         )
-        layout["header"].update(renderable = Align(renderable = self._build_city_information(), align = "center"))
-        layout["bottom"].update(renderable = self._build_city_production_table())
+        # layout["top"].split_row(
+        #     Layout(
+        #         renderable = Align(renderable = self._build_city_buildings_list(), align = "center"),
+        #         name = "left",
+        #     ),
+        #     Layout(
+        #         renderable = Align(renderable = self._build_city_effects_table(), align = "center"),
+        #         name = "right",
+        #     )
+        # )
+        # layout["header"].update(renderable = Align(renderable = self._build_city_information(), align = "center"))
+        # layout["bottom"].update(renderable = self._build_city_production_table())
         
-        panel: Panel = Panel(renderable = layout, width = 130, height = 20)
+        panel: Panel = Panel(renderable = layout, width = 130, height = 21)
         console.print(panel)
