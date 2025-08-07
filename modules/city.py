@@ -521,24 +521,24 @@ class City:
         
         table.add_row(
             "Troop training",
-            f"{str(self.settlement_effects.troop_training)}",
-            f"{str(self.building_effects.troop_training)}",
-            f"{str(self.worker_effects.troop_training)}",
-            f"{str(self.total_effects.troop_training)}",
+            f"{self.settlement_effects.troop_training}",
+            f"{self.building_effects.troop_training}",
+            f"{self.worker_effects.troop_training}",
+            f"{self.total_effects.troop_training}",
         )
         table.add_row(
             "Pop. growth",
-            f"{str(self.settlement_effects.population_growth)}",
-            f"{str(self.building_effects.population_growth)}",
-            f"{str(self.worker_effects.population_growth)}",
-            f"{str(self.total_effects.population_growth)}",
+            f"{self.settlement_effects.population_growth}",
+            f"{self.building_effects.population_growth}",
+            f"{self.worker_effects.population_growth}",
+            f"{self.total_effects.population_growth}",
         )
         table.add_row(
             "Intelligence",
-            f"{str(self.settlement_effects.intelligence)}",
-            f"{str(self.building_effects.intelligence)}",
-            f"{str(self.worker_effects.intelligence)}",
-            f"{str(self.total_effects.intelligence)}",
+            f"{self.settlement_effects.intelligence}",
+            f"{self.building_effects.intelligence}",
+            f"{self.worker_effects.intelligence}",
+            f"{self.total_effects.intelligence}",
         )
         
         return table
@@ -555,27 +555,42 @@ class City:
         
         table.add_row(
             "Food",
-            f"{str(self.settlement_storage.food)}",
-            f"{str(self.buildings_storage.food)}",
-            f"{str(self.warehouse_storage.food)}",
-            f"{str(self.supply_dump_storage.food)}",
-            f"{str(self.total_storage.food)}",
+            f"{self.settlement_storage.food}",
+            f"{self.buildings_storage.food}",
+            f"{self.warehouse_storage.food}",
+            f"{self.supply_dump_storage.food}",
+            f"{self.total_storage.food}",
         )
         table.add_row(
             "Ore",
-            f"{str(self.settlement_storage.ore)}",
-            f"{str(self.buildings_storage.ore)}",
-            f"{str(self.warehouse_storage.ore)}",
-            f"{str(self.supply_dump_storage.ore)}",
-            f"{str(self.total_storage.ore)}",
+            f"{self.settlement_storage.ore}",
+            f"{self.buildings_storage.ore}",
+            f"{self.warehouse_storage.ore}",
+            f"{self.supply_dump_storage.ore}",
+            f"{self.total_storage.ore}",
         )
         table.add_row(
             "Wood",
-            f"{str(self.settlement_storage.wood)}",
-            f"{str(self.buildings_storage.wood)}",
-            f"{str(self.warehouse_storage.wood)}",
-            f"{str(self.supply_dump_storage.wood)}",
-            f"{str(self.total_storage.wood)}",
+            f"{self.settlement_storage.wood}",
+            f"{self.buildings_storage.wood}",
+            f"{self.warehouse_storage.wood}",
+            f"{self.supply_dump_storage.wood}",
+            f"{self.total_storage.wood}",
+        )
+        
+        return table
+    
+    def _build_defenses_table(self) -> Table:
+        table: Table = Table(title = "Defenses")
+        
+        table.add_column(header = "Garrison", header_style = "bold", justify = "center")
+        table.add_column(header = "Garrison size", header_style = "bold", justify = "center")
+        table.add_column(header = "Squadron size", header_style = "bold", justify = "center")
+        
+        table.add_row(
+            f"{self.garrison}",
+            f"{self.garrison_size}",
+            f"{self.squadron_size}",
         )
         
         return table
