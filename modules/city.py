@@ -612,7 +612,7 @@ class City:
         
         return table
     
-    def _build_results_display(self) -> Panel:
+    def build_results_display(self) -> Panel:
         # Expected Layout
         # |---------------------------|
         # |      Campaign - City      |
@@ -686,4 +686,4 @@ class City:
     
     def display_results(self) -> None:
         console: Console = Console()
-        console.print(self._build_results_display())
+        console.print(self.build_results_display())

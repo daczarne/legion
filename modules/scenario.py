@@ -40,11 +40,11 @@ class Scenario:
         )
         
         layout["city_a"].update(
-            renderable = Layout(renderable = Align(renderable = self.city_a._build_results_display(), align = "center")),
+            renderable = Layout(renderable = Align(renderable = self.city_a.build_results_display(), align = "center")),
         )
         
         layout["city_b"].update(
-            renderable = Layout(renderable = Align(renderable = self.city_b._build_results_display(), align = "center")),
+            renderable = Layout(renderable = Align(renderable = self.city_b.build_results_display(), align = "center")),
         )
         
         return Panel(renderable = layout, height = 39)
