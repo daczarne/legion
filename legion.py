@@ -13,7 +13,8 @@ Scenario(
     buildings_b = {
         "city_hall": 1,
         "basilica": 1,
+        "miners_guild": 1,
         "hidden_grove": 1,
-        "large_mine": 6,
+        "large_mine": 5,
     },
 ).display_results()
