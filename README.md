@@ -26,4 +26,4 @@ Scenario(
 
 The terminal output will display a comparison between the two scenarios:
 
-[scenarios](img/scenario.png)
+![scenarios](img/scenario.png)
