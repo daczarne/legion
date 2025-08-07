@@ -934,7 +934,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Celtic Cavalry
-  # C
   # D
   - name: Dertosa
     campaign: Hispania
@@ -985,7 +984,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
-  # F
   # G
   - name: Gadeira
     campaign: Hispania
@@ -1101,7 +1099,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Spanish Mercenaries
-  # J
   # K
   - name: Kalagurris
     campaign: Hispania
@@ -1524,8 +1521,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
-  # Q
-  # R
   # S
   - name: Salika
     campaign: Hispania
@@ -1770,10 +1765,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Celtic Cavalry
-  # W
-  # X
-  # Y
-  # Z
   # ************ #
   # * Germania * #
   # ************ #
@@ -1796,6 +1787,7 @@ cities:
   # Q
   # R
   # S
+  # T
   # U
   # V
   # W
@@ -1824,6 +1816,7 @@ cities:
   # Q
   # R
   # S
+  # T
   # U
   # V
   # W
@@ -1852,6 +1845,7 @@ cities:
   # Q
   # R
   # S
+  # T
   # U
   # V
   # W
@@ -1880,6 +1874,7 @@ cities:
   # Q
   # R
   # S
+  # T
   # U
   # V
   # W
