@@ -1135,6 +1135,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
+  - name: Kastulon
+    campaign: Hispania
+    resource_potentials:
+      food: 100
+      ore: 80
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   - name: Kauka
     campaign: Hispania
     resource_potentials:
@@ -1251,6 +1267,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Celtic Cavalry
+  - name: Oreton
+    campaign: Hispania
+    resource_potentials:
+      food: 50
+      ore: 70
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Osikerda
     campaign: Hispania
     resource_potentials:
@@ -1303,6 +1335,22 @@ cities:
   # Q
   # R
   # S
+  - name: Salika
+    campaign: Hispania
+    resource_potentials:
+      food: 0
+      ore: 90
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
   - name: Salmantika
     campaign: Hispania
     resource_potentials:
