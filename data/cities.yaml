@@ -1039,6 +1039,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
+  - name: Karaka
+    campaign: Hispania
+    resource_potentials:
+      food: 80
+      ore: 80
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Karanikon
     campaign: Hispania
     resource_potentials:
@@ -1071,6 +1087,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Celtic Cavalry
+  - name: Konsabura
+    campaign: Hispania
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   - name: Kontrebia
     campaign: Hispania
     resource_potentials:
@@ -1088,6 +1120,22 @@ cities:
       intelligence: 0
     garrison: Celtic Cavalry
   # L
+  - name: Libora
+    campaign: Hispania
+    resource_potentials:
+      food: 70
+      ore: 110
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
   # M
   # N
   - name: Noega
@@ -1272,6 +1320,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Legion
+  - name: Toleton
+    campaign: Hispania
+    resource_potentials:
+      food: 120
+      ore: 0
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   - name: Tolosa
     campaign: Hispania
     resource_potentials:
