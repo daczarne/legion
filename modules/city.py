@@ -1,3 +1,4 @@
+from multiprocessing import Value
 import yaml
 from dataclasses import dataclass, field
 from typing import TypedDict, Literal, ClassVar
@@ -63,6 +64,11 @@ class City:
     warehouse_storage: ResourceCollection = field(init = False)
     supply_dump_storage: ResourceCollection = field(init = False)
     total_storage: ResourceCollection = field(init = False)
+    
+    garrison: str = field(init = False)
+    squadrons: int = field(init = False)
+    squadron_size: str = field(init = False)
+    
     
     # Class variables
     MAX_WORKERS: ClassVar[int] = 18
@@ -370,6 +376,42 @@ class City:
         return total_storage
     
     
+    #* Defenses
+    def _get_garrison(self) -> str:
+        for city in CITIES:
+            if (
+                city["campaign"] == self.campaign
+                and city["name"] == self.name
+            ):
+                return city["garrison"]
+        
+        raise ValueError(f"No garrison found for {self.campaign} - {self.name}")
+    
+    def _calculate_garrison_size(self) -> int:
+        if "large_fort" in self.buildings:
+            return 4
+        
+        if "medium_fort" in self.buildings:
+            return 3
+        
+        if "small_fort" in self.buildings:
+            return 2
+        
+        return 1
+    
+    def _calculate_squadron_size(self) -> str:
+        if "quartermaster" in self.buildings:
+            return "Huge"
+        
+        if "barracks" in self.buildings:
+            return "Large"
+        
+        if any(fort in self.buildings for fort in ["small_fort", "medium_fort", "large_fort"]):
+            return "Medium"
+        
+        return "Small"
+    
+    
     def __post_init__(self) -> None:
         self.resource_potentials = self._get_rss_potentials()
         self.geo_features = self._get_geo_features()
@@ -398,6 +440,11 @@ class City:
         self.warehouse_storage = self._calculate_warehouse_storage()
         self.supply_dump_storage = self._calculate_supply_dump_storage()
         self.total_storage = self._calculate_total_storage_capacity()
+        
+        #* Defenses
+        self.garrison = self._get_garrison()
+        self.squadrons = self._calculate_garrison_size()
+        self.squadron_size = self._calculate_squadron_size()
     
     
     #* Display results
@@ -474,24 +521,24 @@ class City:
         
         table.add_row(
             "Troop training",
-            f"{str(self.settlement_effects.troop_training)}",
-            f"{str(self.building_effects.troop_training)}",
-            f"{str(self.worker_effects.troop_training)}",
-            f"{str(self.total_effects.troop_training)}",
+            f"{self.settlement_effects.troop_training}",
+            f"{self.building_effects.troop_training}",
+            f"{self.worker_effects.troop_training}",
+            f"{self.total_effects.troop_training}",
         )
         table.add_row(
             "Pop. growth",
-            f"{str(self.settlement_effects.population_growth)}",
-            f"{str(self.building_effects.population_growth)}",
-            f"{str(self.worker_effects.population_growth)}",
-            f"{str(self.total_effects.population_growth)}",
+            f"{self.settlement_effects.population_growth}",
+            f"{self.building_effects.population_growth}",
+            f"{self.worker_effects.population_growth}",
+            f"{self.total_effects.population_growth}",
         )
         table.add_row(
             "Intelligence",
-            f"{str(self.settlement_effects.intelligence)}",
-            f"{str(self.building_effects.intelligence)}",
-            f"{str(self.worker_effects.intelligence)}",
-            f"{str(self.total_effects.intelligence)}",
+            f"{self.settlement_effects.intelligence}",
+            f"{self.building_effects.intelligence}",
+            f"{self.worker_effects.intelligence}",
+            f"{self.total_effects.intelligence}",
         )
         
         return table
@@ -508,27 +555,42 @@ class City:
         
         table.add_row(
             "Food",
-            f"{str(self.settlement_storage.food)}",
-            f"{str(self.buildings_storage.food)}",
-            f"{str(self.warehouse_storage.food)}",
-            f"{str(self.supply_dump_storage.food)}",
-            f"{str(self.total_storage.food)}",
+            f"{self.settlement_storage.food}",
+            f"{self.buildings_storage.food}",
+            f"{self.warehouse_storage.food}",
+            f"{self.supply_dump_storage.food}",
+            f"{self.total_storage.food}",
         )
         table.add_row(
             "Ore",
-            f"{str(self.settlement_storage.ore)}",
-            f"{str(self.buildings_storage.ore)}",
-            f"{str(self.warehouse_storage.ore)}",
-            f"{str(self.supply_dump_storage.ore)}",
-            f"{str(self.total_storage.ore)}",
+            f"{self.settlement_storage.ore}",
+            f"{self.buildings_storage.ore}",
+            f"{self.warehouse_storage.ore}",
+            f"{self.supply_dump_storage.ore}",
+            f"{self.total_storage.ore}",
         )
         table.add_row(
             "Wood",
-            f"{str(self.settlement_storage.wood)}",
-            f"{str(self.buildings_storage.wood)}",
-            f"{str(self.warehouse_storage.wood)}",
-            f"{str(self.supply_dump_storage.wood)}",
-            f"{str(self.total_storage.wood)}",
+            f"{self.settlement_storage.wood}",
+            f"{self.buildings_storage.wood}",
+            f"{self.warehouse_storage.wood}",
+            f"{self.supply_dump_storage.wood}",
+            f"{self.total_storage.wood}",
+        )
+        
+        return table
+    
+    def _build_defenses_table(self) -> Table:
+        table: Table = Table(title = "Defenses")
+        
+        table.add_column(header = "Garrison", header_style = "bold", justify = "center")
+        table.add_column(header = "Squadrons", header_style = "bold", justify = "center")
+        table.add_column(header = "Squadron size", header_style = "bold", justify = "center")
+        
+        table.add_row(
+            f"{self.garrison}",
+            f"{self.squadrons}",
+            f"{self.squadron_size}",
         )
         
         return table
@@ -548,14 +610,18 @@ class City:
         # |     Production table      |
         # |- - - - - - - - - - - - - -|
         # |  Storage capacity table   |
+        # |- - - - - - - - - - - - - -|
+        # |      Defenses table       |
         # |---------------------------|
         layout: Layout = Layout()
         
         header_height: int = 2
         buildings_and_effects_height: int = 10
         production_height: int = 8
-        storage_height: int = 10
-        main_height: int = buildings_and_effects_height + production_height + storage_height
+        storage_height: int = 8
+        defenses_height: int = 9
+        main_height: int = buildings_and_effects_height + production_height + storage_height + defenses_height
+        
         total_layout_height: int = header_height + main_height
         total_layout_width: int = 98
         
@@ -572,6 +638,7 @@ class City:
             Layout(name = "buildings_and_effects", size = buildings_and_effects_height),
             Layout(name = "production", size = production_height),
             Layout(name = "storage_capacity", size = storage_height),
+            Layout(name = "defenses", size = defenses_height),
         )
         
         layout["buildings_and_effects"].split_row(
@@ -593,6 +660,10 @@ class City:
         
         layout["storage_capacity"].update(
             renderable = Layout(renderable = Align(renderable = self._build_settlement_storage_table(), align = "center")),
+        )
+        
+        layout["defenses"].update(
+            renderable = Layout(renderable = Align(renderable = self._build_defenses_table(), align = "center")),
         )
         
         panel: Panel = Panel(renderable = layout, width = total_layout_width, height = total_layout_height)
