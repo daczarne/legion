@@ -971,6 +971,22 @@ cities:
     garrison: Archers
   # F
   # G
+  - name: Gadeira
+    campaign: Hispania
+    resource_potentials:
+      food: 80
+      ore: 0
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # H
   - name: Helike
     campaign: Hispania
@@ -1232,6 +1248,22 @@ cities:
       intelligence: 0
     garrison: Celtic Cavalry
   # L
+  - name: Lakobriga
+    campaign: Hispania
+    resource_potentials:
+      food: 100
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Peltasts
   - name: Libora
     campaign: Hispania
     resource_potentials:
@@ -1347,6 +1379,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Celtic Cavalry
+  - name: Onoba
+    campaign: Hispania
+    resource_potentials:
+      food: 125
+      ore: 0
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Hoplites
   - name: Oreton
     campaign: Hispania
     resource_potentials:
