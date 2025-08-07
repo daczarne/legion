@@ -315,6 +315,7 @@ buildings:
     required_rss: food
     required_building:
       - large_farm
+      - city_hall
     replaces: null
   # ****************** #
   # * Ore production * #
@@ -513,6 +514,7 @@ buildings:
     required_rss: ore
     required_building:
       - large_mine
+      - city_hall
     replaces: null
   # ******************* #
   # * Wood production * #
@@ -671,6 +673,7 @@ buildings:
     required_rss: wood
     required_building:
       - large_lumber_mill
+      - city_hall
     replaces: null
   # ************ #
   # * Military * #
@@ -827,7 +830,7 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: food
+    required_rss: null
     required_building:
       - farm
       - large_farm
@@ -869,7 +872,7 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: ore
+    required_rss: null
     required_building:
       - mine
       - large_mine
@@ -911,7 +914,7 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: wood
+    required_rss: null
     required_building:
       - lumber_mill
       - large_lumber_mill
@@ -1274,6 +1277,7 @@ buildings:
     required_rss: null
     required_building:
       - shrine
+      - town_hall
     replaces: shrine
   - id: basilica
     name: Basilica
@@ -1313,6 +1317,7 @@ buildings:
     required_rss: null
     required_building:
       - temple
+      - city_hall
     replaces: temple
   - id: bath_house
     name: Bath house
@@ -1430,6 +1435,7 @@ buildings:
     required_rss: null
     required_building:
       - forest
+      - town_hall
     replaces: forest
   - id: warehouse
     name: Warehouse
@@ -1546,8 +1552,8 @@ buildings:
     required_geo: null
     required_rss: null
     required_building:
-      - village_hall
       - small_market
+      - village_hall
     replaces: small_market
   # ********* #
   # * Other * #
