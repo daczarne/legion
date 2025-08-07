@@ -7,6 +7,7 @@ from rich.align import Align
 from rich.console import Console
 from rich.layout import Layout
 from rich.panel import Panel
+from rich.style import Style
 from rich.table import Table
 from rich.text import Text
 
@@ -469,8 +470,49 @@ class City:
         
         return city_buildings_table
     
+    def _build_city_effects_table(self) -> Table:
+        table_style: Style = Style(color = "#5f5fff")
+        table: Table = Table(
+            title = Text(text = "Effects", style = table_style + Style(italic = True)),
+            style = table_style,
+        )
+        
+        table.add_column(header = "Effect", header_style = "bold", justify = "center")
+        table.add_column(header = "City", header_style = "bold", justify = "right")
+        table.add_column(header = "Buildings", header_style = "bold", justify = "right")
+        table.add_column(header = "Workers", header_style = "bold", justify = "right")
+        table.add_column(header = "Total", header_style = "bold", justify = "right")
+        
+        table.add_row(
+            "Troop training",
+            f"{self.city_effects.troop_training}",
+            f"{self.building_effects.troop_training}",
+            f"{self.worker_effects.troop_training}",
+            Text(text = f"{self.total_effects.troop_training}", style = table_style + Style(bold = True)),
+        )
+        table.add_row(
+            "Pop. growth",
+            f"{self.city_effects.population_growth}",
+            f"{self.building_effects.population_growth}",
+            f"{self.worker_effects.population_growth}",
+            Text(text = f"{self.total_effects.population_growth}", style = table_style + Style(bold = True)),
+        )
+        table.add_row(
+            "Intelligence",
+            f"{self.city_effects.intelligence}",
+            f"{self.building_effects.intelligence}",
+            f"{self.worker_effects.intelligence}",
+            Text(text = f"{self.total_effects.intelligence}", style = table_style + Style(bold = True)),
+        )
+        
+        return table
+    
     def _build_city_production_table(self) -> Table:
-        table: Table = Table(title = "Production")
+        table_style: Style = Style(color = "#228b22")
+        table: Table = Table(
+            title = Text(text = "Production", style = table_style + Style(italic = True)),
+            style = table_style,
+        )
         
         table.add_column(header = "Resource", header_style = "bold", justify = "left")
         table.add_column(header = "Rss. pot.", header_style = "bold", justify = "right")
@@ -487,7 +529,7 @@ class City:
             f"{self.productivity_bonuses.food}",
             f"{self.total_production.food}",
             f"{-1 * self.maintenance_costs.food}",
-            f"{self.balance.food}",
+            Text(text = f"{self.balance.food}", style = table_style + Style(bold = True)),
         )
         table.add_row(
             f"Ore",
@@ -496,7 +538,7 @@ class City:
             f"{self.productivity_bonuses.ore}",
             f"{self.total_production.ore}",
             f"{-1 * self.maintenance_costs.ore}",
-            f"{self.balance.ore}",
+            Text(text = f"{self.balance.ore}", style = table_style + Style(bold = True)),
         )
         table.add_row(
             f"Wood",
@@ -505,46 +547,17 @@ class City:
             f"{self.productivity_bonuses.wood}",
             f"{self.total_production.wood}",
             f"{-1 * self.maintenance_costs.wood}",
-            f"{self.balance.wood}",
-        )
-        
-        return table
-    
-    def _build_city_effects_table(self) -> Table:
-        table: Table = Table(title = "Effects")
-        
-        table.add_column(header = "Effect", header_style = "bold", justify = "center")
-        table.add_column(header = "City", header_style = "bold", justify = "right")
-        table.add_column(header = "Buildings", header_style = "bold", justify = "right")
-        table.add_column(header = "Workers", header_style = "bold", justify = "right")
-        table.add_column(header = "Total", header_style = "bold", justify = "right")
-        
-        table.add_row(
-            "Troop training",
-            f"{self.city_effects.troop_training}",
-            f"{self.building_effects.troop_training}",
-            f"{self.worker_effects.troop_training}",
-            f"{self.total_effects.troop_training}",
-        )
-        table.add_row(
-            "Pop. growth",
-            f"{self.city_effects.population_growth}",
-            f"{self.building_effects.population_growth}",
-            f"{self.worker_effects.population_growth}",
-            f"{self.total_effects.population_growth}",
-        )
-        table.add_row(
-            "Intelligence",
-            f"{self.city_effects.intelligence}",
-            f"{self.building_effects.intelligence}",
-            f"{self.worker_effects.intelligence}",
-            f"{self.total_effects.intelligence}",
+            Text(text = f"{self.balance.wood}", style = table_style + Style(bold = True)),
         )
         
         return table
     
     def _build_city_storage_table(self) -> Table:
-        table: Table = Table(title = "Storage capacity")
+        table_style: Style = Style(color = "purple")
+        table: Table = Table(
+            title = Text(text = "Storage capacity", style = table_style + Style(italic = True)),
+            style = table_style,
+        )
         
         table.add_column(header = "Resource", header_style = "bold", justify = "left")
         table.add_column(header = "City", header_style = "bold", justify = "right")
@@ -559,7 +572,7 @@ class City:
             f"{self.buildings_storage.food}",
             f"{self.warehouse_storage.food}",
             f"{self.supply_dump_storage.food}",
-            f"{self.total_storage.food}",
+            Text(text = f"{self.total_storage.food}", style = table_style + Style(bold = True)),
         )
         table.add_row(
             "Ore",
@@ -567,7 +580,7 @@ class City:
             f"{self.buildings_storage.ore}",
             f"{self.warehouse_storage.ore}",
             f"{self.supply_dump_storage.ore}",
-            f"{self.total_storage.ore}",
+            Text(text = f"{self.total_storage.ore}", style = table_style + Style(bold = True)),
         )
         table.add_row(
             "Wood",
@@ -575,13 +588,17 @@ class City:
             f"{self.buildings_storage.wood}",
             f"{self.warehouse_storage.wood}",
             f"{self.supply_dump_storage.wood}",
-            f"{self.total_storage.wood}",
+            Text(text = f"{self.total_storage.wood}", style = table_style + Style(bold = True)),
         )
         
         return table
     
     def _build_defenses_table(self) -> Table:
-        table: Table = Table(title = "Defenses")
+        table_style: Style = Style(color = "red")
+        table: Table = Table(
+            title = Text(text = "Defenses", style = table_style + Style(italic = True)),
+            style = table_style,
+        )
         
         table.add_column(header = "Garrison", header_style = "bold", justify = "center")
         table.add_column(header = "Squadrons", header_style = "bold", justify = "center")
@@ -595,9 +612,7 @@ class City:
         
         return table
     
-    def display_results(self) -> None:
-        console: Console = Console()
-        
+    def _build_results_display(self) -> Panel:
         # Expected Layout
         # |---------------------------|
         # |      Campaign - City      |
@@ -616,14 +631,15 @@ class City:
         layout: Layout = Layout()
         
         header_height: int = 2
-        buildings_and_effects_height: int = 10
+        
+        buildings_and_effects_height: int = 11
         production_height: int = 8
         storage_height: int = 8
-        defenses_height: int = 9
+        defenses_height: int = 8
         main_height: int = buildings_and_effects_height + production_height + storage_height + defenses_height
         
         total_layout_height: int = header_height + main_height
-        total_layout_width: int = 98
+        total_layout_width: int = 92
         
         layout.split(
             Layout(name = "header", size = header_height),
@@ -666,5 +682,8 @@ class City:
             renderable = Layout(renderable = Align(renderable = self._build_defenses_table(), align = "center")),
         )
         
-        panel: Panel = Panel(renderable = layout, width = total_layout_width, height = total_layout_height)
-        console.print(panel)
+        return Panel(renderable = layout, width = total_layout_width, height = total_layout_height)
+    
+    def display_results(self) -> None:
+        console: Console = Console()
+        console.print(self._build_results_display())
