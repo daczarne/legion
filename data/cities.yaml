@@ -742,8 +742,40 @@ cities:
   # *********************** #
   # A
   # B
+  - name: Biskargis
+    campaign: Hispania
+    resource_potentials:
+      food: 0
+      ore: 100
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Auxiliary Archers
   # C
   # D
+  - name: Dertosa
+    campaign: Hispania
+    resource_potentials:
+      food: 80
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Auxilia
   # E
   # F
   # G
@@ -759,6 +791,23 @@ cities:
   # Q
   # R
   # S
+  # T
+  - name: Tarrako
+    campaign: Hispania
+    resource_potentials:
+      food: 100
+      ore: 80
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Legion
   # U
   # V
   # W
