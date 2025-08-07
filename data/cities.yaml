@@ -953,6 +953,22 @@ cities:
       intelligence: 0
     garrison: Spanish Mercenaries
   # E
+  - name: Ebora
+    campaign: Hispania
+    resource_potentials:
+      food: 50
+      ore: 0
+      wood: 120
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # F
   # G
   # H
@@ -1249,6 +1265,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Spanish Mercenaries
+  - name: Myrtilis
+    campaign: Hispania
+    resource_potentials:
+      food: 70
+      ore: 50
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   # N
   - name: Nertobriga
     campaign: Hispania
