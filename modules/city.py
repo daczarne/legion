@@ -67,7 +67,7 @@ class City:
     
     garrison: str = field(init = False)
     garrison_size: int = field(init = False)
-    squad_size: str = field(init = False)
+    squadron_size: str = field(init = False)
     
     
     # Class variables
@@ -399,7 +399,7 @@ class City:
         
         return 1
     
-    def _calculate_squad_size(self) -> str:
+    def _calculate_squadron_size(self) -> str:
         if "quartermaster" in self.buildings:
             return "Huge"
         
@@ -444,7 +444,7 @@ class City:
         #* Defenses
         self.garrison = self._get_garrison()
         self.garrison_size = self._calculate_garrison_size()
-        self.squad_size = self._calculate_squad_size()
+        self.squadron_size = self._calculate_squadron_size()
     
     
     #* Display results
