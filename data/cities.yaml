@@ -773,6 +773,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Celtic Cavalry
+  - name: Arbokala
+    campaign: Hispania
+    resource_potentials:
+      food: 70
+      ore: 0
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Argentiola
     campaign: Hispania
     resource_potentials:
@@ -991,6 +1007,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
+  - name: Kaliabriga
+    campaign: Hispania
+    resource_potentials:
+      food: 90
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
   - name: Kamarika
     campaign: Hispania
     resource_potentials:
@@ -1111,6 +1143,22 @@ cities:
   # Q
   # R
   # S
+  - name: Salmantika
+    campaign: Hispania
+    resource_potentials:
+      food: 60
+      ore: 110
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
   - name: Segontia
     campaign: Hispania
     resource_potentials:
@@ -1192,6 +1240,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
+  - name: Turmogon
+    campaign: Hispania
+    resource_potentials:
+      food: 100
+      ore: 80
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 1
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   # U
   - name: Uxama
     campaign: Hispania
