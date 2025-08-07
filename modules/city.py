@@ -66,7 +66,7 @@ class City:
     total_storage: ResourceCollection = field(init = False)
     
     garrison: str = field(init = False)
-    garrison_size: int = field(init = False)
+    squadrons: int = field(init = False)
     squadron_size: str = field(init = False)
     
     
@@ -443,7 +443,7 @@ class City:
         
         #* Defenses
         self.garrison = self._get_garrison()
-        self.garrison_size = self._calculate_garrison_size()
+        self.squadrons = self._calculate_garrison_size()
         self.squadron_size = self._calculate_squadron_size()
     
     
@@ -584,12 +584,12 @@ class City:
         table: Table = Table(title = "Defenses")
         
         table.add_column(header = "Garrison", header_style = "bold", justify = "center")
-        table.add_column(header = "Garrison size", header_style = "bold", justify = "center")
+        table.add_column(header = "Squadrons", header_style = "bold", justify = "center")
         table.add_column(header = "Squadron size", header_style = "bold", justify = "center")
         
         table.add_row(
             f"{self.garrison}",
-            f"{self.garrison_size}",
+            f"{self.squadrons}",
             f"{self.squadron_size}",
         )
         
@@ -610,14 +610,18 @@ class City:
         # |     Production table      |
         # |- - - - - - - - - - - - - -|
         # |  Storage capacity table   |
+        # |- - - - - - - - - - - - - -|
+        # |      Defenses table       |
         # |---------------------------|
         layout: Layout = Layout()
         
         header_height: int = 2
         buildings_and_effects_height: int = 10
         production_height: int = 8
-        storage_height: int = 10
-        main_height: int = buildings_and_effects_height + production_height + storage_height
+        storage_height: int = 8
+        defenses_height: int = 9
+        main_height: int = buildings_and_effects_height + production_height + storage_height + defenses_height
+        
         total_layout_height: int = header_height + main_height
         total_layout_width: int = 98
         
@@ -634,6 +638,7 @@ class City:
             Layout(name = "buildings_and_effects", size = buildings_and_effects_height),
             Layout(name = "production", size = production_height),
             Layout(name = "storage_capacity", size = storage_height),
+            Layout(name = "defenses", size = defenses_height),
         )
         
         layout["buildings_and_effects"].split_row(
@@ -655,6 +660,10 @@ class City:
         
         layout["storage_capacity"].update(
             renderable = Layout(renderable = Align(renderable = self._build_settlement_storage_table(), align = "center")),
+        )
+        
+        layout["defenses"].update(
+            renderable = Layout(renderable = Align(renderable = self._build_defenses_table(), align = "center")),
         )
         
         panel: Panel = Panel(renderable = layout, width = total_layout_width, height = total_layout_height)
