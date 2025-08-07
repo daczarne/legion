@@ -631,6 +631,7 @@ class City:
         layout: Layout = Layout()
         
         header_height: int = 2
+        
         buildings_and_effects_height: int = 11
         production_height: int = 8
         storage_height: int = 8
