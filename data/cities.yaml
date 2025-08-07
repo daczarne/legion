@@ -741,6 +741,38 @@ cities:
   # * Conquest of Britain * #
   # *********************** #
   # A
+  - name: Aiminion
+    campaign: Hispania
+    resource_potentials:
+      food: 70
+      ore: 80
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Ammaia
+    campaign: Hispania
+    resource_potentials:
+      food: 90
+      ore: 80
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   - name: Argentiola
     campaign: Hispania
     resource_potentials:
@@ -893,6 +925,22 @@ cities:
   # G
   # H
   # I
+  - name: Igaiditania
+    campaign: Hispania
+    resource_potentials:
+      food: 80
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
   - name: Ilerda
     campaign: Hispania
     resource_potentials:
@@ -1069,6 +1117,22 @@ cities:
       food: 0
       ore: 100
       wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
+  - name: Skallabis
+    campaign: Hispania
+    resource_potentials:
+      food: 110
+      ore: 60
+      wood: 0
     geo_features:
       rock_outcrops: 0
       mountains: 0
