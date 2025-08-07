@@ -757,6 +757,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
+  - name: Aki
+    campaign: Hispania
+    resource_potentials:
+      food: 70
+      ore: 110
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   - name: Ammaia
     campaign: Hispania
     resource_potentials:
@@ -1313,6 +1329,22 @@ cities:
       intelligence: 0
     garrison: Spanish Mercenaries
   # M
+  - name: Malaka
+    campaign: Hispania
+    resource_potentials:
+      food: 80
+      ore: 90
+      wood: 60
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Mirobriga
     campaign: Hispania
     resource_potentials:
@@ -1689,6 +1721,22 @@ cities:
       intelligence: 0
     garrison: Celtic Cavalry
   # U
+  - name: Urki
+    campaign: Hispania
+    resource_potentials:
+      food: 60
+      ore: 110
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
   - name: Uxama
     campaign: Hispania
     resource_potentials:
