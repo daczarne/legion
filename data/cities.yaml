@@ -774,6 +774,22 @@ cities:
       intelligence: 0
     garrison: Celtic Cavalry
   # B
+  - name: Baraka
+    campaign: Hispania
+    resource_potentials:
+      food: 70
+      ore: 0
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Bergidon
     campaign: Hispania
     resource_potentials:
@@ -812,6 +828,22 @@ cities:
       food: 70
       ore: 100
       wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  - name: Brigantion
+    campaign: Hispania
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 80
     geo_features:
       rock_outcrops: 0
       mountains: 0
@@ -927,6 +959,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
+  - name: Karanikon
+    campaign: Hispania
+    resource_potentials:
+      food: 90
+      ore: 80
+      wood: 70
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
   - name: Kontrebia
     campaign: Hispania
     resource_potentials:
