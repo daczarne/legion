@@ -595,9 +595,7 @@ class City:
         
         return table
     
-    def display_results(self) -> None:
-        console: Console = Console()
-        
+    def _build_results_display(self) -> Panel:
         # Expected Layout
         # |---------------------------|
         # |      Campaign - City      |
@@ -666,5 +664,8 @@ class City:
             renderable = Layout(renderable = Align(renderable = self._build_defenses_table(), align = "center")),
         )
         
-        panel: Panel = Panel(renderable = layout, width = total_layout_width, height = total_layout_height)
-        console.print(panel)
+        return Panel(renderable = layout, width = total_layout_width, height = total_layout_height)
+    
+    def display_results(self) -> None:
+        console: Console = Console()
+        console.print(self._build_results_display())
