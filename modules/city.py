@@ -48,7 +48,7 @@ class City:
     resource_potentials: ResourceCollection = field(init = False)
     geo_features: GeoFeatures = field(init = False)
     
-    settlement_effects: EffectBonuses = field(init = False)
+    city_effects: EffectBonuses = field(init = False)
     building_effects: EffectBonuses = field(init = False)
     worker_effects: EffectBonuses = field(init = False)
     total_effects: EffectBonuses = field(init = False)
@@ -59,7 +59,7 @@ class City:
     maintenance_costs: ResourceCollection = field(init = False)
     balance: ResourceCollection = field(init = False)
     
-    settlement_storage: ResourceCollection = field(init = False)
+    city_storage: ResourceCollection = field(init = False)
     buildings_storage: ResourceCollection = field(init = False)
     warehouse_storage: ResourceCollection = field(init = False)
     supply_dump_storage: ResourceCollection = field(init = False)
@@ -72,8 +72,8 @@ class City:
     
     # Class variables
     MAX_WORKERS: ClassVar[int] = 18
-    POSSIBLE_SETTLEMENT_HALLS: ClassVar[set[str]] = {"village_hall", "town_hall", "city_hall"}
-    MAX_BUILDINGS_PER_SETTLEMENT: ClassVar[dict[str, int]] = {
+    POSSIBLE_CITY_HALLS: ClassVar[set[str]] = {"village_hall", "town_hall", "city_hall"}
+    MAX_BUILDINGS_PER_CITY: ClassVar[dict[str, int]] = {
         "village_hall": 4,
         "town_hall": 6,
         "city_hall": 8,
@@ -106,7 +106,7 @@ class City:
         
         return GeoFeatures()
     
-    def _get_settlement_effects(self) -> EffectBonuses:
+    def _get_city_effects(self) -> EffectBonuses:
         """
         Finds the city supplied by the user in the directory of cities and returns its effects.
         """
@@ -121,10 +121,10 @@ class City:
     
     #* Validate city buildings
     def _validate_halls(self) -> None:
-        halls: dict[str, int] = {k: v for k, v in self.buildings.items() if k in self.POSSIBLE_SETTLEMENT_HALLS}
+        halls: dict[str, int] = {k: v for k, v in self.buildings.items() if k in self.POSSIBLE_CITY_HALLS}
         
         if not halls:
-            raise ValueError(f"Settlement must include a hall (village, town, or city)")
+            raise ValueError(f"City must include a hall (village, town, or city)")
         
         if len(halls) > 1:
             raise ValueError(f"Too many halls for this city")
@@ -132,19 +132,19 @@ class City:
         if list(halls.values())[0] != 1:
             raise ValueError(f"Too many halls for this city")
     
-    def _get_settlement_hall(self) -> str:
-        halls: dict[str, int] = {k: v for k, v in self.buildings.items() if k in self.POSSIBLE_SETTLEMENT_HALLS}
+    def _get_hall(self) -> str:
+        halls: dict[str, int] = {k: v for k, v in self.buildings.items() if k in self.POSSIBLE_CITY_HALLS}
         return list(halls.keys())[0]
     
     def _validate_number_of_buildings(self) -> None:
         number_of_declared_buildings: int = sum(self.buildings.values())
-        max_number_of_buildings_in_settlement: int = self.MAX_BUILDINGS_PER_SETTLEMENT[self._get_settlement_hall()]
+        max_number_of_buildings_in_city: int = self.MAX_BUILDINGS_PER_CITY[self._get_hall()]
         
-        if number_of_declared_buildings > max_number_of_buildings_in_settlement + 1:
+        if number_of_declared_buildings > max_number_of_buildings_in_city + 1:
             raise ValueError(
-                f"Too many buildings for this settlement: "
+                f"Too many buildings for this city: "
                 f"{number_of_declared_buildings} provided, "
-                f"max of {max_number_of_buildings_in_settlement + 1} possible ({max_number_of_buildings_in_settlement} + hall)"
+                f"max of {max_number_of_buildings_in_city + 1} possible ({max_number_of_buildings_in_city} + hall)"
             )
     
     def _validate_unknown_buildings(self) -> None:
@@ -303,17 +303,17 @@ class City:
         total_effects: EffectBonuses = EffectBonuses()
         
         total_effects.troop_training = (
-            self.settlement_effects.troop_training
+            self.city_effects.troop_training
             + self.building_effects.troop_training
             + self.worker_effects.troop_training
         )
         total_effects.population_growth = (
-            self.settlement_effects.population_growth
+            self.city_effects.population_growth
             + self.building_effects.population_growth
             + self.worker_effects.population_growth
         )
         total_effects.intelligence = (
-            self.settlement_effects.intelligence
+            self.city_effects.intelligence
             + self.building_effects.intelligence
             + self.worker_effects.intelligence
         )
@@ -322,14 +322,14 @@ class City:
     
     
     #* Storage capacity
-    def _calculate_settlement_storage(self) -> ResourceCollection:
-        return BUILDINGS[self._get_settlement_hall()].storage_capacity
+    def _calculate_city_storage(self) -> ResourceCollection:
+        return BUILDINGS[self._get_hall()].storage_capacity
     
     def _calculate_buildings_storage(self) -> ResourceCollection:
         buildings_storage: ResourceCollection = ResourceCollection()
         
         for building, qty in self.buildings.items():
-            if building not in [*self.POSSIBLE_SETTLEMENT_HALLS, "warehouse", "supply_dump"]:
+            if building not in [*self.POSSIBLE_CITY_HALLS, "warehouse", "supply_dump"]:
                 buildings_storage.food = buildings_storage.food + BUILDINGS[building].storage_capacity.food * qty
                 buildings_storage.ore = buildings_storage.ore + BUILDINGS[building].storage_capacity.ore * qty
                 buildings_storage.wood = buildings_storage.wood + BUILDINGS[building].storage_capacity.wood * qty
@@ -355,19 +355,19 @@ class City:
         total_storage: ResourceCollection = ResourceCollection()
         
         total_storage.food = (
-            self.settlement_storage.food
+            self.city_storage.food
             + self.buildings_storage.food
             + self.warehouse_storage.food
             + self.supply_dump_storage.food
         )
         total_storage.ore = (
-            self.settlement_storage.ore
+            self.city_storage.ore
             + self.buildings_storage.ore
             + self.warehouse_storage.ore
             + self.supply_dump_storage.ore
         )
         total_storage.wood = (
-            self.settlement_storage.wood
+            self.city_storage.wood
             + self.buildings_storage.wood
             + self.warehouse_storage.wood
             + self.supply_dump_storage.wood
@@ -416,13 +416,13 @@ class City:
         self.resource_potentials = self._get_rss_potentials()
         self.geo_features = self._get_geo_features()
         
-        #* Validate settlement
+        #* Validate city
         self._validate_unknown_buildings()
         self._validate_halls()
         self._validate_number_of_buildings()
         
         #* Effects
-        self.settlement_effects = self._get_settlement_effects()
+        self.city_effects = self._get_city_effects()
         self.building_effects = self._calculate_building_effects()
         self.worker_effects = self._calculate_worker_effects()
         self.total_effects = self._calculate_total_effects()
@@ -435,7 +435,7 @@ class City:
         self.balance = self._calculate_balance()
         
         #* Storage
-        self.settlement_storage = self._calculate_settlement_storage()
+        self.city_storage = self._calculate_city_storage()
         self.buildings_storage = self._calculate_buildings_storage()
         self.warehouse_storage = self._calculate_warehouse_storage()
         self.supply_dump_storage = self._calculate_supply_dump_storage()
@@ -514,28 +514,28 @@ class City:
         table: Table = Table(title = "Effects")
         
         table.add_column(header = "Effect", header_style = "bold", justify = "center")
-        table.add_column(header = "Settlement", header_style = "bold", justify = "right")
+        table.add_column(header = "City", header_style = "bold", justify = "right")
         table.add_column(header = "Buildings", header_style = "bold", justify = "right")
         table.add_column(header = "Workers", header_style = "bold", justify = "right")
         table.add_column(header = "Total", header_style = "bold", justify = "right")
         
         table.add_row(
             "Troop training",
-            f"{self.settlement_effects.troop_training}",
+            f"{self.city_effects.troop_training}",
             f"{self.building_effects.troop_training}",
             f"{self.worker_effects.troop_training}",
             f"{self.total_effects.troop_training}",
         )
         table.add_row(
             "Pop. growth",
-            f"{self.settlement_effects.population_growth}",
+            f"{self.city_effects.population_growth}",
             f"{self.building_effects.population_growth}",
             f"{self.worker_effects.population_growth}",
             f"{self.total_effects.population_growth}",
         )
         table.add_row(
             "Intelligence",
-            f"{self.settlement_effects.intelligence}",
+            f"{self.city_effects.intelligence}",
             f"{self.building_effects.intelligence}",
             f"{self.worker_effects.intelligence}",
             f"{self.total_effects.intelligence}",
@@ -543,11 +543,11 @@ class City:
         
         return table
     
-    def _build_settlement_storage_table(self) -> Table:
+    def _build_city_storage_table(self) -> Table:
         table: Table = Table(title = "Storage capacity")
         
         table.add_column(header = "Resource", header_style = "bold", justify = "left")
-        table.add_column(header = "Settlement", header_style = "bold", justify = "right")
+        table.add_column(header = "City", header_style = "bold", justify = "right")
         table.add_column(header = "Buildings", header_style = "bold", justify = "right")
         table.add_column(header = "Warehouse", header_style = "bold", justify = "right")
         table.add_column(header = "Supply dump", header_style = "bold", justify = "right")
@@ -555,7 +555,7 @@ class City:
         
         table.add_row(
             "Food",
-            f"{self.settlement_storage.food}",
+            f"{self.city_storage.food}",
             f"{self.buildings_storage.food}",
             f"{self.warehouse_storage.food}",
             f"{self.supply_dump_storage.food}",
@@ -563,7 +563,7 @@ class City:
         )
         table.add_row(
             "Ore",
-            f"{self.settlement_storage.ore}",
+            f"{self.city_storage.ore}",
             f"{self.buildings_storage.ore}",
             f"{self.warehouse_storage.ore}",
             f"{self.supply_dump_storage.ore}",
@@ -571,7 +571,7 @@ class City:
         )
         table.add_row(
             "Wood",
-            f"{self.settlement_storage.wood}",
+            f"{self.city_storage.wood}",
             f"{self.buildings_storage.wood}",
             f"{self.warehouse_storage.wood}",
             f"{self.supply_dump_storage.wood}",
@@ -659,7 +659,7 @@ class City:
         )
         
         layout["storage_capacity"].update(
-            renderable = Layout(renderable = Align(renderable = self._build_settlement_storage_table(), align = "center")),
+            renderable = Layout(renderable = Align(renderable = self._build_city_storage_table(), align = "center")),
         )
         
         layout["defenses"].update(
