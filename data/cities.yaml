@@ -759,6 +759,7 @@ cities:
   # Q
   # R
   # S
+  # T
   # U
   # V
   # W
@@ -787,40 +788,1043 @@ cities:
   # Q
   # R
   # S
+  # T
   # U
   # V
   # W
   # X
   # Y
   # Z
+  # yamllint enable rule:comments-indentation
   # ************ #
   # * Hispania * #
   # ************ #
   # A
+  - name: Aiminion
+    campaign: Hispania
+    resource_potentials:
+      food: 70
+      ore: 80
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Aki
+    campaign: Hispania
+    resource_potentials:
+      food: 70
+      ore: 110
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  - name: Ammaia
+    campaign: Hispania
+    resource_potentials:
+      food: 90
+      ore: 80
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  - name: Arbokala
+    campaign: Hispania
+    resource_potentials:
+      food: 70
+      ore: 0
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Argentiola
+    campaign: Hispania
+    resource_potentials:
+      food: 70
+      ore: 110
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
+  - name: Arsa
+    campaign: Hispania
+    resource_potentials:
+      food: 120
+      ore: 0
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  - name: Asturika
+    campaign: Hispania
+    resource_potentials:
+      food: 100
+      ore: 50
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   # B
-  # C
+  - name: Baraka
+    campaign: Hispania
+    resource_potentials:
+      food: 70
+      ore: 0
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Bergidon
+    campaign: Hispania
+    resource_potentials:
+      food: 50
+      ore: 0
+      wood: 120
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Biskargis
+    campaign: Hispania
+    resource_potentials:
+      food: 0
+      ore: 100
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Auxiliary Archers
+  - name: Blendion
+    campaign: Hispania
+    resource_potentials:
+      food: 70
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  - name: Brigantion
+    campaign: Hispania
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   # D
+  - name: Dertosa
+    campaign: Hispania
+    resource_potentials:
+      food: 80
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Auxilia
+  - name: Diobriga
+    campaign: Hispania
+    resource_potentials:
+      food: 0
+      ore: 120
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
   # E
-  # F
+  - name: Ebora
+    campaign: Hispania
+    resource_potentials:
+      food: 50
+      ore: 0
+      wood: 120
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # G
+  - name: Gadeira
+    campaign: Hispania
+    resource_potentials:
+      food: 80
+      ore: 0
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # H
+  - name: Helike
+    campaign: Hispania
+    resource_potentials:
+      food: 90
+      ore: 90
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  - name: Hispalis
+    campaign: Hispania
+    resource_potentials:
+      food: 60
+      ore: 0
+      wood: 115
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # I
-  # J
+  - name: Igaiditania
+    campaign: Hispania
+    resource_potentials:
+      food: 80
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
+  - name: Ilerda
+    campaign: Hispania
+    resource_potentials:
+      food: 70
+      ore: 110
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
+  - name: Ilorki
+    campaign: Hispania
+    resource_potentials:
+      food: 0
+      ore: 120
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
+  - name: Ilumberis
+    campaign: Hispania
+    resource_potentials:
+      food: 70
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
   # K
+  - name: Kalagurris
+    campaign: Hispania
+    resource_potentials:
+      food: 80
+      ore: 0
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Kaliabriga
+    campaign: Hispania
+    resource_potentials:
+      food: 90
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
+  - name: Kamarika
+    campaign: Hispania
+    resource_potentials:
+      food: 0
+      ore: 110
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Karaka
+    campaign: Hispania
+    resource_potentials:
+      food: 80
+      ore: 80
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Karanikon
+    campaign: Hispania
+    resource_potentials:
+      food: 90
+      ore: 80
+      wood: 70
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
+  - name: Kartagenea
+    campaign: Hispania
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Kaspiana
+    campaign: Hispania
+    resource_potentials:
+      food: 80
+      ore: 70
+      wood: 70
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  - name: Kastulon
+    campaign: Hispania
+    resource_potentials:
+      food: 100
+      ore: 80
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  - name: Kauka
+    campaign: Hispania
+    resource_potentials:
+      food: 80
+      ore: 0
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  - name: Konsabura
+    campaign: Hispania
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  - name: Kontrebia
+    campaign: Hispania
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 70
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  - name: Kordoba
+    campaign: Hispania
+    resource_potentials:
+      food: 110
+      ore: 50
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
   # L
+  - name: Lakobriga
+    campaign: Hispania
+    resource_potentials:
+      food: 100
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Peltasts
+  - name: Libora
+    campaign: Hispania
+    resource_potentials:
+      food: 70
+      ore: 110
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
   # M
+  - name: Malaka
+    campaign: Hispania
+    resource_potentials:
+      food: 80
+      ore: 90
+      wood: 60
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Mirobriga
+    campaign: Hispania
+    resource_potentials:
+      food: 0
+      ore: 80
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
+  - name: Myrtilis
+    campaign: Hispania
+    resource_potentials:
+      food: 70
+      ore: 50
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   # N
+  - name: Nertobriga
+    campaign: Hispania
+    resource_potentials:
+      food: 70
+      ore: 0
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Noega
+    campaign: Hispania
+    resource_potentials:
+      food: 60
+      ore: 110
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
+  - name: Numantia
+    campaign: Hispania
+    resource_potentials:
+      food: 0
+      ore: 60
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # O
+  - name: Oiasson
+    campaign: Hispania
+    resource_potentials:
+      food: 80
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  - name: Onoba
+    campaign: Hispania
+    resource_potentials:
+      food: 125
+      ore: 0
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Hoplites
+  - name: Oreton
+    campaign: Hispania
+    resource_potentials:
+      food: 50
+      ore: 70
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Osikerda
+    campaign: Hispania
+    resource_potentials:
+      food: 110
+      ore: 80
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  - name: Oska
+    campaign: Hispania
+    resource_potentials:
+      food: 100
+      ore: 80
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   # P
-  # Q
-  # R
+  - name: Pallantia
+    campaign: Hispania
+    resource_potentials:
+      food: 0
+      ore: 0
+      wood: 120
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # S
+  - name: Salika
+    campaign: Hispania
+    resource_potentials:
+      food: 0
+      ore: 90
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
+  - name: Salmantika
+    campaign: Hispania
+    resource_potentials:
+      food: 60
+      ore: 110
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
+  - name: Segida
+    campaign: Hispania
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  - name: Segontia
+    campaign: Hispania
+    resource_potentials:
+      food: 0
+      ore: 100
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
+  - name: Segovia
+    campaign: Hispania
+    resource_potentials:
+      food: 0
+      ore: 130
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
+  - name: Skallabis
+    campaign: Hispania
+    resource_potentials:
+      food: 110
+      ore: 60
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
+  # T
+  - name: Tarbelles
+    campaign: Hispania
+    resource_potentials:
+      food: 90
+      ore: 90
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Warband
+  - name: Tarrako
+    campaign: Hispania
+    resource_potentials:
+      food: 100
+      ore: 80
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Legion
+  - name: Toleton
+    campaign: Hispania
+    resource_potentials:
+      food: 120
+      ore: 0
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  - name: Tolosa
+    campaign: Hispania
+    resource_potentials:
+      food: 70
+      ore: 70
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Torbella
+    campaign: Hispania
+    resource_potentials:
+      food: 70
+      ore: 110
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
+  - name: Turmogon
+    campaign: Hispania
+    resource_potentials:
+      food: 100
+      ore: 80
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 1
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   # U
+  - name: Urki
+    campaign: Hispania
+    resource_potentials:
+      food: 60
+      ore: 110
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
+  - name: Uxama
+    campaign: Hispania
+    resource_potentials:
+      food: 0
+      ore: 120
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
   # V
-  # W
-  # X
-  # Y
-  # Z
+  - name: Vokata
+    campaign: Hispania
+    resource_potentials:
+      food: 110
+      ore: 70
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  # yamllint disable rule:comments-indentation
   # *********************** #
   # * Pacifying the North * #
   # *********************** #
@@ -843,6 +1847,7 @@ cities:
   # Q
   # R
   # S
+  # T
   # U
   # V
   # W
@@ -871,6 +1876,7 @@ cities:
   # Q
   # R
   # S
+  # T
   # U
   # V
   # W

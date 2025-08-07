@@ -2,19 +2,18 @@ from modules.scenario import Scenario
 
 
 Scenario(
-    campaign = "Unification of Italy",
-    city = "Lingones",
+    campaign = "Hispania",
+    city = "Numantia",
     buildings_a = {
         "city_hall": 1,
         "basilica": 1,
-        "carpenters_guild": 1,
-        "forest": 1,
-        "large_lumber_mill": 5,
+        "miners_guild": 1,
+        "large_mine": 6,
     },
     buildings_b = {
         "city_hall": 1,
         "basilica": 1,
-        "carpenters_guild": 1,
-        "large_lumber_mill": 6,
+        "hidden_grove": 1,
+        "large_mine": 6,
     },
 ).display_results()
