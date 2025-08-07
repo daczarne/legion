@@ -24,10 +24,10 @@ scenario = City(
     campaign = "Unification of Italy",
     name = "Clusium",
     buildings = {
-        "town_hall": 1,
+        "city_hall": 1,
         "basilica": 1,
         "carpenters_guild": 1,
-        "large_lumber_mill": 3,
+        "large_lumber_mill": 6,
     },
 )
 
