@@ -65,6 +65,11 @@ class City:
     supply_dump_storage: ResourceCollection = field(init = False)
     total_storage: ResourceCollection = field(init = False)
     
+    garrison: str = field(init = False)
+    garrison_size: int = field(init = False)
+    squad_size: str = field(init = False)
+    
+    
     # Class variables
     MAX_WORKERS: ClassVar[int] = 18
     POSSIBLE_SETTLEMENT_HALLS: ClassVar[set[str]] = {"village_hall", "town_hall", "city_hall"}
@@ -382,6 +387,30 @@ class City:
         
         raise ValueError(f"No garrison found for {self.campaign} - {self.name}")
     
+    def _calculate_garrison_size(self) -> int:
+        if "large_fort" in self.buildings:
+            return 4
+        
+        if "medium_fort" in self.buildings:
+            return 3
+        
+        if "small_fort" in self.buildings:
+            return 2
+        
+        return 1
+    
+    def _calculate_squad_size(self) -> str:
+        if "quartermaster" in self.buildings:
+            return "Huge"
+        
+        if "barracks" in self.buildings:
+            return "Large"
+        
+        if any(fort in self.buildings for fort in ["small_fort", "medium_fort", "large_fort"]):
+            return "Medium"
+        
+        return "Small"
+    
     
     def __post_init__(self) -> None:
         self.resource_potentials = self._get_rss_potentials()
@@ -411,6 +440,11 @@ class City:
         self.warehouse_storage = self._calculate_warehouse_storage()
         self.supply_dump_storage = self._calculate_supply_dump_storage()
         self.total_storage = self._calculate_total_storage_capacity()
+        
+        #* Defenses
+        self.garrison = self._get_garrison()
+        self.garrison_size = self._calculate_garrison_size()
+        self.squad_size = self._calculate_squad_size()
     
     
     #* Display results
