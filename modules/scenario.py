@@ -1,4 +1,5 @@
 from rich.align import Align
+from rich import box
 from rich.console import Console
 from rich.layout import Layout
 from rich.panel import Panel
@@ -47,7 +48,7 @@ class Scenario:
             renderable = Layout(renderable = Align(renderable = self.city_b.build_results_display(), align = "center")),
         )
         
-        return Panel(renderable = layout, height = 39)
+        return Panel(renderable = layout, height = 39, box = box.SIMPLE)
     
     def display_results(self) -> None:
         console: Console = Console()
