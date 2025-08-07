@@ -1055,6 +1055,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Spanish Mercenaries
+  - name: Kauka
+    campaign: Hispania
+    resource_potentials:
+      food: 80
+      ore: 0
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   - name: Kontrebia
     campaign: Hispania
     resource_potentials:
@@ -1140,6 +1156,22 @@ cities:
       intelligence: 0
     garrison: Celtic Cavalry
   # P
+  - name: Pallantia
+    campaign: Hispania
+    resource_potentials:
+      food: 0
+      ore: 0
+      wood: 120
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # Q
   # R
   # S
@@ -1167,6 +1199,22 @@ cities:
       wood: 80
     geo_features:
       rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
+  - name: Segovia
+    campaign: Hispania
+    resource_potentials:
+      food: 0
+      ore: 130
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
       mountains: 0
       lakes: 0
       forests: 0
