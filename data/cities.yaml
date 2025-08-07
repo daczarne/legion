@@ -805,6 +805,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Spanish Mercenaries
+  - name: Arsa
+    campaign: Hispania
+    resource_potentials:
+      food: 120
+      ore: 0
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   - name: Asturika
     campaign: Hispania
     resource_potentials:
@@ -940,6 +956,22 @@ cities:
   # F
   # G
   # H
+  - name: Helike
+    campaign: Hispania
+    resource_potentials:
+      food: 90
+      ore: 90
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   # I
   - name: Igaiditania
     campaign: Hispania
@@ -962,6 +994,22 @@ cities:
     resource_potentials:
       food: 70
       ore: 110
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
+  - name: Ilorki
+    campaign: Hispania
+    resource_potentials:
+      food: 0
+      ore: 120
       wood: 0
     geo_features:
       rock_outcrops: 0
@@ -1071,6 +1119,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Spanish Mercenaries
+  - name: Kartagenea
+    campaign: Hispania
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Kauka
     campaign: Hispania
     resource_potentials:
