@@ -3,7 +3,7 @@ buildings:
   # * Halls * #
   # ********* #
   - id: village_hall
-    name: Village Hall
+    name: Village hall
     building_cost:
       food: 0
       ore: 0
@@ -41,7 +41,7 @@ buildings:
     required_building: []
     replaces: null
   - id: town_hall
-    name: Town Hall
+    name: Town hall
     building_cost:
       food: 250
       ore: 0
@@ -80,7 +80,7 @@ buildings:
       - village_hall
     replaces: village_hall
   - id: city_hall
-    name: City Hall
+    name: City hall
     building_cost:
       food: 350
       ore: 100
@@ -161,7 +161,7 @@ buildings:
       - village_hall
     replaces: null
   - id: large_farm
-    name: Large Farm
+    name: Large farm
     building_cost:
       food: 0
       ore: 150
@@ -359,7 +359,7 @@ buildings:
       - village_hall
     replaces: null
   - id: large_mine
-    name: Large Mine
+    name: Large mine
     building_cost:
       food: 150
       ore: 0
@@ -398,7 +398,7 @@ buildings:
       - mine
     replaces: mine
   - id: outcrop_mine
-    name: Outcrop Mine
+    name: Outcrop mine
     building_cost:
       food: 0
       ore: 0
@@ -437,7 +437,7 @@ buildings:
       - village_hall
     replaces: null
   - id: mountain_mine
-    name: Mountain Mine
+    name: Mountain mine
     building_cost:
       food: 0
       ore: 0
@@ -518,7 +518,7 @@ buildings:
   # * Wood production * #
   # ******************* #
   - id: lumber_mill
-    name: Lumber Mill
+    name: Lumber mill
     building_cost:
       food: 100
       ore: 0
@@ -557,7 +557,7 @@ buildings:
       - village_hall
     replaces: null
   - id: large_lumber_mill
-    name: Large Lumber Mill
+    name: Large lumber mill
     building_cost:
       food: 150
       ore: 150
@@ -676,7 +676,7 @@ buildings:
   # * Military * #
   # ************ #
   - id: training_ground
-    name: Training Ground
+    name: Training ground
     building_cost:
       food: 350
       ore: 100
@@ -715,7 +715,7 @@ buildings:
       - town_hall
     replaces: null
   - id: gladiator_school
-    name: Gladiator School
+    name: Gladiator school
     building_cost:
       food: 100
       ore: 200
@@ -917,7 +917,7 @@ buildings:
       - large_lumber_mill
     replaces: null
   - id: imperial_residence
-    name: Imperial Residence
+    name: Imperial residence
     building_cost:
       food: 350
       ore: 350
@@ -956,7 +956,7 @@ buildings:
       - city_hall
     replaces: null
   - id: small_fort
-    name: Small Fort
+    name: Small fort
     building_cost:
       food: 150
       ore: 0
@@ -995,7 +995,7 @@ buildings:
       - village_hall
     replaces: null
   - id: medium_fort
-    name: Medium Fort
+    name: Medium fort
     building_cost:
       food: 200
       ore: 0
@@ -1035,7 +1035,7 @@ buildings:
       - town_hall
     replaces: small_fort
   - id: large_fort
-    name: Large Fort
+    name: Large fort
     building_cost:
       food: 250
       ore: 0
@@ -1155,7 +1155,7 @@ buildings:
       - city_hall
     replaces: barracks
   - id: watch_tower
-    name: Watch Tower
+    name: Watch tower
     building_cost:
       food: 150
       ore: 0
@@ -1315,7 +1315,7 @@ buildings:
       - temple
     replaces: temple
   - id: bath_house
-    name: Bath House
+    name: Bath house
     building_cost:
       food: 100
       ore: 50
@@ -1393,7 +1393,7 @@ buildings:
       - bath_house
     replaces: bath_house
   - id: hidden_grove
-    name: Hidden Grove
+    name: Hidden grove
     building_cost:
       food: 0
       ore: 0
@@ -1471,7 +1471,7 @@ buildings:
       - village_hall
     replaces: null
   - id: small_market
-    name: Small Market
+    name: Small market
     building_cost:
       food: 50
       ore: 50
@@ -1510,7 +1510,7 @@ buildings:
       - village_hall
     replaces: null
   - id: large_market
-    name: Large Market
+    name: Large market
     building_cost:
       food: 150
       ore: 150
@@ -1553,7 +1553,7 @@ buildings:
   # * Other * #
   # ********* #
   - id: hunters_lodge
-    name: Hunters' Lodge
+    name: Hunters' lodge
     building_cost:
       food: 0
       ore: 0
@@ -1592,7 +1592,7 @@ buildings:
       - village_hall
     replaces: null
   - id: supply_dump
-    name: Supply Dump
+    name: Supply dump
     building_cost:
       food: 0
       ore: 0
