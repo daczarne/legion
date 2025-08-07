@@ -741,7 +741,55 @@ cities:
   # * Conquest of Britain * #
   # *********************** #
   # A
+  - name: Argentiola
+    campaign: Hispania
+    resource_potentials:
+      food: 70
+      ore: 110
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
+  - name: Asturika
+    campaign: Hispania
+    resource_potentials:
+      food: 100
+      ore: 50
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   # B
+  - name: Bergidon
+    campaign: Hispania
+    resource_potentials:
+      food: 50
+      ore: 0
+      wood: 120
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Biskargis
     campaign: Hispania
     resource_potentials:
@@ -758,6 +806,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Auxiliary Archers
+  - name: Blendion
+    campaign: Hispania
+    resource_potentials:
+      food: 70
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   # C
   # D
   - name: Dertosa
@@ -847,6 +911,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
+  - name: Kamarika
+    campaign: Hispania
+    resource_potentials:
+      food: 0
+      ore: 110
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Kontrebia
     campaign: Hispania
     resource_potentials:
@@ -866,6 +946,22 @@ cities:
   # L
   # M
   # N
+  - name: Noega
+    campaign: Hispania
+    resource_potentials:
+      food: 60
+      ore: 110
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
   - name: Numantia
     campaign: Hispania
     resource_potentials:
