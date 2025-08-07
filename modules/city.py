@@ -7,6 +7,7 @@ from rich.align import Align
 from rich.console import Console
 from rich.layout import Layout
 from rich.panel import Panel
+from rich.style import Style
 from rich.table import Table
 from rich.text import Text
 
@@ -470,7 +471,11 @@ class City:
         return city_buildings_table
     
     def _build_city_production_table(self) -> Table:
-        table: Table = Table(title = "Production")
+        table_style: Style = Style(color = "#228b22")
+        table: Table = Table(
+            title = Text(text = "Production", style = table_style + Style(italic = True)),
+            style = table_style,
+        )
         
         table.add_column(header = "Resource", header_style = "bold", justify = "left")
         table.add_column(header = "Rss. pot.", header_style = "bold", justify = "right")
@@ -511,7 +516,11 @@ class City:
         return table
     
     def _build_city_effects_table(self) -> Table:
-        table: Table = Table(title = "Effects")
+        table_style: Style = Style(color = "#5f5fff")
+        table: Table = Table(
+            title = Text(text = "Effects", style = table_style + Style(italic = True)),
+            style = table_style,
+        )
         
         table.add_column(header = "Effect", header_style = "bold", justify = "center")
         table.add_column(header = "City", header_style = "bold", justify = "right")
@@ -544,7 +553,11 @@ class City:
         return table
     
     def _build_city_storage_table(self) -> Table:
-        table: Table = Table(title = "Storage capacity")
+        table_style: Style = Style(color = "purple")
+        table: Table = Table(
+            title = Text(text = "Storage capacity", style = table_style + Style(italic = True)),
+            style = table_style,
+        )
         
         table.add_column(header = "Resource", header_style = "bold", justify = "left")
         table.add_column(header = "City", header_style = "bold", justify = "right")
@@ -581,7 +594,11 @@ class City:
         return table
     
     def _build_defenses_table(self) -> Table:
-        table: Table = Table(title = "Defenses")
+        table_style: Style = Style(color = "red")
+        table: Table = Table(
+            title = Text(text = "Defenses", style = table_style + Style(italic = True)),
+            style = table_style,
+        )
         
         table.add_column(header = "Garrison", header_style = "bold", justify = "center")
         table.add_column(header = "Squadrons", header_style = "bold", justify = "center")
