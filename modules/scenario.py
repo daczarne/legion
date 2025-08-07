@@ -32,7 +32,7 @@ class Scenario:
             buildings = self.buildings_b,
         )
     
-    def _build_results_display(self) -> Panel:
+    def _build_results_display(self) -> Layout:
         layout: Layout = Layout()
         
         layout.split_row(
@@ -41,38 +41,35 @@ class Scenario:
         )
         
         layout["city_a"].update(
-            renderable = Layout(
-                renderable = Align(
-                    renderable = self.city_a.build_results_display(
-                        include_city = True,
-                        include_production = True,
-                        include_storage = True,
-                        include_defenses = False,
-                    ),
-                    align = "center"
+            renderable = Align(
+                renderable = self.city_a.build_results_display(
+                    include_city = False,
+                    include_production = True,
+                    include_storage = True,
+                    include_defenses = True,
                 ),
+                align = "center"
             ),
         )
         
         layout["city_b"].update(
-            renderable = Layout(
-                renderable = Align(
-                    renderable = self.city_b.build_results_display(
-                        include_city = False,
-                        include_production = False,
-                        include_storage = False,
-                        include_defenses = False,
-                    ),
-                    align = "center"
+            renderable = Align(
+                renderable = self.city_b.build_results_display(
+                    include_city = False,
+                    include_production = True,
+                    include_storage = True,
+                    include_defenses = False,
                 ),
+                align = "center"
             ),
         )
         
-        return Panel(
-            renderable = layout,
-            height = 39,
-            box = box.HEAVY_EDGE,
-        )
+        return layout
+        # return Panel(
+        #     renderable = layout,
+        #     height = 39,
+        #     box = box.HEAVY_EDGE,
+        # )
     
     def display_results(self) -> None:
         console: Console = Console()
