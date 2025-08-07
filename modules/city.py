@@ -1,3 +1,4 @@
+from multiprocessing import Value
 import yaml
 from dataclasses import dataclass, field
 from typing import TypedDict, Literal, ClassVar
@@ -368,6 +369,18 @@ class City:
         )
         
         return total_storage
+    
+    
+    #* Defenses
+    def _get_garrison(self) -> str:
+        for city in CITIES:
+            if (
+                city["campaign"] == self.campaign
+                and city["name"] == self.name
+            ):
+                return city["garrison"]
+        
+        raise ValueError(f"No garrison found for {self.campaign} - {self.name}")
     
     
     def __post_init__(self) -> None:
