@@ -781,17 +781,65 @@ cities:
   # G
   # H
   # I
+  - name: Ilerda
+    campaign: Hispania
+    resource_potentials:
+      food: 70
+      ore: 110
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
   # J
   # K
   # L
   # M
   # N
   # O
+  - name: Oska
+    campaign: Hispania
+    resource_potentials:
+      food: 100
+      ore: 80
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   # P
   # Q
   # R
   # S
   # T
+  - name: Tarbelles
+    campaign: Hispania
+    resource_potentials:
+      food: 90
+      ore: 90
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Warband
   - name: Tarrako
     campaign: Hispania
     resource_potentials:
@@ -810,6 +858,22 @@ cities:
     garrison: Legion
   # U
   # V
+  - name: Vokata
+    campaign: Hispania
+    resource_potentials:
+      food: 110
+      ore: 70
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   # W
   # X
   # Y
