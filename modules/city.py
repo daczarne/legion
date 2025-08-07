@@ -617,7 +617,15 @@ class City:
         
         return table
     
-    def build_results_display(self) -> Panel:
+    def build_results_display(
+            self,
+            include_city: bool = True,
+            include_buildings: bool = True,
+            include_effects: bool = True,
+            include_production: bool = True,
+            include_storage: bool = True,
+            include_defenses: bool = True,
+        ) -> Panel:
         # Expected Layout
         # |---------------------------|
         # |      Campaign - City      |
@@ -635,20 +643,43 @@ class City:
         # |---------------------------|
         layout: Layout = Layout()
         
-        header_height: int = 2
+        header_height: int = 2 if include_city else 0
         
-        buildings_and_effects_height: int = 11
-        production_height: int = 8
-        storage_height: int = 8
-        defenses_height: int = 8
+        # A city can have a maximum of 9 buildings (len(self.buildings) = 9). The table needs two more rows for the
+        # title (Buildings) and the space after the title. But if the city has less than 6 different buildings, the
+        # space assigned for Buildings and Effects needs to be the height needed for the effects table (8).
+        buildings_height: int = len(self.buildings) + 2 if include_buildings else 0
+        effects_height: int = 8 if include_effects else 0
+        buildings_and_effects_height: int = max(buildings_height, effects_height)
+        
+        production_height: int = 8 if include_production else 0
+        storage_height: int = 8 if include_storage else 0
+        defenses_height: int = 8 if include_defenses else 0
+        
         main_height: int = buildings_and_effects_height + production_height + storage_height + defenses_height
         
         total_layout_height: int = header_height + main_height
         total_layout_width: int = 92
         
         layout.split(
-            Layout(name = "header", size = header_height),
-            Layout(name = "main", size = main_height),
+            Layout(
+                name = "header",
+                size = header_height,
+                ratio = 0,
+                visible = include_city,
+            ),
+            Layout(
+                name = "main",
+                size = main_height,
+                ratio = 0,
+                visible = any([
+                    include_buildings,
+                    include_effects,
+                    include_production,
+                    include_storage,
+                    include_defenses,
+                ]),
+            ),
         )
         
         layout["header"].update(
@@ -656,10 +687,30 @@ class City:
         )
         
         layout["main"].split(
-            Layout(name = "buildings_and_effects", size = buildings_and_effects_height),
-            Layout(name = "production", size = production_height),
-            Layout(name = "storage_capacity", size = storage_height),
-            Layout(name = "defenses", size = defenses_height),
+            Layout(
+                name = "buildings_and_effects",
+                size = buildings_and_effects_height,
+                ratio = 0,
+                visible = any([include_buildings, include_effects]),
+            ),
+            Layout(
+                name = "production",
+                size = production_height,
+                ratio = 0,
+                visible = include_production,
+            ),
+            Layout(
+                name = "storage_capacity",
+                size = storage_height,
+                ratio = 0,
+                visible = include_storage,
+            ),
+            Layout(
+                name = "defenses",
+                size = defenses_height,
+                ratio = 0,
+                visible = include_defenses,
+            ),
         )
         
         layout["buildings_and_effects"].split_row(
@@ -668,27 +719,57 @@ class City:
         )
         
         layout["buildings"].update(
-            renderable = Layout(renderable = Align(renderable = self._build_city_buildings_list(), align = "center")),
+            renderable = Align(renderable = self._build_city_buildings_list(), align = "center"),
         )
         
         layout["effects"].update(
-            renderable = Layout(renderable = Align(renderable = self._build_city_effects_table(), align = "center")),
+            renderable = Align(renderable = self._build_city_effects_table(), align = "center"),
         )
         
         layout["production"].update(
-            renderable = Layout(renderable = Align(renderable = self._build_city_production_table(), align = "center")),
+            renderable = Align(renderable = self._build_city_production_table(), align = "center"),
         )
         
         layout["storage_capacity"].update(
-            renderable = Layout(renderable = Align(renderable = self._build_city_storage_table(), align = "center")),
+            renderable = Align(renderable = self._build_city_storage_table(), align = "center"),
         )
         
         layout["defenses"].update(
-            renderable = Layout(renderable = Align(renderable = self._build_defenses_table(), align = "center")),
+            renderable = Align(renderable = self._build_defenses_table(), align = "center"),
         )
         
-        return Panel(renderable = layout, width = total_layout_width, height = total_layout_height)
+        return Panel(
+            renderable = layout,
+            width = total_layout_width,
+            # The extra height is because otherwise rich truncates the output when any of the tables are not present.
+            # I'm sure there's some more elegant way of doing this, but I have not found it.
+            height = total_layout_height + 2 * (
+                not all([
+                    any([include_buildings, include_effects]),
+                    include_production,
+                    include_storage,
+                    include_defenses,
+                ])
+            ),
+        )
     
-    def display_results(self) -> None:
+    def display_results(
+            self,
+            include_city: bool = True,
+            include_buildings: bool = True,
+            include_effects: bool = True,
+            include_production: bool = True,
+            include_storage: bool = True,
+            include_defenses: bool = True,
+        ) -> None:
         console: Console = Console()
-        console.print(self.build_results_display())
+        console.print(
+            self.build_results_display(
+                include_city = include_city,
+                include_buildings = include_buildings,
+                include_effects = include_effects,
+                include_production = include_production,
+                include_storage = include_storage,
+                include_defenses = include_defenses,
+            )
+        )
