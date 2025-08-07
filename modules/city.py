@@ -413,9 +413,9 @@ class City:
         city_buildings_text: Text = Text()
         
         for building, qty in self.buildings.items():
-            city_buildings_text.append(text = f"  - {building.replace("_", " ").capitalize()} ({qty})\n")
+            city_buildings_text.append(text = f"  - {BUILDINGS[building].name} ({qty})\n")
         
-        city_buildings_table: Table = Table(title = "Buildings", show_header = False, box = None, padding=(0, 1))
+        city_buildings_table: Table = Table(title = "Buildings", show_header = False, box = None, padding = (0, 1))
         city_buildings_table.add_column()
         city_buildings_table.add_row()
         city_buildings_table.add_row(city_buildings_text)
