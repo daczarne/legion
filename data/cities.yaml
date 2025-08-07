@@ -741,6 +741,65 @@ cities:
   # * Conquest of Britain * #
   # *********************** #
   # A
+  # B
+  # C
+  # D
+  # E
+  # F
+  # G
+  # H
+  # I
+  # J
+  # K
+  # L
+  # M
+  # N
+  # O
+  # P
+  # Q
+  # R
+  # S
+  # T
+  # U
+  # V
+  # W
+  # X
+  # Y
+  # Z
+  # ************ #
+  # * Germania * #
+  # ************ #
+  # A
+  # B
+  # C
+  # D
+  # E
+  # F
+  # G
+  # H
+  # I
+  # J
+  # K
+  # L
+  # M
+  # N
+  # O
+  # P
+  # Q
+  # R
+  # S
+  # T
+  # U
+  # V
+  # W
+  # X
+  # Y
+  # Z
+  # yamllint enable rule:comments-indentation
+  # ************ #
+  # * Hispania * #
+  # ************ #
+  # A
   - name: Aiminion
     campaign: Hispania
     resource_potentials:
@@ -1765,64 +1824,7 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Celtic Cavalry
-  # ************ #
-  # * Germania * #
-  # ************ #
-  # A
-  # B
-  # C
-  # D
-  # E
-  # F
-  # G
-  # H
-  # I
-  # J
-  # K
-  # L
-  # M
-  # N
-  # O
-  # P
-  # Q
-  # R
-  # S
-  # T
-  # U
-  # V
-  # W
-  # X
-  # Y
-  # Z
-  # ************ #
-  # * Hispania * #
-  # ************ #
-  # A
-  # B
-  # C
-  # D
-  # E
-  # F
-  # G
-  # H
-  # I
-  # J
-  # K
-  # L
-  # M
-  # N
-  # O
-  # P
-  # Q
-  # R
-  # S
-  # T
-  # U
-  # V
-  # W
-  # X
-  # Y
-  # Z
+  # yamllint disable rule:comments-indentation
   # *********************** #
   # * Pacifying the North * #
   # *********************** #
