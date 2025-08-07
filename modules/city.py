@@ -634,11 +634,11 @@ class City:
         buildings_and_effects_height: int = 10
         production_height: int = 8
         storage_height: int = 8
-        defenses_height: int = 9
+        defenses_height: int = 8
         main_height: int = buildings_and_effects_height + production_height + storage_height + defenses_height
         
         total_layout_height: int = header_height + main_height
-        total_layout_width: int = 98
+        total_layout_width: int = 92
         
         layout.split(
             Layout(name = "header", size = header_height),
