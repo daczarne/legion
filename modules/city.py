@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from typing import TypedDict, Literal, ClassVar
 
 from rich.align import Align
+from rich import box
 from rich.console import Console
 from rich.layout import Layout
 from rich.panel import Panel
@@ -475,6 +476,7 @@ class City:
         table: Table = Table(
             title = Text(text = "Effects", style = table_style + Style(italic = True)),
             style = table_style,
+            box = box.HEAVY,
         )
         
         table.add_column(header = "Effect", header_style = "bold", justify = "center")
@@ -512,6 +514,7 @@ class City:
         table: Table = Table(
             title = Text(text = "Production", style = table_style + Style(italic = True)),
             style = table_style,
+            box = box.HEAVY,
         )
         
         table.add_column(header = "Resource", header_style = "bold", justify = "left")
@@ -557,6 +560,7 @@ class City:
         table: Table = Table(
             title = Text(text = "Storage capacity", style = table_style + Style(italic = True)),
             style = table_style,
+            box = box.HEAVY,
         )
         
         table.add_column(header = "Resource", header_style = "bold", justify = "left")
@@ -598,6 +602,7 @@ class City:
         table: Table = Table(
             title = Text(text = "Defenses", style = table_style + Style(italic = True)),
             style = table_style,
+            box = box.HEAVY,
         )
         
         table.add_column(header = "Garrison", header_style = "bold", justify = "center")
