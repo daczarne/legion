@@ -3,6 +3,7 @@ docs:
       - any-glob-to-any-file:
           - docs/**
           - README.md
+          - img/**
 env:
   - changed-files:
       - any-glob-to-any-file:
