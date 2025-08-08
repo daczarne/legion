@@ -2,9 +2,9 @@ from rich.align import Align
 from rich.console import Console
 from rich.layout import Layout
 
-from modules.building import BuildingsCount
-from modules.city import City
-from modules.display import DisplayConfiguration
+from .building import BuildingsCount
+from .city import City
+from .display import DisplayConfiguration
 
 class Scenario:
     def __init__(
