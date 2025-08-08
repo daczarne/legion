@@ -42,23 +42,24 @@ city: City = City(
     },
 )
 
-city.display_results(
-    city = {
-        "include": True,
-    },
-    buildings = {
-        "include": True,
-    },
-    effects = {
-        "include": True,
-    },
-    production = {
-        "include": True,
-    },
-    storage = {
-        "include": True,
-    },
-    defenses = {
-        "include": True,
-    },
-)
+# city.display_results(
+#     city = {
+#         "include": True,
+#     },
+#     buildings = {
+#         "include": True,
+#         "height": 11,
+#     },
+#     effects = {
+#         "include": True,
+#     },
+#     production = {
+#         "include": True,
+#     },
+#     storage = {
+#         "include": True,
+#     },
+#     defenses = {
+#         "include": True,
+#     },
+# )

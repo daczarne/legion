@@ -656,7 +656,7 @@ class City:
         # A city can have a maximum of 9 buildings (len(self.buildings) = 9). The table needs two more rows for the
         # title (Buildings) and the space after the title. But if the city has less than 6 different buildings, the
         # space assigned for Buildings and Effects needs to be the height needed for the effects table (8).
-        buildings_height: int = len(self.buildings) + 2 if include_buildings else 0
+        buildings_height: int = buildings.get("height", len(self.buildings) + 2) if include_buildings else 0 
         effects_height: int = 8 if include_effects else 0
         buildings_and_effects_height: int = max(buildings_height, effects_height)
         
