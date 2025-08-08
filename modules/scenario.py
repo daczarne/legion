@@ -1,10 +1,8 @@
 from typing import Any
 
 from rich.align import Align
-from rich import box
 from rich.console import Console
 from rich.layout import Layout
-from rich.panel import Panel
 
 from modules.building import BuildingsCount
 from modules.city import City
