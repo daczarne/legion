@@ -655,7 +655,7 @@ class City:
         # A city can have a maximum of 9 buildings (len(self.buildings) = 9). The table needs two more rows for the
         # title (Buildings) and the space after the title. But if the city has less than 6 different buildings, the
         # space assigned for Buildings and Effects needs to be the height needed for the effects table (8).
-        buildings_height: int = len(self.buildings) #+ 2 if include_buildings else 0
+        buildings_height: int = len(self.buildings) + 2 if include_buildings else 0
         effects_height: int = 8 if include_effects else 0
         buildings_and_effects_height: int = max(buildings_height, effects_height)
         
@@ -668,13 +668,16 @@ class City:
         total_layout_height: int = (
             header_height
             + main_height
-            # + 2 * (
-            #     not all([
-            #         any([include_buildings, include_effects]),
-            #         include_production,
-            #         include_storage,
-            #         include_defenses,
-            #     ])
+            + 2 
+            # * (
+            #     not all(
+            #         [
+            #             any([include_buildings, include_effects]),
+            #             include_production,
+            #             include_storage,
+            #             include_defenses,
+            #         ]
+            #     )
             # )
         )
         total_layout_width: int = 92
@@ -736,13 +739,23 @@ class City:
             Layout(name = "effects", ratio = 2),
         )
         
-        layout["buildings"].update(
-            renderable = Align(renderable = self._build_city_buildings_list(), align = "center"),
-        )
+        if include_buildings:
+            layout["buildings"].update(
+                renderable = Align(renderable = self._build_city_buildings_list(), align = "center"),
+            )
+        else:
+            layout["buildings"].update(
+                renderable = Align(renderable = "", align = "center"),
+            )
         
-        layout["effects"].update(
-            renderable = Align(renderable = self._build_city_effects_table(), align = "center"),
-        )
+        if include_effects:
+            layout["effects"].update(
+                renderable = Align(renderable = self._build_city_effects_table(), align = "center"),
+            )
+        else:
+            layout["effects"].update(
+                renderable = Align(renderable = "", align = "center"),
+            )
         
         layout["production"].update(
             renderable = Align(renderable = self._build_city_production_table(), align = "center"),
@@ -759,16 +772,7 @@ class City:
         return Panel(
             renderable = layout,
             width = total_layout_width,
-            # The extra height is because otherwise rich truncates the output when any of the tables are not present.
-            # I'm sure there's some more elegant way of doing this, but I have not found it.
-            height = total_layout_height + 2 * (
-                not all([
-                    any([include_buildings, include_effects]),
-                    include_production,
-                    include_storage,
-                    include_defenses,
-                ])
-            ),
+            height = total_layout_height,
         )
     
     def display_results(

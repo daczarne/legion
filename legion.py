@@ -29,7 +29,7 @@ scenario: Scenario = Scenario(
     },
 )
 
-scenario.display_results()
+# scenario.display_results()
 
 
 city: City = City(
@@ -48,11 +48,20 @@ city: City = City(
     },
 )
 
-# city.display_results(
-#     city = {
-#         "include": False,
-#     },
-#     production = {
-#         "include": False,
-#     },
-# )
+city.display_results(
+    city = {
+        "include": True,
+    },
+    effects = {
+        "include": False,
+    },
+    production = {
+        "include": False,
+    },
+    storage = {
+        "include": False,
+    },
+    defenses = {
+        "include": True,
+    },
+)
