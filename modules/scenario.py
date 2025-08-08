@@ -32,7 +32,15 @@ class Scenario:
             buildings = self.buildings_b,
         )
     
-    def _build_results_display(self) -> Layout:
+    def _build_results_display(
+            self,
+            include_city: bool = False,
+            include_buildings: bool = True,
+            include_effects: bool = True,
+            include_production: bool = True,
+            include_storage: bool = True,
+            include_defenses: bool = True,
+        ) -> Layout:
         layout: Layout = Layout()
         
         layout.split_row(
@@ -43,34 +51,50 @@ class Scenario:
         layout["city_a"].update(
             renderable = Align(
                 renderable = self.city_a.build_results_display(
-                    include_city = False,
-                    include_production = True,
-                    include_storage = True,
-                    include_defenses = True,
+                    include_city = include_city,
+                    include_buildings = include_buildings,
+                    include_effects = include_effects,
+                    include_production = include_production,
+                    include_storage = include_storage,
+                    include_defenses = include_defenses,
                 ),
-                align = "center"
+                align = "center",
             ),
         )
         
         layout["city_b"].update(
             renderable = Align(
                 renderable = self.city_b.build_results_display(
-                    include_city = False,
-                    include_production = True,
-                    include_storage = True,
-                    include_defenses = False,
+                    include_city = include_city,
+                    include_buildings = include_buildings,
+                    include_effects = include_effects,
+                    include_production = include_production,
+                    include_storage = include_storage,
+                    include_defenses = include_defenses,
                 ),
-                align = "center"
+                align = "center",
             ),
         )
         
         return layout
-        # return Panel(
-        #     renderable = layout,
-        #     height = 39,
-        #     box = box.HEAVY_EDGE,
-        # )
     
-    def display_results(self) -> None:
+    def display_results(
+            self,
+            include_city: bool = False,
+            include_buildings: bool = True,
+            include_effects: bool = True,
+            include_production: bool = True,
+            include_storage: bool = True,
+            include_defenses: bool = True,
+        ) -> None:
         console: Console = Console()
-        console.print(self._build_results_display())
+        console.print(
+            self._build_results_display(
+                include_city = include_city,
+                include_buildings = include_buildings,
+                include_effects = include_effects,
+                include_production = include_production,
+                include_storage = include_storage,
+                include_defenses = include_defenses,
+            ),
+        )

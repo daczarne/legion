@@ -658,7 +658,18 @@ class City:
         
         main_height: int = buildings_and_effects_height + production_height + storage_height + defenses_height
         
-        total_layout_height: int = header_height + main_height
+        total_layout_height: int = (
+            header_height
+            + main_height
+            + 2 * (
+                not all([
+                    any([include_buildings, include_effects]),
+                    include_production,
+                    include_storage,
+                    include_defenses,
+                ])
+            )
+        )
         total_layout_width: int = 92
         
         layout.split(
@@ -771,5 +782,5 @@ class City:
                 include_production = include_production,
                 include_storage = include_storage,
                 include_defenses = include_defenses,
-            )
+            ),
         )

@@ -1,7 +1,7 @@
 from modules.scenario import Scenario
 from modules.city import City
 
-Scenario(
+scenario: Scenario = Scenario(
     campaign = "Hispania",
     city = "Numantia",
     buildings_a = {
@@ -26,7 +26,9 @@ Scenario(
         # "quartermaster": 1,
         # "large_fort": 1,
     },
-).display_results()
+)
+
+scenario.display_results()
 
 
 # City(
