@@ -92,7 +92,7 @@ class Scenario:
         console: Console = Console()
         console.print(
             self._build_results_display(
-                city = city if city else {},
+                city = city if city else {"include": False},
                 buildings = buildings if buildings else {},
                 effects = effects if effects else {},
                 production = production if production else {},
