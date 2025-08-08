@@ -6,6 +6,7 @@ from rich.layout import Layout
 
 from modules.building import BuildingsCount
 from modules.city import City
+from modules.display import DisplayConfiguration
 
 class Scenario:
     def __init__(
@@ -34,12 +35,12 @@ class Scenario:
     
     def _build_results_display(
             self,
-            city: dict[str, Any],
-            buildings: dict[str, Any],
-            effects: dict[str, Any],
-            production: dict[str, Any],
-            storage: dict[str, Any],
-            defenses: dict[str, Any],
+            city: DisplayConfiguration,
+            buildings: DisplayConfiguration,
+            effects: DisplayConfiguration,
+            production: DisplayConfiguration,
+            storage: DisplayConfiguration,
+            defenses: DisplayConfiguration,
         ) -> Layout:
         layout: Layout = Layout()
         
@@ -80,12 +81,12 @@ class Scenario:
     
     def display_results(
             self,
-            city: dict[str, Any] | None = None,
-            buildings: dict[str, Any] | None = None,
-            effects: dict[str, Any] | None = None,
-            production: dict[str, Any] | None = None,
-            storage: dict[str, Any] | None = None,
-            defenses: dict[str, Any] | None = None,
+            city: DisplayConfiguration | None = None,
+            buildings: DisplayConfiguration | None = None,
+            effects: DisplayConfiguration | None = None,
+            production: DisplayConfiguration | None = None,
+            storage: DisplayConfiguration | None = None,
+            defenses: DisplayConfiguration | None = None,
         ) -> None:
         console: Console = Console()
         console.print(
