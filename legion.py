@@ -1,3 +1,4 @@
+from math import prod
 from modules.scenario import Scenario
 from modules.city import City
 
@@ -31,23 +32,27 @@ scenario: Scenario = Scenario(
 scenario.display_results()
 
 
-# City(
-#     campaign = "Hispania",
-#     name = "Numantia",
-#     buildings = {
-#         "city_hall": 1,
-#         "basilica": 1,
-#         "hospital": 1,
-#         "training_ground": 1,
-#         "gladiator_school": 1,
-#         "stables": 1,
-#         "bordello": 1,
-#         "quartermaster": 1,
-#         "large_fort": 1,
+city: City = City(
+    campaign = "Hispania",
+    name = "Numantia",
+    buildings = {
+        "city_hall": 1,
+        "basilica": 1,
+        "hospital": 1,
+        "training_ground": 1,
+        "gladiator_school": 1,
+        "stables": 1,
+        "bordello": 1,
+        "quartermaster": 1,
+        "large_fort": 1,
+    },
+)
+
+# city.display_results(
+#     city = {
+#         "include": False,
 #     },
-# ).display_results(
-#     include_city = True,
-#     include_production = True,
-#     include_storage = True,
-#     include_defenses = False,
+#     production = {
+#         "include": False,
+#     },
 # )

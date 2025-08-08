@@ -1,3 +1,5 @@
+from typing import Any
+
 from rich.align import Align
 from rich import box
 from rich.console import Console
@@ -34,12 +36,12 @@ class Scenario:
     
     def _build_results_display(
             self,
-            include_city: bool = False,
-            include_buildings: bool = True,
-            include_effects: bool = True,
-            include_production: bool = True,
-            include_storage: bool = True,
-            include_defenses: bool = True,
+            city: dict[str, Any],
+            buildings: dict[str, Any],
+            effects: dict[str, Any],
+            production: dict[str, Any],
+            storage: dict[str, Any],
+            defenses: dict[str, Any],
         ) -> Layout:
         layout: Layout = Layout()
         
@@ -51,12 +53,12 @@ class Scenario:
         layout["city_a"].update(
             renderable = Align(
                 renderable = self.city_a.build_results_display(
-                    include_city = include_city,
-                    include_buildings = include_buildings,
-                    include_effects = include_effects,
-                    include_production = include_production,
-                    include_storage = include_storage,
-                    include_defenses = include_defenses,
+                    city = city,
+                    buildings = buildings,
+                    effects = effects,
+                    production = production,
+                    storage = storage,
+                    defenses = defenses,
                 ),
                 align = "center",
             ),
@@ -65,12 +67,12 @@ class Scenario:
         layout["city_b"].update(
             renderable = Align(
                 renderable = self.city_b.build_results_display(
-                    include_city = include_city,
-                    include_buildings = include_buildings,
-                    include_effects = include_effects,
-                    include_production = include_production,
-                    include_storage = include_storage,
-                    include_defenses = include_defenses,
+                    city = city,
+                    buildings = buildings,
+                    effects = effects,
+                    production = production,
+                    storage = storage,
+                    defenses = defenses,
                 ),
                 align = "center",
             ),
@@ -80,21 +82,21 @@ class Scenario:
     
     def display_results(
             self,
-            include_city: bool = False,
-            include_buildings: bool = True,
-            include_effects: bool = True,
-            include_production: bool = True,
-            include_storage: bool = True,
-            include_defenses: bool = True,
+            city: dict[str, Any] | None = None,
+            buildings: dict[str, Any] | None = None,
+            effects: dict[str, Any] | None = None,
+            production: dict[str, Any] | None = None,
+            storage: dict[str, Any] | None = None,
+            defenses: dict[str, Any] | None = None,
         ) -> None:
         console: Console = Console()
         console.print(
             self._build_results_display(
-                include_city = include_city,
-                include_buildings = include_buildings,
-                include_effects = include_effects,
-                include_production = include_production,
-                include_storage = include_storage,
-                include_defenses = include_defenses,
+                city = city if city else {},
+                buildings = buildings if buildings else {},
+                effects = effects if effects else {},
+                production = production if production else {},
+                storage = storage if storage else {},
+                defenses = defenses if defenses else {},
             ),
         )

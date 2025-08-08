@@ -1,7 +1,7 @@
 from multiprocessing import Value
 import yaml
 from dataclasses import dataclass, field
-from typing import TypedDict, Literal, ClassVar
+from typing import TypedDict, Literal, ClassVar, Any
 
 from rich.align import Align
 from rich import box
@@ -619,12 +619,12 @@ class City:
     
     def build_results_display(
             self,
-            include_city: bool = True,
-            include_buildings: bool = True,
-            include_effects: bool = True,
-            include_production: bool = True,
-            include_storage: bool = True,
-            include_defenses: bool = True,
+            city: dict[str, Any],
+            buildings: dict[str, Any],
+            effects: dict[str, Any],
+            production: dict[str, Any],
+            storage: dict[str, Any],
+            defenses: dict[str, Any],
         ) -> Panel:
         # Expected Layout
         # |---------------------------|
@@ -641,6 +641,13 @@ class City:
         # |- - - - - - - - - - - - - -|
         # |      Defenses table       |
         # |---------------------------|
+        include_city: bool = city.get("include", True)
+        include_buildings: bool = buildings.get("include", True)
+        include_effects: bool = effects.get("include", True)
+        include_production: bool = production.get("include", True)
+        include_storage: bool = storage.get("include", True)
+        include_defenses: bool = defenses.get("include", True)
+        
         layout: Layout = Layout()
         
         header_height: int = 2 if include_city else 0
@@ -766,21 +773,21 @@ class City:
     
     def display_results(
             self,
-            include_city: bool = True,
-            include_buildings: bool = True,
-            include_effects: bool = True,
-            include_production: bool = True,
-            include_storage: bool = True,
-            include_defenses: bool = True,
+            city: dict[str, Any] | None = None,
+            buildings: dict[str, Any] | None = None,
+            effects: dict[str, Any] | None = None,
+            production: dict[str, Any] | None = None,
+            storage: dict[str, Any] | None = None,
+            defenses: dict[str, Any] | None = None,
         ) -> None:
         console: Console = Console()
         console.print(
             self.build_results_display(
-                include_city = include_city,
-                include_buildings = include_buildings,
-                include_effects = include_effects,
-                include_production = include_production,
-                include_storage = include_storage,
-                include_defenses = include_defenses,
+                city = city if city else {},
+                buildings = buildings if buildings else {},
+                effects = effects if effects else {},
+                production = production if production else {},
+                storage = storage if storage else {},
+                defenses = defenses if defenses else {},
             ),
         )
