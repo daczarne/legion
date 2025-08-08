@@ -655,27 +655,27 @@ class City:
         # A city can have a maximum of 9 buildings (len(self.buildings) = 9). The table needs two more rows for the
         # title (Buildings) and the space after the title. But if the city has less than 6 different buildings, the
         # space assigned for Buildings and Effects needs to be the height needed for the effects table (8).
-        buildings_height: int = len(self.buildings) + 2 if include_buildings else 0
+        buildings_height: int = len(self.buildings) #+ 2 if include_buildings else 0
         effects_height: int = 8 if include_effects else 0
         buildings_and_effects_height: int = max(buildings_height, effects_height)
         
         production_height: int = 8 if include_production else 0
         storage_height: int = 8 if include_storage else 0
-        defenses_height: int = 8 if include_defenses else 0
+        defenses_height: int = 6 if include_defenses else 0
         
         main_height: int = buildings_and_effects_height + production_height + storage_height + defenses_height
         
         total_layout_height: int = (
             header_height
             + main_height
-            + 2 * (
-                not all([
-                    any([include_buildings, include_effects]),
-                    include_production,
-                    include_storage,
-                    include_defenses,
-                ])
-            )
+            # + 2 * (
+            #     not all([
+            #         any([include_buildings, include_effects]),
+            #         include_production,
+            #         include_storage,
+            #         include_defenses,
+            #     ])
+            # )
         )
         total_layout_width: int = 92
         
