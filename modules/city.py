@@ -1,7 +1,7 @@
 from multiprocessing import Value
 import yaml
 from dataclasses import dataclass, field
-from typing import TypedDict, Literal, ClassVar, Any
+from typing import TypedDict, Literal, ClassVar
 
 from rich.align import Align
 from rich import box

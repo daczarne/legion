@@ -1,5 +1,3 @@
-from typing import Any
-
 from rich.align import Align
 from rich.console import Console
 from rich.layout import Layout
