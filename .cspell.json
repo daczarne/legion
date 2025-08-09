@@ -42,6 +42,7 @@
         "capitalisation",
     ],
     "ignoreWords": [
+        "EIPS",
         "ings",
         "KUHC",
     ],
