@@ -2,24 +2,22 @@ from modules.scenario import Scenario
 from modules.city import City
 
 scenario: Scenario = Scenario(
-    campaign = "Hispania",
-    city = "Numantia",
+    campaign = "Unification of Italy",
+    city = "Hernici",
     buildings_a = {
         "city_hall": 1,
         "basilica": 1,
-        "hospital": 1,
-        "training_ground": 1,
-        "gladiator_school": 1,
-        "stables": 1,
-        "bordello": 1,
-        "quartermaster": 1,
-        "large_fort": 1,
+        "fishing_village": 1,
+        "outcrop_mine": 1,
+        "miners_guild": 1,
+        "large_mine": 4,
     },
     buildings_b = {
         "city_hall": 1,
         "basilica": 1,
-        "carpenters_guild": 1,
-        "large_lumber_mill": 6,
+        "fishing_village": 0,
+        "outcrop_mine": 1,
+        "large_mine": 5,
     },
 )
 
@@ -37,10 +35,10 @@ scenario.display_scenario_results(
         "include": True,
     },
     storage = {
-        "include": False,
+        "include": True,
     },
     defenses = {
-        "include": False,
+        "include": True,
     },
 )
 
