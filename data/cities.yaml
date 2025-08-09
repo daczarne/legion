@@ -823,6 +823,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: British Cavalry
+  - name: Deva
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 50
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
   # E
   # F
   # G
@@ -895,6 +911,22 @@ cities:
   # J
   # K
   # L
+  - name: Letoceton
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Javelinmen
   - name: Luguvalion
     campaign: Conquest of Britain
     resource_potentials:
@@ -969,6 +1001,22 @@ cities:
   # T
   # U
   # V
+  - name: Virocon
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 80
+      ore: 60
+      wood: 70
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
   # W
   # X
   # Y
