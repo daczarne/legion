@@ -1017,7 +1017,7 @@ cities:
       intelligence: 0
     garrison: British Cavalry
   - name: Durobrivae II
-    # This refers to the more northen one in the marshes
+    # This refers to the more northern one in the marshes
     campaign: Conquest of Britain
     resource_potentials:
       food: 60
