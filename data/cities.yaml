@@ -740,6 +740,23 @@ cities:
   # * Conquest of Britain * #
   # *********************** #
   # A
+  - name: Anderitum
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 50
+      wood: 50
+    geo_features:
+      # Supply dump
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Auxilia
   - name: Aricon
     campaign: Conquest of Britain
     resource_potentials:
@@ -1169,6 +1186,23 @@ cities:
       intelligence: 0
     garrison: Archers
   # N
+  - name: Noviomagus
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 75
+    geo_features:
+      # Has supply dump
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Legion
   # O
   # P
   - name: Petuaria
