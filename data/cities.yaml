@@ -736,12 +736,27 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
-  # yamllint disable rule:comments-indentation
   # *********************** #
   # * Conquest of Britain * #
   # *********************** #
   # A
   # B
+  - name: Brocavon
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 50
+      ore: 100
+      wood: 50
+    geo_features:
+      rock_outcrops: 1
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
   # C
   # D
   # E
@@ -749,9 +764,41 @@ cities:
   # G
   # H
   # I
+  - name: Isurion
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 70
+      ore: 80
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 1
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
   # J
   # K
   # L
+  - name: Luguvalion
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 50
+      ore: 70
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
   # M
   # N
   # O
@@ -766,6 +813,7 @@ cities:
   # X
   # Y
   # Z
+  # yamllint disable rule:comments-indentation
   # ************ #
   # * Germania * #
   # ************ #
