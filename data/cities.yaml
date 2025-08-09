@@ -807,6 +807,22 @@ cities:
       intelligence: 0
     garrison: British Cavalry
   # D
+  - name: Dana
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 60
+      ore: 50
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Fanatics
   - name: Derventio
     campaign: Conquest of Britain
     resource_potentials:
@@ -927,6 +943,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Javelinmen
+  - name: Lindun
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 60
+      ore: 90
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
   - name: Luguvalion
     campaign: Conquest of Britain
     resource_potentials:
@@ -981,6 +1013,22 @@ cities:
     garrison: Archers
   # Q
   # R
+  - name: Ratae
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 110
+      ore: 0
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # S
   - name: Setantia
     campaign: Conquest of Britain
