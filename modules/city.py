@@ -642,6 +642,8 @@ class City:
         # |- - - - - - - - - - - - - -|
         # |      Defenses table       |
         # |---------------------------|
+        
+        #* Include booleans
         include_city: bool = city.get("include", True)
         include_buildings: bool = buildings.get("include", True)
         include_effects: bool = effects.get("include", True)
@@ -649,8 +651,7 @@ class City:
         include_storage: bool = storage.get("include", True)
         include_defenses: bool = defenses.get("include", True)
         
-        layout: Layout = Layout()
-        
+        #* Height calculations
         header_height: int = 2 if include_city else 0
         
         # A city can have a maximum of 9 buildings (len(self.buildings) = 9). The table needs two more rows for the
@@ -669,9 +670,12 @@ class City:
         total_layout_height: int = (
             header_height
             + main_height
-            + 2 
+            + 2
         )
         total_layout_width: int = 92
+        
+        #* Layout
+        layout: Layout = Layout()
         
         layout.split(
             Layout(

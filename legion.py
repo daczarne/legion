@@ -23,7 +23,26 @@ scenario: Scenario = Scenario(
     },
 )
 
-scenario.display_scenario_results()
+scenario.display_scenario_results(
+    city = {
+        "include": True,
+    },
+    buildings = {
+        "include": True,
+    },
+    effects = {
+        "include": True,
+    },
+    production = {
+        "include": True,
+    },
+    storage = {
+        "include": False,
+    },
+    defenses = {
+        "include": False,
+    },
+)
 
 
 city: City = City(
@@ -42,13 +61,12 @@ city: City = City(
     },
 )
 
-# city.display_results(
+# city.display_city_results(
 #     city = {
 #         "include": True,
 #     },
 #     buildings = {
 #         "include": True,
-#         "height": 11,
 #     },
 #     effects = {
 #         "include": True,

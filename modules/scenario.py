@@ -1,7 +1,6 @@
 from rich.align import Align
 from rich.console import Console
 from rich.layout import Layout
-from rich.panel import Panel
 
 from .building import BuildingsCount
 from .city import City
@@ -41,12 +40,6 @@ class Scenario:
             storage: DisplayConfiguration,
             defenses: DisplayConfiguration,
         ) -> Layout:
-        
-        include_buildings: bool = buildings.get("include", True)
-        buildings_height_city_a: int = len(self.city_a.buildings) + 2 if include_buildings else 0
-        buildings_height_city_b: int = len(self.city_b.buildings) + 2 if include_buildings else 0
-        buildings_height: int = max(buildings_height_city_a, buildings_height_city_b)
-        
         layout: Layout = Layout()
         
         layout.split_row(
@@ -58,7 +51,7 @@ class Scenario:
             renderable = Align(
                 renderable = self.city_a.build_city_display(
                     city = city,
-                    buildings = {**buildings, "height": buildings_height},
+                    buildings = buildings,
                     effects = effects,
                     production = production,
                     storage = storage,
@@ -72,7 +65,7 @@ class Scenario:
             renderable = Align(
                 renderable = self.city_b.build_city_display(
                     city = city,
-                    buildings = {**buildings, "height": buildings_height},
+                    buildings = buildings,
                     effects = effects,
                     production = production,
                     storage = storage,
@@ -93,14 +86,54 @@ class Scenario:
             storage: DisplayConfiguration | None = None,
             defenses: DisplayConfiguration | None = None,
         ) -> None:
-        console: Console = Console()
+        _city: DisplayConfiguration = city if city else {"include": True}
+        _buildings: DisplayConfiguration = buildings if buildings else {"include": True}
+        _effects: DisplayConfiguration = effects if effects else {"include": True}
+        _production: DisplayConfiguration = production if production else {"include": True}
+        _storage: DisplayConfiguration = storage if storage else {"include": True}
+        _defenses: DisplayConfiguration = defenses if defenses else {"include": True}
+        
+        #* Include booleans
+        include_city: bool = _city.get("include", True)
+        include_buildings: bool = _buildings.get("include", True)
+        include_effects: bool = _effects.get("include", True)
+        include_production: bool = _production.get("include", True)
+        include_storage: bool = _storage.get("include", True)
+        include_defenses: bool = _defenses.get("include", True)
+        
+        #* Height calculations
+        header_height: int = 2 if include_city else 0
+        
+        # A city can have a maximum of 9 buildings (len(self.buildings) = 9). The table needs two more rows for the
+        # title (Buildings) and the space after the title. But if the city has less than 6 different buildings, the
+        # space assigned for Buildings and Effects needs to be the height needed for the effects table (8).
+        buildings_height_city_a: int = len(self.city_a.buildings) + 2 if include_buildings else 0
+        buildings_height_city_b: int = len(self.city_b.buildings) + 2 if include_buildings else 0
+        buildings_height: int = max(buildings_height_city_a, buildings_height_city_b)
+        effects_height: int = 8 if include_effects else 0
+        buildings_and_effects_height: int = max(buildings_height, effects_height)
+        
+        production_height: int = 8 if include_production else 0
+        storage_height: int = 8 if include_storage else 0
+        defenses_height: int = 6 if include_defenses else 0
+        
+        main_height: int = buildings_and_effects_height + production_height + storage_height + defenses_height
+        
+        total_height: int = (
+            header_height
+            + main_height
+            + 2
+        )
+        total_width: int = 192
+        
+        console: Console = Console(height = total_height, width = total_width)
         console.print(
             self._build_scenario_display(
-                city = city if city else {"include": False},
-                buildings = buildings if buildings else {},
-                effects = effects if effects else {},
-                production = production if production else {},
-                storage = storage if storage else {},
-                defenses = defenses if defenses else {},
+                city = {**_city, "height": header_height},
+                buildings = {**_buildings, "height": buildings_height},
+                effects = {**_effects, "height": effects_height},
+                production = {**_production, "height": production_height},
+                storage = {**_storage, "height": storage_height},
+                defenses = {**_defenses, "height": defenses_height},
             ),
         )
