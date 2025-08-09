@@ -618,7 +618,7 @@ class City:
         
         return table
     
-    def build_results_display(
+    def build_city_display(
             self,
             city: DisplayConfiguration,
             buildings: DisplayConfiguration,
@@ -642,6 +642,8 @@ class City:
         # |- - - - - - - - - - - - - -|
         # |      Defenses table       |
         # |---------------------------|
+        
+        #* Include booleans
         include_city: bool = city.get("include", True)
         include_buildings: bool = buildings.get("include", True)
         include_effects: bool = effects.get("include", True)
@@ -649,14 +651,13 @@ class City:
         include_storage: bool = storage.get("include", True)
         include_defenses: bool = defenses.get("include", True)
         
-        layout: Layout = Layout()
-        
+        #* Height calculations
         header_height: int = 2 if include_city else 0
         
         # A city can have a maximum of 9 buildings (len(self.buildings) = 9). The table needs two more rows for the
         # title (Buildings) and the space after the title. But if the city has less than 6 different buildings, the
         # space assigned for Buildings and Effects needs to be the height needed for the effects table (8).
-        buildings_height: int = len(self.buildings) + 2 if include_buildings else 0
+        buildings_height: int = buildings.get("height", len(self.buildings) + 2) if include_buildings else 0 
         effects_height: int = 8 if include_effects else 0
         buildings_and_effects_height: int = max(buildings_height, effects_height)
         
@@ -669,9 +670,12 @@ class City:
         total_layout_height: int = (
             header_height
             + main_height
-            + 2 
+            + 2
         )
         total_layout_width: int = 92
+        
+        #* Layout
+        layout: Layout = Layout()
         
         layout.split(
             Layout(
@@ -766,7 +770,7 @@ class City:
             height = total_layout_height,
         )
     
-    def display_results(
+    def display_city_results(
             self,
             city: DisplayConfiguration | None = None,
             buildings: DisplayConfiguration | None = None,
@@ -777,7 +781,7 @@ class City:
         ) -> None:
         console: Console = Console()
         console.print(
-            self.build_results_display(
+            self.build_city_display(
                 city = city if city else {},
                 buildings = buildings if buildings else {},
                 effects = effects if effects else {},
