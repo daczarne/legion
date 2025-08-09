@@ -384,6 +384,43 @@ class TestCity:
         assert city.supply_dump_storage.food == 0
         assert city.total_storage.food == 525
     
+    def test_city_roman_fishing_village_and_outcrop(self) -> None:
+        city: City = City(
+            campaign = "Unification of Italy",
+            name = "Falerii",
+            buildings = {
+                "city_hall": 1,
+                "basilica": 1,
+                "farmers_guild": 1,
+                "large_farm": 4,
+                "vineyard": 1,
+                "outcrop_mine": 1,
+            },
+        )
+        
+        assert city.campaign == "Unification of Italy"
+        assert city.name == "Falerii"
+        
+        assert city.resource_potentials.food == 100
+        assert city.resource_potentials.ore == 60
+        assert city.geo_features.rock_outcrops == 1
+        assert city.base_production.food == 174
+        assert city.base_production.ore == 14
+        assert city.productivity_bonuses.food == 135
+        assert city.productivity_bonuses.ore == 85
+        assert city.total_production.food == 408
+        assert city.total_production.ore == 25
+        assert city.maintenance_costs.food == 14
+        assert city.maintenance_costs.ore == 4
+        assert city.balance.food == 394
+        assert city.balance.ore == 21
+        assert city.city_storage.food == 100
+        assert city.city_storage.ore == 100
+        assert city.buildings_storage.food == 375
+        assert city.buildings_storage.ore == 30
+        assert city.total_storage.food == 475
+        assert city.total_storage.ore == 130
+    
     def test_city_roman_ore_outcrop_and_mountain_mine(self) -> None:
         city: City = City(
             campaign = "Unification of Italy",
@@ -415,6 +452,33 @@ class TestCity:
         assert city.supply_dump_storage.ore == 0
         assert city.total_storage.ore == 460
     
+    def test_city_roman_ore_outcrop_mine(self) -> None:
+        city: City = City(
+            campaign = "Unification of Italy",
+            name = "Caudini",
+            buildings = {
+                "city_hall": 1,
+                "basilica": 1,
+                "miners_guild": 1,
+                "large_mine": 5,
+                "outcrop_mine": 1,
+            },
+        )
+        
+        assert city.campaign == "Unification of Italy"
+        assert city.name == "Caudini"
+        
+        assert city.resource_potentials.ore == 80
+        assert city.geo_features.rock_outcrops == 1
+        assert city.base_production.ore == 155
+        assert city.productivity_bonuses.ore == 125
+        assert city.total_production.ore == 348
+        assert city.maintenance_costs.ore == 14
+        assert city.balance.ore == 334
+        assert city.city_storage.ore == 100
+        assert city.buildings_storage.ore == 405
+        assert city.total_storage.ore == 505
+    
     def test_city_roman_ore_mountains(self) -> None:
         city: City = City(
             campaign = "Unification of Italy",
@@ -441,6 +505,58 @@ class TestCity:
         assert city.city_storage.ore == 100
         assert city.buildings_storage.ore == 360
         assert city.total_storage.ore == 460
+    
+    def test_city_roman_ore_mountain(self) -> None:
+        city: City = City(
+            campaign = "Unification of Italy",
+            name = "Hirpini",
+            buildings = {
+                "city_hall": 1,
+                "basilica": 1,
+                "miners_guild": 1,
+                "mountain_mine": 1,
+                "large_mine": 5,
+            },
+        )
+        
+        assert city.campaign == "Unification of Italy"
+        assert city.name == "Hirpini"
+        
+        assert city.resource_potentials.ore == 125
+        assert city.geo_features.mountains == 1
+        assert city.base_production.ore == 250
+        assert city.productivity_bonuses.ore == 125
+        assert city.total_production.ore == 562
+        assert city.maintenance_costs.ore == 14
+        assert city.balance.ore == 548
+        assert city.city_storage.ore == 100
+        assert city.buildings_storage.ore == 405
+        assert city.total_storage.ore == 505
+    
+    def test_city_roman_ore(self) -> None:
+        city: City = City(
+            campaign = "Unification of Italy",
+            name = "Pentri",
+            buildings = {
+                "city_hall": 1,
+                "basilica": 1,
+                "miners_guild": 1,
+                "large_mine": 6,
+            },
+        )
+        
+        assert city.campaign == "Unification of Italy"
+        assert city.name == "Pentri"
+        
+        assert city.resource_potentials.ore == 110
+        assert city.base_production.ore == 234
+        assert city.productivity_bonuses.ore == 125
+        assert city.total_production.ore == 526
+        assert city.maintenance_costs.ore == 14
+        assert city.balance.ore == 512
+        assert city.city_storage.ore == 100
+        assert city.buildings_storage.ore == 450
+        assert city.total_storage.ore == 550
     
     def test_city_roman_wood(self) -> None:
         city: City = City(
