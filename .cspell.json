@@ -2,9 +2,11 @@
     "version": "0.2",
     "language": "en",
     "ignorePaths": [
-        ".git",
         ".gitattributes",
         ".gitignore",
+        "**/__pycache__/**",
+        "**/.git/**",
+        "**/*.pyc",
         "Pipfile.lock",
         "Pipfile",
     ],
