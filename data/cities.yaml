@@ -1017,6 +1017,7 @@ cities:
       intelligence: 0
     garrison: British Cavalry
   - name: Durobrivae II
+    # This refers to the more northen one in the marshes
     campaign: Conquest of Britain
     resource_potentials:
       food: 60
@@ -1080,8 +1081,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Javelinmen
-  # E
-  # F
   # G
   - name: Gabratovicia
     campaign: Conquest of Britain
@@ -1131,7 +1130,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
-  # H
   # I
   - name: Isca
     campaign: Conquest of Britain
@@ -1197,8 +1195,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Javelinmen
-  # J
-  # K
   # L
   - name: Letoceton
     campaign: Conquest of Britain
@@ -1363,7 +1359,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Legion
-  # O
   # P
   - name: Petuaria
     campaign: Conquest of Britain
@@ -1381,7 +1376,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
-  # Q
   # R
   - name: Ratae
     campaign: Conquest of Britain
@@ -1547,8 +1541,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: British Warband
-  # W
-  # X
   # Y
   - name: Yule
     campaign: Conquest of Britain
@@ -1566,7 +1558,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
-  # Z
   # yamllint disable rule:comments-indentation
   # ************ #
   # * Germania * #
