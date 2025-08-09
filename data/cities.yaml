@@ -758,10 +758,58 @@ cities:
       intelligence: 0
     garrison: British Warband
   # C
+  - name: Coria
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 110
+      ore: 80
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
   # D
   # E
   # F
   # G
+  - name: Gabratovicia
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 50
+      ore: 50
+      wood: 125
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Javelinmen
+  - name: Galagon
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 50
+      ore: 125
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
   # H
   # I
   - name: Isurion
@@ -806,6 +854,22 @@ cities:
   # Q
   # R
   # S
+  - name: Setantia
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 90
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
   # T
   # U
   # V
