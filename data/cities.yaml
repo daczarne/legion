@@ -972,6 +972,22 @@ cities:
     garrison: Archers
   # H
   # I
+  - name: Isca
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 80
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   - name: Ischalis
     campaign: Conquest of Britain
     resource_potentials:
@@ -1175,7 +1191,39 @@ cities:
       intelligence: 0
     garrison: Pictish Warband
   # T
+  - name: Tamara
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 110
+      ore: 90
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Fanatics
   # U
+  - name: Uxella
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 80
+      ore: 90
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Warband
   # V
   - name: Vertis
     campaign: Conquest of Britain
