@@ -740,7 +740,39 @@ cities:
   # * Conquest of Britain * #
   # *********************** #
   # A
+  - name: Aricon
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 50
+      ore: 125
+      wood: 50
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 1
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
   # B
+  - name: Bagendun
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 50
+      ore: 90
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Javelinmen
   - name: Blaenau
     campaign: Conquest of Britain
     resource_potentials:
@@ -871,6 +903,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: British Cavalry
+  - name: Durocornovion
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 50
+      ore: 80
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # E
   # F
   # G
@@ -924,6 +972,22 @@ cities:
     garrison: Archers
   # H
   # I
+  - name: Ischalis
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 50
+      ore: 100
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Fanatics
   - name: Isurion
     campaign: Conquest of Britain
     resource_potentials:
@@ -1113,6 +1177,22 @@ cities:
   # T
   # U
   # V
+  - name: Vertis
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 110
+      ore: 50
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
   - name: Virocon
     campaign: Conquest of Britain
     resource_potentials:
