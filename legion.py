@@ -45,13 +45,14 @@ scenario: Scenario = Scenario(
 
 city: City = City(
     campaign = "Unification of Italy",
-    name = "Reate",
+    name = "Tarentum",
     buildings = {
         "city_hall": 1,
         "basilica": 1,
-        "miners_guild": 1,
-        "mountain_mine": 2,
-        "large_mine": 4,
+        "farmers_guild": 1,
+        "large_farm": 4,
+        "vineyard": 1,
+        "fishing_village": 1,
     },
 )
 

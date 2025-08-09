@@ -452,6 +452,92 @@ class TestCity:
         assert city.squadrons == 1
         assert city.squadron_size == "Small"
     
+    def test_city_roman_fishing_village(self) -> None:
+        city: City = City(
+            campaign = "Unification of Italy",
+            name = "Tarentum",
+            buildings = {
+                "city_hall": 1,
+                "basilica": 1,
+                "farmers_guild": 1,
+                "large_farm": 4,
+                "vineyard": 1,
+                "fishing_village": 1,
+            },
+        )
+        
+        assert city.campaign == "Unification of Italy"
+        assert city.name == "Tarentum"
+        
+        assert city.resource_potentials.food == 50
+        assert city.resource_potentials.ore == 90
+        assert city.resource_potentials.wood == 80
+        
+        assert city.geo_features.rock_outcrops == 1
+        assert city.geo_features.mountains == 0
+        assert city.geo_features.lakes == 1
+        assert city.geo_features.forests == 0
+        
+        assert city.city_effects.troop_training == 0
+        assert city.city_effects.population_growth == 0
+        assert city.city_effects.intelligence == 0
+        
+        assert city.building_effects.troop_training == 0
+        assert city.building_effects.population_growth == 0
+        assert city.building_effects.intelligence == 0
+        
+        assert city.worker_effects.troop_training == 0
+        assert city.worker_effects.population_growth == 50
+        assert city.worker_effects.intelligence == 0
+        
+        assert city.total_effects.troop_training == 0
+        assert city.total_effects.population_growth == 50
+        assert city.total_effects.intelligence == 0
+        
+        assert city.base_production.food == 99
+        assert city.base_production.ore == 0
+        assert city.base_production.wood == 0
+        
+        assert city.productivity_bonuses.food == 135
+        assert city.productivity_bonuses.ore == 85
+        assert city.productivity_bonuses.wood == 85
+        
+        assert city.total_production.food == 232
+        assert city.total_production.ore == 0
+        assert city.total_production.wood == 0
+        
+        assert city.maintenance_costs.food == 14
+        assert city.maintenance_costs.ore == 4
+        assert city.maintenance_costs.wood == 4
+        
+        assert city.balance.food == 218
+        assert city.balance.ore == -4
+        assert city.balance.wood == -4
+        
+        assert city.city_storage.food == 100
+        assert city.city_storage.ore == 100
+        assert city.city_storage.wood == 100
+        
+        assert city.buildings_storage.food == 425
+        assert city.buildings_storage.ore == 0
+        assert city.buildings_storage.wood == 0
+        
+        assert city.warehouse_storage.food == 0
+        assert city.warehouse_storage.ore == 0
+        assert city.warehouse_storage.wood == 0
+        
+        assert city.supply_dump_storage.food == 0
+        assert city.supply_dump_storage.ore == 0
+        assert city.supply_dump_storage.wood == 0
+        
+        assert city.total_storage.food == 525
+        assert city.total_storage.ore == 100
+        assert city.total_storage.wood == 100
+        
+        assert city.garrison == "Peltasts"
+        assert city.squadrons == 1
+        assert city.squadron_size == "Small"
+    
     def test_city_roman_ore(self) -> None:
         city: City = City(
             campaign = "Unification of Italy",
