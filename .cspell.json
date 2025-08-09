@@ -45,6 +45,7 @@
     ],
     "ignoreWords": [
         "ings",
+        "pkief",
     ],
     "overrides": [
         {
