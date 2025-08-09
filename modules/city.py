@@ -155,35 +155,6 @@ class City:
         if unknown:
             raise ValueError(f"Unknown building(s): {", ".join(unknown)}")
     
-    # Validations need to include the following situations.
-    # 
-    #~ Rss buildings are allowed.
-    # This is because a city with, for example, rss potential of 0 for food, cannot create food-producing buildings
-    # (like farms, vineyards, or fishing villages), even if it has a lake (the lake is, sadly, a waisted building spot
-    # in this case).
-    # 
-    #~ Guilds.
-    # Building guilds requires the production building itself. For example, if there are no farms, there can be no
-    # farmers' guild. Similarly, if there are no lumber mills, there can be no carpenters guild, and so on.
-    #
-    # Additionally, there are other dependencies between buildings. For example, a city needs:
-    #   farm => stables
-    #   lumber mill => fletcher
-    #   mine (not outcrop or mountain) => blacksmith
-    #   fort => quartermaster
-    #   training grounds => other training facilities (like gladiator school, imperial residence, bordello)
-    #
-    # But, all dependencies can be bypassed by building the required building (e.g. a farm), then building the
-    # dependent building (e.g. stables), and then deleting the required building and using that spot to build something
-    # else. Some of these dependencies makes sense to validate them because the dependent building makes no sense
-    # without the dependency building. For example, no sense in having a city with a farmers' guild, if the city has no
-    # farms.
-    #
-    #~ Blocked building spots.
-    # Lastly, not all cities can accept all potential building scenarios. For example, a city with a lake and enough
-    # food potential for a fishing village, "cannot" build 6 mines. Since there are only a maximum of 18 workers per
-    # city, this configuration (1 fishing village + 6 mines) would mean that at least one of the buildings is not
-    # staffed (potentially, even empty). The validation should warn against this scenario.
     
     #* Production
     def _calculate_base_production(self) -> ResourceCollection:
