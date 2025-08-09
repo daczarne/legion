@@ -23,7 +23,7 @@ scenario: Scenario = Scenario(
     },
 )
 
-scenario.display_results()
+scenario.display_scenario_results()
 
 
 city: City = City(

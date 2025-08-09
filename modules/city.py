@@ -618,7 +618,7 @@ class City:
         
         return table
     
-    def build_results_display(
+    def build_city_display(
             self,
             city: DisplayConfiguration,
             buildings: DisplayConfiguration,
@@ -766,7 +766,7 @@ class City:
             height = total_layout_height,
         )
     
-    def display_results(
+    def display_city_results(
             self,
             city: DisplayConfiguration | None = None,
             buildings: DisplayConfiguration | None = None,
@@ -777,7 +777,7 @@ class City:
         ) -> None:
         console: Console = Console()
         console.print(
-            self.build_results_display(
+            self.build_city_display(
                 city = city if city else {},
                 buildings = buildings if buildings else {},
                 effects = effects if effects else {},

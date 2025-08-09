@@ -1,6 +1,7 @@
 from rich.align import Align
 from rich.console import Console
 from rich.layout import Layout
+from rich.panel import Panel
 
 from .building import BuildingsCount
 from .city import City
@@ -31,7 +32,7 @@ class Scenario:
             buildings = self.buildings_b,
         )
     
-    def _build_results_display(
+    def _build_scenario_display(
             self,
             city: DisplayConfiguration,
             buildings: DisplayConfiguration,
@@ -40,6 +41,12 @@ class Scenario:
             storage: DisplayConfiguration,
             defenses: DisplayConfiguration,
         ) -> Layout:
+        
+        include_buildings: bool = buildings.get("include", True)
+        buildings_height_city_a: int = len(self.city_a.buildings) + 2 if include_buildings else 0
+        buildings_height_city_b: int = len(self.city_b.buildings) + 2 if include_buildings else 0
+        buildings_height: int = max(buildings_height_city_a, buildings_height_city_b)
+        
         layout: Layout = Layout()
         
         layout.split_row(
@@ -47,14 +54,9 @@ class Scenario:
             Layout(name = "city_b", ratio = 1),
         )
         
-        include_buildings: bool = buildings.get("include", True)
-        buildings_height_city_a: int = len(self.city_a.buildings) + 2 if include_buildings else 0
-        buildings_height_city_b: int = len(self.city_b.buildings) + 2 if include_buildings else 0
-        buildings_height: int = max(buildings_height_city_a, buildings_height_city_b)
-        
         layout["city_a"].update(
             renderable = Align(
-                renderable = self.city_a.build_results_display(
+                renderable = self.city_a.build_city_display(
                     city = city,
                     buildings = {**buildings, "height": buildings_height},
                     effects = effects,
@@ -68,7 +70,7 @@ class Scenario:
         
         layout["city_b"].update(
             renderable = Align(
-                renderable = self.city_b.build_results_display(
+                renderable = self.city_b.build_city_display(
                     city = city,
                     buildings = {**buildings, "height": buildings_height},
                     effects = effects,
@@ -82,7 +84,7 @@ class Scenario:
         
         return layout
     
-    def display_results(
+    def display_scenario_results(
             self,
             city: DisplayConfiguration | None = None,
             buildings: DisplayConfiguration | None = None,
@@ -93,7 +95,7 @@ class Scenario:
         ) -> None:
         console: Console = Console()
         console.print(
-            self._build_results_display(
+            self._build_scenario_display(
                 city = city if city else {"include": False},
                 buildings = buildings if buildings else {},
                 effects = effects if effects else {},
