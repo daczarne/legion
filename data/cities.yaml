@@ -740,6 +740,22 @@ cities:
   # * Conquest of Britain * #
   # *********************** #
   # A
+  - name: Alauna
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
   - name: Anderitum
     campaign: Conquest of Britain
     resource_potentials:
@@ -936,6 +952,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: British Cavalry
+  - name: Dor
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 90
+      ore: 75
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
   - name: Durobrivae
     campaign: Conquest of Britain
     resource_potentials:
@@ -946,6 +978,22 @@ cities:
       rock_outcrops: 0
       mountains: 0
       lakes: 1
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
+  - name: Durobrivae II
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 60
+      ore: 50
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
       forests: 0
     effects:
       troop_training: 10
@@ -968,6 +1016,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
+  - name: Duroliponte
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 80
+      ore: 0
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Javelinmen
   - name: Durovern
     campaign: Conquest of Britain
     resource_potentials:
@@ -1387,6 +1451,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: British Cavalry
+  - name: Verulam
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 50
+      ore: 0
+      wood: 125
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Virocon
     campaign: Conquest of Britain
     resource_potentials:
