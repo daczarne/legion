@@ -741,6 +741,22 @@ cities:
   # *********************** #
   # A
   # B
+  - name: Blaenau
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 0
+      ore: 150
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Pictish Warband
   - name: Brocavon
     campaign: Conquest of Britain
     resource_potentials:
@@ -842,6 +858,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: British Warband
+  - name: Gangan
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 50
+      ore: 80
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # H
   # I
   - name: Isurion
