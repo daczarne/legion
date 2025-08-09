@@ -47,11 +47,16 @@ class Scenario:
             Layout(name = "city_b", ratio = 1),
         )
         
+        include_buildings: bool = buildings.get("include", True)
+        buildings_height_city_a: int = len(self.city_a.buildings) + 2 if include_buildings else 0
+        buildings_height_city_b: int = len(self.city_b.buildings) + 2 if include_buildings else 0
+        buildings_height: int = max(buildings_height_city_a, buildings_height_city_b)
+        
         layout["city_a"].update(
             renderable = Align(
                 renderable = self.city_a.build_results_display(
                     city = city,
-                    buildings = buildings,
+                    buildings = {**buildings, "height": buildings_height},
                     effects = effects,
                     production = production,
                     storage = storage,
@@ -65,7 +70,7 @@ class Scenario:
             renderable = Align(
                 renderable = self.city_b.build_results_display(
                     city = city,
-                    buildings = buildings,
+                    buildings = {**buildings, "height": buildings_height},
                     effects = effects,
                     production = production,
                     storage = storage,
