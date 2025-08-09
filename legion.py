@@ -1,3 +1,4 @@
+from traceback import print_tb
 from modules.scenario import Scenario
 from modules.city import City
 
@@ -45,7 +46,7 @@ scenario: Scenario = Scenario(
 
 city: City = City(
     campaign = "Unification of Italy",
-    name = "Tarentum",
+    name = "Faesula",
     buildings = {
         "city_hall": 1,
         "basilica": 1,

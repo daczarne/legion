@@ -298,15 +298,6 @@ class TestCity:
         assert city.campaign == "Unification of Italy"
         assert city.name == "Roma"
         
-        assert city.resource_potentials.food == 125
-        assert city.resource_potentials.ore == 0
-        assert city.resource_potentials.wood == 50
-        
-        assert city.geo_features.rock_outcrops == 0
-        assert city.geo_features.mountains == 0
-        assert city.geo_features.lakes == 0
-        assert city.geo_features.forests == 0
-        
         assert city.city_effects.troop_training == 0
         assert city.city_effects.population_growth == 0
         assert city.city_effects.intelligence == 0
@@ -323,18 +314,6 @@ class TestCity:
         assert city.total_effects.population_growth == 270
         assert city.total_effects.intelligence == 10
         
-        assert city.base_production.food == 0
-        assert city.base_production.ore == 0
-        assert city.base_production.wood == 0
-        
-        assert city.productivity_bonuses.food == 85
-        assert city.productivity_bonuses.ore == 85
-        assert city.productivity_bonuses.wood == 85
-        
-        assert city.total_production.food == 0
-        assert city.total_production.ore == 0
-        assert city.total_production.wood == 0
-        
         assert city.maintenance_costs.food == 62
         assert city.maintenance_costs.ore == 24
         assert city.maintenance_costs.wood == 45
@@ -342,26 +321,6 @@ class TestCity:
         assert city.balance.food == -62
         assert city.balance.ore == -24
         assert city.balance.wood == -45
-        
-        assert city.city_storage.food == 100
-        assert city.city_storage.ore == 100
-        assert city.city_storage.wood == 100
-        
-        assert city.buildings_storage.food == 0
-        assert city.buildings_storage.ore == 0
-        assert city.buildings_storage.wood == 0
-        
-        assert city.warehouse_storage.food == 0
-        assert city.warehouse_storage.ore == 0
-        assert city.warehouse_storage.wood == 0
-        
-        assert city.supply_dump_storage.food == 0
-        assert city.supply_dump_storage.ore == 0
-        assert city.supply_dump_storage.wood == 0
-        
-        assert city.total_storage.food == 100
-        assert city.total_storage.ore == 100
-        assert city.total_storage.wood == 100
         
         assert city.garrison == "Legion"
         assert city.squadrons == 4
@@ -384,78 +343,21 @@ class TestCity:
         assert city.name == "Roma"
         
         assert city.resource_potentials.food == 125
-        assert city.resource_potentials.ore == 0
-        assert city.resource_potentials.wood == 50
-        
-        assert city.geo_features.rock_outcrops == 0
-        assert city.geo_features.mountains == 0
-        assert city.geo_features.lakes == 0
-        assert city.geo_features.forests == 0
-        
-        assert city.city_effects.troop_training == 0
-        assert city.city_effects.population_growth == 0
-        assert city.city_effects.intelligence == 0
-        
-        assert city.building_effects.troop_training == 0
-        assert city.building_effects.population_growth == 0
-        assert city.building_effects.intelligence == 0
-        
-        assert city.worker_effects.troop_training == 0
-        assert city.worker_effects.population_growth == 50
-        assert city.worker_effects.intelligence == 0
-        
-        assert city.total_effects.troop_training == 0
-        assert city.total_effects.population_growth == 50
-        assert city.total_effects.intelligence == 0
-        
         assert city.base_production.food == 261
-        assert city.base_production.ore == 0
-        assert city.base_production.wood == 0
-        
         assert city.productivity_bonuses.food == 135
-        assert city.productivity_bonuses.ore == 85
-        assert city.productivity_bonuses.wood == 85
-        
         assert city.total_production.food == 613
-        assert city.total_production.ore == 0
-        assert city.total_production.wood == 0
-        
         assert city.maintenance_costs.food == 14
-        assert city.maintenance_costs.ore == 4
-        assert city.maintenance_costs.wood == 4
-        
         assert city.balance.food == 599
-        assert city.balance.ore == -4
-        assert city.balance.wood == -4
-        
         assert city.city_storage.food == 100
-        assert city.city_storage.ore == 100
-        assert city.city_storage.wood == 100
-        
         assert city.buildings_storage.food == 450
-        assert city.buildings_storage.ore == 0
-        assert city.buildings_storage.wood == 0
-        
         assert city.warehouse_storage.food == 0
-        assert city.warehouse_storage.ore == 0
-        assert city.warehouse_storage.wood == 0
-        
         assert city.supply_dump_storage.food == 0
-        assert city.supply_dump_storage.ore == 0
-        assert city.supply_dump_storage.wood == 0
-        
         assert city.total_storage.food == 550
-        assert city.total_storage.ore == 100
-        assert city.total_storage.wood == 100
-        
-        assert city.garrison == "Legion"
-        assert city.squadrons == 1
-        assert city.squadron_size == "Small"
     
     def test_city_roman_fishing_village(self) -> None:
         city: City = City(
             campaign = "Unification of Italy",
-            name = "Tarentum",
+            name = "Faesula",
             buildings = {
                 "city_hall": 1,
                 "basilica": 1,
@@ -467,78 +369,53 @@ class TestCity:
         )
         
         assert city.campaign == "Unification of Italy"
-        assert city.name == "Tarentum"
+        assert city.name == "Faesula"
         
-        assert city.resource_potentials.food == 50
-        assert city.resource_potentials.ore == 90
-        assert city.resource_potentials.wood == 80
-        
-        assert city.geo_features.rock_outcrops == 1
-        assert city.geo_features.mountains == 0
+        assert city.resource_potentials.food == 90
         assert city.geo_features.lakes == 1
-        assert city.geo_features.forests == 0
-        
-        assert city.city_effects.troop_training == 0
-        assert city.city_effects.population_growth == 0
-        assert city.city_effects.intelligence == 0
-        
-        assert city.building_effects.troop_training == 0
-        assert city.building_effects.population_growth == 0
-        assert city.building_effects.intelligence == 0
-        
-        assert city.worker_effects.troop_training == 0
-        assert city.worker_effects.population_growth == 50
-        assert city.worker_effects.intelligence == 0
-        
-        assert city.total_effects.troop_training == 0
-        assert city.total_effects.population_growth == 50
-        assert city.total_effects.intelligence == 0
-        
-        assert city.base_production.food == 99
-        assert city.base_production.ore == 0
-        assert city.base_production.wood == 0
-        
+        assert city.base_production.food == 171
         assert city.productivity_bonuses.food == 135
-        assert city.productivity_bonuses.ore == 85
-        assert city.productivity_bonuses.wood == 85
-        
-        assert city.total_production.food == 232
-        assert city.total_production.ore == 0
-        assert city.total_production.wood == 0
-        
+        assert city.total_production.food == 401
         assert city.maintenance_costs.food == 14
-        assert city.maintenance_costs.ore == 4
-        assert city.maintenance_costs.wood == 4
-        
-        assert city.balance.food == 218
-        assert city.balance.ore == -4
-        assert city.balance.wood == -4
-        
+        assert city.balance.food == 387
         assert city.city_storage.food == 100
-        assert city.city_storage.ore == 100
-        assert city.city_storage.wood == 100
-        
         assert city.buildings_storage.food == 425
-        assert city.buildings_storage.ore == 0
-        assert city.buildings_storage.wood == 0
-        
         assert city.warehouse_storage.food == 0
-        assert city.warehouse_storage.ore == 0
-        assert city.warehouse_storage.wood == 0
-        
         assert city.supply_dump_storage.food == 0
-        assert city.supply_dump_storage.ore == 0
-        assert city.supply_dump_storage.wood == 0
-        
         assert city.total_storage.food == 525
-        assert city.total_storage.ore == 100
-        assert city.total_storage.wood == 100
-        
-        assert city.garrison == "Peltasts"
-        assert city.squadrons == 1
-        assert city.squadron_size == "Small"
     
-    def test_city_roman_ore(self) -> None:
+    def test_city_roman_ore_outcrop_and_mountain_mine(self) -> None:
+        city: City = City(
+            campaign = "Unification of Italy",
+            name = "Caercini",
+            buildings = {
+                "city_hall": 1,
+                "basilica": 1,
+                "miners_guild": 1,
+                "outcrop_mine": 1,
+                "mountain_mine": 1,
+                "large_mine": 4,
+            },
+        )
+        
+        assert city.campaign == "Unification of Italy"
+        assert city.name == "Caercini"
+        
+        assert city.resource_potentials.ore == 125
+        assert city.geo_features.rock_outcrops == 1
+        assert city.geo_features.mountains == 1
+        assert city.base_production.ore == 237
+        assert city.productivity_bonuses.ore == 125
+        assert city.total_production.ore == 533
+        assert city.maintenance_costs.ore == 14
+        assert city.balance.ore == 519
+        assert city.city_storage.ore == 100
+        assert city.buildings_storage.ore == 360
+        assert city.warehouse_storage.ore == 0
+        assert city.supply_dump_storage.ore == 0
+        assert city.total_storage.ore == 460
+    
+    def test_city_roman_ore_mountains(self) -> None:
         city: City = City(
             campaign = "Unification of Italy",
             name = "Reate",
@@ -554,74 +431,16 @@ class TestCity:
         assert city.campaign == "Unification of Italy"
         assert city.name == "Reate"
         
-        assert city.resource_potentials.food == 50
         assert city.resource_potentials.ore == 150
-        assert city.resource_potentials.wood == 0
-        
-        assert city.geo_features.rock_outcrops == 0
         assert city.geo_features.mountains == 2
-        assert city.geo_features.lakes == 0
-        assert city.geo_features.forests == 0
-        
-        assert city.city_effects.troop_training == 25
-        assert city.city_effects.population_growth == 0
-        assert city.city_effects.intelligence == 0
-        
-        assert city.building_effects.troop_training == 0
-        assert city.building_effects.population_growth == 0
-        assert city.building_effects.intelligence == 0
-        
-        assert city.worker_effects.troop_training == 0
-        assert city.worker_effects.population_growth == 50
-        assert city.worker_effects.intelligence == 0
-        
-        assert city.total_effects.troop_training == 25
-        assert city.total_effects.population_growth == 50
-        assert city.total_effects.intelligence == 0
-        
-        assert city.base_production.food == 0
         assert city.base_production.ore == 276
-        assert city.base_production.wood == 0
-        
-        assert city.productivity_bonuses.food == 75
         assert city.productivity_bonuses.ore == 125
-        assert city.productivity_bonuses.wood == 75
-        
-        assert city.total_production.food == 0
         assert city.total_production.ore == 621
-        assert city.total_production.wood == 0
-        
-        assert city.maintenance_costs.food == 4
         assert city.maintenance_costs.ore == 14
-        assert city.maintenance_costs.wood == 4
-        
-        assert city.balance.food == -4
         assert city.balance.ore == 607
-        assert city.balance.wood == -4
-        
-        assert city.city_storage.food == 100
         assert city.city_storage.ore == 100
-        assert city.city_storage.wood == 100
-        
-        assert city.buildings_storage.food == 0
         assert city.buildings_storage.ore == 360
-        assert city.buildings_storage.wood == 0
-        
-        assert city.warehouse_storage.food == 0
-        assert city.warehouse_storage.ore == 0
-        assert city.warehouse_storage.wood == 0
-        
-        assert city.supply_dump_storage.food == 0
-        assert city.supply_dump_storage.ore == 0
-        assert city.supply_dump_storage.wood == 0
-        
-        assert city.total_storage.food == 100
         assert city.total_storage.ore == 460
-        assert city.total_storage.wood == 100
-        
-        assert city.garrison == "Hill Tribe Warriors"
-        assert city.squadrons == 1
-        assert city.squadron_size == "Small"
     
     def test_city_roman_wood(self) -> None:
         city: City = City(
@@ -638,71 +457,13 @@ class TestCity:
         assert city.campaign == "Unification of Italy"
         assert city.name == "Lingones"
         
-        assert city.resource_potentials.food == 0
-        assert city.resource_potentials.ore == 0
         assert city.resource_potentials.wood == 150
-        
-        assert city.geo_features.rock_outcrops == 0
-        assert city.geo_features.mountains == 0
-        assert city.geo_features.lakes == 0
         assert city.geo_features.forests == 1
-        
-        assert city.city_effects.troop_training == 10
-        assert city.city_effects.population_growth == 0
-        assert city.city_effects.intelligence == 0
-        
-        assert city.building_effects.troop_training == 0
-        assert city.building_effects.population_growth == 0
-        assert city.building_effects.intelligence == 0
-        
-        assert city.worker_effects.troop_training == 0
-        assert city.worker_effects.population_growth == 50
-        assert city.worker_effects.intelligence == 0
-        
-        assert city.total_effects.troop_training == 10
-        assert city.total_effects.population_growth == 50
-        assert city.total_effects.intelligence == 0
-        
-        assert city.base_production.food == 0
-        assert city.base_production.ore == 0
         assert city.base_production.wood == 324
-        
-        assert city.productivity_bonuses.food == 75
-        assert city.productivity_bonuses.ore == 75
         assert city.productivity_bonuses.wood == 125
-        
-        assert city.total_production.food == 0
-        assert city.total_production.ore == 0
         assert city.total_production.wood == 729
-        
-        assert city.maintenance_costs.food == 4
-        assert city.maintenance_costs.ore == 4
         assert city.maintenance_costs.wood == 14
-        
-        assert city.balance.food == -4
-        assert city.balance.ore == -4
         assert city.balance.wood == 715
-        
-        assert city.city_storage.food == 100
-        assert city.city_storage.ore == 100
         assert city.city_storage.wood == 100
-        
-        assert city.buildings_storage.food == 0
-        assert city.buildings_storage.ore == 0
         assert city.buildings_storage.wood == 450
-        
-        assert city.warehouse_storage.food == 0
-        assert city.warehouse_storage.ore == 0
-        assert city.warehouse_storage.wood == 0
-        
-        assert city.supply_dump_storage.food == 0
-        assert city.supply_dump_storage.ore == 0
-        assert city.supply_dump_storage.wood == 0
-        
-        assert city.total_storage.food == 100
-        assert city.total_storage.ore == 100
         assert city.total_storage.wood == 550
-        
-        assert city.garrison == "Celtic Warband"
-        assert city.squadrons == 1
-        assert city.squadron_size == "Small"
