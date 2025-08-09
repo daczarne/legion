@@ -736,36 +736,829 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
-  # yamllint disable rule:comments-indentation
   # *********************** #
   # * Conquest of Britain * #
   # *********************** #
   # A
+  - name: Alauna
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
+  - name: Anderitum
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 50
+      wood: 50
+    geo_features:
+      # Supply dump
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Auxilia
+  - name: Aricon
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 50
+      ore: 125
+      wood: 50
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 1
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
   # B
+  - name: Bagendun
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 50
+      ore: 90
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Javelinmen
+  - name: Blaenau
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 0
+      ore: 150
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Pictish Warband
+  - name: Bomio
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 80
+      ore: 110
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Pictish Warband
+  - name: Branodun
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 150
+      ore: 0
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
+  - name: Brocavon
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 50
+      ore: 100
+      wood: 50
+    geo_features:
+      rock_outcrops: 1
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
   # C
+  - name: Calleva
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 80
+      ore: 90
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
+  - name: Camulodun
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Canovion
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 50
+      ore: 125
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Pictish Warband
+  - name: Coria
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 110
+      ore: 80
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
   # D
-  # E
-  # F
+  - name: Dana
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 60
+      ore: 50
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Fanatics
+  - name: Derventio
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 50
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
+  - name: Deva
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 50
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
+  - name: Dor
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 90
+      ore: 75
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
+  - name: Durobrivae
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 50
+      wood: 60
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 1
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
+  - name: Durobrivae II
+    # This refers to the more northern one in the marshes
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 60
+      ore: 50
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
+  - name: Durocornovion
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 50
+      ore: 80
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Duroliponte
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 80
+      ore: 0
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Javelinmen
+  - name: Durovern
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 80
+      ore: 50
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Javelinmen
   # G
-  # H
+  - name: Gabratovicia
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 50
+      ore: 50
+      wood: 125
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Javelinmen
+  - name: Galagon
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 50
+      ore: 125
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
+  - name: Gangan
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 50
+      ore: 80
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # I
-  # J
-  # K
+  - name: Isca
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 80
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  - name: Ischalis
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 50
+      ore: 100
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Fanatics
+  - name: Isurion
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 70
+      ore: 80
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 1
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
+  - name: Ixia
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Javelinmen
   # L
+  - name: Letoceton
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Javelinmen
+  - name: Lindinis
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 90
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Warband
+  - name: Lindun
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 60
+      ore: 90
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
+  - name: Londun
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 120
+      ore: 0
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
+  - name: Luguvalion
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 50
+      ore: 70
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
   # M
+  - name: Maidun
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 80
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  - name: Melin
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 80
+      ore: 90
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
+  - name: Mona
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 70
+      ore: 0
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Moridun
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 0
+      ore: 100
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # N
-  # O
+  - name: Noviomagus
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 75
+    geo_features:
+      # Has supply dump
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Legion
   # P
-  # Q
+  - name: Petuaria
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 90
+      ore: 0
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # R
+  - name: Ratae
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 110
+      ore: 0
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # S
+  - name: Setantia
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 90
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
+  - name: Sorviodun
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Javelinmen
+  - name: Stoukia
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 50
+      ore: 125
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Pictish Warband
   # T
+  - name: Tamara
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 110
+      ore: 90
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Fanatics
   # U
+  - name: Uxella
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 80
+      ore: 90
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Warband
   # V
-  # W
-  # X
+  - name: Venta
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 50
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
+  - name: Vertis
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 110
+      ore: 50
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
+  - name: Verulam
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 50
+      ore: 0
+      wood: 125
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Virocon
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 80
+      ore: 60
+      wood: 70
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
   # Y
-  # Z
+  - name: Yule
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 50
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  # yamllint disable rule:comments-indentation
   # ************ #
   # * Germania * #
   # ************ #
