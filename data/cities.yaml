@@ -822,6 +822,22 @@ cities:
       intelligence: 0
     garrison: British Warband
   # C
+  - name: Calleva
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 80
+      ore: 90
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
   - name: Canovion
     campaign: Conquest of Britain
     resource_potentials:
@@ -1273,6 +1289,22 @@ cities:
       intelligence: 0
     garrison: Celtic Warband
   # V
+  - name: Venta
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 50
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
   - name: Vertis
     campaign: Conquest of Britain
     resource_potentials:
@@ -1308,6 +1340,22 @@ cities:
   # W
   # X
   # Y
+  - name: Yule
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 50
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # Z
   # yamllint disable rule:comments-indentation
   # ************ #
