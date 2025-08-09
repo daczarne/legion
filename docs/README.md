@@ -76,7 +76,7 @@ Once the environment has been setup, make sure to update the path to the correct
 
 ```json
 {
-    "python.defaultInterpreterPath": "~/.local/share/virtualenvs/python_projects-sKUHCPfl/bin/python",
+    "python.defaultInterpreterPath": "~/.local/share/virtualenvs/<venv_name>/bin/python",
 }
 ```
 
@@ -112,7 +112,7 @@ be removed safely.
 To run CSpell locally use:
 
 ```shell
-cspell lint --config ".cspell.json" "**/*.md"
+cspell lint --config ".cspell.json" .
 ```
 
 **Reference documents**:
