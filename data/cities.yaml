@@ -871,6 +871,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: British Warband
+  - name: Camulodun
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Canovion
     campaign: Conquest of Britain
     resource_potentials:
@@ -1200,6 +1216,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: British Warband
+  - name: Londun
+    campaign: Conquest of Britain
+    resource_potentials:
+      food: 120
+      ore: 0
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
   - name: Luguvalion
     campaign: Conquest of Britain
     resource_potentials:
