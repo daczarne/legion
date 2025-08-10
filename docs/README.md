@@ -112,7 +112,7 @@ be removed safely.
 To run CSpell locally use:
 
 ```shell
-cspell lint --config ".cspell.json" .
+cspell lint --config ".cspell.json" --dot .
 ```
 
 **Reference documents**:
