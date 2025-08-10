@@ -11,7 +11,7 @@ BuildingsCount: TypeAlias = dict[str, int]
 
 # * ******** * #
 # * BUILDING * #
-# * ********** #
+# * ******** * #
 
 @dataclass
 class Building:

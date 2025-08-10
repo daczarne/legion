@@ -1,4 +1,3 @@
-from traceback import print_tb
 from modules.scenario import Scenario
 from modules.city import City
 
