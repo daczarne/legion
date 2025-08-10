@@ -6,6 +6,7 @@ from .building import BuildingsCount
 from .city import City
 from .display import DisplayConfiguration
 
+
 class Scenario:
     def __init__(
             self,

@@ -1,4 +1,3 @@
-from multiprocessing import Value
 import yaml
 from dataclasses import dataclass, field
 from typing import TypedDict, Literal, ClassVar
@@ -121,6 +120,7 @@ class City:
                 return EffectBonuses(**city["effects"])
         
         return EffectBonuses()
+    
     
     #* Validate city buildings
     def _validate_halls(self) -> None:
