@@ -1829,6 +1829,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: German Mercenaries
+  - name: Lugii
+    campaign: Germania
+    resource_potentials:
+      food: 90
+      ore: 0
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Cavalry
   # M
   - name: Marsii
     campaign: Germania
@@ -1927,6 +1943,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Auxilia
+  - name: Nuitones
+    campaign: Germania
+    resource_potentials:
+      food: 70
+      ore: 0
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # O
   - name: Oxiones
     campaign: Germania
@@ -1962,6 +1994,22 @@ cities:
       intelligence: 0
     garrison: Archers
   # Q
+  - name: Osi
+    campaign: Germania
+    resource_potentials:
+      food: 0
+      ore: 100
+      wood: 70
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Mercenaries
   # R
   - name: Rendingi
     campaign: Germania
