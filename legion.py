@@ -25,4 +25,35 @@ city: CityDisplay = CityDisplay(
     },
 )
 
-city.display_city_results()
+# city.display_city_results()
+
+
+scenario: Scenario = Scenario.from_list(
+    data = [
+        {
+            "campaign": "Unification of Italy",
+            "name": "Hernici",
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "fishing_village": 1,
+                "outcrop_mine": 1,
+                "miners_guild": 1,
+                "large_mine": 4,
+            },
+        },
+        {
+            "campaign": "Unification of Italy",
+            "name": "Hernici",
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "fishing_village": 1,
+                "outcrop_mine": 1,
+                "large_mine": 5,
+            },
+        },
+    ]
+)
+
+scenario.display_scenario_results()
