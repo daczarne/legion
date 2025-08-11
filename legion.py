@@ -56,7 +56,15 @@ scenario: Scenario = Scenario.from_list(
                 "large_fort": 1,
             },
         },
-    ]
+    ],
+    configuration = {
+        "defenses": {
+            "include": False,
+        },
+        "storage": {
+            "include": False,
+        },
+    },
 )
 
 scenario.display_scenario_results()
