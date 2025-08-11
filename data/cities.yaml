@@ -1562,6 +1562,22 @@ cities:
   # * Germania * #
   # ************ #
   # A
+  - name: Aliso
+    campaign: Germania
+    resource_potentials:
+      food: 80
+      ore: 80
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Cavalry
   # B
   # C
   # D
@@ -1574,6 +1590,22 @@ cities:
   # K
   # L
   # M
+  - name: Marsii
+    campaign: Germania
+    resource_potentials:
+      food: 100
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Mercenaries
   # N
   - name: Naristi
     campaign: Germania
@@ -1677,6 +1709,22 @@ cities:
       intelligence: 0
     garrison: German Mercenaries
   # T
+  - name: Tanfana
+    campaign: Germania
+    resource_potentials:
+      food: 90
+      ore: 90
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Mercenaries
   - name: Tuisto
     campaign: Germania
     resource_potentials:
