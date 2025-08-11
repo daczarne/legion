@@ -128,7 +128,7 @@ class CityDisplay:
         return city_buildings_table
     
     def _build_city_effects_table(self) -> Table:
-        table_style: Style = Style(color = self.configuration.get("storage", {}).get("color", "#5f5fff"))
+        table_style: Style = Style(color = self.configuration.get("effects", {}).get("color", "#5f5fff"))
         table: Table = Table(
             title = Text(text = "Effects", style = table_style + Style(italic = True)),
             style = table_style,
@@ -166,7 +166,7 @@ class CityDisplay:
         return table
     
     def _build_city_production_table(self) -> Table:
-        table_style: Style = Style(color = self.configuration.get("storage", {}).get("color", "#228b22"))
+        table_style: Style = Style(color = self.configuration.get("production", {}).get("color", "#228b22"))
         table: Table = Table(
             title = Text(text = "Production", style = table_style + Style(italic = True)),
             style = table_style,

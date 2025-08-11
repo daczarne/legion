@@ -1,77 +1,28 @@
-from modules.scenario import Scenario
 from modules.city import City
+from modules.display import CityDisplay
 
-scenario: Scenario = Scenario(
-    campaign = "Unification of Italy",
-    city = "Hernici",
-    buildings_a = {
-        "city_hall": 1,
-        "basilica": 1,
-        "fishing_village": 1,
-        "outcrop_mine": 1,
-        "miners_guild": 1,
-        "large_mine": 4,
-    },
-    buildings_b = {
-        "city_hall": 1,
-        "basilica": 1,
-        "fishing_village": 0,
-        "outcrop_mine": 1,
-        "large_mine": 5,
+
+city: CityDisplay = CityDisplay(
+    city = City(
+        campaign = "Unification of Italy",
+        name = "Caudini",
+        buildings = {
+            "city_hall": 1,
+            "basilica": 1,
+            "miners_guild": 1,
+            "large_mine": 1,
+            "outcrop_mine": 1,
+            "farm": 1,
+            "lumber_mill": 1,
+            "large_fort": 1,
+            "stables": 1,
+        },
+    ),
+    configuration = {
+        "defenses": {
+            "include": False,
+        },
     },
 )
 
-# scenario.display_scenario_results(
-#     city = {
-#         "include": True,
-#     },
-#     buildings = {
-#         "include": True,
-#     },
-#     effects = {
-#         "include": True,
-#     },
-#     production = {
-#         "include": True,
-#     },
-#     storage = {
-#         "include": True,
-#     },
-#     defenses = {
-#         "include": True,
-#     },
-# )
-
-
-city: City = City(
-    campaign = "Unification of Italy",
-    name = "Caudini",
-    buildings = {
-        "city_hall": 1,
-        "basilica": 1,
-        "miners_guild": 1,
-        "large_mine": 5,
-        "outcrop_mine": 1,
-    },
-)
-
-city.display_city_results(
-    city = {
-        "include": True,
-    },
-    buildings = {
-        "include": True,
-    },
-    effects = {
-        "include": True,
-    },
-    production = {
-        "include": True,
-    },
-    storage = {
-        "include": True,
-    },
-    defenses = {
-        "include": True,
-    },
-)
+city.display_city_results()
