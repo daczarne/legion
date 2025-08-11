@@ -60,6 +60,7 @@ scenario: Scenario = Scenario.from_list(
 )
 
 scenario.display_scenario_results()
+
 from pprint import pprint
 for city in scenario.cities_display:
     print(city.city.name)
