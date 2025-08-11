@@ -15,7 +15,6 @@ class CityDict(TypedDict):
     buildings: BuildingsCount
 
 
-
 class Scenario:
     
     def __init__(
