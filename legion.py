@@ -1,77 +1,65 @@
 from modules.scenario import Scenario
-from modules.city import City
 
-scenario: Scenario = Scenario(
-    campaign = "Unification of Italy",
-    city = "Hernici",
-    buildings_a = {
-        "city_hall": 1,
-        "basilica": 1,
-        "fishing_village": 1,
-        "outcrop_mine": 1,
-        "miners_guild": 1,
-        "large_mine": 4,
-    },
-    buildings_b = {
-        "city_hall": 1,
-        "basilica": 1,
-        "fishing_village": 0,
-        "outcrop_mine": 1,
-        "large_mine": 5,
+
+scenario: Scenario = Scenario.from_list(
+    data = [
+        {
+            "campaign": "Unification of Italy",
+            "name": "Roma",
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "farmers_guild": 1,
+                "large_farm": 5,
+                "vineyard": 1,
+            },
+        },
+        {
+            "campaign": "Unification of Italy",
+            "name": "Latins",
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "carpenters_guild": 1,
+                "large_lumber_mill": 5,
+                "warehouse": 1,
+            },
+        },
+        {
+            "campaign": "Unification of Italy",
+            "name": "Hernici",
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "miners_guild": 1,
+                "outcrop_mine": 1,
+                "fishing_village": 1,
+                "large_mine": 4,
+            },
+        },
+        {
+            "campaign": "Unification of Italy",
+            "name": "Anxur",
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "farmers_guild": 1,
+                "large_farm": 5,
+                "vineyard": 1,
+            },
+        },
+    ],
+    configuration = {
+        "city": {
+            "include": True,
+        },
+        "defenses": {
+            "include": False,
+        },
+        "storage": {
+            "include": False,
+        },
     },
 )
 
-# scenario.display_scenario_results(
-#     city = {
-#         "include": True,
-#     },
-#     buildings = {
-#         "include": True,
-#     },
-#     effects = {
-#         "include": True,
-#     },
-#     production = {
-#         "include": True,
-#     },
-#     storage = {
-#         "include": True,
-#     },
-#     defenses = {
-#         "include": True,
-#     },
-# )
-
-
-city: City = City(
-    campaign = "Unification of Italy",
-    name = "Caudini",
-    buildings = {
-        "city_hall": 1,
-        "basilica": 1,
-        "miners_guild": 1,
-        "large_mine": 5,
-        "outcrop_mine": 1,
-    },
-)
-
-city.display_city_results(
-    city = {
-        "include": True,
-    },
-    buildings = {
-        "include": True,
-    },
-    effects = {
-        "include": True,
-    },
-    production = {
-        "include": True,
-    },
-    storage = {
-        "include": True,
-    },
-    defenses = {
-        "include": True,
-    },
-)
+scenario.display_scenario_results()

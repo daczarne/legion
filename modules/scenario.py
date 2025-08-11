@@ -1,140 +1,167 @@
+from typing import TypedDict
+
 from rich.align import Align
 from rich.console import Console
 from rich.layout import Layout
 
 from .building import BuildingsCount
 from .city import City
-from .display import DisplayConfiguration
+from .display import (
+    CityDisplay,
+    DisplayConfiguration,
+    DisplaySection,
+    DisplaySectionConfiguration,
+    DEFAULT_SECTION_COLORS,
+)
+
+
+class CityDict(TypedDict):
+    name: str
+    campaign: str
+    buildings: BuildingsCount
 
 
 class Scenario:
+    
     def __init__(
             self,
-            campaign: str,
-            city: str,
-            buildings_a: BuildingsCount,
-            buildings_b: BuildingsCount,
+            cities: list[City],
+            configuration: DisplayConfiguration | None = None,
         ) -> None:
-        self.campaign: str = campaign
-        self.city: str = city
-        self.buildings_a: BuildingsCount = buildings_a
-        self.buildings_b: BuildingsCount = buildings_b
+        self.cities: list[City] = cities
+        self._user_configuration: DisplayConfiguration = configuration or {}
+        self.configuration: DisplayConfiguration = self._build_configuration()
         
-        self.city_a: City = City(
-            campaign = self.campaign,
-            name = self.city,
-            buildings = self.buildings_a,
-        )
-        
-        self.city_b: City = City(
-            campaign = self.campaign,
-            name = self.city,
-            buildings = self.buildings_b,
-        )
+        self.cities_display: list[CityDisplay] = self._build_cities_display()
     
-    def _build_scenario_display(
-            self,
-            city: DisplayConfiguration,
-            buildings: DisplayConfiguration,
-            effects: DisplayConfiguration,
-            production: DisplayConfiguration,
-            storage: DisplayConfiguration,
-            defenses: DisplayConfiguration,
-        ) -> Layout:
-        layout: Layout = Layout()
-        
-        layout.split_row(
-            Layout(name = "city_a", ratio = 1),
-            Layout(name = "city_b", ratio = 1),
-        )
-        
-        layout["city_a"].update(
-            renderable = Align(
-                renderable = self.city_a.build_city_display(
-                    city = city,
-                    buildings = buildings,
-                    effects = effects,
-                    production = production,
-                    storage = storage,
-                    defenses = defenses,
-                ),
-                align = "center",
-            ),
-        )
-        
-        layout["city_b"].update(
-            renderable = Align(
-                renderable = self.city_b.build_city_display(
-                    city = city,
-                    buildings = buildings,
-                    effects = effects,
-                    production = production,
-                    storage = storage,
-                    defenses = defenses,
-                ),
-                align = "center",
-            ),
-        )
-        
-        return layout
+    @classmethod
+    def from_list(
+        cls,
+        data: list[CityDict],
+        configuration: DisplayConfiguration | None = None,
+    ) -> "Scenario":
+        cities: list[City] = [City(**city) for city in data]
+        return cls(cities, configuration)
     
-    def display_scenario_results(
-            self,
-            city: DisplayConfiguration | None = None,
-            buildings: DisplayConfiguration | None = None,
-            effects: DisplayConfiguration | None = None,
-            production: DisplayConfiguration | None = None,
-            storage: DisplayConfiguration | None = None,
-            defenses: DisplayConfiguration | None = None,
-        ) -> None:
-        _city: DisplayConfiguration = city if city else {"include": True}
-        _buildings: DisplayConfiguration = buildings if buildings else {"include": True}
-        _effects: DisplayConfiguration = effects if effects else {"include": True}
-        _production: DisplayConfiguration = production if production else {"include": True}
-        _storage: DisplayConfiguration = storage if storage else {"include": True}
-        _defenses: DisplayConfiguration = defenses if defenses else {"include": True}
+    def _build_default_configuration(self) -> DisplayConfiguration:
+        sections: list[str] = [
+            "city",
+            "buildings",
+            "effects",
+            "production",
+            "storage",
+            "defenses",
+        ]
         
-        #* Include booleans
-        include_city: bool = _city.get("include", True)
-        include_buildings: bool = _buildings.get("include", True)
-        include_effects: bool = _effects.get("include", True)
-        include_production: bool = _production.get("include", True)
-        include_storage: bool = _storage.get("include", True)
-        include_defenses: bool = _defenses.get("include", True)
+        default_configuration: DisplayConfiguration = {}
+        for section in sections:
+            default_configuration[section] = {
+                "include": True,
+                "height": self._calculate_default_section_height(section = section),
+                "color": DEFAULT_SECTION_COLORS.get(section, "white"),
+            }
         
-        #* Height calculations
-        header_height: int = 2 if include_city else 0
+        return default_configuration
+    
+    def _calculate_default_section_height(self, section) -> int:
+        match section:
+            case "city":
+                return 2
+            case "buildings":
+                return self._get_max_buildings_length()
+            case "effects":
+                return 8
+            case "production":
+                return 8
+            case "storage":
+                return 8
+            case "defenses":
+                return 6
         
-        # A city can have a maximum of 9 buildings (len(self.buildings) = 9). The table needs two more rows for the
-        # title (Buildings) and the space after the title. But if the city has less than 6 different buildings, the
-        # space assigned for Buildings and Effects needs to be the height needed for the effects table (8).
-        buildings_height_city_a: int = len(self.city_a.buildings) + 2 if include_buildings else 0
-        buildings_height_city_b: int = len(self.city_b.buildings) + 2 if include_buildings else 0
-        buildings_height: int = max(buildings_height_city_a, buildings_height_city_b)
-        effects_height: int = 8 if include_effects else 0
+        return 0
+    
+    def _get_max_buildings_length(self) -> int:
+        building_lengths: list[int] = [len(city.buildings) + 2 for city in self.cities]
+        return max(building_lengths)
+    
+    def _build_configuration(self) -> DisplayConfiguration:
+        
+        display_configuration: DisplayConfiguration = self._build_default_configuration()
+        
+        for section in display_configuration:
+            section_config: DisplaySectionConfiguration = display_configuration[section]
+            if section in self._user_configuration:
+                display_configuration[section] = {**section_config, **self._user_configuration[section]}
+        
+        return display_configuration
+    
+    def _build_cities_display(self) -> list[CityDisplay]:
+        cities_display: list[CityDisplay] = []
+        
+        for city in self.cities:
+            city_display: CityDisplay = CityDisplay(
+                city = city,
+                configuration = self.configuration,
+            )
+            cities_display.append(city_display)
+        
+        return cities_display
+    
+    def _build_scenario_display(self) -> Layout:
+        main_layout: Layout = Layout()
+        row_layouts: list[Layout] = []
+        
+        for i in range(0, len(self.cities), 2):
+            row: Layout = Layout(name = f"row_{i//2}")
+            
+            row.split_row(
+                Layout(name = f"left_{i // 2}", ratio = 1),
+                Layout(name = f"right_{i // 2}", ratio = 1),
+            )
+            
+            row[f"left_{i // 2}"].update(
+                renderable = Align(renderable = self.cities_display[i].build_city_display())
+            )
+            
+            if i + 1 < len(self.cities):
+                row[f"right_{i // 2}"].update(
+                    renderable = Align(renderable = self.cities_display[i + 1].build_city_display())
+                )
+            else:
+                row[f"right_{i // 2}"].update(
+                    renderable = Align(renderable = "")
+                )
+            
+            row_layouts.append(row)
+        
+        main_layout.split(*row_layouts)
+        return main_layout
+    
+    def _calculate_console_height(self) -> int:
+        from math import ceil
+        qty_cities: int = len(self.cities)
+        qty_display_rows: int = ceil(qty_cities / 2)
+        
+        # Height starts at 2 because of some strange thing rich does. There's always 2 lines missing otherwise.
+        console_height: int = 2
+        
+        for section in self.configuration:
+            if section not in [DisplaySection.EFFECTS.value, DisplaySection.BUILDINGS.value]:
+                section_config: DisplaySectionConfiguration = self.configuration[section]
+                console_height += section_config.get("height", 0) if section_config.get("include", False) else 0
+        
+        buildings: DisplaySectionConfiguration = self.configuration.get("buildings", {})
+        include_buildings: bool = buildings.get("include", False)
+        buildings_height: int = buildings.get("height", 0) if include_buildings else 0
+        
+        effects: DisplaySectionConfiguration = self.configuration.get("effects", {})
+        include_effects: bool = effects.get("include", False)
+        effects_height: int = effects.get("height", 0) if include_effects else 0
+        
         buildings_and_effects_height: int = max(buildings_height, effects_height)
         
-        production_height: int = 8 if include_production else 0
-        storage_height: int = 8 if include_storage else 0
-        defenses_height: int = 6 if include_defenses else 0
-        
-        main_height: int = buildings_and_effects_height + production_height + storage_height + defenses_height
-        
-        total_height: int = (
-            header_height
-            + main_height
-            + 2
-        )
-        total_width: int = 192
-        
-        console: Console = Console(height = total_height, width = total_width)
-        console.print(
-            self._build_scenario_display(
-                city = {**_city, "height": header_height},
-                buildings = {**_buildings, "height": buildings_height},
-                effects = {**_effects, "height": effects_height},
-                production = {**_production, "height": production_height},
-                storage = {**_storage, "height": storage_height},
-                defenses = {**_defenses, "height": defenses_height},
-            ),
-        )
+        return (console_height + buildings_and_effects_height) * qty_display_rows
+    
+    def display_scenario_results(self) -> None:
+        console: Console = Console(width = 192, height = self._calculate_console_height())
+        console.print(self._build_scenario_display())
