@@ -34,17 +34,6 @@ scenario: Scenario = Scenario.from_list(
             },
         },
     ],
-    configuration = {
-        "city": {
-            "include": True,
-        },
-        "defenses": {
-            "include": True,
-        },
-        "storage": {
-            "include": True,
-        },
-    },
 )
 
 scenario.display_scenario_results()
@@ -54,7 +43,7 @@ The terminal output will display a comparison between the different scenarios
 
 ![scenario 1](img/scenario_1.png)
 
-You can select which elements of the comparison to display based on your focus:
+You can chose to pass a configuration to control which elements are displayed. The available elements include:
 
 - `city` controls the printing of the campaign and city title
 - `buildings` controls the printing of the list of buildings
@@ -63,4 +52,22 @@ You can select which elements of the comparison to display based on your focus:
 - `storage` controls the printing of the storage table
 - `defenses` controls the printing of the defenses table
 
+```python
+scenario: Scenario = Scenario.from_list(
+    data = [
+        ...
+    ],
+    configuration = {
+        "defenses": {
+            "include": False,
+        },
+        "storage": {
+            "include": False,
+        },
+    },
+)
+```
+
 ![scenario 2](img/scenario_2.png)
+
+By default, all elements have been set to `"include": True` and thus will be displayed.
