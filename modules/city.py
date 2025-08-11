@@ -15,7 +15,12 @@ from .building import BuildingsCount, BUILDINGS
 from .effects import EffectBonusesData, EffectBonuses
 from .geo_features import GeoFeaturesData, GeoFeatures
 from .resources import ResourceCollectionData, ResourceCollection
-from .display import DisplayConfiguration
+# from .display import DisplayConfiguration
+
+
+class DisplayConfiguration(TypedDict, total = False):
+    include: bool
+    height: int
 
 
 # * *********** * #
