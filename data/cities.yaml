@@ -1575,6 +1575,38 @@ cities:
   # L
   # M
   # N
+  - name: Naristi
+    campaign: Germania
+    resource_potentials:
+      food: 110
+      ore: 0
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Cavalry
+  - name: Nerthus
+    campaign: Germania
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Cavalry
   - name: Novesium
     campaign: Germania
     resource_potentials:
@@ -1592,6 +1624,22 @@ cities:
       intelligence: 0
     garrison: Auxilia
   # O
+  - name: Oxiones
+    campaign: Germania
+    resource_potentials:
+      food: 90
+      ore: 60
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Mercenaries
   # P
   # Q
   # R
@@ -1612,6 +1660,22 @@ cities:
       intelligence: 0
     garrison: Equites
   # S
+  - name: Suarines
+    campaign: Germania
+    resource_potentials:
+      food: 90
+      ore: 70
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Mercenaries
   # T
   # U
   # V
