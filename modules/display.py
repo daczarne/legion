@@ -308,11 +308,8 @@ class CityDisplay:
         
         buildings_and_effects_height: int = max(buildings_height, effects_height)
         main_height: int = buildings_and_effects_height + production_height + storage_height + defenses_height
-        total_layout_height: int = (
-            city_height
-            + main_height
-            + 2
-        )
+        
+        total_layout_height: int = city_height + main_height + 2
         total_layout_width: int = 92
         
         #* Layout
