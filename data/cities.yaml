@@ -1675,6 +1675,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Celtic Cavalry
+  - name: Brini
+    campaign: Germania
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 70
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Cavalry
   - name: Brixia
     campaign: Germania
     resource_potentials:
@@ -1708,12 +1724,12 @@ cities:
       intelligence: 0
     garrison: German Mercenaries
   # C
-  - name: Chatii
+  - name: Chacirici
     campaign: Germania
     resource_potentials:
-      food: 50
+      food: 0
       ore: 0
-      wood: 110
+      wood: 125
     geo_features:
       rock_outcrops: 0
       mountains: 0
@@ -1740,6 +1756,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: German Cavalry
+  - name: Chatii
+    campaign: Germania
+    resource_potentials:
+      food: 50
+      ore: 0
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Cherusci
     campaign: Germania
     resource_potentials:
@@ -1805,6 +1837,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
+  - name: Dubraci
+    campaign: Germania
+    resource_potentials:
+      food: 0
+      ore: 100
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Mercenaries
   # E
   # F
   - name: Felsina
@@ -1958,6 +2006,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: German Mercenaries
+  - name: Matagarci
+    campaign: Germania
+    resource_potentials:
+      food: 70
+      ore: 0
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Matiaci
     campaign: Germania
     resource_potentials:
@@ -1975,6 +2039,22 @@ cities:
       intelligence: 0
     garrison: German Cavalry
   # N
+  - name: Namenones
+    campaign: Germania
+    resource_potentials:
+      food: 70
+      ore: 50
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Mercenaries
   - name: Naristi
     campaign: Germania
     resource_potentials:
@@ -2123,6 +2203,22 @@ cities:
       intelligence: 0
     garrison: German Mercenaries
   # R
+  - name: Radaci
+    campaign: Germania
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Cavalry
   - name: Rendingi
     campaign: Germania
     resource_potentials:
@@ -2160,6 +2256,22 @@ cities:
     campaign: Germania
     resource_potentials:
       food: 90
+      ore: 0
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Soci
+    campaign: Germania
+    resource_potentials:
+      food: 60
       ore: 0
       wood: 100
     geo_features:
