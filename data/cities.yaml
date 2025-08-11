@@ -1660,6 +1660,22 @@ cities:
       intelligence: 0
     garrison: Celtic Warband
   # C
+  - name: Chatii
+    campaign: Germania
+    resource_potentials:
+      food: 50
+      ore: 0
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Comum
     campaign: Germania
     resource_potentials:
@@ -1712,6 +1728,22 @@ cities:
       intelligence: 0
     garrison: Celtic Warband
   # G
+  - name: Gambrivi
+    campaign: Germania
+    resource_potentials:
+      food: 120
+      ore: 0
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Cavalry
   # H
   - name: Hermandurii
     campaign: Germania
@@ -1749,6 +1781,22 @@ cities:
   # J
   # K
   # L
+  - name: Libici
+    campaign: Germania
+    resource_potentials:
+      food: 0
+      ore: 100
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Mercenaries
   # M
   - name: Marsii
     campaign: Germania
@@ -1766,6 +1814,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: German Mercenaries
+  - name: Matiaci
+    campaign: Germania
+    resource_potentials:
+      food: 125
+      ore: 0
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Cavalry
   # N
   - name: Naristi
     campaign: Germania
@@ -1900,6 +1964,22 @@ cities:
       intelligence: 0
     garrison: Equites
   # S
+  - name: Sturi
+    campaign: Germania
+    resource_potentials:
+      food: 0
+      ore: 0
+      wood: 150
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Suarines
     campaign: Germania
     resource_potentials:
