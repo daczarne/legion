@@ -1610,6 +1610,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: German Cavalry
+  - name: Atamaci
+    campaign: Germania
+    resource_potentials:
+      food: 100
+      ore: 70
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Mercenaries
   # B
   - name: Baduhenna
     campaign: Germania
@@ -1675,8 +1691,56 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Celtic Warband
+  - name: Bueci
+    campaign: Germania
+    resource_potentials:
+      food: 110
+      ore: 60
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Mercenaries
   # C
   - name: Chatii
+    campaign: Germania
+    resource_potentials:
+      food: 50
+      ore: 0
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Chasuari
+    campaign: Germania
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 70
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Cavalry
+  - name: Cherusci
     campaign: Germania
     resource_potentials:
       food: 50
@@ -1725,6 +1789,22 @@ cities:
       intelligence: 0
     garrison: Archers
   # D
+  - name: Dructeri
+    campaign: Germania
+    resource_potentials:
+      food: 50
+      ore: 0
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # E
   # F
   - name: Felsina
@@ -1744,6 +1824,22 @@ cities:
       intelligence: 0
     garrison: Celtic Warband
   # G
+  - name: Gadgaesus
+    campaign: Germania
+    resource_potentials:
+      food: 110
+      ore: 50
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Cavalry
   - name: Gambrivi
     campaign: Germania
     resource_potentials:
@@ -1901,6 +1997,22 @@ cities:
       food: 80
       ore: 110
       wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Mercenaries
+  - name: Nementes
+    campaign: Germania
+    resource_potentials:
+      food: 0
+      ore: 70
+      wood: 90
     geo_features:
       rock_outcrops: 0
       mountains: 0
@@ -2092,6 +2204,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: German Mercenaries
+  - name: Suebii
+    campaign: Germania
+    resource_potentials:
+      food: 0
+      ore: 60
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Sugambrii
     campaign: Germania
     resource_potentials:
@@ -2141,6 +2269,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: German Mercenaries
+  - name: Tuder
+    campaign: Germania
+    resource_potentials:
+      food: 100
+      ore: 60
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Cavalry
   - name: Tuisto
     campaign: Germania
     resource_potentials:
