@@ -26,8 +26,8 @@ city: CityDisplay = CityDisplay(
     },
 )
 
-# city.display_city_results()
-# print()
+city.display_city_results()
+print()
 
 
 scenario: Scenario = Scenario.from_list(
@@ -54,21 +54,21 @@ scenario: Scenario = Scenario.from_list(
                 "warehouse": 1,
             },
         },
-        # {
-        #     "campaign": "Unification of Italy",
-        #     "name": "Roma",
-        #     "buildings": {
-        #         "city_hall": 1,
-        #         "basilica": 1,
-        #         "hospital": 1,
-        #         "training_ground": 1,
-        #         "gladiator_school": 1,
-        #         "stables": 1,
-        #         "bordello": 1,
-        #         "quartermaster": 1,
-        #         "large_fort": 1,
-        #     },
-        # },
+        {
+            "campaign": "Unification of Italy",
+            "name": "Roma",
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "hospital": 1,
+                "training_ground": 1,
+                "gladiator_school": 1,
+                "stables": 1,
+                "bordello": 1,
+                "quartermaster": 1,
+                "large_fort": 1,
+            },
+        },
     ],
     configuration = {
         "city": {
@@ -78,15 +78,9 @@ scenario: Scenario = Scenario.from_list(
             "include": False,
         },
         "storage": {
-            "include": True,
+            "include": False,
         },
     },
 )
 
 scenario.display_scenario_results()
-
-# print()
-# from pprint import pprint
-# for city in scenario.cities_display:
-#     print(city.city.name)
-#     pprint(city.configuration)

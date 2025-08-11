@@ -102,26 +102,43 @@ class Scenario:
         return cities_display
     
     def _build_scenario_display(self) -> Layout:
-        layout: Layout = Layout()
+        main_layout: Layout = Layout()
+        row_layouts: list[Layout] = []
         
-        layout.split_row(
-            Layout(name = "city_a", ratio = 1),
-            Layout(name = "city_b", ratio = 1),
-        )
+        for i in range(0, len(self.cities), 2):
+            row: Layout = Layout(name = f"row_{i//2}")
+            
+            row.split_row(
+                Layout(name = f"left_{i // 2}", ratio = 1),
+                Layout(name = f"right_{i // 2}", ratio = 1),
+            )
+            
+            row[f"left_{i // 2}"].update(
+                renderable = Align(renderable = self.cities_display[i].build_city_display())
+            )
+            
+            if i + 1 < len(self.cities):
+                row[f"right_{i // 2}"].update(
+                    renderable = Align(renderable = self.cities_display[i + 1].build_city_display())
+                )
+            else:
+                row[f"right_{i // 2}"].update(
+                    renderable = Align(renderable = "")
+                )
+            
+            row_layouts.append(row)
         
-        layout["city_a"].update(
-            renderable = Align(renderable = self.cities_display[0].build_city_display())
-        )
-        
-        layout["city_b"].update(
-            renderable = Align(renderable = self.cities_display[1].build_city_display())
-        )
-        
-        return layout
+        main_layout.split(*row_layouts)
+        return main_layout
     
     def _calculate_console_height(self) -> int:
-        # Height starts at 2 because of strange things rich does. There's always 2 rows missing otherwise.
+        from math import ceil
+        qty_cities: int = len(self.cities)
+        qty_display_rows: int = ceil(qty_cities / 2)
+        
+        # Height starts at 2 because of some strange thing rich does. There's always 2 lines missing otherwise.
         console_height: int = 2
+        
         for section in self.configuration:
             if section not in [DisplaySection.EFFECTS.value, DisplaySection.BUILDINGS.value]:
                 section_config: DisplaySectionConfiguration = self.configuration[section]
@@ -137,7 +154,7 @@ class Scenario:
         
         buildings_and_effects_height: int = max(buildings_height, effects_height)
         
-        return console_height + buildings_and_effects_height
+        return (console_height + buildings_and_effects_height) * qty_display_rows
     
     def display_scenario_results(self) -> None:
         console: Console = Console(width = 192, height = self._calculate_console_height())
