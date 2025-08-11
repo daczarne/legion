@@ -2,6 +2,7 @@ from modules.city import City
 from modules.display import CityDisplay
 from modules.scenario import Scenario
 
+
 city: CityDisplay = CityDisplay(
     city = City(
         campaign = "Unification of Italy",
@@ -25,7 +26,8 @@ city: CityDisplay = CityDisplay(
     },
 )
 
-# city.display_city_results()
+city.display_city_results()
+print()
 
 
 scenario: Scenario = Scenario.from_list(
@@ -58,6 +60,9 @@ scenario: Scenario = Scenario.from_list(
         },
     ],
     configuration = {
+        "city": {
+            "include": False,
+        },
         "defenses": {
             "include": False,
         },
@@ -69,7 +74,8 @@ scenario: Scenario = Scenario.from_list(
 
 scenario.display_scenario_results()
 
-from pprint import pprint
-for city in scenario.cities_display:
-    print(city.city.name)
-    pprint(city.configuration)
+# print()
+# from pprint import pprint
+# for city in scenario.cities_display:
+#     print(city.city.name)
+#     pprint(city.configuration)

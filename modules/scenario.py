@@ -6,7 +6,7 @@ from rich.layout import Layout
 
 from .building import BuildingsCount
 from .city import City
-from .display import CityDisplay, DisplayConfiguration, DisplaySectionConfiguration, DEFAULT_SECTION_COLORS
+from .display import CityDisplay, DisplayConfiguration, DisplaySection, DisplaySectionConfiguration, DEFAULT_SECTION_COLORS
 
 
 class CityDict(TypedDict):
@@ -119,6 +119,17 @@ class Scenario:
         
         return layout
     
+    def _calculate_console_height(self) -> int:
+        # Height starts at 2 because of strange things rich does. There's always 2 rows missing otherwise.
+        console_height: int = 2
+        
+        for section in self.configuration:
+            if section != DisplaySection.EFFECTS.value:
+                section_config: DisplaySectionConfiguration = self.configuration[section]
+                console_height += section_config.get("height", 0) if section_config.get("include", False) else 0
+        
+        return console_height
+    
     def display_scenario_results(self) -> None:
-        console: Console = Console()
+        console: Console = Console(width = 192, height = self._calculate_console_height())
         console.print(self._build_scenario_display())
