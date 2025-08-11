@@ -1853,7 +1853,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: German Mercenaries
-  # E
   # F
   - name: Felsina
     campaign: Germania
@@ -1938,8 +1937,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
-  # J
-  # K
   # L
   - name: Langobardii
     campaign: Germania
@@ -2413,7 +2410,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: German Mercenaries
-  # U
   # V
   - name: Valeda
     campaign: Germania
@@ -2464,10 +2460,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: German Mercenaries
-  # W
-  # X
-  # Y
-  # Z
   # ************ #
   # * Hispania * #
   # ************ #
