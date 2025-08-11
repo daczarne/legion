@@ -54,7 +54,7 @@ The terminal output will display a comparison between the different scenarios
 
 ![scenario 1](img/scenario_1.png)
 
-The user can select which elements of the comparison to display based on its interest:
+You can select which elements of the comparison to display based on your focus:
 
 - `city` controls the printing of the campaign and city title
 - `buildings` controls the printing of the list of buildings
