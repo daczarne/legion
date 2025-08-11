@@ -1677,8 +1677,40 @@ cities:
       intelligence: 0
     garrison: German Mercenaries
   # T
+  - name: Tuisto
+    campaign: Germania
+    resource_potentials:
+      food: 70
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Mercenaries
   # U
   # V
+  - name: Valeda
+    campaign: Germania
+    resource_potentials:
+      food: 100
+      ore: 70
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Cavalry
   # W
   # X
   # Y
