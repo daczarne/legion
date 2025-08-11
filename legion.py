@@ -1,6 +1,6 @@
 from modules.city import City
 from modules.display import CityDisplay
-
+from modules.scenario import Scenario
 
 city: CityDisplay = CityDisplay(
     city = City(
@@ -20,7 +20,7 @@ city: CityDisplay = CityDisplay(
     ),
     configuration = {
         "defenses": {
-            "include": False,
+            "include": True,
         },
     },
 )

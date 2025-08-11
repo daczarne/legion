@@ -12,7 +12,7 @@ from rich.text import Text
 
 from .city import City
 from .building import BUILDINGS
-from modules import city
+
 
 class DisplaySection(Enum):
     CITY = "city"
