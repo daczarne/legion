@@ -2149,6 +2149,22 @@ cities:
       intelligence: 0
     garrison: Archers
   # O
+  - name: Osi
+    campaign: Germania
+    resource_potentials:
+      food: 0
+      ore: 100
+      wood: 70
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Mercenaries
   - name: Oxiones
     campaign: Germania
     resource_potentials:
@@ -2182,23 +2198,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
-  # Q
-  - name: Osi
-    campaign: Germania
-    resource_potentials:
-      food: 0
-      ore: 100
-      wood: 70
-    geo_features:
-      rock_outcrops: 0
-      mountains: 0
-      lakes: 0
-      forests: 0
-    effects:
-      troop_training: 25
-      population_growth: 0
-      intelligence: 0
-    garrison: German Mercenaries
   # R
   - name: Radaci
     campaign: Germania
