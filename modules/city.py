@@ -2,15 +2,6 @@ import yaml
 from dataclasses import dataclass, field
 from typing import TypedDict, Literal, ClassVar
 
-from rich.align import Align
-from rich import box
-from rich.console import Console
-from rich.layout import Layout
-from rich.panel import Panel
-from rich.style import Style
-from rich.table import Table
-from rich.text import Text
-
 from .building import BuildingsCount, BUILDINGS
 from .effects import EffectBonusesData, EffectBonuses
 from .geo_features import GeoFeaturesData, GeoFeatures

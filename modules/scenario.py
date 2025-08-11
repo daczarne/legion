@@ -6,7 +6,13 @@ from rich.layout import Layout
 
 from .building import BuildingsCount
 from .city import City
-from .display import CityDisplay, DisplayConfiguration, DisplaySection, DisplaySectionConfiguration, DEFAULT_SECTION_COLORS
+from .display import (
+    CityDisplay,
+    DisplayConfiguration,
+    DisplaySection,
+    DisplaySectionConfiguration,
+    DEFAULT_SECTION_COLORS,
+)
 
 
 class CityDict(TypedDict):
