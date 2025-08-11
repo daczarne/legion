@@ -1579,10 +1579,106 @@ cities:
       intelligence: 0
     garrison: German Cavalry
   # B
+  - name: Boiorixia
+    campaign: Germania
+    resource_potentials:
+      food: 90
+      ore: 80
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  - name: Brescia
+    campaign: Germania
+    resource_potentials:
+      food: 90
+      ore: 0
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  - name: Brixia
+    campaign: Germania
+    resource_potentials:
+      food: 50
+      ore: 125
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Warband
   # C
+  - name: Comum
+    campaign: Germania
+    resource_potentials:
+      food: 80
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Warband
+  - name: Corolamusia
+    campaign: Germania
+    resource_potentials:
+      food: 60
+      ore: 80
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # D
   # E
   # F
+  - name: Felsina
+    campaign: Germania
+    resource_potentials:
+      food: 0
+      ore: 100
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Warband
   # G
   # H
   # I
