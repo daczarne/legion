@@ -37,6 +37,17 @@ scenario: Scenario = Scenario.from_list(
                 "large_mine": 4,
             },
         },
+        {
+            "campaign": "Unification of Italy",
+            "name": "Anxur",
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "farmers_guild": 1,
+                "large_farm": 5,
+                "vineyard": 1,
+            },
+        },
     ],
     configuration = {
         "city": {
