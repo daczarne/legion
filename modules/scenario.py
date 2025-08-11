@@ -46,13 +46,13 @@ class Scenario:
         
         for city in self.cities:
             city_display: CityDisplay = CityDisplay(
-                    city = city,
-                    configuration = {
-                        "buildings": {
-                            "height": self._get_max_buildings_length(),
-                        },
+                city = city,
+                configuration = {
+                    "buildings": {
+                        "height": self._get_max_buildings_length(),
                     },
-                )
+                },
+            )
             cities_display.append(city_display)
         
         return cities_display
