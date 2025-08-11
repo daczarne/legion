@@ -409,7 +409,7 @@ cities:
       intelligence: 0
     garrison: Italiot Greek Cavalry
   # L
-  - name: Lantis
+  - name: Latins
     campaign: Unification of Italy
     resource_potentials:
       food: 50
