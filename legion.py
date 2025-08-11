@@ -26,8 +26,8 @@ city: CityDisplay = CityDisplay(
     },
 )
 
-city.display_city_results()
-print()
+# city.display_city_results()
+# print()
 
 
 scenario: Scenario = Scenario.from_list(
@@ -49,15 +49,26 @@ scenario: Scenario = Scenario.from_list(
             "buildings": {
                 "city_hall": 1,
                 "basilica": 1,
-                "hospital": 1,
-                "training_ground": 1,
-                "gladiator_school": 1,
-                "stables": 1,
-                "bordello": 1,
-                "quartermaster": 1,
-                "large_fort": 1,
+                "carpenters_guild": 1,
+                "large_lumber_mill": 5,
+                "warehouse": 1,
             },
         },
+        # {
+        #     "campaign": "Unification of Italy",
+        #     "name": "Roma",
+        #     "buildings": {
+        #         "city_hall": 1,
+        #         "basilica": 1,
+        #         "hospital": 1,
+        #         "training_ground": 1,
+        #         "gladiator_school": 1,
+        #         "stables": 1,
+        #         "bordello": 1,
+        #         "quartermaster": 1,
+        #         "large_fort": 1,
+        #     },
+        # },
     ],
     configuration = {
         "city": {
@@ -67,7 +78,7 @@ scenario: Scenario = Scenario.from_list(
             "include": False,
         },
         "storage": {
-            "include": False,
+            "include": True,
         },
     },
 )

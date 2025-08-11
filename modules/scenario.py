@@ -122,13 +122,22 @@ class Scenario:
     def _calculate_console_height(self) -> int:
         # Height starts at 2 because of strange things rich does. There's always 2 rows missing otherwise.
         console_height: int = 2
-        
         for section in self.configuration:
-            if section != DisplaySection.EFFECTS.value:
+            if section not in [DisplaySection.EFFECTS.value, DisplaySection.BUILDINGS.value]:
                 section_config: DisplaySectionConfiguration = self.configuration[section]
                 console_height += section_config.get("height", 0) if section_config.get("include", False) else 0
         
-        return console_height
+        buildings: DisplaySectionConfiguration = self.configuration.get("buildings", {})
+        include_buildings: bool = buildings.get("include", False)
+        buildings_height: int = buildings.get("height", 0) if include_buildings else 0
+        
+        effects: DisplaySectionConfiguration = self.configuration.get("effects", {})
+        include_effects: bool = effects.get("include", False)
+        effects_height: int = effects.get("height", 0) if include_effects else 0
+        
+        buildings_and_effects_height: int = max(buildings_height, effects_height)
+        
+        return console_height + buildings_and_effects_height
     
     def display_scenario_results(self) -> None:
         console: Console = Console(width = 192, height = self._calculate_console_height())
