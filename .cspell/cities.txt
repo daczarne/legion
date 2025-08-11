@@ -1,5 +1,6 @@
 Aiminion
 Alauna
+Aliso
 Ammaia
 Anderitum
 Anson
@@ -25,7 +26,9 @@ Boii
 Bomio
 Branodun
 Brigantion
+Brini
 Brocavon
+Bueci
 Caercini
 Caere
 Calleva
@@ -35,6 +38,7 @@ Canusium
 Carsioli
 Caudini
 Clusium
+Comum
 Consentia
 Dertosa
 Derventio
@@ -84,6 +88,7 @@ Lindinis
 Lindun
 Lingones
 Londun
+Lugii
 Luguvalion
 Maidun
 Malaka
@@ -120,15 +125,18 @@ Sena
 Sentinum
 Setantia
 Skallabis
+Soci
 Sorviodun
 Spoletium
 Stoukia
+Sturi
 Tarbelles
 Tarrako
 Thurii
 Toleton
 Tolosa
 Torbella
+Tuder
 Turmogon
 Urki
 Uxama
