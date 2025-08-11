@@ -1579,6 +1579,22 @@ cities:
       intelligence: 0
     garrison: German Cavalry
   # B
+  - name: Baduhenna
+    campaign: Germania
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Cavalry
   - name: Boiorixia
     campaign: Germania
     resource_potentials:
@@ -1681,7 +1697,39 @@ cities:
     garrison: Celtic Warband
   # G
   # H
+  - name: Hermandurii
+    campaign: Germania
+    resource_potentials:
+      food: 0
+      ore: 0
+      wood: 150
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # I
+  - name: Idistavisa
+    campaign: Germania
+    resource_potentials:
+      food: 60
+      ore: 50
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # J
   # K
   # L
@@ -1787,6 +1835,22 @@ cities:
     garrison: Archers
   # Q
   # R
+  - name: Rendingi
+    campaign: Germania
+    resource_potentials:
+      food: 90
+      ore: 0
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Cavalry
   - name: Rogomagnum
     campaign: Germania
     resource_potentials:
@@ -1887,6 +1951,23 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: German Cavalry
+  - name: Valeda II
+    # This is the Valeda in the south
+    campaign: Germania
+    resource_potentials:
+      food: 0
+      ore: 125
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Mercenaries
   # W
   # X
   # Y
