@@ -1562,6 +1562,22 @@ cities:
   # * Germania * #
   # ************ #
   # A
+  - name: Abdagaesus
+    campaign: Germania
+    resource_potentials:
+      food: 80
+      ore: 70
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Cavalry
   - name: Adgandestrius
     campaign: Germania
     resource_potentials:
@@ -1781,6 +1797,22 @@ cities:
   # J
   # K
   # L
+  - name: Langobardii
+    campaign: Germania
+    resource_potentials:
+      food: 0
+      ore: 50
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Libici
     campaign: Germania
     resource_potentials:
@@ -1964,6 +1996,22 @@ cities:
       intelligence: 0
     garrison: Equites
   # S
+  - name: Salassi
+    campaign: Germania
+    resource_potentials:
+      food: 90
+      ore: 0
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Sturi
     campaign: Germania
     resource_potentials:
@@ -2085,6 +2133,22 @@ cities:
     resource_potentials:
       food: 0
       ore: 125
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Mercenaries
+  - name: Varini
+    campaign: Germania
+    resource_potentials:
+      food: 0
+      ore: 150
       wood: 0
     geo_features:
       rock_outcrops: 0
