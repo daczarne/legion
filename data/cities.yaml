@@ -1558,7 +1558,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
-  # yamllint disable rule:comments-indentation
   # ************ #
   # * Germania * #
   # ************ #
@@ -1576,10 +1575,42 @@ cities:
   # L
   # M
   # N
+  - name: Novesium
+    campaign: Germania
+    resource_potentials:
+      food: 80
+      ore: 125
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Auxilia
   # O
   # P
   # Q
   # R
+  - name: Rogomagnum
+    campaign: Germania
+    resource_potentials:
+      food: 100
+      ore: 50
+      wood: 70
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Equites
   # S
   # T
   # U
@@ -1588,7 +1619,6 @@ cities:
   # X
   # Y
   # Z
-  # yamllint enable rule:comments-indentation
   # ************ #
   # * Hispania * #
   # ************ #
