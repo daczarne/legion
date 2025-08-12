@@ -95,11 +95,17 @@ yamllint -c .yamllint.yaml .
 To run Markdownlint locally use:
 
 ```shell
-markdownlint-cli2 --config ".markdownlint.yaml" "**/*.md"
+markdownlint-cli2 --config ".markdownlint.yaml" .
 ```
 
 Beware of local, untracked files that may cause this to fail. If they are inside py-cached folders, these can usually
 be removed safely.
+
+This tool uses two configuration files
+
+- `.markdownlint.yaml` defines the rules that Md files need to follow.
+- `.markdownlint-cli2.yaml` controls the behavior of the CLI tool. This configuration already ignors Md files created
+  inside some untraced folders like `pycache`.
 
 **Reference documents**:
 
