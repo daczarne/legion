@@ -4495,6 +4495,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Celtic Cavalry
+  - name: Marcomanni
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 0
+      ore: 90
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Massillia
     campaign: The Gallic Wars
     resource_potentials:
@@ -4773,6 +4789,38 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Celtic Warband
+  - name: Suebi
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 50
+      ore: 90
+      wood: 100
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Mercenaries
+  - name: Sugambri
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 75
+      ore: 0
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Cavalry
   # T
   - name: Tarbelli
     campaign: The Gallic Wars
@@ -4838,7 +4886,55 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
+  - name: Tulingi
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 0
+      ore: 140
+      wood: 50
+    geo_features:
+      rock_outcrops: 1
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Veteran Warriors
   # U
+  - name: Ubii
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 0
+      ore: 125
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: German Mercenaries
+  - name: Usipetes
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 50
+      ore: 0
+      wood: 125
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    garrison: Javelinmen
   # V
   - name: Vascones
     campaign: The Gallic Wars
