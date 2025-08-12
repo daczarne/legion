@@ -4228,6 +4228,22 @@ cities:
       intelligence: 0
     garrison: Archers
   # B
+  - name: Bituriges
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 150
+      ore: 0
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   - name: Boii
     campaign: The Gallic Wars
     resource_potentials:
@@ -4261,6 +4277,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
+  - name: Carnutes
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 100
+      ore: 75
+      wood: 75
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Fanatics
   # D
   # E
   - name: Elustaes
@@ -4318,6 +4350,22 @@ cities:
   # J
   # K
   # L
+  - name: Lemovices
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 50
+      ore: 0
+      wood: 125
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Javelinmen
   # M
   - name: Massillia
     campaign: The Gallic Wars
@@ -4336,6 +4384,22 @@ cities:
       intelligence: 0
     garrison: Archers
   # N
+  - name: Namnetes
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   - name: Narbo
     campaign: The Gallic Wars
     resource_potentials:
@@ -4370,6 +4434,22 @@ cities:
     garrison: Auxilia
   # O
   # P
+  - name: Pictones
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 75
+      ore: 0
+      wood: 125
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Pollentia
     campaign: The Gallic Wars
     resource_potentials:
@@ -4405,6 +4485,22 @@ cities:
       intelligence: 0
     garrison: Celtic Cavalry
   # S
+  - name: Santones
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 75
+      ore: 50
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # T
   - name: Tarbelli
     campaign: The Gallic Wars
