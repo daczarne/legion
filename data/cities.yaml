@@ -3895,7 +3895,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: British Warband
-  # F
   # G
   - name: Galacum
     campaign: Pacifying the North
@@ -3913,7 +3912,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: British Warband
-  # H
   # I
   - name: Isurium
     campaign: Pacifying the North
@@ -3931,8 +3929,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Javelinmen
-  # J
-  # K
   # L
   - name: Lindon
     campaign: Pacifying the North
@@ -3998,7 +3994,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Equites
-  # M
   # N
   - name: Nemeton
     campaign: Pacifying the North
@@ -4049,9 +4044,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Brithish Warband
-  # P
-  # Q
-  # R
   # S
   - name: Smertae
     campaign: Pacifying the North
@@ -4134,7 +4126,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Celtic Fanatics
-  # U
   # V
   - name: Vacomagi
     campaign: Pacifying the North
@@ -4184,10 +4175,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: British Warband
-  # W
-  # X
-  # Y
-  # Z
   # yamllint disable rule:comments-indentation
   # ******************* #
   # * The Gallic Wars * #
