@@ -29,6 +29,7 @@ Brigantion
 Brini
 Brocavon
 Bueci
+Caer
 Caercini
 Caere
 Calleva
@@ -40,6 +41,7 @@ Caudini
 Clusium
 Comum
 Consentia
+Corda
 Dertosa
 Derventio
 Diobriga
@@ -48,6 +50,7 @@ Durocornovion
 Duroliponte
 Durovern
 Ebora
+Etain
 Faesula
 Falerii
 Friniates
@@ -61,6 +64,7 @@ Hernici
 Hirpini
 Hispalis
 Histonium
+Idris
 Igaiditania
 Ilerda
 Ilorki
@@ -88,6 +92,7 @@ Lindinis
 Lindun
 Lingones
 Londun
+Loxa
 Lugii
 Luguvalion
 Maidun
@@ -117,6 +122,7 @@ Pisae
 Populonia
 Ratae
 Reate
+Righ
 Salika
 Salmantika
 Segida
