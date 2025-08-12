@@ -3487,36 +3487,695 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Celtic Cavalry
-  # yamllint disable rule:comments-indentation
   # *********************** #
   # * Pacifying the North * #
   # *********************** #
   # A
+  - name: Aberdon
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 70
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Abraven
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 110
+      wood: 70
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Alauna
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 100
+      wood: 90
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Warband
   # B
+  - name: Bannetia
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 0
+      ore: 150
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
+  - name: Boresti
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 125
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
+  - name: Brocavon
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 0
+      ore: 125
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Auxilia
   # C
+  - name: Caer Idris
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 70
+      ore: 110
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Fanatics
+  - name: Caer Righ
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 125
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Pictish Warband
+  - name: Caereni
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 75
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Brithish Cavalry
+  - name: Caledones
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 125
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Pictish Warband
+  - name: Carbantorigon
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 0
+      ore: 125
+      wood: 60
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Warband
+  - name: Carnonacae
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 75
+      ore: 110
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Pictish Warband
+  - name: Carpow
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 90
+      ore: 60
+      wood: 60
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Cataractonium
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 50
+      wood: 125
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Peasants
+  - name: Colanica
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 110
+      ore: 0
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Corda
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 0
+      ore: 50
+      wood: 150
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Coria
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 70
+      ore: 70
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Auxiliary Archers
+  - name: Cornovii
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 50
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Creones
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 100
+      wood: 60
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # D
+  - name: Decantae
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 110
+      ore: 90
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
+  - name: Deva
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 100
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
+  - name: Dumardun
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 125
+      ore: 0
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
   # E
-  # F
+  - name: Eburacum
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 90
+      ore: 0
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Epidii
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 110
+      ore: 0
+      wood: 70
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Etain
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 110
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
   # G
-  # H
+  - name: Galacum
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 125
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
   # I
-  # J
-  # K
+  - name: Isurium
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 80
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Javelinmen
   # L
-  # M
+  - name: Lindon
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 75
+      ore: 75
+      wood: 75
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
+  - name: Loxa
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 60
+      ore: 100
+      wood: 75
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Lugii
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 90
+      ore: 100
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Pictish Warband
+  - name: Luguvalium
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 90
+      ore: 70
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Equites
   # N
+  - name: Nemeton
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 80
+      ore: 110
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  - name: Novanta
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 125
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
   # O
-  # P
-  # Q
-  # R
+  - name: Olenacum
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 0
+      ore: 100
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 1
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Brithish Warband
   # S
+  - name: Smertae
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 100
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Pictish Warband
+  - name: Stracathro
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 125
+      ore: 70
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
   # T
-  # U
+  - name: Tameia
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 90
+      ore: 100
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
+  - name: Traprain Law
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 110
+      ore: 80
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  - name: Trimontium
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 125
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Fanatics
   # V
-  # W
-  # X
-  # Y
-  # Z
+  - name: Vacomagi
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 150
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Pictish Warband
+  - name: Velunia
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 90
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Vindogara
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 90
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
+  # yamllint disable rule:comments-indentation
   # ******************* #
   # * The Gallic Wars * #
   # ******************* #
