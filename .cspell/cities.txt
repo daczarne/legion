@@ -1,3 +1,4 @@
+Aedui
 Aiminion
 Alauna
 Aliso
@@ -58,6 +59,7 @@ Gabratovicia
 Gadeira
 Galagon
 Gangan
+Genua
 Grumentum
 Helike
 Hernici
@@ -99,12 +101,15 @@ Maidun
 Malaka
 Marrucini
 Marsi
+Meldi
 Melin
 Messapi
 Mirobriga
 Moridun
 Myrtilis
+Narbo
 Nertobriga
+Nicea
 Noega
 Noviomagus
 Nuceria
@@ -122,6 +127,7 @@ Pisae
 Populonia
 Ratae
 Reate
+Remi
 Righ
 Salika
 Salmantika
@@ -136,6 +142,7 @@ Sorviodun
 Spoletium
 Stoukia
 Sturi
+Suebi
 Tarbelles
 Tarrako
 Thurii
@@ -144,6 +151,7 @@ Tolosa
 Torbella
 Tuder
 Turmogon
+Ubii
 Urki
 Uxama
 Uxella
