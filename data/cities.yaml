@@ -3525,6 +3525,22 @@ cities:
       intelligence: 0
     garrison: Auxilia
   # C
+  - name: Carbantorigon
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 0
+      ore: 125
+      wood: 60
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Warband
   - name: Cataractonium
     campaign: Pacifying the North
     resource_potentials:
@@ -3541,6 +3557,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Peasants
+  - name: Corda
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 0
+      ore: 50
+      wood: 150
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Coria
     campaign: Pacifying the North
     resource_potentials:
@@ -3632,6 +3664,22 @@ cities:
     garrison: Equites
   # M
   # N
+  - name: Nemeton
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 80
+      ore: 110
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   # O
   - name: Olenacum
     campaign: Pacifying the North
