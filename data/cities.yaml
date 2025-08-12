@@ -3541,6 +3541,54 @@ cities:
       intelligence: 0
     garrison: Auxilia
   # C
+  - name: Caer Idris
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 70
+      ore: 110
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Fanatics
+  - name: Caer Righ
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 125
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Pictish Warband
+  - name: Caledones
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 125
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Pictish Warband
   - name: Carbantorigon
     campaign: Pacifying the North
     resource_potentials:
@@ -3661,6 +3709,22 @@ cities:
       food: 90
       ore: 0
       wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Epidii
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 110
+      ore: 0
+      wood: 70
     geo_features:
       rock_outcrops: 0
       mountains: 0
