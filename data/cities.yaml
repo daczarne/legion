@@ -3491,6 +3491,22 @@ cities:
   # * Pacifying the North * #
   # *********************** #
   # A
+  - name: Alauna
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 100
+      wood: 90
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Warband
   # B
   - name: Brocavon
     campaign: Pacifying the North
@@ -3638,8 +3654,56 @@ cities:
   # R
   # S
   # T
+  - name: Traprain Law
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 110
+      ore: 80
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
+  - name: Trimontium
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 125
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Fanatics
   # U
   # V
+  - name: Velunia
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 90
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # W
   # X
   # Y
