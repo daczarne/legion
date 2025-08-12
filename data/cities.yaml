@@ -3765,6 +3765,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Auxiliary Archers
+  - name: Cornovii
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 50
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 1
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Creones
     campaign: Pacifying the North
     resource_potentials:
@@ -3782,6 +3798,22 @@ cities:
       intelligence: 0
     garrison: Archers
   # D
+  - name: Decantae
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 110
+      ore: 90
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
   - name: Deva
     campaign: Pacifying the North
     resource_potentials:
@@ -3934,6 +3966,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
+  - name: Lugii
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 90
+      ore: 100
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Pictish Warband
   - name: Luguvalium
     campaign: Pacifying the North
     resource_potentials:
@@ -4005,6 +4053,22 @@ cities:
   # Q
   # R
   # S
+  - name: Smertae
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 100
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Pictish Warband
   - name: Stracathro
     campaign: Pacifying the North
     resource_potentials:
