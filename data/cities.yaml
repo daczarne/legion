@@ -3487,25 +3487,152 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Celtic Cavalry
-  # yamllint disable rule:comments-indentation
   # *********************** #
   # * Pacifying the North * #
   # *********************** #
   # A
   # B
+  - name: Brocavon
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 0
+      ore: 125
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Auxilia
   # C
+  - name: Cataractonium
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 50
+      wood: 125
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Peasants
+  - name: Coria
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 70
+      ore: 70
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Auxiliary Archers
   # D
   # E
+  - name: Eburacum
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 90
+      ore: 0
+      wood: 110
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # F
   # G
+  - name: Galacum
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 125
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
   # H
   # I
+  - name: Isurium
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 80
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Javelinmen
   # J
   # K
   # L
+  - name: Luguvalium
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 90
+      ore: 70
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Equites
   # M
   # N
   # O
+  - name: Olenacum
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 0
+      ore: 100
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 1
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Brithish Warband
   # P
   # Q
   # R
@@ -3517,6 +3644,7 @@ cities:
   # X
   # Y
   # Z
+  # yamllint disable rule:comments-indentation
   # ******************* #
   # * The Gallic Wars * #
   # ******************* #
