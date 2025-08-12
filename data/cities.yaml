@@ -4228,6 +4228,22 @@ cities:
       intelligence: 0
     garrison: Archers
   # B
+  - name: Boii
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 50
+      ore: 50
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 1
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   # C
   - name: Cadurci
     campaign: The Gallic Wars
@@ -4282,6 +4298,22 @@ cities:
       intelligence: 0
     garrison: Auxiliary Archers
   # H
+  - name: Helvetii
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 0
+      ore: 50
+      wood: 125
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # I
   # J
   # K
@@ -4382,6 +4414,22 @@ cities:
       wood: 0
     geo_features:
       rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Warband
+  - name: Tigurini
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 0
+      ore: 100
+      wood: 100
+    geo_features:
+      rock_outcrops: 1
       mountains: 0
       lakes: 0
       forests: 0
