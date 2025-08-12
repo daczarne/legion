@@ -3491,6 +3491,22 @@ cities:
   # * Pacifying the North * #
   # *********************** #
   # A
+  - name: Abraven
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 110
+      wood: 70
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Alauna
     campaign: Pacifying the North
     resource_potentials:
@@ -3590,6 +3606,22 @@ cities:
       intelligence: 0
     garrison: Auxiliary Archers
   # D
+  - name: Deva
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 100
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
   # E
   - name: Eburacum
     campaign: Pacifying the North
@@ -3680,6 +3712,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Celtic Cavalry
+  - name: Novanta
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 125
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
   # O
   - name: Olenacum
     campaign: Pacifying the North
