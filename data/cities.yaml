@@ -4179,6 +4179,22 @@ cities:
   # * The Gallic Wars * #
   # ******************* #
   # A
+  - name: Aduatuci
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 80
+      ore: 60
+      wood: 90
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Warband
   - name: Aedui
     campaign: The Gallic Wars
     resource_potentials:
@@ -4227,6 +4243,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Celtic Warband
+  - name: Atrebates
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 150
+      ore: 0
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   - name: Aulerci
     campaign: The Gallic Wars
     resource_potentials:
@@ -4260,6 +4292,22 @@ cities:
       intelligence: 0
     garrison: Archers
   # B
+  - name: Bellovaci
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   - name: Bituriges
     campaign: The Gallic Wars
     resource_potentials:
@@ -4496,6 +4544,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Spanish Mercenaries
+  - name: Nervii
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Javelinmen
   - name: Nicea
     campaign: The Gallic Wars
     resource_potentials:
@@ -4564,6 +4628,22 @@ cities:
     garrison: Auxiliary Archers
   # Q
   # R
+  - name: Remi
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 50
+      ore: 75
+      wood: 100
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Warband
   - name: Ruteni
     campaign: The Gallic Wars
     resource_potentials:
@@ -4662,6 +4742,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Celtic Cavalry
+  - name: Treveri
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 0
+      ore: 0
+      wood: 145
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # U
   # V
   - name: Vascones
