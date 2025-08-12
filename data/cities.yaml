@@ -4175,7 +4175,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: British Warband
-  # yamllint disable rule:comments-indentation
   # ******************* #
   # * The Gallic Wars * #
   # ******************* #
@@ -4186,6 +4185,22 @@ cities:
   # E
   # F
   # G
+  - name: Genua
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 50
+      ore: 50
+      wood: 75
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Auxiliary Archers
   # H
   # I
   # J
@@ -4193,16 +4208,63 @@ cities:
   # L
   # M
   # N
+  - name: Nicea
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 80
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 1
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Auxilia
   # O
   # P
+  - name: Pollentia
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 50
+      ore: 75
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Auxiliary Archers
   # Q
   # R
   # S
   # T
   # U
   # V
+  - name: Vercellae
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 100
+      ore: 0
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    garrison: Equites
   # W
   # X
   # Y
   # Z
-  # yamllint enable rule:comments-indentation
