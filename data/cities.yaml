@@ -4179,6 +4179,22 @@ cities:
   # * The Gallic Wars * #
   # ******************* #
   # A
+  - name: Aedui
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 50
+      ore: 75
+      wood: 75
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Allobroges
     campaign: The Gallic Wars
     resource_potentials:
@@ -4276,6 +4292,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Celtic Cavalry
+  - name: Branovices
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 0
+      ore: 100
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 2
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Warband
   # C
   - name: Cadurci
     campaign: The Gallic Wars
@@ -4383,6 +4415,22 @@ cities:
       intelligence: 0
     garrison: Javelinmen
   # M
+  - name: Mandubii
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 100
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   - name: Massillia
     campaign: The Gallic Wars
     resource_potentials:
@@ -4399,6 +4447,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
+  - name: Meldi
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 100
+      ore: 50
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   # N
   - name: Namnetes
     campaign: The Gallic Wars
@@ -4450,6 +4514,22 @@ cities:
     garrison: Auxilia
   # O
   # P
+  - name: Parisii
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 125
+      ore: 50
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 1
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   - name: Pictones
     campaign: The Gallic Wars
     resource_potentials:
@@ -4517,6 +4597,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
+  - name: Senones
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 75
+      ore: 100
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Warband
   # T
   - name: Tarbelli
     campaign: The Gallic Wars
