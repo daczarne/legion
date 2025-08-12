@@ -4179,10 +4179,42 @@ cities:
   # * The Gallic Wars * #
   # ******************* #
   # A
+  - name: Autrigones
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 50
+      ore: 100
+      wood: 100
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # B
   # C
   # D
   # E
+  - name: Elustaes
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 120
+      ore: 0
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   # F
   # G
   - name: Genua
@@ -4246,8 +4278,40 @@ cities:
   # R
   # S
   # T
+  - name: Tarbelli
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 100
+      ore: 75
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Warband
   # U
   # V
+  - name: Vascones
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 50
+      ore: 145
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Spanish Mercenaries
   - name: Vercellae
     campaign: The Gallic Wars
     resource_potentials:
@@ -4264,6 +4328,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Equites
+  - name: Vocates
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 125
+      ore: 0
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   # W
   # X
   # Y
