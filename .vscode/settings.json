@@ -1,3 +1,9 @@
 {
     "python.defaultInterpreterPath": "~/.local/share/virtualenvs/legion-EIPS9HcM/bin/python",
+    "files.exclude": {
+        "**/.git": false,
+        "**/.DS_Store": true,
+        "**/__pycache__": true,
+        "**/.pytest_cache": true,
+    },
 }
