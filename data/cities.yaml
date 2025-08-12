@@ -3573,6 +3573,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Peasants
+  - name: Colanica
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 110
+      ore: 0
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   - name: Corda
     campaign: Pacifying the North
     resource_potentials:
@@ -3614,6 +3630,22 @@ cities:
       wood: 0
     geo_features:
       rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
+  - name: Dumardun
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 125
+      ore: 0
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
       mountains: 0
       lakes: 0
       forests: 0
@@ -3678,6 +3710,22 @@ cities:
   # J
   # K
   # L
+  - name: Lindon
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 75
+      ore: 75
+      wood: 75
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Cavalry
   - name: Luguvalium
     campaign: Pacifying the North
     resource_potentials:
@@ -3800,6 +3848,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
+  - name: Vindogara
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 90
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: British Warband
   # W
   # X
   # Y
