@@ -3621,6 +3621,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Pictish Warband
+  - name: Caereni
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 75
+      ore: 100
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Brithish Cavalry
   - name: Caledones
     campaign: Pacifying the North
     resource_potentials:
@@ -3653,6 +3669,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Celtic Warband
+  - name: Carnonacae
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 75
+      ore: 110
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Pictish Warband
   - name: Carpow
     campaign: Pacifying the North
     resource_potentials:
@@ -3733,6 +3765,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Auxiliary Archers
+  - name: Creones
+    campaign: Pacifying the North
+    resource_potentials:
+      food: 50
+      ore: 100
+      wood: 60
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
   # D
   - name: Deva
     campaign: Pacifying the North
