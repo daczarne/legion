@@ -4389,7 +4389,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Celtic Fanatics
-  # D
   # E
   - name: Elustaes
     campaign: The Gallic Wars
@@ -4407,7 +4406,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Celtic Cavalry
-  # F
   # G
   - name: Genua
     campaign: The Gallic Wars
@@ -4442,9 +4440,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
-  # I
-  # J
-  # K
   # L
   - name: Lemovices
     campaign: The Gallic Wars
@@ -4656,7 +4651,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Auxilia
-  # O
   # P
   - name: Parisii
     campaign: The Gallic Wars
@@ -4706,7 +4700,6 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Auxiliary Archers
-  # Q
   # R
   - name: Remi
     campaign: The Gallic Wars
@@ -5048,7 +5041,3 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Celtic Fanatics
-  # W
-  # X
-  # Y
-  # Z
