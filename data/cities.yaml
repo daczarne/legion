@@ -4462,6 +4462,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Javelinmen
+  - name: Lingones
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 0
+      ore: 125
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Warband
   # M
   - name: Mandubii
     campaign: The Gallic Wars
@@ -4488,6 +4504,22 @@ cities:
     geo_features:
       rock_outcrops: 0
       mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Mediomatrici
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 0
+      ore: 90
+      wood: 110
+    geo_features:
+      rock_outcrops: 1
+      mountains: 1
       lakes: 0
       forests: 0
     effects:
@@ -4677,6 +4709,22 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Archers
+  - name: Sequani
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 90
+      ore: 70
+      wood: 80
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Cavalry
   - name: Senones
     campaign: The Gallic Wars
     resource_potentials:
