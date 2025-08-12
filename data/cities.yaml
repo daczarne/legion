@@ -4543,6 +4543,38 @@ cities:
       population_growth: 0
       intelligence: 0
     garrison: Celtic Cavalry
+  - name: Menapii
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 50
+      ore: 0
+      wood: 125
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Archers
+  - name: Morini
+    campaign: The Gallic Wars
+    resource_potentials:
+      food: 75
+      ore: 50
+      wood: 100
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 10
+      population_growth: 0
+      intelligence: 0
+    garrison: Celtic Warband
   # N
   - name: Namnetes
     campaign: The Gallic Wars
