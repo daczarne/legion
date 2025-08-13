@@ -175,7 +175,8 @@ class Kingdom:
     
     def _build_kingdom_production_table(self) -> Table:
         # table_style: Style = Style(color = self.configuration.get("production", {}).get("color", "#228b22"))
-        table_style: Style = Style(color = "#228b22")
+        production_color: str = "#228b22"
+        table_style: Style = Style(color = production_color)
         table: Table = Table(
             title = Text(text = "Production", style = table_style + Style(italic = True)),
             style = table_style,
@@ -202,9 +203,9 @@ class Kingdom:
             
             table.add_row(
                 f"{city.name}",
-                f"{" " * i_rp_food}[dim]({rp_food})[/dim]{" " * 2}{" " * (i_b_food)}{b_food:_}",
-                f"{" " * i_rp_ore}[dim]({rp_ore})[/dim]{" " * 2}{" " * (i_b_ore)}{b_ore:_}",
-                f"{" " * i_rp_wood}[dim]({rp_wood})[/dim]{" " * 2}{" " * (i_b_wood)}{b_wood:_}",
+                f"{" " * i_rp_food}[dim]({rp_food})[/dim]{" " * 2}{" " * (i_b_food)}{f"[{production_color if city.focus == CityFocus.FOOD else "white"}]"}{b_food:_}{f"[/{production_color if city.focus == CityFocus.FOOD else "white"}]"}",
+                f"{" " * i_rp_ore}[dim]({rp_ore})[/dim]{" " * 2}{" " * (i_b_ore)}{f"[{production_color if city.focus == CityFocus.ORE else "white"}]"}{b_ore:_}{f"[{production_color if city.focus == CityFocus.ORE else "white"}]"}",
+                f"{" " * i_rp_wood}[dim]({rp_wood})[/dim]{" " * 2}{" " * (i_b_wood)}{f"[{production_color if city.focus == CityFocus.WOOD else "white"}]"}{b_wood:_}{f"[{production_color if city.focus == CityFocus.WOOD else "white"}]"}",
             )
         
         table.add_section()

@@ -113,7 +113,6 @@ kingdom: Kingdom = Kingdom.from_list(
             },
         },
     ],
-    sort_order = [None, "ore", "food", "wood"]
 )
 
 kingdom.display_kingdom_results()
