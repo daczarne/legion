@@ -1,5 +1,7 @@
 import yaml
+
 from dataclasses import dataclass, field
+from enum import Enum, auto
 from typing import TypedDict, Literal, ClassVar
 
 from .building import BuildingsCount, BUILDINGS
@@ -29,6 +31,13 @@ CITIES: list[CityData] = cities_data["cities"]
 # * **** * #
 # * CITY * #
 # * **** * #
+
+class CityFocus(Enum):
+    FOOD = auto()
+    ORE = auto()
+    WOOD = auto()
+    NONE = auto()
+
 
 @dataclass
 class City:
@@ -60,6 +69,8 @@ class City:
     garrison: str = field(init = False)
     squadrons: int = field(init = False)
     squadron_size: str = field(init = False)
+    
+    focus: CityFocus = field(init = False)
     
     
     # Class variables
@@ -376,6 +387,22 @@ class City:
         return "Small"
     
     
+    #* City focus
+    def _find_city_focus(self) -> CityFocus:
+        highest_balance: int = max(self.balance.food, self.balance.ore, self.balance.wood)
+        
+        if highest_balance <= 0:
+            return CityFocus.NONE
+        
+        if self.balance.food == highest_balance:
+            return CityFocus.FOOD
+        
+        if self.balance.ore == highest_balance:
+            return CityFocus.ORE
+        
+        return CityFocus.WOOD
+    
+    
     def __post_init__(self) -> None:
         self.resource_potentials = self._get_rss_potentials()
         self.geo_features = self._get_geo_features()
@@ -409,3 +436,6 @@ class City:
         self.garrison = self._get_garrison()
         self.squadrons = self._calculate_garrison_size()
         self.squadron_size = self._calculate_squadron_size()
+        
+        #* Focus
+        self.focus = self._find_city_focus()
