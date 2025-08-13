@@ -129,3 +129,9 @@ city: City = City(
         "vineyard": 1,
     },
 )
+
+print(
+    Kingdom._calculate_indentations(
+        kingdom.kingdom_total_production, 3
+    )
+)

@@ -128,6 +128,21 @@ class Kingdom:
         self.kingdom_total_production = self._calculate_total_production()
         self.kingdom_total_storage = self._calculate_total_storage()
     
+    @staticmethod
+    def _calculate_indentations(
+        collection: ResourceCollection,
+        cell_width: int,
+    ) -> list[int]:
+        CHARS_PER_THOUSAND_SEPARATOR: int = 3
+        n_chars_in_total_values: list[int] = []
+        
+        for rss in collection.values():
+            digits_in_number: int = len(str(rss))
+            n_of_dashes: int = (digits_in_number - 1) // CHARS_PER_THOUSAND_SEPARATOR
+            n_chars_in_number: int = digits_in_number + n_of_dashes
+            n_chars_in_total_values.append(n_chars_in_number)
+        
+        return [cell_width - n_chars for n_chars in n_chars_in_total_values]
     
     def _build_kingdom_information(self) -> Text:
         city_information: Text = Text(
@@ -167,35 +182,43 @@ class Kingdom:
             box = box.HEAVY,
         )
         
-        table.add_column(header = "City", header_style = "bold")
-        table.add_column(header = "Food", header_style = "bold", justify = "left")
-        table.add_column(header = "Ore", header_style = "bold", justify = "left")
-        table.add_column(header = "Wood", header_style = "bold", justify = "left")
+        city_column_header: str = "City"
+        city_name_lengths: list[int] = [len(city.name) for city in self.cities]
+        max_city_name_length: int = max(city_name_lengths)
+        cell_length: int = max_city_name_length - len(city_column_header)
+        left_side_justification: int = cell_length // 2
         
-        def _calculate_indentations(collection: ResourceCollection) -> list[int]:
-            return [3 - len(str(rss)) for rss in collection.values()]
+        table.add_column(header = f"{" " * left_side_justification}{city_column_header}", header_style = "bold")
+        table.add_column(header = f"{" " * 3}Food", header_style = "bold", justify = "left")
+        table.add_column(header = f"{" " * 3}Ore", header_style = "bold", justify = "left")
+        table.add_column(header = f"{" " * 3}Wood", header_style = "bold", justify = "left")
         
         for city in self.cities:
             rp_food, rp_ore, rp_wood = city.resource_potentials.values()
-            i_rp_food, i_rp_ore, i_rp_wood = _calculate_indentations(collection = city.resource_potentials)
+            i_rp_food, i_rp_ore, i_rp_wood = self._calculate_indentations(city.resource_potentials, 3)
             
             b_food, b_ore, b_wood = city.balance.values()
-            i_b_food, i_b_ore, i_b_wood = _calculate_indentations(collection = city.balance)
+            i_b_food, i_b_ore, i_b_wood = self._calculate_indentations(city.balance, 3)
             
             table.add_row(
                 f"{city.name}",
-                f"{" " * i_rp_food}[dim]({rp_food})[/dim]{" " * 2}{" " * (i_b_food)}{b_food}",
-                f"{" " * i_rp_ore}[dim]({rp_ore})[/dim]{" " * 2}{" " * (i_b_ore)}{b_ore}",
-                f"{" " * i_rp_wood}[dim]({rp_wood})[/dim]{" " * 2}{" " * (i_b_wood)}{b_wood}",
+                f"{" " * i_rp_food}[dim]({rp_food})[/dim]{" " * 2}{" " * (i_b_food)}{b_food:_}",
+                f"{" " * i_rp_ore}[dim]({rp_ore})[/dim]{" " * 2}{" " * (i_b_ore)}{b_ore:_}",
+                f"{" " * i_rp_wood}[dim]({rp_wood})[/dim]{" " * 2}{" " * (i_b_wood)}{b_wood:_}",
             )
         
         table.add_section()
         
+        i_t_food, i_t_ore, i_t_wood = self._calculate_indentations(
+            collection = self.kingdom_total_production,
+            cell_width = 10,
+        )
+        
         table.add_row(
             f"Total",
-            f"{self.kingdom_total_production.food:_}",
-            f"{self.kingdom_total_production.ore:_}",
-            f"{self.kingdom_total_production.wood:_}",
+            f"{" " * i_t_food}{self.kingdom_total_production.food:_}",
+            f"{" " * i_t_ore}{self.kingdom_total_production.ore:_}",
+            f"{" " * i_t_wood}{self.kingdom_total_production.wood:_}",
             style = table_style + Style(bold = True),
         )
         
@@ -271,7 +294,7 @@ class Kingdom:
             ),
             Layout(
                 name = "production_and_storage",
-                size = len(self.cities) + 7,
+                size = len(self.cities) + 10,
                 ratio = 0,
                 # visible = include_production,
             ),
@@ -297,7 +320,7 @@ class Kingdom:
         return Panel(
             renderable = layout,
             # width = total_layout_width,
-            height = len(self.cities) * 6,
+            height = len(self.cities) * 7,
         )
     
     def display_kingdom_results(self) -> None:
