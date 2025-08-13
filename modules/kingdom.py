@@ -1,17 +1,20 @@
+from dataclasses import dataclass, field
+
 from rich import box
+from rich.console import Console
 from rich.table import Table
 from rich.text import Text
 
 from .resources import ResourceCollection
 from .city import City
+from .scenario import CityDict
 
 
+@dataclass
 class Kingdom:
-    def __init__(
-            self,
-            cities: list[City],
-        ) -> None:
-        self.cities: list[City] = cities
+    cities: list[City]
+    
+    kingdom_totals: ResourceCollection = field(init = False)
     
     def _calculate_totals(self) -> ResourceCollection:
         kingdom_totals: ResourceCollection = ResourceCollection()
@@ -22,6 +25,17 @@ class Kingdom:
             kingdom_totals.wood = kingdom_totals.wood + city.balance.wood
         
         return kingdom_totals
+    
+    @classmethod
+    def from_list(
+        cls,
+        data: list[CityDict],
+    ) -> "Kingdom":
+        cities: list[City] = [City(**city) for city in data]
+        return cls(cities)
+    
+    def __post_init__(self) -> None:
+        self.kingdom_totals = self._calculate_totals()
     
     def _build_kingdom_table(self) -> Table:
         table: Table = Table(
@@ -41,4 +55,12 @@ class Kingdom:
                 f"{city.balance.ore}",
                 f"{city.balance.wood}",
             )
+        
+        table.add_row(
+            f"Total",
+            f"{self.kingdom_totals.food}",
+            f"{self.kingdom_totals.ore}",
+            f"{self.kingdom_totals.wood}",
+        )
+        
         return table
