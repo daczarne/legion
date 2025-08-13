@@ -10,7 +10,7 @@ from rich.style import Style
 from rich.table import Table
 from rich.text import Text
 
-from .city import City, CITIES
+from .city import CITIES, City, CityFocus
 from .resources import ResourceCollection
 from .scenario import CityDict
 
@@ -18,6 +18,7 @@ from .scenario import CityDict
 @dataclass
 class Kingdom:
     cities: list[City]
+    sort_order: list[str | None] | None = field(default = None)
     
     
     # Post init values
@@ -30,13 +31,61 @@ class Kingdom:
     BASE_KINGDOM_STORAGE: ClassVar[int] = 300
     
     
+    @staticmethod
+    def sort_cities_by_production_type(
+        cities: list[City], 
+        order: list[str | None] | None = None,
+    ) -> list[City]:
+        """
+        Sort cities by main resource according to user-defined order. Within each resource type, sort alphabetically
+        by city name. If the user does not supply an order, the order will be FOOD -> ORE -> WOOD -> NONE.
+        """
+        if order is None:
+            order = ["food", "ore", "wood", None]
+        
+        # Validate order contains only allowed strings or None
+        allowed: set[str | None] = {"food", "ore", "wood", None}
+        if any(item not in allowed for item in order):
+            raise ValueError(f"Invalid order: {order}. Allowed: {allowed}")
+        
+        # Map resource name to CityFocus enum for sorting
+        resource_name_to_enum: dict[str | None, CityFocus] = {
+            "food": CityFocus.FOOD,
+            "ore": CityFocus.ORE,
+            "wood": CityFocus.WOOD,
+            None: CityFocus.NONE,
+        }
+        
+        enum_order: list[CityFocus] = [resource_name_to_enum[r] for r in order]
+        
+        # Sort function: first by enum order, then alphabetically by name
+        def sort_key(city: City) -> tuple[int, str]:
+            try:
+                primary_index: int = enum_order.index(city.focus)
+            except ValueError:
+                primary_index: int = len(enum_order) # push unknown to the end
+            return (primary_index, city.name.lower())
+        
+        return sorted(cities, key = sort_key)
+    
+    def sort_cities_by_production_type_inplace(
+        self,
+        order: list[str | None] | None = None,
+    ) -> None:
+        """
+        Replace self.cities with the sorted list according to the provided order.
+        """
+        self.cities = Kingdom.sort_cities_by_production_type(cities = self.cities, order = order)
+    
+    
     @classmethod
     def from_list(
         cls,
         data: list[CityDict],
+        sort_order: list[str | None] | None = None,
     ) -> "Kingdom":
         cities: list[City] = [City(**city) for city in data]
-        return cls(cities)
+        return cls(cities, sort_order)
     
     
     def _calculate_total_production(self) -> ResourceCollection:
@@ -72,10 +121,13 @@ class Kingdom:
         
         return number_of_cities_in_campaign
     
+    
     def __post_init__(self) -> None:
+        self.sort_cities_by_production_type_inplace(self.sort_order)
         self.number_of_cities_in_campaign = self._get_number_of_cities_in_campaign()
         self.kingdom_total_production = self._calculate_total_production()
         self.kingdom_total_storage = self._calculate_total_storage()
+    
     
     def _build_kingdom_information(self) -> Text:
         city_information: Text = Text(
