@@ -271,13 +271,6 @@ class Kingdom:
                 name = "main",
                 size = 17,
                 ratio = 0,
-                # visible = any([
-                #     include_buildings,
-                #     include_effects,
-                #     include_production,
-                #     include_storage,
-                #     include_defenses,
-                # ]),
             ),
         )
         
@@ -288,15 +281,13 @@ class Kingdom:
         layout["main"].split(
             Layout(
                 name = "campaign",
-                size = 6,
+                size = 7,
                 ratio = 0,
-                # visible = include_production,
             ),
             Layout(
                 name = "production_and_storage",
                 size = len(self.cities) + 10,
                 ratio = 0,
-                # visible = include_production,
             ),
         )
         
@@ -305,8 +296,8 @@ class Kingdom:
         )
         
         layout["production_and_storage"].split_row(
-            Layout(name = "production", ratio = 1),
-            Layout(name = "storage_capacity", ratio = 1),
+            Layout(name = "production", ratio = 4),
+            Layout(name = "storage_capacity", ratio = 3),
         )
         
         layout["production"].update(
@@ -319,7 +310,7 @@ class Kingdom:
         
         return Panel(
             renderable = layout,
-            # width = total_layout_width,
+            width = 110,
             height = len(self.cities) * 7,
         )
     

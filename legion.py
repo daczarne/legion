@@ -117,21 +117,3 @@ kingdom: Kingdom = Kingdom.from_list(
 )
 
 kingdom.display_kingdom_results()
-
-city: City = City(
-    campaign = "Unification of Italy",
-    name = "Roma",
-    buildings = {
-        "city_hall": 1,
-        "basilica": 1,
-        "farmers_guild": 1,
-        "large_farm": 5,
-        "vineyard": 1,
-    },
-)
-
-print(
-    Kingdom._calculate_indentations(
-        kingdom.kingdom_total_production, 3
-    )
-)
