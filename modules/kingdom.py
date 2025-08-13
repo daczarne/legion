@@ -37,7 +37,7 @@ class Kingdom:
     def __post_init__(self) -> None:
         self.kingdom_totals = self._calculate_totals()
     
-    def _build_kingdom_table(self) -> Table:
+    def _build_kingdom_production_table(self) -> Table:
         table: Table = Table(
             title = Text(text = "Cities"),
             box = box.HEAVY
@@ -64,3 +64,7 @@ class Kingdom:
         )
         
         return table
+    
+    def display_kingdom_results(self) -> None:
+        console: Console = Console()
+        console.print(self._build_kingdom_production_table())
