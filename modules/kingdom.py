@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from typing import ClassVar
 
 from rich import box
 from rich.align import Align
@@ -9,7 +10,7 @@ from rich.style import Style
 from rich.table import Table
 from rich.text import Text
 
-from .city import City
+from .city import City, CITIES
 from .resources import ResourceCollection
 from .scenario import CityDict
 
@@ -18,8 +19,25 @@ from .scenario import CityDict
 class Kingdom:
     cities: list[City]
     
+    
+    # Post init values
+    number_of_cities_in_campaign: int = field(init = False)
     kingdom_total_production: ResourceCollection = field(init = False)
     kingdom_total_storage: ResourceCollection = field(init = False)
+    
+    
+    # The player gets a 300 storage or each rss which does not depend on any city or buildings.
+    BASE_KINGDOM_STORAGE: ClassVar[int] = 300
+    
+    
+    @classmethod
+    def from_list(
+        cls,
+        data: list[CityDict],
+    ) -> "Kingdom":
+        cities: list[City] = [City(**city) for city in data]
+        return cls(cities)
+    
     
     def _calculate_total_production(self) -> ResourceCollection:
         total_production: ResourceCollection = ResourceCollection()
@@ -32,7 +50,11 @@ class Kingdom:
         return total_production
     
     def _calculate_total_storage(self) -> ResourceCollection:
-        total_storage: ResourceCollection = ResourceCollection()
+        total_storage: ResourceCollection = ResourceCollection(
+            food = self.BASE_KINGDOM_STORAGE,
+            ore = self.BASE_KINGDOM_STORAGE,
+            wood = self.BASE_KINGDOM_STORAGE,
+        )
         
         for city in self.cities:
             total_storage.food = total_storage.food + city.total_storage.food
@@ -41,15 +63,17 @@ class Kingdom:
         
         return total_storage
     
-    @classmethod
-    def from_list(
-        cls,
-        data: list[CityDict],
-    ) -> "Kingdom":
-        cities: list[City] = [City(**city) for city in data]
-        return cls(cities)
+    def _get_number_of_cities_in_campaign(self) -> int:
+        number_of_cities_in_campaign: int = 0
+        
+        for city in CITIES:
+            if city.get("campaign") == self.cities[0].campaign:
+                number_of_cities_in_campaign += 1
+        
+        return number_of_cities_in_campaign
     
     def __post_init__(self) -> None:
+        self.number_of_cities_in_campaign = self._get_number_of_cities_in_campaign()
         self.kingdom_total_production = self._calculate_total_production()
         self.kingdom_total_storage = self._calculate_total_storage()
     
@@ -60,6 +84,27 @@ class Kingdom:
             justify = "center",
         )
         return city_information
+    
+    def _build_campaign_table(self) -> Table:
+        # table_style: Style = Style(color = self.configuration.get("production", {}).get("color", "#228b22"))
+        table_style: Style = Style(color = "cyan")
+        table: Table = Table(
+            title = Text(text = "Campaign", style = table_style + Style(italic = True)),
+            style = table_style,
+            box = box.HEAVY,
+        )
+        
+        table.add_column(header = "Total cities", header_style = "bold", justify = "center")
+        table.add_column(header = "40% threshold", header_style = "bold", justify = "center")
+        table.add_column(header = "Player cities", header_style = "bold", justify = "center")
+        from math import ceil
+        table.add_row(
+            f"{self.number_of_cities_in_campaign}",
+            f"{ceil(self.number_of_cities_in_campaign * 0.4)}",
+            f"{len(self.cities)}",
+        )
+        
+        return table
     
     def _build_kingdom_production_table(self) -> Table:
         # table_style: Style = Style(color = self.configuration.get("production", {}).get("color", "#228b22"))
@@ -157,6 +202,12 @@ class Kingdom:
         
         layout["main"].split(
             Layout(
+                name = "campaign",
+                # size = production_height,
+                # ratio = 0,
+                # visible = include_production,
+            ),
+            Layout(
                 name = "production",
                 # size = production_height,
                 # ratio = 0,
@@ -170,6 +221,10 @@ class Kingdom:
             ),
         )
         
+        layout["campaign"].update(
+            renderable = Align(renderable = self._build_campaign_table(), align = "center"),
+        )
+        
         layout["production"].update(
             renderable = Align(renderable = self._build_kingdom_production_table(), align = "center"),
         )
@@ -181,7 +236,7 @@ class Kingdom:
         return Panel(
             renderable = layout,
             # width = total_layout_width,
-            # height = total_layout_height,
+            height = len(self.cities) * 7,
         )
     
     def display_kingdom_results(self) -> None:
