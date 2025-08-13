@@ -44,9 +44,9 @@ class Kingdom:
         )
         
         table.add_column(header = "City", header_style = "bold")
-        table.add_column(header = "Food", header_style = "bold")
-        table.add_column(header = "Ore", header_style = "bold")
-        table.add_column(header = "Wood", header_style = "bold")
+        table.add_column(header = "Food", header_style = "bold", justify = "right")
+        table.add_column(header = "Ore", header_style = "bold", justify = "right")
+        table.add_column(header = "Wood", header_style = "bold", justify = "right")
         
         for city in self.cities:
             table.add_row(
@@ -58,9 +58,9 @@ class Kingdom:
         
         table.add_row(
             f"Total",
-            f"{self.kingdom_totals.food}",
-            f"{self.kingdom_totals.ore}",
-            f"{self.kingdom_totals.wood}",
+            f"{self.kingdom_totals.food:_}",
+            f"{self.kingdom_totals.ore:_}",
+            f"{self.kingdom_totals.wood:_}",
         )
         
         return table
