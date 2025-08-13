@@ -39,7 +39,7 @@ class Kingdom:
     
     def _build_kingdom_production_table(self) -> Table:
         table: Table = Table(
-            title = Text(text = "Cities"),
+            title = Text(text = "Production"),
             box = box.HEAVY
         )
         
