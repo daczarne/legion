@@ -1,3 +1,4 @@
+from modules.city import City
 from modules.scenario import Scenario
 from modules.kingdom import Kingdom
 
@@ -112,7 +113,19 @@ kingdom: Kingdom = Kingdom.from_list(
             },
         },
     ],
-    sort_order=["food", "wood", "ore", None]
+    sort_order = [None, "ore", "food", "wood"]
 )
 
 kingdom.display_kingdom_results()
+
+city: City = City(
+    campaign = "Unification of Italy",
+    name = "Roma",
+    buildings = {
+        "city_hall": 1,
+        "basilica": 1,
+        "farmers_guild": 1,
+        "large_farm": 5,
+        "vineyard": 1,
+    },
+)

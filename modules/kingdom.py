@@ -168,22 +168,31 @@ class Kingdom:
         )
         
         table.add_column(header = "City", header_style = "bold")
-        table.add_column(header = "Food", header_style = "bold", justify = "right")
-        table.add_column(header = "Ore", header_style = "bold", justify = "right")
-        table.add_column(header = "Wood", header_style = "bold", justify = "right")
+        table.add_column(header = "Food", header_style = "bold", justify = "left")
+        table.add_column(header = "Ore", header_style = "bold", justify = "left")
+        table.add_column(header = "Wood", header_style = "bold", justify = "left")
+        
+        def _calculate_indentations(collection: ResourceCollection) -> list[int]:
+            return [3 - len(str(rss)) for rss in collection.values()]
         
         for city in self.cities:
+            rp_food, rp_ore, rp_wood = city.resource_potentials.values()
+            i_rp_food, i_rp_ore, i_rp_wood = _calculate_indentations(collection = city.resource_potentials)
+            
+            b_food, b_ore, b_wood = city.balance.values()
+            i_b_food, i_b_ore, i_b_wood = _calculate_indentations(collection = city.balance)
+            
             table.add_row(
                 f"{city.name}",
-                f"{city.balance.food}",
-                f"{city.balance.ore}",
-                f"{city.balance.wood}",
+                f"{" " * i_rp_food}[dim]({rp_food})[/dim]{" " * 2}{" " * (i_b_food)}{b_food}",
+                f"{" " * i_rp_ore}[dim]({rp_ore})[/dim]{" " * 2}{" " * (i_b_ore)}{b_ore}",
+                f"{" " * i_rp_wood}[dim]({rp_wood})[/dim]{" " * 2}{" " * (i_b_wood)}{b_wood}",
             )
         
         table.add_section()
         
         table.add_row(
-            f"Total ({len(self.cities)})",
+            f"Total",
             f"{self.kingdom_total_production.food:_}",
             f"{self.kingdom_total_production.ore:_}",
             f"{self.kingdom_total_production.wood:_}",
@@ -216,7 +225,7 @@ class Kingdom:
         table.add_section()
         
         table.add_row(
-            f"Total ({len(self.cities)})",
+            f"Total",
             f"{self.kingdom_total_storage.food:_}",
             f"{self.kingdom_total_storage.ore:_}",
             f"{self.kingdom_total_storage.wood:_}",
@@ -227,17 +236,18 @@ class Kingdom:
     
     def _build_kingdom_display(self) -> Panel:
         layout: Layout = Layout()
+        
         layout.split(
             Layout(
                 name = "header",
                 size = 2,
-                # ratio = 0,
+                ratio = 0,
                 # visible = include_city,
             ),
             Layout(
                 name = "main",
-                # size = main_height,
-                # ratio = 0,
+                size = 17,
+                ratio = 0,
                 # visible = any([
                 #     include_buildings,
                 #     include_effects,
@@ -255,26 +265,25 @@ class Kingdom:
         layout["main"].split(
             Layout(
                 name = "campaign",
-                # size = production_height,
-                # ratio = 0,
+                size = 6,
+                ratio = 0,
                 # visible = include_production,
             ),
             Layout(
-                name = "production",
-                # size = production_height,
-                # ratio = 0,
+                name = "production_and_storage",
+                size = len(self.cities) + 7,
+                ratio = 0,
                 # visible = include_production,
-            ),
-            Layout(
-                name = "storage_capacity",
-                # size = storage_height,
-                # ratio = 0,
-                # visible = include_storage,
             ),
         )
         
         layout["campaign"].update(
             renderable = Align(renderable = self._build_campaign_table(), align = "center"),
+        )
+        
+        layout["production_and_storage"].split_row(
+            Layout(name = "production", ratio = 1),
+            Layout(name = "storage_capacity", ratio = 1),
         )
         
         layout["production"].update(
@@ -288,7 +297,7 @@ class Kingdom:
         return Panel(
             renderable = layout,
             # width = total_layout_width,
-            height = len(self.cities) * 7,
+            height = len(self.cities) * 6,
         )
     
     def display_kingdom_results(self) -> None:
