@@ -13,13 +13,4 @@ city: City = City(
     },
 )
 
-display_configuration: DisplayConfiguration = {
-    "production": {
-        "color": "yellow"
-    },
-    "defenses": {
-        "include": False,
-    },
-}
-
-CityDisplay(city = city, configuration = display_configuration).display_city_results()
+CityDisplay(city = city).display_city_results()
