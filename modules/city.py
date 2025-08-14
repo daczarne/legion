@@ -45,7 +45,6 @@ CITIES: list[CityData] = cities_data["cities"]
 # * CITY * #
 # * **** * #
 
-
 @dataclass
 class City:
     campaign: str
