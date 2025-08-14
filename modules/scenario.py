@@ -22,7 +22,6 @@ class Scenario:
         self.cities: list[City] = cities
         self._user_configuration: DisplayConfiguration = configuration or {}
         self.configuration: DisplayConfiguration = self._build_configuration()
-        
         self.cities_display: list[CityDisplay] = self._build_cities_display()
     
     @classmethod
