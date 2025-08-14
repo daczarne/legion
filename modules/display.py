@@ -46,6 +46,10 @@ DEFAULT_SECTION_COLORS: dict[str, str] = {
 }
 
 
+# * ************ * #
+# * CITY DISPLAY * #
+# * ************ * #
+
 class CityDisplay:
     
     def __init__(
