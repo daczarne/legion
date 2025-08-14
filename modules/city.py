@@ -8,6 +8,12 @@ from .geo_features import GeoFeaturesData, GeoFeatures
 from .resources import ResourceCollectionData, ResourceCollection
 
 
+class CityDict(TypedDict):
+    name: str
+    campaign: str
+    buildings: BuildingsCount
+
+
 # * *********** * #
 # * CITIES DATA * #
 # * *********** * #
@@ -409,3 +415,8 @@ class City:
         self.garrison = self._get_garrison()
         self.squadrons = self._calculate_garrison_size()
         self.squadron_size = self._calculate_squadron_size()
+
+
+# * ************ * #
+# * CITY DISPLAY * #
+# * ************ * #
