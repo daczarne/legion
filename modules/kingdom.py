@@ -278,18 +278,23 @@ class Kingdom:
         return table
     
     def _build_kingdom_display(self) -> Panel:
+        header_height: int = 2
+        campaign_height: int = 7
+        production_and_storage_height: int = len(self.cities) + 9
+        main_height: int = campaign_height + production_and_storage_height
+        total_height: int = header_height + main_height
+        
         layout: Layout = Layout()
         
         layout.split(
             Layout(
                 name = "header",
-                size = 2,
+                size = header_height,
                 ratio = 0,
-                # visible = include_city,
             ),
             Layout(
                 name = "main",
-                size = 17,
+                size = main_height,
                 ratio = 0,
             ),
         )
@@ -301,12 +306,12 @@ class Kingdom:
         layout["main"].split(
             Layout(
                 name = "campaign",
-                size = 7,
+                size = campaign_height,
                 ratio = 0,
             ),
             Layout(
                 name = "production_and_storage",
-                size = len(self.cities) + 10,
+                size = production_and_storage_height,
                 ratio = 0,
             ),
         )
@@ -331,7 +336,7 @@ class Kingdom:
         return Panel(
             renderable = layout,
             width = 110,
-            height = len(self.cities) + 20,
+            height = total_height,
         )
     
     def display_kingdom_results(self) -> None:
