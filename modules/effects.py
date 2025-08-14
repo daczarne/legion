@@ -3,7 +3,7 @@ from enum import Enum
 from typing import TypedDict
 
 
-class Effect(Enum):
+class EffectBonus(Enum):
     TROOP_TRAINING = "troop_training"
     POPULATION_GROWTH = "population_growth"
     INTELLIGENCE = "intelligence"
