@@ -241,9 +241,9 @@ class Kingdom:
         left_side_justification: int = cell_length // 2
         
         table.add_column(header = f"{" " * left_side_justification}{city_column_header}", header_style = "bold")
-        table.add_column(header = f"{" " * 0}Food", header_style = "bold", justify = "left")
-        table.add_column(header = f"{" " * 1}Ore", header_style = "bold", justify = "left")
-        table.add_column(header = f"{" " * 0}Wood", header_style = "bold", justify = "left")
+        table.add_column(header = f"{" " * 1}Food", header_style = "bold", justify = "left")
+        table.add_column(header = f"{" " * 2}Ore", header_style = "bold", justify = "left")
+        table.add_column(header = f"{" " * 1}Wood", header_style = "bold", justify = "left")
         
         for city in self.cities:
             
