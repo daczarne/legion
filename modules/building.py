@@ -1,7 +1,7 @@
 import yaml
 
 from dataclasses import dataclass
-from typing import TypedDict, Literal, TypeAlias
+from typing import Literal, TypeAlias, TypedDict
 
 from .effects import EffectBonusesData, EffectBonuses
 from .geo_features import GeoFeature

@@ -1,7 +1,7 @@
 import yaml
 
 from dataclasses import dataclass, field
-from typing import TypedDict, Literal, ClassVar
+from typing import ClassVar, Literal, TypedDict
 
 from .building import BuildingsCount, BUILDINGS
 from .effects import EffectBonusesData, EffectBonuses
