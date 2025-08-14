@@ -3,6 +3,7 @@ from dataclasses import dataclass, fields
 from enum import Enum
 from typing import TypedDict
 
+
 class Resource(Enum):
     FOOD = ("food", 1)
     ORE = ("ore", 2)
@@ -21,9 +22,11 @@ class Resource(Enum):
     def from_str(cls, name: str | None) -> "Resource":
         if name is None:
             return cls.NONE
+        
         for resource in cls:
             if resource.value == name:
                 return resource
+        
         raise ValueError(f"Invalid resource name: {name}")
 
 
