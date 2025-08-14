@@ -27,8 +27,8 @@ class CityData(TypedDict):
     This is a helper class meant to be used when reading CityData from YAML or JSON files. Its only purpose is to
     provide good type annotations and hints.
     """
-    name: str
     campaign: str
+    name: str
     resource_potentials: ResourceCollectionData
     geo_features: GeoFeaturesData
     effects: EffectBonusesData
