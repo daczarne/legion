@@ -11,14 +11,14 @@ from rich.table import Table
 from rich.text import Text
 
 from .city import CITIES, City
-from .resources import ResourceCollection, Resource
+from .resources import ResourceCollection, Resource, ResourceOrder
 from .scenario import CityDict
 
 
 @dataclass
 class Kingdom:
     cities: list[City]
-    sort_order: list[Resource] | None = field(default = None)
+    sort_order: list[str | None] | None = field(default = None)
     
     
     # Post init values
@@ -31,71 +31,37 @@ class Kingdom:
     BASE_KINGDOM_STORAGE: ClassVar[int] = 300
     
     @staticmethod
-    def sort_cities_by_production_type(
+    def sort_cities_by_focus(
             cities: list[City],
-            order: list[Resource],
+            order: list[str | None],
         ) -> list[City]:
-        """Sort cities by resource production type and alphabetically within each type."""
-        if (
-            not isinstance(order, list)
-            or not all(isinstance(rss, Resource) for rss in order)
-        ):
-            raise ValueError("Order must be a list of Resource enums.")
+        """
+        Sort cities by "focus" (rss with the highest production) and alphabetically within each type.
+        """
+        normalized_order: list[Resource | None] = [
+            Resource(value = item) if isinstance(item, str) and item is not None else None
+            for item in order
+        ]
         
-        priority: dict[Resource, int] = {resource: i for i, resource in enumerate(order)}
+        def sort_key(city: City) -> tuple[int, str]:
+            try:
+                index: int = normalized_order.index(city.focus)
+            except ValueError:
+                index: int = len(normalized_order)
+            return index, city.name
         
-        return sorted(
-            cities,
-            key = lambda c: (priority.get(c.focus, len(priority)), c.name.lower())
-        )
+        return sorted(cities, key = sort_key)
     
-    # @staticmethod
-    # def sort_cities_by_production_type(
-    #     cities: list[City], 
-    #     order: list[str | None] | None = None,
-    # ) -> list[City]:
-    #     """
-    #     Sort cities by main resource according to user-defined order. Within each resource type, sort alphabetically
-    #     by city name. If the user does not supply an order, the order will be FOOD -> ORE -> WOOD -> NONE.
-    #     """
-    #     if order is None:
-    #         order = ["food", "ore", "wood", None]
-        
-    #     # Validate order contains only allowed strings or None
-    #     allowed: set[str | None] = {"food", "ore", "wood", None}
-    #     if any(item not in allowed for item in order):
-    #         raise ValueError(f"Invalid order: {order}. Allowed: {allowed}")
-        
-    #     # Map resource name to CityFocus enum for sorting
-    #     resource_name_to_enum: dict[str | None, CityFocusInt] = {
-    #         "food": CityFocusInt.FOOD,
-    #         "ore": CityFocusInt.ORE,
-    #         "wood": CityFocusInt.WOOD,
-    #         None: CityFocusInt.NONE,
-    #     }
-        
-    #     enum_order: list[CityFocusInt] = [resource_name_to_enum[r] for r in order]
-        
-    #     # Sort function: first by enum order, then alphabetically by name
-    #     def sort_key(city: City) -> tuple[int, str]:
-    #         try:
-    #             primary_index: int = enum_order.index(city.focus_int)
-    #         except ValueError:
-    #             primary_index: int = len(enum_order) # push unknown to the end
-    #         return (primary_index, city.name.lower())
-        
-    #     return sorted(cities, key = sort_key)
-    
-    def sort_cities_by_production_type_inplace(
+    def sort_cities_by_focus_inplace(
         self,
-        order: list[Resource] | None = None,
+        order: list[str | None] | None = None,
     ) -> None:
         """
         Replace self.cities with the sorted list according to the provided order.
         """
-        self.cities = Kingdom.sort_cities_by_production_type(
+        self.cities = Kingdom.sort_cities_by_focus(
             cities = self.cities,
-            order = [Resource.FOOD, Resource.ORE, Resource.WOOD, Resource.NONE] if order is None else order,
+            order = ["food", "ore", "wood", None] if order is None else order,
         )
     
     
@@ -103,10 +69,11 @@ class Kingdom:
     def from_list(
         cls,
         data: list[CityDict],
-        sort_order: list[Resource] | None = None,
+        sort_order: list[str | None] | None = None,
     ) -> "Kingdom":
         cities: list[City] = [City(**city) for city in data]
         return cls(cities, sort_order)
+        # return cls(cities)
     
     
     def _calculate_total_production(self) -> ResourceCollection:
@@ -144,7 +111,7 @@ class Kingdom:
     
     
     def __post_init__(self) -> None:
-        self.sort_cities_by_production_type_inplace(self.sort_order)
+        self.sort_cities_by_focus_inplace(order = self.sort_order)
         self.number_of_cities_in_campaign = self._get_number_of_cities_in_campaign()
         self.kingdom_total_production = self._calculate_total_production()
         self.kingdom_total_storage = self._calculate_total_storage()
@@ -222,8 +189,9 @@ class Kingdom:
                 
                 rss_balance: int = city.balance.get(key = rss)
                 indentation_rss_balance: int = self._calculate_indentations(cell_value = rss_balance, width = 3)
-                rss_balance_color: str = production_color if city.focus.value == rss else "white"
-                rss_balance_cell_value: str = f"{" " * (indentation_rss_balance)}{f"[{rss_balance_color}]"}{rss_balance:_}{f"[/{rss_balance_color}]"}"
+                # rss_balance_color: str = production_color if city.focus.value == rss else "white"
+                # rss_balance_cell_value: str = f"{" " * (indentation_rss_balance)}{f"[{rss_balance_color}]"}{rss_balance:_}{f"[/{rss_balance_color}]"}"
+                rss_balance_cell_value: str = f"{" " * (indentation_rss_balance)}{rss_balance:_}"
                 
                 row_element: str = f"{rss_potential_cell_value}{" " * 2}{rss_balance_cell_value}"
                 row_elements.append(row_element)
@@ -274,8 +242,9 @@ class Kingdom:
                 
                 rss_storage: int = city.total_storage.get(key = rss)
                 indentation_rss_storage: int = self._calculate_indentations(cell_value = rss_storage, width = 6)
-                rss_storage_color: str = storage_color if city.focus.value == rss else "white"
-                rss_storage_cell_value: str = f"{" " * (indentation_rss_storage)}{f"[{rss_storage_color}]"}{rss_storage:_}{f"[/{rss_storage_color}]"}"
+                # rss_storage_color: str = storage_color if city.focus.value == rss else "white"
+                # rss_storage_cell_value: str = f"{" " * (indentation_rss_storage)}{f"[{rss_storage_color}]"}{rss_storage:_}{f"[/{rss_storage_color}]"}"
+                rss_storage_cell_value: str = f"{" " * (indentation_rss_storage)}{rss_storage:_}"
                 
                 row_element: str = f"{rss_storage_cell_value}"
                 row_elements.append(row_element)
