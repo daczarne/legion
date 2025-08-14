@@ -10,6 +10,10 @@ class Resource(Enum):
 
 
 class ResourceCollectionData(TypedDict):
+    """
+    This is a helper class meant to be used when reading ResouceCollections from YAML or JSON files. Its only purpose
+    is to provide good type annotations and hints.
+    """
     food: int
     ore: int
     wood: int

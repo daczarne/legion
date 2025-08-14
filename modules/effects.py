@@ -3,13 +3,17 @@ from enum import Enum
 from typing import TypedDict
 
 
-class Effect(Enum):
+class EffectBonus(Enum):
     TROOP_TRAINING = "troop_training"
     POPULATION_GROWTH = "population_growth"
     INTELLIGENCE = "intelligence"
 
 
 class EffectBonusesData(TypedDict):
+    """
+    This is a helper class meant to be used when reading EffectBonuses from YAML or JSON files. Its only purpose is to
+    provide good type annotations and hints.
+    """
     troop_training: int
     population_growth: int
     intelligence: int

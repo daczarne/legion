@@ -1,11 +1,8 @@
-from typing import TypedDict
-
 from rich.align import Align
 from rich.console import Console
 from rich.layout import Layout
 
-from .building import BuildingsCount
-from .city import City
+from .city import City, CityDict
 from .display import (
     CityDisplay,
     DisplayConfiguration,
@@ -13,12 +10,6 @@ from .display import (
     DisplaySectionConfiguration,
     DEFAULT_SECTION_COLORS,
 )
-
-
-class CityDict(TypedDict):
-    name: str
-    campaign: str
-    buildings: BuildingsCount
 
 
 class Scenario:
@@ -31,7 +22,6 @@ class Scenario:
         self.cities: list[City] = cities
         self._user_configuration: DisplayConfiguration = configuration or {}
         self.configuration: DisplayConfiguration = self._build_configuration()
-        
         self.cities_display: list[CityDisplay] = self._build_cities_display()
     
     @classmethod

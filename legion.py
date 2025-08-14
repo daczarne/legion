@@ -1,65 +1,25 @@
-from modules.scenario import Scenario
+from modules.display import CityDisplay, DisplayConfiguration
+from modules.city import City
 
-
-scenario: Scenario = Scenario.from_list(
-    data = [
-        {
-            "campaign": "Unification of Italy",
-            "name": "Roma",
-            "buildings": {
-                "city_hall": 1,
-                "basilica": 1,
-                "farmers_guild": 1,
-                "large_farm": 5,
-                "vineyard": 1,
-            },
-        },
-        {
-            "campaign": "Unification of Italy",
-            "name": "Latins",
-            "buildings": {
-                "city_hall": 1,
-                "basilica": 1,
-                "carpenters_guild": 1,
-                "large_lumber_mill": 5,
-                "warehouse": 1,
-            },
-        },
-        {
-            "campaign": "Unification of Italy",
-            "name": "Hernici",
-            "buildings": {
-                "city_hall": 1,
-                "basilica": 1,
-                "miners_guild": 1,
-                "outcrop_mine": 1,
-                "fishing_village": 1,
-                "large_mine": 4,
-            },
-        },
-        {
-            "campaign": "Unification of Italy",
-            "name": "Anxur",
-            "buildings": {
-                "city_hall": 1,
-                "basilica": 1,
-                "farmers_guild": 1,
-                "large_farm": 5,
-                "vineyard": 1,
-            },
-        },
-    ],
-    configuration = {
-        "city": {
-            "include": True,
-        },
-        "defenses": {
-            "include": False,
-        },
-        "storage": {
-            "include": False,
-        },
+city: City = City(
+    campaign = "Unification of Italy",
+    name = "Roma",
+    buildings = {
+        "city_hall": 1,
+        "basilica": 1,
+        "farmers_guild": 1,
+        "large_farm": 5,
+        "vineyard": 1,
     },
 )
 
-scenario.display_scenario_results()
+display_configuration: DisplayConfiguration = {
+    "production": {
+        "color": "yellow"
+    },
+    "defenses": {
+        "include": False,
+    },
+}
+
+CityDisplay(city = city, configuration = display_configuration).display_city_results()

@@ -1,4 +1,5 @@
 import yaml
+
 from dataclasses import dataclass
 from typing import TypedDict, Literal, TypeAlias
 
@@ -43,6 +44,10 @@ class Building:
 # * ************** * #
 
 class BuildingData(TypedDict):
+    """
+    This is a helper class meant to be used when reading Building from YAML or JSON files. Its only purpose is to
+    provide good type annotations and hints.
+    """
     id: str
     name: str
     building_cost: ResourceCollectionData
@@ -56,8 +61,8 @@ class BuildingData(TypedDict):
     is_buildable: bool
     is_deletable: bool
     is_upgradeable: bool
-    required_geo: GeoFeature | None
-    required_rss: Resource | None
+    required_geo: str | None
+    required_rss: str | None
     required_building: list[str]
     replaces: str | None
 
