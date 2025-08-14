@@ -397,6 +397,9 @@ class City:
     def _find_city_focus(self) -> Resource | None:
         highest_balance: int = max(self.balance.food, self.balance.ore, self.balance.wood)
         
+        if highest_balance < 0:
+            return None
+        
         if self.balance.food == highest_balance:
             return Resource.FOOD
         
@@ -405,8 +408,6 @@ class City:
         
         if self.balance.wood == highest_balance:
             return Resource.WOOD
-        
-        return None
     
     
     def __post_init__(self) -> None:

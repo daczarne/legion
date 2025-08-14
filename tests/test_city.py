@@ -2,7 +2,7 @@ from pytest import mark
 from collections import Counter
 
 from modules.city import CityData, City
-
+from modules.resources import Resource
 
 @mark.cities_data
 class TestCitiesData:
@@ -325,6 +325,8 @@ class TestCity:
         assert city.garrison == "Legion"
         assert city.squadrons == 4
         assert city.squadron_size == "Huge"
+        
+        assert city.focus is None
     
     def test_city_roman_food(self) -> None:
         city: City = City(
@@ -353,6 +355,7 @@ class TestCity:
         assert city.warehouse_storage.food == 0
         assert city.supply_dump_storage.food == 0
         assert city.total_storage.food == 550
+        assert city.focus == Resource.FOOD
     
     def test_city_roman_fishing_village(self) -> None:
         city: City = City(
@@ -383,6 +386,7 @@ class TestCity:
         assert city.warehouse_storage.food == 0
         assert city.supply_dump_storage.food == 0
         assert city.total_storage.food == 525
+        assert city.focus == Resource.FOOD
     
     def test_city_roman_fishing_village_and_outcrop(self) -> None:
         city: City = City(
@@ -420,6 +424,7 @@ class TestCity:
         assert city.buildings_storage.ore == 30
         assert city.total_storage.food == 475
         assert city.total_storage.ore == 130
+        assert city.focus == Resource.FOOD
     
     def test_city_roman_ore_outcrop_and_mountain_mine(self) -> None:
         city: City = City(
@@ -451,6 +456,7 @@ class TestCity:
         assert city.warehouse_storage.ore == 0
         assert city.supply_dump_storage.ore == 0
         assert city.total_storage.ore == 460
+        assert city.focus == Resource.ORE
     
     def test_city_roman_ore_outcrop_mine(self) -> None:
         city: City = City(
@@ -478,6 +484,7 @@ class TestCity:
         assert city.city_storage.ore == 100
         assert city.buildings_storage.ore == 405
         assert city.total_storage.ore == 505
+        assert city.focus == Resource.ORE
     
     def test_city_roman_ore_mountains(self) -> None:
         city: City = City(
@@ -505,6 +512,7 @@ class TestCity:
         assert city.city_storage.ore == 100
         assert city.buildings_storage.ore == 360
         assert city.total_storage.ore == 460
+        assert city.focus == Resource.ORE
     
     def test_city_roman_ore_mountain(self) -> None:
         city: City = City(
@@ -532,6 +540,7 @@ class TestCity:
         assert city.city_storage.ore == 100
         assert city.buildings_storage.ore == 405
         assert city.total_storage.ore == 505
+        assert city.focus == Resource.ORE
     
     def test_city_roman_ore(self) -> None:
         city: City = City(
@@ -557,6 +566,7 @@ class TestCity:
         assert city.city_storage.ore == 100
         assert city.buildings_storage.ore == 450
         assert city.total_storage.ore == 550
+        assert city.focus == Resource.ORE
     
     def test_city_roman_wood(self) -> None:
         city: City = City(
@@ -583,3 +593,4 @@ class TestCity:
         assert city.city_storage.wood == 100
         assert city.buildings_storage.wood == 450
         assert city.total_storage.wood == 550
+        assert city.focus == Resource.WOOD
