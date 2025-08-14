@@ -1,11 +1,12 @@
 import yaml
+
 from dataclasses import dataclass, field
 from typing import TypedDict, Literal, ClassVar
 
 from .building import BuildingsCount, BUILDINGS
 from .effects import EffectBonusesData, EffectBonuses
 from .geo_features import GeoFeaturesData, GeoFeatures
-from .resources import ResourceCollectionData, ResourceCollection
+from .resources import Resource, ResourceCollectionData, ResourceCollection
 
 
 class CityDict(TypedDict):
@@ -27,8 +28,8 @@ class CityData(TypedDict):
     This is a helper class meant to be used when reading CityData from YAML or JSON files. Its only purpose is to
     provide good type annotations and hints.
     """
-    name: str
     campaign: str
+    name: str
     resource_potentials: ResourceCollectionData
     geo_features: GeoFeaturesData
     effects: EffectBonusesData
@@ -74,6 +75,8 @@ class City:
     garrison: str = field(init = False)
     squadrons: int = field(init = False)
     squadron_size: str = field(init = False)
+    
+    focus: Resource | None = field(init = False, default = None)
     
     
     # Class variables
@@ -390,6 +393,23 @@ class City:
         return "Small"
     
     
+    #* City focus
+    def _find_city_focus(self) -> Resource | None:
+        highest_balance: int = max(self.balance.food, self.balance.ore, self.balance.wood)
+        
+        if highest_balance < 0:
+            return None
+        
+        if self.balance.food == highest_balance:
+            return Resource.FOOD
+        
+        if self.balance.ore == highest_balance:
+            return Resource.ORE
+        
+        if self.balance.wood == highest_balance:
+            return Resource.WOOD
+    
+    
     def __post_init__(self) -> None:
         self.resource_potentials = self._get_rss_potentials()
         self.geo_features = self._get_geo_features()
@@ -423,3 +443,6 @@ class City:
         self.garrison = self._get_garrison()
         self.squadrons = self._calculate_garrison_size()
         self.squadron_size = self._calculate_squadron_size()
+        
+        #* Focus
+        self.focus = self._find_city_focus()
