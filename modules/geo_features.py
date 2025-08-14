@@ -4,9 +4,9 @@ from typing import TypedDict
 
 
 class GeoFeature(Enum):
-    LAKE = "lake"
     OUTCROP_ROCK = "outcrop_rock"
     MOUNTAIN = "mountain"
+    LAKE = "lake"
     FOREST = "forest"
 
 

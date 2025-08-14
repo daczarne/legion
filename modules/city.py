@@ -1,8 +1,6 @@
-from warnings import deprecated
 import yaml
 
 from dataclasses import dataclass, field
-from enum import Enum, auto
 from typing import TypedDict, Literal, ClassVar
 
 from .building import BuildingsCount, BUILDINGS
@@ -16,8 +14,8 @@ from .resources import ResourceCollectionData, ResourceCollection, Resource
 # * *********** * #
 
 class CityData(TypedDict):
-    name: str
     campaign: str
+    name: str
     resource_potentials: ResourceCollectionData
     geo_features: GeoFeaturesData
     effects: EffectBonusesData
