@@ -5,7 +5,7 @@ This project is a collection of classes that help you organize your kingdom in L
 ## The `City` class
 
 The `City` class is the backbone of it all. Given a city (identified by campaign and city name) and the configuration
-of buildings that you'd like to build in it, it displays the information about the city (it's effects, production,
+of buildings that you'd like to build in it, it displays the information about the city (its effects, production,
 storage, and defenses).
 
 ```python
@@ -30,7 +30,7 @@ CityDisplay(city = city).display_city_results()
 ![full city](img/city_1.png)
 
 You can pass a `DisplayConfiguration` dictionary to the `CityDisplay` class to control how the city is displayed. For
-example, you could want the Defenses section to be omited and the Production section to be shown in yellow.
+example, you could want the Defenses section to be omitted and the Production section to be shown in yellow.
 
 ```python
 display_configuration: DisplayConfiguration = {
@@ -49,7 +49,9 @@ CityDisplay(city = city, configuration = display_configuration).display_city_res
 
 ## The `Scenario` class
 
-To create a comparison, add the city configurations in the `legion.py` script:
+The `Scenario` class is used to compare two or more possible configurations for a given city, or different cities
+altogether. You can create a comparison by passing a list of `City` objects to the `Scenario` class or via a convenient
+`Scenario.from_list()` method. Each element of the list must be a dictionary just like with the `City` class.
 
 ```python
 from modules.scenario import Scenario
@@ -85,18 +87,10 @@ scenario: Scenario = Scenario.from_list(
 scenario.display_scenario_results()
 ```
 
-The terminal output will display a comparison between the different scenarios
-
 ![scenario 1](img/scenario_1.png)
 
-You can chose to pass a configuration to control which elements are displayed. The available elements include:
-
-- `city` controls the printing of the campaign and city title
-- `buildings` controls the printing of the list of buildings
-- `effects` controls the printing of the effects table
-- `production` controls the printing of the production table
-- `storage` controls the printing of the storage table
-- `defenses` controls the printing of the defenses table
+Just as with the `CityDisplay` class, you can pass a `DisplayConfiguration` object to control how the cities are
+displayed. The configuration supplied will be used for all cities in the `Scenario`.
 
 ```python
 scenario: Scenario = Scenario.from_list(
@@ -116,4 +110,22 @@ scenario: Scenario = Scenario.from_list(
 
 ![scenario 2](img/scenario_2.png)
 
-By default, all elements have been set to `"include": True` and thus will be displayed.
+## The `DisplayConfiguration` class
+
+This helper class is used to help you create valid configurations. The different sections of the output that can be
+configured are:
+
+- `city` controls the printing of the campaign and city title
+- `buildings` controls the printing of the list of buildings
+- `effects` controls the printing of the effects table
+- `production` controls the printing of the production table
+- `storage` controls the printing of the storage table
+- `defenses` controls the printing of the defenses table
+
+For each section you can control:
+
+- `include (bool)`: controls whether the section should be included in the output.
+- `height (int)`: controls the space available for that section in the output. It is advisable to let the program handle
+  this or you may end up causing the output to be truncated in different ways. The space used will be adjusted based on
+  the sections that you decide to include.
+- `color (str)`: controls the color in which the section is displayed.
