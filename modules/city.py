@@ -6,7 +6,7 @@ from typing import TypedDict, Literal, ClassVar
 from .building import BuildingsCount, BUILDINGS
 from .effects import EffectBonusesData, EffectBonuses
 from .geo_features import GeoFeaturesData, GeoFeatures
-from .resources import ResourceCollectionData, ResourceCollection, Resource
+from .resources import Resource, ResourceCollectionData, ResourceCollection
 
 
 class CityDict(TypedDict):
@@ -76,7 +76,7 @@ class City:
     squadrons: int = field(init = False)
     squadron_size: str = field(init = False)
     
-    focus: Resource = Resource.NONE
+    focus: Resource | None = field(init = False, default = None)
     
     
     # Class variables
@@ -394,11 +394,11 @@ class City:
     
     
     #* City focus
-    def _find_city_focus(self) -> Resource:
+    def _find_city_focus(self) -> Resource | None:
         highest_balance: int = max(self.balance.food, self.balance.ore, self.balance.wood)
         
-        if highest_balance <= 0:
-            return Resource.NONE
+        if highest_balance < 0:
+            return None
         
         if self.balance.food == highest_balance:
             return Resource.FOOD
@@ -406,7 +406,8 @@ class City:
         if self.balance.ore == highest_balance:
             return Resource.ORE
         
-        return Resource.WOOD
+        if self.balance.wood == highest_balance:
+            return Resource.WOOD
     
     
     def __post_init__(self) -> None:
