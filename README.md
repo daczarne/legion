@@ -1,7 +1,53 @@
 # Legion
 
-This project is a script that allows to compare different production configurations for a given city in Legion, or
-across different cities.
+This project is a collection of classes that help you organize your kingdom in Legion.
+
+## The `City` class
+
+The `City` class is the backbone of it all. Given a city (identified by campaign and city name) and the configuration
+of buildings that you'd like to build in it, it displays the information about the city (it's effects, production,
+storage, and defenses).
+
+```python
+from modules.display import CityDisplay
+from modules.city import City
+
+city: City = City(
+    campaign = "Unification of Italy",
+    name = "Roma",
+    buildings = {
+        "city_hall": 1,
+        "basilica": 1,
+        "farmers_guild": 1,
+        "large_farm": 5,
+        "vineyard": 1,
+    },
+)
+
+CityDisplay(city = city).display_city_results()
+```
+
+![full city](img/city_1.png)
+
+You can pass a `DisplayConfiguration` dictionary to the `CityDisplay` class to control how the city is displayed. For
+example, you could want the Defenses section to be omited and the Production section to be shown in yellow.
+
+```python
+display_configuration: DisplayConfiguration = {
+    "production": {
+        "color": "yellow"
+    },
+    "defenses": {
+        "include": False,
+    },
+}
+
+CityDisplay(city = city, configuration = display_configuration).display_city_results()
+```
+
+![partial city](img/city_2.png)
+
+## The `Scenario` class
 
 To create a comparison, add the city configurations in the `legion.py` script:
 
