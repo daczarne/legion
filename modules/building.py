@@ -56,8 +56,8 @@ class BuildingData(TypedDict):
     is_buildable: bool
     is_deletable: bool
     is_upgradeable: bool
-    required_geo: GeoFeature | None
-    required_rss: Resource | None
+    required_geo: str | None
+    required_rss: str | None
     required_building: list[str]
     replaces: str | None
 
