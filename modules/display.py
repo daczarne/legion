@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import TypedDict, TypeAlias
+from typing import TypeAlias, TypedDict
 
 from rich import box
 from rich.align import Align
