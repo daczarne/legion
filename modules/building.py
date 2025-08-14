@@ -56,8 +56,8 @@ class BuildingData(TypedDict):
     is_buildable: bool
     is_deletable: bool
     is_upgradeable: bool
-    required_geo: GeoFeature | None
-    required_rss: Resource | None
+    required_geo: str | None
+    required_rss: str | None
     required_building: list[str]
     replaces: str | None
 
@@ -83,7 +83,7 @@ for building in buildings_data["buildings"]:
         is_deletable = building["is_deletable"],
         is_upgradeable = building["is_upgradeable"],
         required_geo = GeoFeature(value = building["required_geo"]) if building["required_geo"] else None,
-        required_rss = Resource(value = building["required_rss"]) if building["required_rss"] else None,
+        required_rss = Resource.from_str(name = building["required_rss"]) if building["required_rss"] else None,
         required_building = building["required_building"],
         replaces = building["replaces"],
     )

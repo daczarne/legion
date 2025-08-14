@@ -10,15 +10,15 @@ from rich.style import Style
 from rich.table import Table
 from rich.text import Text
 
-from .city import CITIES, City, CityFocusInt
-from .resources import ResourceCollection
+from .city import CITIES, City
+from .resources import ResourceCollection, Resource
 from .scenario import CityDict
 
 
 @dataclass
 class Kingdom:
     cities: list[City]
-    sort_order: list[str | None] | None = field(default = None)
+    sort_order: list[Resource] | None = field(default = None)
     
     
     # Post init values
@@ -30,59 +30,80 @@ class Kingdom:
     # The player gets a 300 storage or each rss which does not depend on any city or buildings.
     BASE_KINGDOM_STORAGE: ClassVar[int] = 300
     
-    
     @staticmethod
     def sort_cities_by_production_type(
-        cities: list[City], 
-        order: list[str | None] | None = None,
-    ) -> list[City]:
-        """
-        Sort cities by main resource according to user-defined order. Within each resource type, sort alphabetically
-        by city name. If the user does not supply an order, the order will be FOOD -> ORE -> WOOD -> NONE.
-        """
-        if order is None:
-            order = ["food", "ore", "wood", None]
+            cities: list[City],
+            order: list[Resource],
+        ) -> list[City]:
+        """Sort cities by resource production type and alphabetically within each type."""
+        if (
+            not isinstance(order, list)
+            or not all(isinstance(rss, Resource) for rss in order)
+        ):
+            raise ValueError("Order must be a list of Resource enums.")
         
-        # Validate order contains only allowed strings or None
-        allowed: set[str | None] = {"food", "ore", "wood", None}
-        if any(item not in allowed for item in order):
-            raise ValueError(f"Invalid order: {order}. Allowed: {allowed}")
+        priority: dict[Resource, int] = {resource: i for i, resource in enumerate(order)}
         
-        # Map resource name to CityFocus enum for sorting
-        resource_name_to_enum: dict[str | None, CityFocusInt] = {
-            "food": CityFocusInt.FOOD,
-            "ore": CityFocusInt.ORE,
-            "wood": CityFocusInt.WOOD,
-            None: CityFocusInt.NONE,
-        }
+        return sorted(
+            cities,
+            key = lambda c: (priority.get(c.focus, len(priority)), c.name.lower())
+        )
+    
+    # @staticmethod
+    # def sort_cities_by_production_type(
+    #     cities: list[City], 
+    #     order: list[str | None] | None = None,
+    # ) -> list[City]:
+    #     """
+    #     Sort cities by main resource according to user-defined order. Within each resource type, sort alphabetically
+    #     by city name. If the user does not supply an order, the order will be FOOD -> ORE -> WOOD -> NONE.
+    #     """
+    #     if order is None:
+    #         order = ["food", "ore", "wood", None]
         
-        enum_order: list[CityFocusInt] = [resource_name_to_enum[r] for r in order]
+    #     # Validate order contains only allowed strings or None
+    #     allowed: set[str | None] = {"food", "ore", "wood", None}
+    #     if any(item not in allowed for item in order):
+    #         raise ValueError(f"Invalid order: {order}. Allowed: {allowed}")
         
-        # Sort function: first by enum order, then alphabetically by name
-        def sort_key(city: City) -> tuple[int, str]:
-            try:
-                primary_index: int = enum_order.index(city.focus_int)
-            except ValueError:
-                primary_index: int = len(enum_order) # push unknown to the end
-            return (primary_index, city.name.lower())
+    #     # Map resource name to CityFocus enum for sorting
+    #     resource_name_to_enum: dict[str | None, CityFocusInt] = {
+    #         "food": CityFocusInt.FOOD,
+    #         "ore": CityFocusInt.ORE,
+    #         "wood": CityFocusInt.WOOD,
+    #         None: CityFocusInt.NONE,
+    #     }
         
-        return sorted(cities, key = sort_key)
+    #     enum_order: list[CityFocusInt] = [resource_name_to_enum[r] for r in order]
+        
+    #     # Sort function: first by enum order, then alphabetically by name
+    #     def sort_key(city: City) -> tuple[int, str]:
+    #         try:
+    #             primary_index: int = enum_order.index(city.focus_int)
+    #         except ValueError:
+    #             primary_index: int = len(enum_order) # push unknown to the end
+    #         return (primary_index, city.name.lower())
+        
+    #     return sorted(cities, key = sort_key)
     
     def sort_cities_by_production_type_inplace(
         self,
-        order: list[str | None] | None = None,
+        order: list[Resource] | None = None,
     ) -> None:
         """
         Replace self.cities with the sorted list according to the provided order.
         """
-        self.cities = Kingdom.sort_cities_by_production_type(cities = self.cities, order = order)
+        self.cities = Kingdom.sort_cities_by_production_type(
+            cities = self.cities,
+            order = [Resource.FOOD, Resource.ORE, Resource.WOOD, Resource.NONE] if order is None else order,
+        )
     
     
     @classmethod
     def from_list(
         cls,
         data: list[CityDict],
-        sort_order: list[str | None] | None = None,
+        sort_order: list[Resource] | None = None,
     ) -> "Kingdom":
         cities: list[City] = [City(**city) for city in data]
         return cls(cities, sort_order)

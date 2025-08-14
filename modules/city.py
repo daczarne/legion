@@ -8,7 +8,7 @@ from typing import TypedDict, Literal, ClassVar
 from .building import BuildingsCount, BUILDINGS
 from .effects import EffectBonusesData, EffectBonuses
 from .geo_features import GeoFeaturesData, GeoFeatures
-from .resources import ResourceCollectionData, ResourceCollection
+from .resources import ResourceCollectionData, ResourceCollection, Resource
 
 
 # * *********** * #
@@ -32,19 +32,6 @@ CITIES: list[CityData] = cities_data["cities"]
 # * **** * #
 # * CITY * #
 # * **** * #
-
-class CityFocusInt(Enum):
-    FOOD = auto()
-    ORE = auto()
-    WOOD = auto()
-    NONE = auto()
-
-
-class CityFocus(Enum):
-    FOOD = "food"
-    ORE = "ore"
-    WOOD = "wood"
-    NONE = None
 
 
 @dataclass
@@ -78,8 +65,7 @@ class City:
     squadrons: int = field(init = False)
     squadron_size: str = field(init = False)
     
-    focus: CityFocus = field(init = False)
-    focus_int: CityFocusInt = field(init = False)
+    focus: Resource = Resource.NONE
     
     
     # Class variables
@@ -397,34 +383,19 @@ class City:
     
     
     #* City focus
-    # @deprecated
-    def _find_city_focus_int(self) -> CityFocusInt:
+    def _find_city_focus(self) -> Resource:
         highest_balance: int = max(self.balance.food, self.balance.ore, self.balance.wood)
         
         if highest_balance <= 0:
-            return CityFocusInt.NONE
+            return Resource.NONE
         
         if self.balance.food == highest_balance:
-            return CityFocusInt.FOOD
+            return Resource.FOOD
         
         if self.balance.ore == highest_balance:
-            return CityFocusInt.ORE
+            return Resource.ORE
         
-        return CityFocusInt.WOOD
-    
-    def _find_city_focus(self) -> CityFocus:
-        highest_balance: int = max(self.balance.food, self.balance.ore, self.balance.wood)
-        
-        if highest_balance <= 0:
-            return CityFocus.NONE
-        
-        if self.balance.food == highest_balance:
-            return CityFocus.FOOD
-        
-        if self.balance.ore == highest_balance:
-            return CityFocus.ORE
-        
-        return CityFocus.WOOD
+        return Resource.WOOD
     
     
     def __post_init__(self) -> None:
@@ -462,5 +433,4 @@ class City:
         self.squadron_size = self._calculate_squadron_size()
         
         #* Focus
-        self.focus_int = self._find_city_focus_int()
         self.focus = self._find_city_focus()
