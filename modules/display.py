@@ -1,4 +1,4 @@
-from typing import TypedDict
+from typing import TypedDict, TypeAlias
 from enum import Enum
 
 from rich.align import Align
@@ -12,6 +12,9 @@ from rich.text import Text
 
 from .city import City
 from .building import BUILDINGS
+
+
+DisplaySectionColors: TypeAlias = dict[str, str]
 
 
 class DisplaySection(Enum):
@@ -38,7 +41,7 @@ class DisplayConfiguration(TypedDict, total = False):
     defenses: DisplaySectionConfiguration
 
 
-DEFAULT_SECTION_COLORS: dict[str, str] = {
+DEFAULT_SECTION_COLORS: DisplaySectionColors = {
     "effects": "#5f5fff",
     "production": "#228b22",
     "storage": "purple",
