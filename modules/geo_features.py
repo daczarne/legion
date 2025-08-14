@@ -11,6 +11,10 @@ class GeoFeature(Enum):
 
 
 class GeoFeaturesData(TypedDict):
+    """
+    This is a helper class meant to be used when reading GeoFeatures from YAML or JSON files. Its only purpose is to
+    provide good type annotations and hints.
+    """
     rock_outcrops: int
     mountains: int
     lakes: int

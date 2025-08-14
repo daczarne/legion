@@ -9,6 +9,10 @@ from .resources import ResourceCollectionData, ResourceCollection
 
 
 class CityDict(TypedDict):
+    """
+    This is a helper class meant to be used when reading defining cities using dictionaries. Its only purpose is to
+    provide good type annotations and hints.
+    """
     name: str
     campaign: str
     buildings: BuildingsCount
@@ -19,6 +23,10 @@ class CityDict(TypedDict):
 # * *********** * #
 
 class CityData(TypedDict):
+    """
+    This is a helper class meant to be used when reading CityData from YAML or JSON files. Its only purpose is to
+    provide good type annotations and hints.
+    """
     name: str
     campaign: str
     resource_potentials: ResourceCollectionData

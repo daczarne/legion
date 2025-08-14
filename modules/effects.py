@@ -10,6 +10,10 @@ class EffectBonus(Enum):
 
 
 class EffectBonusesData(TypedDict):
+    """
+    This is a helper class meant to be used when reading EffectBonuses from YAML or JSON files. Its only purpose is to
+    provide good type annotations and hints.
+    """
     troop_training: int
     population_growth: int
     intelligence: int
