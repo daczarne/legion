@@ -10,7 +10,7 @@ from rich.style import Style
 from rich.table import Table
 from rich.text import Text
 
-from .city import CITIES, City, CityFocus
+from .city import CITIES, City, CityFocusInt
 from .resources import ResourceCollection
 from .scenario import CityDict
 
@@ -49,19 +49,19 @@ class Kingdom:
             raise ValueError(f"Invalid order: {order}. Allowed: {allowed}")
         
         # Map resource name to CityFocus enum for sorting
-        resource_name_to_enum: dict[str | None, CityFocus] = {
-            "food": CityFocus.FOOD,
-            "ore": CityFocus.ORE,
-            "wood": CityFocus.WOOD,
-            None: CityFocus.NONE,
+        resource_name_to_enum: dict[str | None, CityFocusInt] = {
+            "food": CityFocusInt.FOOD,
+            "ore": CityFocusInt.ORE,
+            "wood": CityFocusInt.WOOD,
+            None: CityFocusInt.NONE,
         }
         
-        enum_order: list[CityFocus] = [resource_name_to_enum[r] for r in order]
+        enum_order: list[CityFocusInt] = [resource_name_to_enum[r] for r in order]
         
         # Sort function: first by enum order, then alphabetically by name
         def sort_key(city: City) -> tuple[int, str]:
             try:
-                primary_index: int = enum_order.index(city.focus)
+                primary_index: int = enum_order.index(city.focus_int)
             except ValueError:
                 primary_index: int = len(enum_order) # push unknown to the end
             return (primary_index, city.name.lower())
@@ -128,21 +128,18 @@ class Kingdom:
         self.kingdom_total_production = self._calculate_total_production()
         self.kingdom_total_storage = self._calculate_total_storage()
     
-    @staticmethod
     def _calculate_indentations(
-        collection: ResourceCollection,
-        cell_width: int,
-    ) -> list[int]:
+            self,
+            cell_value: int,
+            width: int,
+        ) -> int:
         CHARS_PER_THOUSAND_SEPARATOR: int = 3
-        n_chars_in_total_values: list[int] = []
         
-        for rss in collection.values():
-            digits_in_number: int = len(str(rss))
-            n_of_dashes: int = (digits_in_number - 1) // CHARS_PER_THOUSAND_SEPARATOR
-            n_chars_in_number: int = digits_in_number + n_of_dashes
-            n_chars_in_total_values.append(n_chars_in_number)
+        digits_in_number: int = len(str(cell_value))
+        n_of_dashes: int = (digits_in_number - 1) // CHARS_PER_THOUSAND_SEPARATOR
+        n_chars_in_number: int = digits_in_number + n_of_dashes
         
-        return [cell_width - n_chars for n_chars in n_chars_in_total_values]
+        return width - n_chars_in_number
     
     def _build_kingdom_information(self) -> Text:
         city_information: Text = Text(
@@ -195,25 +192,29 @@ class Kingdom:
         table.add_column(header = f"{" " * 3}Wood", header_style = "bold", justify = "left")
         
         for city in self.cities:
-            rp_food, rp_ore, rp_wood = city.resource_potentials.values()
-            i_rp_food, i_rp_ore, i_rp_wood = self._calculate_indentations(city.resource_potentials, 3)
             
-            b_food, b_ore, b_wood = city.balance.values()
-            i_b_food, i_b_ore, i_b_wood = self._calculate_indentations(city.balance, 3)
+            row_elements: list[str] = [f"{city.name}"]
             
-            table.add_row(
-                f"{city.name}",
-                f"{" " * i_rp_food}[dim]({rp_food})[/dim]{" " * 2}{" " * (i_b_food)}{f"[{production_color if city.focus == CityFocus.FOOD else "white"}]"}{b_food:_}{f"[/{production_color if city.focus == CityFocus.FOOD else "white"}]"}",
-                f"{" " * i_rp_ore}[dim]({rp_ore})[/dim]{" " * 2}{" " * (i_b_ore)}{f"[{production_color if city.focus == CityFocus.ORE else "white"}]"}{b_ore:_}{f"[{production_color if city.focus == CityFocus.ORE else "white"}]"}",
-                f"{" " * i_rp_wood}[dim]({rp_wood})[/dim]{" " * 2}{" " * (i_b_wood)}{f"[{production_color if city.focus == CityFocus.WOOD else "white"}]"}{b_wood:_}{f"[{production_color if city.focus == CityFocus.WOOD else "white"}]"}",
-            )
+            for rss in ["food", "ore", "wood"]:
+                rss_potential: int = city.resource_potentials.get(key = rss)
+                indentation_rss_potential: int = self._calculate_indentations(cell_value = rss_potential, width = 3)
+                rss_potential_cell_value: str = f"{" " * indentation_rss_potential}[dim]({rss_potential})[/dim]"
+                
+                rss_balance: int = city.balance.get(key = rss)
+                indentation_rss_balance: int = self._calculate_indentations(cell_value = rss_balance, width = 3)
+                rss_balance_color: str = production_color if city.focus.value == rss else "white"
+                rss_balance_cell_value: str = f"{" " * (indentation_rss_balance)}{f"[{rss_balance_color}]"}{rss_balance:_}{f"[/{rss_balance_color}]"}"
+                
+                row_element: str = f"{rss_potential_cell_value}{" " * 2}{rss_balance_cell_value}"
+                row_elements.append(row_element)
+            
+            table.add_row(*row_elements)
         
         table.add_section()
         
-        i_t_food, i_t_ore, i_t_wood = self._calculate_indentations(
-            collection = self.kingdom_total_production,
-            cell_width = 10,
-        )
+        i_t_food: int = self._calculate_indentations(cell_value = self.kingdom_total_production.food, width = 10)
+        i_t_ore: int = self._calculate_indentations(cell_value = self.kingdom_total_production.ore, width = 10)
+        i_t_wood: int = self._calculate_indentations(cell_value = self.kingdom_total_production.wood, width = 10)
         
         table.add_row(
             f"Total",
@@ -234,9 +235,9 @@ class Kingdom:
         )
         
         table.add_column(header = "City", header_style = "bold")
-        table.add_column(header = "Food", header_style = "bold", justify = "right")
-        table.add_column(header = "Ore", header_style = "bold", justify = "right")
-        table.add_column(header = "Wood", header_style = "bold", justify = "right")
+        table.add_column(header = f"{" " * 0}Food", header_style = "bold", justify = "left")
+        table.add_column(header = f"{" " * 1}Ore", header_style = "bold", justify = "left")
+        table.add_column(header = f"{" " * 0}Wood", header_style = "bold", justify = "left")
         
         for city in self.cities:
             table.add_row(
@@ -312,7 +313,7 @@ class Kingdom:
         return Panel(
             renderable = layout,
             width = 110,
-            height = len(self.cities) * 7,
+            height = len(self.cities) + 20,
         )
     
     def display_kingdom_results(self) -> None:

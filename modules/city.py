@@ -1,3 +1,4 @@
+from warnings import deprecated
 import yaml
 
 from dataclasses import dataclass, field
@@ -32,11 +33,18 @@ CITIES: list[CityData] = cities_data["cities"]
 # * CITY * #
 # * **** * #
 
-class CityFocus(Enum):
+class CityFocusInt(Enum):
     FOOD = auto()
     ORE = auto()
     WOOD = auto()
     NONE = auto()
+
+
+class CityFocus(Enum):
+    FOOD = "food"
+    ORE = "ore"
+    WOOD = "wood"
+    NONE = None
 
 
 @dataclass
@@ -71,6 +79,7 @@ class City:
     squadron_size: str = field(init = False)
     
     focus: CityFocus = field(init = False)
+    focus_int: CityFocusInt = field(init = False)
     
     
     # Class variables
@@ -388,6 +397,21 @@ class City:
     
     
     #* City focus
+    # @deprecated
+    def _find_city_focus_int(self) -> CityFocusInt:
+        highest_balance: int = max(self.balance.food, self.balance.ore, self.balance.wood)
+        
+        if highest_balance <= 0:
+            return CityFocusInt.NONE
+        
+        if self.balance.food == highest_balance:
+            return CityFocusInt.FOOD
+        
+        if self.balance.ore == highest_balance:
+            return CityFocusInt.ORE
+        
+        return CityFocusInt.WOOD
+    
     def _find_city_focus(self) -> CityFocus:
         highest_balance: int = max(self.balance.food, self.balance.ore, self.balance.wood)
         
@@ -438,4 +462,5 @@ class City:
         self.squadron_size = self._calculate_squadron_size()
         
         #* Focus
+        self.focus_int = self._find_city_focus_int()
         self.focus = self._find_city_focus()

@@ -32,3 +32,10 @@ class ResourceCollection:
     def values(self) -> Iterator[int]:
         """Return an iterator of values, like dict.values()."""
         return (getattr(self, field.name) for field in fields(self))
+    
+    def get(self, key: str) -> int:
+        """Get the value for a given resource name, or return default if not found."""
+        if key not in (f.name for f in fields(self)):
+            raise KeyError(f"Invalid resource name: {key}")
+        
+        return getattr(self, key)
