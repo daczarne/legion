@@ -133,7 +133,7 @@ kingdom: Kingdom = Kingdom.from_list(
         },
         {
             "campaign": "Unification of Italy",
-            "name": "Hernici",
+            "name": "Reate",
             "buildings": {
                 "city_hall": 1,
                 "basilica": 1,
