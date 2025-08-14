@@ -171,7 +171,6 @@ class Kingdom:
         return table
     
     def _build_kingdom_production_table(self) -> Table:
-        # table_style: Style = Style(color = self.configuration.get("production", {}).get("color", "#228b22"))
         production_color: str = "#228b22"
         table_style: Style = Style(color = production_color)
         table: Table = Table(
@@ -227,33 +226,52 @@ class Kingdom:
         return table
     
     def _build_kingdom_storage_table(self) -> Table:
-        table_style: Style = Style(color = "purple")
+        storage_color: str = "purple"
+        table_style: Style = Style(color = storage_color)
         table: Table = Table(
             title = Text(text = "Storage", style = table_style + Style(italic = True)),
             style = table_style,
             box = box.HEAVY,
         )
         
-        table.add_column(header = "City", header_style = "bold")
+        city_column_header: str = "City"
+        city_name_lengths: list[int] = [len(city.name) for city in self.cities]
+        max_city_name_length: int = max(city_name_lengths)
+        cell_length: int = max_city_name_length - len(city_column_header)
+        left_side_justification: int = cell_length // 2
+        
+        table.add_column(header = f"{" " * left_side_justification}{city_column_header}", header_style = "bold")
         table.add_column(header = f"{" " * 0}Food", header_style = "bold", justify = "left")
         table.add_column(header = f"{" " * 1}Ore", header_style = "bold", justify = "left")
         table.add_column(header = f"{" " * 0}Wood", header_style = "bold", justify = "left")
         
         for city in self.cities:
-            table.add_row(
-                f"{city.name}",
-                f"{city.total_storage.food}",
-                f"{city.total_storage.ore}",
-                f"{city.total_storage.wood}",
-            )
+            
+            row_elements: list[str] = [f"{city.name}"]
+            
+            for rss in ["food", "ore", "wood"]:
+                
+                rss_storage: int = city.total_storage.get(key = rss)
+                indentation_rss_storage: int = self._calculate_indentations(cell_value = rss_storage, width = 6)
+                rss_storage_color: str = storage_color if city.focus.value == rss else "white"
+                rss_storage_cell_value: str = f"{" " * (indentation_rss_storage)}{f"[{rss_storage_color}]"}{rss_storage:_}{f"[/{rss_storage_color}]"}"
+                
+                row_element: str = f"{rss_storage_cell_value}"
+                row_elements.append(row_element)
+            
+            table.add_row(*row_elements)
         
         table.add_section()
         
+        i_t_food: int = self._calculate_indentations(cell_value = self.kingdom_total_storage.food, width = 6)
+        i_t_ore: int = self._calculate_indentations(cell_value = self.kingdom_total_storage.ore, width = 6)
+        i_t_wood: int = self._calculate_indentations(cell_value = self.kingdom_total_storage.wood, width = 6)
+        
         table.add_row(
             f"Total",
-            f"{self.kingdom_total_storage.food:_}",
-            f"{self.kingdom_total_storage.ore:_}",
-            f"{self.kingdom_total_storage.wood:_}",
+            f"{" " * i_t_food}{self.kingdom_total_storage.food:_}",
+            f"{" " * i_t_ore}{self.kingdom_total_storage.ore:_}",
+            f"{" " * i_t_wood}{self.kingdom_total_storage.wood:_}",
             style = table_style + Style(bold = True),
         )
         
