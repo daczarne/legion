@@ -1,6 +1,6 @@
 from collections.abc import Iterator
 from dataclasses import dataclass, fields
-from enum import Enum, auto
+from enum import Enum
 from typing import TypedDict
 
 
