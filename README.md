@@ -171,3 +171,8 @@ kingdom: Kingdom = Kingdom.from_list(
 ```
 
 ![kingdome overview](img/kingdom_1.png)
+
+This class will raise `ValueError` if:
+
+- not all cities are from the same campaign
+- there are duplicated cities
