@@ -384,7 +384,6 @@ kingdom: Kingdom = Kingdom.from_list(
             "buildings": wood_producer,
         },
     ],
-    sort_order = ["ore"]
 )
 
 kingdom.display_kingdom_results()

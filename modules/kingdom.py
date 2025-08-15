@@ -10,9 +10,8 @@ from rich.style import Style
 from rich.table import Table
 from rich.text import Text
 
-from .city import CITIES, City
+from .city import City, CityDict, CITIES
 from .resources import ResourceCollection, Resource
-from .scenario import CityDict
 
 
 @dataclass
@@ -36,7 +35,23 @@ class Kingdom:
             order: list[str | None],
         ) -> list[City]:
         """
-        Sort cities by "focus" (rss with the highest production) and alphabetically within each type.
+        Sort the cities in the Kingdom based on a specific order. The order is a resource (the focus of the city), or
+        None (cities with no production).
+        
+        For example, if `order = ["food", "ore"]` cities that produce food will be placed first, followed by cities that
+        produce ore.
+        
+        If the order is not relevant, just pass an empty list. The default order is food -> ore -> wood -> None.
+        
+        Any rss not mentioned in your list will be added to the end of the list. This ensures that there always is an
+        order. For example, if `order = ["ore"]`, the cities will be sorted by ore -> food -> wood -> None.
+        
+        Args:
+            cities (list[City]): a list of cities (instances of City class).
+            order (list[str | None]): a list of rss. Can be partial or empty list.
+        
+        Returns:
+            list[City]: the supplied list of cities sorted in the supplied order.
         """
         if "food" not in order:
             order.append("food")
@@ -142,7 +157,6 @@ class Kingdom:
         return city_information
     
     def _build_campaign_table(self) -> Table:
-        # table_style: Style = Style(color = self.configuration.get("production", {}).get("color", "#228b22"))
         table_style: Style = Style(color = "cyan")
         table: Table = Table(
             title = Text(text = "Campaign", style = table_style + Style(italic = True)),
