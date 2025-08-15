@@ -187,6 +187,7 @@ class Kingdom:
             row_elements: list[str] = [f"{city.name}"]
             
             for rss in ["food", "ore", "wood"]:
+                
                 rss_potential: int = city.resource_potentials.get(key = rss)
                 indentation_rss_potential: int = self._calculate_indentations(cell_value = rss_potential, width = 3)
                 rss_potential_cell_value: str = f"{" " * indentation_rss_potential}[dim]({rss_potential})[/dim]"
