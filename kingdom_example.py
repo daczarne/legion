@@ -313,11 +313,6 @@ kingdom: Kingdom = Kingdom.from_list(
                 "large_mine": 5,
             },
         },
-        {
-            "campaign": "Unification of Italy",
-            "name": "Arpi",
-            "buildings": wood_producer,
-        },
     ],
 )
 

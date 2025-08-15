@@ -1,3 +1,4 @@
+from collections import Counter
 from dataclasses import dataclass, field
 from typing import ClassVar
 
@@ -16,11 +17,49 @@ from .resources import ResourceCollection, Resource
 
 @dataclass
 class Kingdom:
+    """
+    Represents a collection of cities under a single campaign, tracking and displaying their production, storage
+    capacity, and other aggregated statistics.
+    
+    A `Kingdom` contains multiple `City` objects from the same campaign. It can sort its cities by resource focus,
+    validate campaign integrity, and calculate aggregated resource production and storage values (including a base
+    storage capacity that is independent of cities). The class also supports generating rich terminal output with
+    campaign, production, and storage tables.
+    
+    Attributes:
+        cities (list[City]): list of `City` instances belonging to the kingdom.
+        sort_order (list[str | None] | None): optional resource sort order for cities. Defaults to `["food", "ore",
+            "wood", None]`). If not provided, a default order is used. Accept partial orders, e.g. `["ore"]` means
+            "show ore first". For all resources not specified in the list the default will be used.
+        campaign (str): the campaign name shared by all cities in the kingdom. Automatically set during initialization.
+        number_of_cities_in_campaign (int): total number of cities in the campaign (including those not owned by the
+            player). Calculated during initialization.
+        kingdom_total_production (ResourceCollection): aggregated net production of all resources across the player's
+            kingdom.
+        kingdom_total_storage (ResourceCollection): aggregated total storage capacity across the player's kingdom,
+            including the base storage.
+        
+    Class Attributes:
+        BASE_KINGDOM_STORAGE (int): fixed storage amount (per resource) granted to the player, independent of any
+            cities or buildings.
+    
+    Methods:
+        sort_cities_by_focus(cities, order):
+            Sorts a list of cities by resource focus according to the given order.
+        from_list(data, sort_order):
+            Creates a `Kingdom` from a list of city dictionaries.
+        display_kingdom_results():
+            Prints a formatted representation of the kingdom, including campaign info, production, and storage tables.
+    
+    Raises:
+        ValueError: if there are duplicate city names or cities from multiple campaigns.
+    """
     cities: list[City]
     sort_order: list[str | None] | None = field(default = None)
     
     
     # Post init values
+    campaign: str = field(init = False)
     number_of_cities_in_campaign: int = field(init = False)
     kingdom_total_production: ResourceCollection = field(init = False)
     kingdom_total_storage: ResourceCollection = field(init = False)
@@ -35,23 +74,22 @@ class Kingdom:
             order: list[str | None],
         ) -> list[City]:
         """
-        Sort the cities in the Kingdom based on a specific order. The order is a resource (the focus of the city), or
-        None (cities with no production).
+        Sort cities by their primary resource focus in a specified order.
         
-        For example, if `order = ["food", "ore"]` cities that produce food will be placed first, followed by cities that
-        produce ore.
-        
-        If the order is not relevant, just pass an empty list. The default order is food -> ore -> wood -> None.
-        
-        Any rss not mentioned in your list will be added to the end of the list. This ensures that there always is an
-        order. For example, if `order = ["ore"]`, the cities will be sorted by ore -> food -> wood -> None.
+        If a resource is not listed in `order`, it will be appended to the end of the sorting order automatically.
+        Cities with no focus (`None`) will also be placed at the end unless explicitly positioned.
         
         Args:
-            cities (list[City]): a list of cities (instances of City class).
-            order (list[str | None]): a list of rss. Can be partial or empty list.
+            cities (list[City]): list of `City` instances to sort.
+            order (list[str | None]): desired sort order of resources, where each entry is a resource name (e.g.,
+                "food") or `None` for cities without production.
         
         Returns:
-            list[City]: the supplied list of cities sorted in the supplied order.
+            list[City]: a new list of cities sorted according to the specified order.
+        
+        Example:
+            >>> sorted_cities = Kingdom.sort_cities_by_focus(cities, ["food", "ore"])
+            # Orders cities producing food first, then ore, then wood, then None.
         """
         if "food" not in order:
             order.append("food")
@@ -71,7 +109,7 @@ class Kingdom:
         
         return sorted(cities, key = lambda city: (normalized_order.index(city.focus), city.name))
     
-    def sort_cities_by_focus_inplace(
+    def _sort_cities_by_focus_inplace(
         self,
         order: list[str | None] | None = None,
     ) -> None:
@@ -90,10 +128,57 @@ class Kingdom:
         data: list[CityDict],
         sort_order: list[str | None] | None = None,
     ) -> "Kingdom":
+        """
+        Create a `Kingdom` instance from a list of raw city data dictionaries.
+        
+        Args:
+            data (list[CityDict]): list of city data dictionaries. Each dictionary must contain valid keys for
+                initializing a `City` instance.
+            sort_order (list[str | None] | None): optional sort order for resources when arranging the cities. If
+                `None`, the default order is used.
+        
+        Returns:
+            Kingdom: a new `Kingdom` instance populated with the provided cities.
+        
+        Example:
+            >>> raw_data = [{"name": "CityA", "campaign": "Alpha", "buildings": {"city_hall: 1, "farm": 4}}, ...]
+            >>> kingdom = Kingdom.from_list(raw_data, ["ore", "wood"])
+        """
         cities: list[City] = [City(**city) for city in data]
         return cls(cities, sort_order)
     
     
+    #* Validate Kingdom
+    def _validate_all_cities_are_unique(self) -> None:
+        all_cities: list[str] = [city.name for city in self.cities]
+        city_counts: Counter = Counter(all_cities)
+        for city, count in city_counts.items():
+            if count > 1:
+                raise ValueError(f"Found duplicated city: {city}")
+    
+    def _validate_all_cities_are_from_the_same_campaign(self) -> None:
+        all_campaigns: list[str] = [city.campaign for city in self.cities]
+        campaign_counts: Counter = Counter(all_campaigns)
+        if len(campaign_counts) > 1:
+            raise ValueError(
+                f"All cities must belong to the same campaign. "
+                f"Found cities from: {" and ".join(campaign_counts.keys())}"
+            )
+    
+    def _get_campaign(self) -> str:
+        return self.cities[0].campaign
+    
+    def _get_number_of_cities_in_campaign(self) -> int:
+        number_of_cities_in_campaign: int = 0
+        
+        for city in CITIES:
+            if city.get("campaign") == self.campaign:
+                number_of_cities_in_campaign += 1
+        
+        return number_of_cities_in_campaign
+    
+    
+    #* Kingdom calculations
     def _calculate_total_production(self) -> ResourceCollection:
         total_production: ResourceCollection = ResourceCollection()
         
@@ -118,22 +203,21 @@ class Kingdom:
         
         return total_storage
     
-    def _get_number_of_cities_in_campaign(self) -> int:
-        number_of_cities_in_campaign: int = 0
-        
-        for city in CITIES:
-            if city.get("campaign") == self.cities[0].campaign:
-                number_of_cities_in_campaign += 1
-        
-        return number_of_cities_in_campaign
-    
     
     def __post_init__(self) -> None:
-        self.sort_cities_by_focus_inplace(order = self.sort_order)
+        #* Kingdom validations
+        self._validate_all_cities_are_unique()
+        self._validate_all_cities_are_from_the_same_campaign()
+        self._sort_cities_by_focus_inplace(order = self.sort_order)
+        
+        self.campaign = self._get_campaign()
         self.number_of_cities_in_campaign = self._get_number_of_cities_in_campaign()
+        
         self.kingdom_total_production = self._calculate_total_production()
         self.kingdom_total_storage = self._calculate_total_storage()
     
+    
+    #* Kingdom display
     def _calculate_indentations(
             self,
             cell_value: int,
@@ -149,7 +233,7 @@ class Kingdom:
     
     def _build_kingdom_information(self) -> Text:
         city_information: Text = Text(
-            text = f" {self.cities[0].campaign} ",
+            text = f" {self.campaign} ",
             style = "bold black on white",
             justify = "center",
         )
@@ -348,19 +432,20 @@ class Kingdom:
     
     def display_kingdom_results(self) -> None:
         """
-        Prints the Kingdom to the terminal output. This is composed of four elements.
+        Print a formatted table-based representation of the kingdom to the terminal.
         
-        At the top, the name of the campaign.
+        The display includes:
         
-        Next, the campaign section with information on the total number of cities in the campaign, the 40% threshold
-        (winning condition), and the current number of cities the player has.
+        1. Campaign name.
+        2. Campaign summary (total cities in campaign, 40% threshold, cities owned).
+        3. Production table (per city resource balance and potential).
+        4. Storage table (per city resource storage capacity).
         
-        The last section will contain two tables: total kingdom production, and total kingdom storage capacity. This
-        tables present information desagragted by city. The value corresponding to the main resourse of the city (by
-        prod. or storage respectivly), will appear highlighted.
+        Resource values for a city's primary focus are highlighted for quick reference. Production tables also include
+        resource potential values in parentheses.
         
-        The production table also displayes the resorce potential for each resource in that city. This is done in order
-        to help with refactoring production decisions.
+        Returns:
+            None
         """
         console: Console = Console()
         console.print(self._build_kingdom_display())
