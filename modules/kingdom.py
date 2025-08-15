@@ -195,6 +195,7 @@ class Kingdom:
                 rss_balance: int = city.balance.get(key = rss)
                 indentation_rss_balance: int = self._calculate_indentations(cell_value = rss_balance, width = 3)
                 rss_balance_color: str = production_color if getattr(city.focus, "value", None) == rss else "white"
+                rss_balance_color: str = production_color if Resource(value = rss) == city.focus else "white"
                 rss_balance_cell_value: str = f"{" " * (indentation_rss_balance)}{f"[{rss_balance_color}]"}{rss_balance:_}{f"[/{rss_balance_color}]"}"
                 
                 row_element: str = f"{rss_potential_cell_value}{" " * 2}{rss_balance_cell_value}"
@@ -246,7 +247,7 @@ class Kingdom:
                 
                 rss_storage: int = city.total_storage.get(key = rss)
                 indentation_rss_storage: int = self._calculate_indentations(cell_value = rss_storage, width = 6)
-                rss_storage_color: str = storage_color if getattr(city.focus, "value", None) == rss else "white"
+                rss_storage_color: str = storage_color if Resource(value = rss) == city.focus else "white"
                 rss_storage_cell_value: str = f"{" " * (indentation_rss_storage)}{f"[{rss_storage_color}]"}{rss_storage:_}{f"[/{rss_storage_color}]"}"
                 
                 row_element: str = f"{rss_storage_cell_value}"
