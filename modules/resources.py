@@ -30,25 +30,25 @@ class ResourceCollection:
         """
         Iterate over keys, like a dict.
         """
-        return (field.name for field in fields(self))
+        return (field.name for field in fields(class_or_instance = self))
     
     def items(self) -> Iterator[tuple[str, int]]:
         """
         Return an iterator of (key, value) pairs.
         """
-        return ((field.name, getattr(self, field.name)) for field in fields(self))
+        return ((field.name, getattr(self, field.name)) for field in fields(class_or_instance = self))
     
     def values(self) -> Iterator[int]:
         """
         Return an iterator of values, like dict.values().
         """
-        return (getattr(self, field.name) for field in fields(self))
+        return (getattr(self, field.name) for field in fields(class_or_instance = self))
     
     def get(self, key: str) -> int:
         """
         Get the value for a given resource name, or return default if not found.
         """
-        if key not in (f.name for f in fields(self)):
+        if key not in (f.name for f in fields(class_or_instance = self)):
             raise KeyError(f"Invalid resource name: {key}")
         
         return getattr(self, key)

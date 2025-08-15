@@ -56,7 +56,6 @@ altogether. You can create a comparison by passing a list of `City` objects to t
 ```python
 from modules.scenario import Scenario
 
-
 scenario: Scenario = Scenario.from_list(
     data = [
         {
@@ -129,3 +128,46 @@ For each section you can control:
   this or you may end up causing the output to be truncated in different ways. The space used will be adjusted based on
   the sections that you decide to include.
 - `color (str)`: controls the color in which the section is displayed.
+
+## The `Kingdom` class
+
+The `Kingdom` class produces an overview of the player's situation in a given campaing. It takes as input a list of
+cities and a list of sorting order. It displays the total production and storage situation of the kingdom.
+
+You can also use the `Kingdom.from_list()` method to create the Kingdom instance. The list should be a list of city
+dictionaries same as with the `Scenario` class.
+
+```python
+from modules.kingdom import Kingdom
+
+kingdom: Kingdom = Kingdom.from_list(
+    data = [
+        {
+            "campaign": "Unification of Italy",
+            "name": "Hernici",
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "miners_guild": 1,
+                "outcrop_mine": 1,
+                "fishing_village": 1,
+                "large_mine": 4,
+            },
+        },
+        {
+            "campaign": "Unification of Italy",
+            "name": "Reate",
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "miners_guild": 1,
+                "mountain_mine": 2,
+                "large_mine": 4,
+            },
+        },
+        ...
+    ],
+)
+```
+
+![kingdome overview](img/kingdom_1.png)
