@@ -11,7 +11,7 @@ from rich.table import Table
 from rich.text import Text
 
 from .city import CITIES, City
-from .resources import ResourceCollection, Resource, ResourceOrder
+from .resources import ResourceCollection, Resource
 from .scenario import CityDict
 
 
@@ -38,19 +38,23 @@ class Kingdom:
         """
         Sort cities by "focus" (rss with the highest production) and alphabetically within each type.
         """
+        if "food" not in order:
+            order.append("food")
+        
+        if "ore" not in order:
+            order.append("ore")
+        
+        if "wood" not in order:
+            order.append("wood")
+        
+        if None not in order:
+            order.append(None)
+        
         normalized_order: list[Resource | None] = [
-            Resource(value = item) if isinstance(item, str) and item is not None else None
-            for item in order
+            Resource(value = item) if isinstance(item, str) else None for item in order
         ]
         
-        def sort_key(city: City) -> tuple[int, str]:
-            try:
-                index: int = normalized_order.index(city.focus)
-            except ValueError:
-                index: int = len(normalized_order)
-            return index, city.name
-        
-        return sorted(cities, key = sort_key)
+        return sorted(cities, key = lambda city: (normalized_order.index(city.focus), city.name))
     
     def sort_cities_by_focus_inplace(
         self,
