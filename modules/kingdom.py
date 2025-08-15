@@ -348,5 +348,20 @@ class Kingdom:
         )
     
     def display_kingdom_results(self) -> None:
+        """
+        Prints the Kingdom to the terminal output. This is composed of four elements.
+        
+        At the top, the name of the campaign.
+        
+        Next, the campaign section with information on the total number of cities in the campaign, the 40% threshold
+        (winning condition), and the current number of cities the player has.
+        
+        The last section will contain two tables: total kingdom production, and total kingdom storage capacity. This
+        tables present information desagragted by city. The value corresponding to the main resourse of the city (by
+        prod. or storage respectivly), will appear highlighted.
+        
+        The production table also displayes the resorce potential for each resource in that city. This is done in order
+        to help with refactoring production decisions.
+        """
         console: Console = Console()
         console.print(self._build_kingdom_display())
