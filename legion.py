@@ -1,6 +1,7 @@
-from modules.city import City, BuildingsCount
+from modules.city import BuildingsCount
 from modules.scenario import Scenario
 from modules.kingdom import Kingdom
+
 
 scenario: Scenario = Scenario.from_list(
     data = [
@@ -65,6 +66,7 @@ scenario: Scenario = Scenario.from_list(
 
 # scenario.display_scenario_results()
 
+
 food_producer: BuildingsCount = {
     "city_hall": 1,
     "basilica": 1,
@@ -100,7 +102,6 @@ militarty: BuildingsCount = {
     "quartermaster": 1,
     "large_fort": 1,
 }
-
 
 kingdom: Kingdom = Kingdom.from_list(
     data = [
@@ -196,11 +197,11 @@ kingdom: Kingdom = Kingdom.from_list(
             "name": "Clusium",
             "buildings": ore_producer,
         },
-        {
-            "campaign": "Unification of Italy",
-            "name": "Pisae",
-            "buildings": wood_producer,
-        },
+        # {
+        #     "campaign": "Unification of Italy",
+        #     "name": "Pisae",
+        #     "buildings": wood_producer,
+        # },
         {
             "campaign": "Unification of Italy",
             "name": "Sentinum",
@@ -226,11 +227,11 @@ kingdom: Kingdom = Kingdom.from_list(
                 "large_mine": 5,
             },
         },
-        {
-            "campaign": "Unification of Italy",
-            "name": "Apuani",
-            "buildings": wood_producer,
-        },
+        # {
+        #     "campaign": "Unification of Italy",
+        #     "name": "Apuani",
+        #     "buildings": wood_producer,
+        # },
         {
             "campaign": "Unification of Italy",
             "name": "Friniates",
@@ -269,120 +270,120 @@ kingdom: Kingdom = Kingdom.from_list(
                 "large_lumber_mill": 4,
             },
         },
-        {
-            "campaign": "Unification of Italy",
-            "name": "Lingones",
-            "buildings": wood_producer,
-        },
-        {
-            "campaign": "Unification of Italy",
-            "name": "Marrucini",
-            "buildings": ore_producer,
-        },
-        {
-            "campaign": "Unification of Italy",
-            "name": "Carsioli",
-            "buildings": ore_producer,
-        },
-        {
-            "campaign": "Unification of Italy",
-            "name": "Paeligni",
-            "buildings": food_producer,
-        },
-        {
-            "campaign": "Unification of Italy",
-            "name": "Marsi",
-            "buildings": {
-                "city_hall": 1,
-                "basilica": 1,
-                "miners_guild": 1,
-                "large_mine": 5,
-                "outcrop_mine": 1,
-            },
-        },
-        {
-            "campaign": "Unification of Italy",
-            "name": "Caercini",
-            "buildings": {
-                "city_hall": 1,
-                "basilica": 1,
-                "miners_guild": 1,
-                "outcrop_mine": 1,
-                "mountain_mine": 1,
-                "large_mine": 4,
-            },
-        },
-        {
-            "campaign": "Unification of Italy",
-            "name": "Histonium",
-            "buildings": {
-                "city_hall": 1,
-                "basilica": 1,
-                "warehouse": 1,
-                "farmers_guild": 1,
-                "fishing_village": 1,
-                "vineyard": 1,
-                "large_farm": 3,
-            },
-        },
-        {
-            "campaign": "Unification of Italy",
-            "name": "Apulians",
-            "buildings": militarty,
-        },
-        {
-            "campaign": "Unification of Italy",
-            "name": "Pentri",
-            "buildings": ore_producer,
-        },
-        {
-            "campaign": "Unification of Italy",
-            "name": "Neapolis",
-            "buildings": food_producer,
-        },
-        {
-            "campaign": "Unification of Italy",
-            "name": "Capua",
-            "buildings": ore_producer,
-        },
-        {
-            "campaign": "Unification of Italy",
-            "name": "Caudini",
-            "buildings": {
-                "city_hall": 1,
-                "basilica": 1,
-                "miners_guild": 1,
-                "outcrop_mine": 1,
-                "large_mine": 5,
-            },
-        },
-        {
-            "campaign": "Unification of Italy",
-            "name": "Nuceria",
-            "buildings": {
-                "city_hall": 1,
-                "basilica": 1,
-                "miners_guild": 1,
-                "fishing_village": 1,
-                "large_mine": 5,
-            },
-        },
-        {
-            "campaign": "Unification of Italy",
-            "name": "Hirpini",
-            "buildings": {
-                "city_hall": 1,
-                "basilica": 1,
-                "miners_guild": 1,
-                "mountain_mine": 1,
-                "large_mine": 5,
-            },
-        },
-        {
-            "campaign": "Unification of Italy",
-            "name": "Arpi",
-            "buildings": wood_producer,
-        },
+        # {
+        #     "campaign": "Unification of Italy",
+        #     "name": "Lingones",
+        #     "buildings": wood_producer,
+        # },
+        # {
+        #     "campaign": "Unification of Italy",
+        #     "name": "Marrucini",
+        #     "buildings": ore_producer,
+        # },
+        # {
+        #     "campaign": "Unification of Italy",
+        #     "name": "Carsioli",
+        #     "buildings": ore_producer,
+        # },
+        # {
+        #     "campaign": "Unification of Italy",
+        #     "name": "Paeligni",
+        #     "buildings": food_producer,
+        # },
+        # {
+        #     "campaign": "Unification of Italy",
+        #     "name": "Marsi",
+        #     "buildings": {
+        #         "city_hall": 1,
+        #         "basilica": 1,
+        #         "miners_guild": 1,
+        #         "large_mine": 5,
+        #         "outcrop_mine": 1,
+        #     },
+        # },
+        # {
+        #     "campaign": "Unification of Italy",
+        #     "name": "Caercini",
+        #     "buildings": {
+        #         "city_hall": 1,
+        #         "basilica": 1,
+        #         "miners_guild": 1,
+        #         "outcrop_mine": 1,
+        #         "mountain_mine": 1,
+        #         "large_mine": 4,
+        #     },
+        # },
+        # {
+        #     "campaign": "Unification of Italy",
+        #     "name": "Histonium",
+        #     "buildings": {
+        #         "city_hall": 1,
+        #         "basilica": 1,
+        #         "warehouse": 1,
+        #         "farmers_guild": 1,
+        #         "fishing_village": 1,
+        #         "vineyard": 1,
+        #         "large_farm": 3,
+        #     },
+        # },
+        # {
+        #     "campaign": "Unification of Italy",
+        #     "name": "Apulians",
+        #     "buildings": militarty,
+        # },
+        # {
+        #     "campaign": "Unification of Italy",
+        #     "name": "Pentri",
+        #     "buildings": ore_producer,
+        # },
+        # {
+        #     "campaign": "Unification of Italy",
+        #     "name": "Neapolis",
+        #     "buildings": food_producer,
+        # },
+        # {
+        #     "campaign": "Unification of Italy",
+        #     "name": "Capua",
+        #     "buildings": ore_producer,
+        # },
+        # {
+        #     "campaign": "Unification of Italy",
+        #     "name": "Caudini",
+        #     "buildings": {
+        #         "city_hall": 1,
+        #         "basilica": 1,
+        #         "miners_guild": 1,
+        #         "outcrop_mine": 1,
+        #         "large_mine": 5,
+        #     },
+        # },
+        # {
+        #     "campaign": "Unification of Italy",
+        #     "name": "Nuceria",
+        #     "buildings": {
+        #         "city_hall": 1,
+        #         "basilica": 1,
+        #         "miners_guild": 1,
+        #         "fishing_village": 1,
+        #         "large_mine": 5,
+        #     },
+        # },
+        # {
+        #     "campaign": "Unification of Italy",
+        #     "name": "Hirpini",
+        #     "buildings": {
+        #         "city_hall": 1,
+        #         "basilica": 1,
+        #         "miners_guild": 1,
+        #         "mountain_mine": 1,
+        #         "large_mine": 5,
+        #     },
+        # },
+        # {
+        #     "campaign": "Unification of Italy",
+        #     "name": "Arpi",
+        #     "buildings": wood_producer,
+        # },
     ],
 )
 
