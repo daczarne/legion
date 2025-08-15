@@ -92,7 +92,6 @@ class Kingdom:
     ) -> "Kingdom":
         cities: list[City] = [City(**city) for city in data]
         return cls(cities, sort_order)
-        # return cls(cities)
     
     
     def _calculate_total_production(self) -> ResourceCollection:
