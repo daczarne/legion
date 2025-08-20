@@ -76,3 +76,11 @@ example:
           - city_example.py
           - kingdom_example.py
           - scenario_example.py
+campaign:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .cspell/campaigns.txt
+troops:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .cspell/troops.txt
