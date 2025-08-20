@@ -20,7 +20,7 @@ City
   |    |_ workers
   |    |_ total
   |_ production
-  |    |_ base_production
+  |    |_ base
   |    |    |_ food
   |    |    |_ ore
   |    |    |_ wood
@@ -28,7 +28,7 @@ City
   |    |    |_ food
   |    |    |_ ore
   |    |    |_ wood
-  |    |_ total_production
+  |    |_ total
   |    |    |_ food
   |    |    |_ ore
   |    |    |_ wood
@@ -37,9 +37,9 @@ City
   |    |    |_ ore
   |    |    |_ wood
   |    |_ balance
-  |    |    |_ food
-  |    |    |_ ore
-  |    |    |_ wood
+  |         |_ food
+  |         |_ ore
+  |         |_ wood
   |_ storage
   |    |_ city
   |    |    |_ food
@@ -58,9 +58,9 @@ City
   |    |    |_ ore
   |    |    |_ wood
   |    |_ total
-  |    |    |_ food
-  |    |    |_ ore
-  |    |    |_ wood
+  |         |_ food
+  |         |_ ore
+  |         |_ wood
   |_ defenses
   |    |_ garrison
   |    |_ squadrons
