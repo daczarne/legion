@@ -1,5 +1,5 @@
-from pytest import mark
 from collections import Counter
+from pytest import mark
 from typing import Any
 
 from modules.geo_features import GeoFeature
