@@ -48,28 +48,31 @@ display:
   - changed-files:
       - any-glob-to-any-file:
           - modules/display.py
-effects:
-  - changed-files:
-      - any-glob-to-any-file:
-          - modules/effects.py
-geo_features:
-  - changed-files:
-      - any-glob-to-any-file:
-          - modules/geo_features.py
 kingdom:
   - changed-files:
       - any-glob-to-any-file:
           - kingdom_example.py
           - modules/kingdom.py
-resources:
-  - changed-files:
-      - any-glob-to-any-file:
-          - modules/resources.py
 scenario:
   - changed-files:
       - any-glob-to-any-file:
           - modules/scenario.py
           - scenario_example.py
+effects:
+  - changed-files:
+      - any-glob-to-any-file:
+          - modules/effects.py
+          - tests/test_effects.py
+geo_features:
+  - changed-files:
+      - any-glob-to-any-file:
+          - modules/geo_features.py
+          - tests/test_geo_features.py
+resources:
+  - changed-files:
+      - any-glob-to-any-file:
+          - modules/resources.py
+          - tests/test_resources.py
 example:
   - changed-files:
       - any-glob-to-any-file:

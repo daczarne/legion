@@ -4,6 +4,7 @@ from collections import Counter
 from modules.city import CityData, City
 from modules.resources import Resource
 
+
 @mark.cities_data
 class TestCitiesData:
     
