@@ -74,9 +74,6 @@ class City:
     total_storage: ResourceCollection = field(init = False)
     
     defenses: CityDefenses = CityDefenses(garrison = field(init = False))
-    # garrison: str = field(init = False)
-    # squadrons: int = field(init = False)
-    # squadron_size: str = field(init = False)
     
     focus: Resource | None = field(init = False, default = None)
     
