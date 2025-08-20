@@ -273,9 +273,9 @@ class CityDisplay:
         table.add_column(header = "Squadron size", header_style = "bold", justify = "center")
         
         table.add_row(
-            f"{self.city.garrison}",
-            f"{self.city.squadrons}",
-            f"{self.city.squadron_size}",
+            f"{self.city.defenses.garrison}",
+            f"{self.city.defenses.squadrons}",
+            f"{self.city.defenses.squadron_size}",
         )
         
         return table
