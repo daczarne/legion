@@ -73,6 +73,6 @@ scenario:
 example:
   - changed-files:
       - any-glob-to-any-file:
-          - scenario_example.py
           - city_example.py
           - kingdom_example.py
+          - scenario_example.py
