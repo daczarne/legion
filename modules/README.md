@@ -15,10 +15,10 @@ City
   |    |_ lakes
   |    |_ forests
   |_ effects
-  |    |_ city_effects
-  |    |_ building_effects
-  |    |_ worker_effects
-  |    |_ total_effects
+  |    |_ city
+  |    |_ buildings
+  |    |_ workers
+  |    |_ total
   |_ production
   |    |_ base_production
   |    |    |_ food
@@ -41,23 +41,23 @@ City
   |    |    |_ ore
   |    |    |_ wood
   |_ storage
-  |    |_ city_storage
+  |    |_ city
   |    |    |_ food
   |    |    |_ ore
   |    |    |_ wood
-  |    |_ buildings_storage
+  |    |_ buildings
   |    |    |_ food
   |    |    |_ ore
   |    |    |_ wood
-  |    |_ warehouse_storage
+  |    |_ warehouse
   |    |    |_ food
   |    |    |_ ore
   |    |    |_ wood
-  |    |_ supply_dump_storage
+  |    |_ supply_dump
   |    |    |_ food
   |    |    |_ ore
   |    |    |_ wood
-  |    |_ total_storage
+  |    |_ total
   |    |    |_ food
   |    |    |_ ore
   |    |    |_ wood
