@@ -30,3 +30,57 @@ workflows:
   - changed-files:
       - any-glob-to-any-file:
           - .github/**
+building:
+  - changed-files:
+      - any-glob-to-any-file:
+          - modules/building.py
+          - data/buildings.yaml
+          - tests/test_building.py
+city:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .cspell/cities.txt
+          - city_example.py
+          - data/cities.yaml
+          - modules/city.py
+          - tests/test_city.py
+display:
+  - changed-files:
+      - any-glob-to-any-file:
+          - modules/display.py
+effects:
+  - changed-files:
+      - any-glob-to-any-file:
+          - modules/effects.py
+geo_features:
+  - changed-files:
+      - any-glob-to-any-file:
+          - modules/geo_features.py
+kingdom:
+  - changed-files:
+      - any-glob-to-any-file:
+          - kingdom_example.py
+          - modules/kingdom.py
+resources:
+  - changed-files:
+      - any-glob-to-any-file:
+          - modules/resources.py
+scenario:
+  - changed-files:
+      - any-glob-to-any-file:
+          - modules/scenario.py
+          - scenario_example.py
+example:
+  - changed-files:
+      - any-glob-to-any-file:
+          - city_example.py
+          - kingdom_example.py
+          - scenario_example.py
+campaign:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .cspell/campaigns.txt
+troops:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .cspell/troops.txt
