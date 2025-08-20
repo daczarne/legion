@@ -4,68 +4,28 @@
 City
   |_ campaign
   |_ name
-  |_ buildings
-  |_ resource_potentials
-  |    |_ food
-  |    |_ ore
-  |    |_ wood
-  |_ geo_features
-  |    |_ rock_outcrops
-  |    |_ mountains
-  |    |_ lakes
-  |    |_ forests
+  |_ buildings (BuildingsCount)
+  |_ resource_potentials (ResourceCollection)
+  |_ geo_features (GeoFeatures)
   |_ effects
-  |    |_ city
-  |    |_ buildings
-  |    |_ workers
-  |    |_ total
+  |    |_ city (EffectBonuses)
+  |    |_ buildings (EffectBonuses)
+  |    |_ workers (EffectBonuses)
+  |    |_ total (EffectBonuses)
   |_ production
-  |    |_ base
-  |    |    |_ food
-  |    |    |_ ore
-  |    |    |_ wood
-  |    |_ productivity_bonuses
-  |    |    |_ food
-  |    |    |_ ore
-  |    |    |_ wood
-  |    |_ total
-  |    |    |_ food
-  |    |    |_ ore
-  |    |    |_ wood
-  |    |_ maintenance_costs
-  |    |    |_ food
-  |    |    |_ ore
-  |    |    |_ wood
-  |    |_ balance
-  |         |_ food
-  |         |_ ore
-  |         |_ wood
+  |    |_ base (ResourceCollection)
+  |    |_ productivity_bonuses (ResourceCollection)
+  |    |_ total (ResourceCollection)
+  |    |_ maintenance_costs (ResourceCollection)
+  |    |_ balance (ResourceCollection)
   |_ storage
-  |    |_ city
-  |    |    |_ food
-  |    |    |_ ore
-  |    |    |_ wood
-  |    |_ buildings
-  |    |    |_ food
-  |    |    |_ ore
-  |    |    |_ wood
-  |    |_ warehouse
-  |    |    |_ food
-  |    |    |_ ore
-  |    |    |_ wood
-  |    |_ supply_dump
-  |    |    |_ food
-  |    |    |_ ore
-  |    |    |_ wood
-  |    |_ total
-  |         |_ food
-  |         |_ ore
-  |         |_ wood
-  |_ defenses
-  |    |_ garrison
-  |    |_ squadrons
-  |    |_ squadron_size
-  |_ focus
+  |    |_ city (ResourceCollection)
+  |    |_ buildings (ResourceCollection)
+  |    |_ warehouse (ResourceCollection)
+  |    |_ supply_dump (ResourceCollection)
+  |    |_ total (ResourceCollection)
+  |_ defenses (CityDefenses)
+  |_ focus (Resource)
   |_ MAX_WORKERS
   |_ POSSIBLE_CITY_HALLS
   |_ MAX_BUILDINGS_PER_CITY
