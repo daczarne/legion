@@ -68,7 +68,7 @@ class TestResourceCollection:
     )
     def test_get_valid_keys(
         self,
-        key: Literal['food'] | Literal['ore'] | Literal['wood'],
+        key: Literal["food"] | Literal["ore"] | Literal["wood"],
         expected: Literal[11] | Literal[22] | Literal[33],
     ) -> None:
         rss_collection: ResourceCollection = ResourceCollection(
