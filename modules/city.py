@@ -3,7 +3,6 @@ import yaml
 from dataclasses import dataclass, field
 from typing import ClassVar, Literal, TypedDict
 
-from .city_defenses import CityDefenses
 from .building import BuildingsCount, BUILDINGS
 from .effects import EffectBonusesData, EffectBonuses
 from .geo_features import GeoFeaturesData, GeoFeatures
@@ -45,6 +44,13 @@ CITIES: list[CityData] = cities_data["cities"]
 # * **** * #
 # * CITY * #
 # * **** * #
+
+@dataclass
+class CityDefenses:
+    garrison: str
+    squadrons: int = 1
+    squadron_size: str = "Small"
+
 
 @dataclass
 class City:
