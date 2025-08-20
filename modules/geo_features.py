@@ -49,7 +49,7 @@ class GeoFeatures:
     
     def get(self, key: str) -> int:
         """
-        Get the value for a given resource name.
+        Get the value for a given geo feature name.
         """
         if key not in (f.name for f in fields(class_or_instance = self)):
             raise KeyError(f"Invalid geo feature name: {key}")
