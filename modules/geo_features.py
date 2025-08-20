@@ -37,7 +37,7 @@ class GeoFeatures:
     
     def items(self) -> Iterator[tuple[str, int]]:
         """
-        Return an iterator of (key, value) pairs.
+        Return an iterator of (key, value) pairs, like dict.items().
         """
         return ((field.name, getattr(self, field.name)) for field in fields(class_or_instance = self))
     
@@ -49,9 +49,9 @@ class GeoFeatures:
     
     def get(self, key: str) -> int:
         """
-        Get the value for a given resource name, or return default if not found.
+        Get the value for a given resource name.
         """
         if key not in (f.name for f in fields(class_or_instance = self)):
-            raise KeyError(f"Invalid resource name: {key}")
+            raise KeyError(f"Invalid geo feature name: {key}")
         
         return getattr(self, key)
