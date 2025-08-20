@@ -322,9 +322,9 @@ class TestCity:
         assert city.balance.ore == -24
         assert city.balance.wood == -45
         
-        assert city.garrison == "Legion"
-        assert city.squadrons == 4
-        assert city.squadron_size == "Huge"
+        assert city.defenses.garrison == "Legion"
+        assert city.defenses.squadrons == 4
+        assert city.defenses.squadron_size == "Huge"
         
         assert city.focus is None
     
