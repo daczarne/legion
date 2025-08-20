@@ -3,6 +3,7 @@ import yaml
 from dataclasses import dataclass, field
 from typing import ClassVar, Literal, TypedDict
 
+from .city_defenses import CityDefenses
 from .building import BuildingsCount, BUILDINGS
 from .effects import EffectBonusesData, EffectBonuses
 from .geo_features import GeoFeaturesData, GeoFeatures
@@ -72,9 +73,10 @@ class City:
     supply_dump_storage: ResourceCollection = field(init = False)
     total_storage: ResourceCollection = field(init = False)
     
-    garrison: str = field(init = False)
-    squadrons: int = field(init = False)
-    squadron_size: str = field(init = False)
+    defenses: CityDefenses = CityDefenses(garrison = field(init = False))
+    # garrison: str = field(init = False)
+    # squadrons: int = field(init = False)
+    # squadron_size: str = field(init = False)
     
     focus: Resource | None = field(init = False, default = None)
     
@@ -440,9 +442,9 @@ class City:
         self.total_storage = self._calculate_total_storage_capacity()
         
         #* Defenses
-        self.garrison = self._get_garrison()
-        self.squadrons = self._calculate_garrison_size()
-        self.squadron_size = self._calculate_squadron_size()
+        self.defenses.garrison = self._get_garrison()
+        self.defenses.squadrons = self._calculate_garrison_size()
+        self.defenses.squadron_size = self._calculate_squadron_size()
         
         #* Focus
         self.focus = self._find_city_focus()
