@@ -183,9 +183,9 @@ class Kingdom:
         total_production: ResourceCollection = ResourceCollection()
         
         for city in self.cities:
-            total_production.food = total_production.food + city.balance.food
-            total_production.ore = total_production.ore + city.balance.ore
-            total_production.wood = total_production.wood + city.balance.wood
+            total_production.food = total_production.food + city.production.balance.food
+            total_production.ore = total_production.ore + city.production.balance.ore
+            total_production.wood = total_production.wood + city.production.balance.wood
         
         return total_production
     
@@ -289,7 +289,7 @@ class Kingdom:
                 indentation_rss_potential: int = self._calculate_indentations(cell_value = rss_potential, width = 3)
                 rss_potential_cell_value: str = f"{" " * indentation_rss_potential}[dim]({rss_potential})[/dim]"
                 
-                rss_balance: int = city.balance.get(key = rss)
+                rss_balance: int = city.production.balance.get(key = rss)
                 indentation_rss_balance: int = self._calculate_indentations(cell_value = rss_balance, width = 3)
                 rss_balance_color: str = production_color if getattr(city.focus, "value", None) == rss else "white"
                 rss_balance_color: str = production_color if Resource(value = rss) == city.focus else "white"

@@ -46,42 +46,46 @@ CITIES: list[CityData] = cities_data["cities"]
 # * **** * #
 
 @dataclass
+class CityProduction:
+    base: ResourceCollection = field(default_factory = ResourceCollection)
+    productivity_bonuses: ResourceCollection = field(default_factory = ResourceCollection)
+    total: ResourceCollection = field(default_factory = ResourceCollection)
+    maintenance_costs: ResourceCollection = field(default_factory = ResourceCollection)
+    balance: ResourceCollection = field(default_factory = ResourceCollection)
+
+
+@dataclass
 class CityDefenses:
     garrison: str
     squadrons: int = 1
     squadron_size: str = "Small"
 
 
-@dataclass
+@dataclass(order = True)
 class City:
-    campaign: str
-    name: str
-    buildings: BuildingsCount
+    campaign: str = field(init = True, default = "", compare = True, hash = True, repr = True)
+    name: str = field(init = True, default = "", compare = True, hash = True, repr = True)
+    buildings: BuildingsCount = field(init = True, default_factory = dict, compare = False, hash = False, repr = False)
+    production: CityProduction = field(init = False, default_factory = CityProduction, compare = False, hash = False, repr = False)
     
     # Post init attrs
-    resource_potentials: ResourceCollection = field(init = False)
-    geo_features: GeoFeatures = field(init = False)
+    resource_potentials: ResourceCollection = field(init = False, compare = False, hash = False, repr = False)
+    geo_features: GeoFeatures = field(init = False, compare = False, hash = False, repr = False)
     
-    city_effects: EffectBonuses = field(init = False)
-    building_effects: EffectBonuses = field(init = False)
-    worker_effects: EffectBonuses = field(init = False)
-    total_effects: EffectBonuses = field(init = False)
+    city_effects: EffectBonuses = field(init = False, compare = False, hash = False, repr = False)
+    building_effects: EffectBonuses = field(init = False, compare = False, hash = False, repr = False)
+    worker_effects: EffectBonuses = field(init = False, compare = False, hash = False, repr = False)
+    total_effects: EffectBonuses = field(init = False, compare = False, hash = False, repr = False)
     
-    base_production: ResourceCollection = field(init = False)
-    productivity_bonuses: ResourceCollection = field(init = False)
-    total_production: ResourceCollection = field(init = False)
-    maintenance_costs: ResourceCollection = field(init = False)
-    balance: ResourceCollection = field(init = False)
+    city_storage: ResourceCollection = field(init = False, compare = False, hash = False, repr = False)
+    buildings_storage: ResourceCollection = field(init = False, compare = False, hash = False, repr = False)
+    warehouse_storage: ResourceCollection = field(init = False, compare = False, hash = False, repr = False)
+    supply_dump_storage: ResourceCollection = field(init = False, compare = False, hash = False, repr = False)
+    total_storage: ResourceCollection = field(init = False, compare = False, hash = False, repr = False)
     
-    city_storage: ResourceCollection = field(init = False)
-    buildings_storage: ResourceCollection = field(init = False)
-    warehouse_storage: ResourceCollection = field(init = False)
-    supply_dump_storage: ResourceCollection = field(init = False)
-    total_storage: ResourceCollection = field(init = False)
+    defenses: CityDefenses = field(init = False, compare = False, hash = False, repr = False)
     
-    defenses: CityDefenses = field(init = False)
-    
-    focus: Resource | None = field(init = False, default = None)
+    focus: Resource | None = field(init = False, default = None, compare = False, hash = False, repr = False)
     
     
     # Class variables
@@ -178,28 +182,28 @@ class City:
         """
         from math import floor
         
-        base_production: ResourceCollection = ResourceCollection()
+        base: ResourceCollection = ResourceCollection()
         
         for building, qty_buildings in self.buildings.items():
             
-            production_per_worker: ResourceCollection = BUILDINGS[building].productivity_per_worker
+            productivity_per_worker: ResourceCollection = BUILDINGS[building].productivity_per_worker
             max_workers: int = BUILDINGS[building].max_workers
             
             # Production per worker
-            prod_per_worker_food: int = int(floor(production_per_worker.food * self.resource_potentials.food / 100.0))
-            prod_per_worker_ore: int = int(floor(production_per_worker.ore * self.resource_potentials.ore / 100.0))
-            prod_per_worker_wood: int = int(floor(production_per_worker.wood * self.resource_potentials.wood / 100.0))
+            prod_per_worker_food: int = int(floor(productivity_per_worker.food * self.resource_potentials.food / 100.0))
+            prod_per_worker_ore: int = int(floor(productivity_per_worker.ore * self.resource_potentials.ore / 100.0))
+            prod_per_worker_wood: int = int(floor(productivity_per_worker.wood * self.resource_potentials.wood / 100.0))
             
             # Base production
             base_production_food: int = prod_per_worker_food * qty_buildings * max_workers
             base_production_ore: int = prod_per_worker_ore * qty_buildings * max_workers
             base_production_wood: int = prod_per_worker_wood * qty_buildings * max_workers
             
-            base_production.food = base_production.food + base_production_food
-            base_production.ore = base_production.ore + base_production_ore
-            base_production.wood = base_production.wood + base_production_wood
+            base.food += base_production_food
+            base.ore += base_production_ore
+            base.wood += base_production_wood
         
-        return base_production
+        return base
     
     def _calculate_productivity_bonuses(self) -> ResourceCollection:
         """
@@ -208,9 +212,9 @@ class City:
         productivity_bonuses: ResourceCollection = ResourceCollection()
         
         for building in self.buildings:
-            productivity_bonuses.food = productivity_bonuses.food + BUILDINGS[building].productivity_bonuses.food
-            productivity_bonuses.ore = productivity_bonuses.ore + BUILDINGS[building].productivity_bonuses.ore
-            productivity_bonuses.wood = productivity_bonuses.wood + BUILDINGS[building].productivity_bonuses.wood
+            productivity_bonuses.food += BUILDINGS[building].productivity_bonuses.food
+            productivity_bonuses.ore += BUILDINGS[building].productivity_bonuses.ore
+            productivity_bonuses.wood += BUILDINGS[building].productivity_bonuses.wood
         
         return productivity_bonuses
     
@@ -220,13 +224,11 @@ class City:
         """
         from math import floor
         
-        total_production: ResourceCollection = ResourceCollection()
+        total_food = int(floor(self.production.base.food * (1 + self.production.productivity_bonuses.food / 100)))
+        total_ore = int(floor(self.production.base.ore * (1 + self.production.productivity_bonuses.ore / 100)))
+        total_wood = int(floor(self.production.base.wood * (1 + self.production.productivity_bonuses.wood / 100)))
         
-        total_production.food = int(floor(self.base_production.food * (1 + self.productivity_bonuses.food / 100)))
-        total_production.ore = int(floor(self.base_production.ore * (1 + self.productivity_bonuses.ore / 100)))
-        total_production.wood = int(floor(self.base_production.wood * (1 + self.productivity_bonuses.wood / 100)))
-        
-        return total_production
+        return ResourceCollection(food = total_food, ore = total_ore, wood = total_wood)
     
     def _calculate_maintenance_costs(self) -> ResourceCollection:
         """
@@ -235,22 +237,22 @@ class City:
         maintenance_costs: ResourceCollection = ResourceCollection()
         
         for building in self.buildings:
-            maintenance_costs.food = maintenance_costs.food + BUILDINGS[building].maintenance_cost.food
-            maintenance_costs.ore = maintenance_costs.ore + BUILDINGS[building].maintenance_cost.ore
-            maintenance_costs.wood = maintenance_costs.wood + BUILDINGS[building].maintenance_cost.wood
+            maintenance_costs.food += BUILDINGS[building].maintenance_cost.food
+            maintenance_costs.ore += BUILDINGS[building].maintenance_cost.ore
+            maintenance_costs.wood += BUILDINGS[building].maintenance_cost.wood
         
         return maintenance_costs
     
-    def _calculate_balance(self) -> ResourceCollection:
+    def _calculate_production_balance(self) -> ResourceCollection:
         """
         Calculate the balance for each rss. The balance is the difference between the total production and the
         maintenance costs.
         """
         balance: ResourceCollection = ResourceCollection()
         
-        balance.food = self.total_production.food - self.maintenance_costs.food
-        balance.ore = self.total_production.ore - self.maintenance_costs.ore
-        balance.wood = self.total_production.wood - self.maintenance_costs.wood
+        balance.food = self.production.total.food - self.production.maintenance_costs.food
+        balance.ore = self.production.total.ore - self.production.maintenance_costs.ore
+        balance.wood = self.production.total.wood - self.production.maintenance_costs.wood
         
         return balance
     
@@ -400,18 +402,18 @@ class City:
     
     #* City focus
     def _find_city_focus(self) -> Resource | None:
-        highest_balance: int = max(self.balance.food, self.balance.ore, self.balance.wood)
+        highest_balance: int = max(self.production.balance.food, self.production.balance.ore, self.production.balance.wood)
         
         if highest_balance < 0:
             return None
         
-        if self.balance.food == highest_balance:
+        if self.production.balance.food == highest_balance:
             return Resource.FOOD
         
-        if self.balance.ore == highest_balance:
+        if self.production.balance.ore == highest_balance:
             return Resource.ORE
         
-        if self.balance.wood == highest_balance:
+        if self.production.balance.wood == highest_balance:
             return Resource.WOOD
     
     
@@ -431,11 +433,11 @@ class City:
         self.total_effects = self._calculate_total_effects()
         
         #* Production
-        self.base_production = self._calculate_base_production()
-        self.productivity_bonuses = self._calculate_productivity_bonuses()
-        self.total_production = self._calculate_total_production()
-        self.maintenance_costs = self._calculate_maintenance_costs()
-        self.balance = self._calculate_balance()
+        self.production.base = self._calculate_base_production()
+        self.production.productivity_bonuses = self._calculate_productivity_bonuses()
+        self.production.total = self._calculate_total_production()
+        self.production.maintenance_costs = self._calculate_maintenance_costs()
+        self.production.balance = self._calculate_production_balance()
         
         #* Storage
         self.city_storage = self._calculate_city_storage()
