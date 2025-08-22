@@ -362,7 +362,7 @@ class City:
     
     def _calculate_building_effects(self) -> EffectBonuses:
         """
-        Calculates the base effects produced by buildings. These do not include worker level effects.
+        Calculates the effects produced by buildings. These do not include worker level effects.
         """
         building_effects: EffectBonuses = EffectBonuses()
         
