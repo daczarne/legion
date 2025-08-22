@@ -228,19 +228,6 @@ class City:
         
         return GeoFeatures()
     
-    def _get_city_effects(self) -> EffectBonuses:
-        """
-        Finds the city supplied by the user in the directory of cities and returns its effects.
-        """
-        for city in CITIES:
-            if (
-                city["campaign"] == self.campaign
-                and city["name"] == self.name
-            ):
-                return EffectBonuses(**city["effects"])
-        
-        return EffectBonuses()
-    
     
     #* Validate city buildings
     def _validate_halls(self) -> None:
@@ -360,6 +347,19 @@ class City:
     
     
     #* Effects bonuses
+    def _get_city_effects(self) -> EffectBonuses:
+        """
+        Finds the city supplied by the user in the directory of cities and returns its effects.
+        """
+        for city in CITIES:
+            if (
+                city["campaign"] == self.campaign
+                and city["name"] == self.name
+            ):
+                return EffectBonuses(**city["effects"])
+        
+        return EffectBonuses()
+    
     def _calculate_building_effects(self) -> EffectBonuses:
         """
         Calculates the base effects produced by buildings. These do not include worker level effects.
