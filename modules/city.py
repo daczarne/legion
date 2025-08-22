@@ -45,7 +45,7 @@ CITIES: list[CityData] = cities_data["cities"]
 # * CITY * #
 # * **** * #
 
-@dataclass
+@dataclass(kw_only = True)
 class CityProduction:
     base: ResourceCollection = field(default_factory = ResourceCollection)
     productivity_bonuses: ResourceCollection = field(default_factory = ResourceCollection)
