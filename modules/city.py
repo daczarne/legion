@@ -62,28 +62,130 @@ class City:
     name: str = field(init = True, default = "", repr = True, compare = True, hash = True)
     buildings: BuildingsCount = field(init = True, default_factory = dict, repr = False, compare = False, hash = False)
     
-    # Post init attrs
-    resource_potentials: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
-    geo_features: GeoFeatures = field(init = False, repr = False, compare = False, hash = False)
+    # Post init fields
+    resource_potentials: ResourceCollection = field(
+        init = False,
+        default_factory = ResourceCollection,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
+    geo_features: GeoFeatures = field(
+        init = False,
+        default_factory = GeoFeatures,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
     
-    city_effects: EffectBonuses = field(init = False, repr = False, compare = False, hash = False)
-    building_effects: EffectBonuses = field(init = False, repr = False, compare = False, hash = False)
-    worker_effects: EffectBonuses = field(init = False, repr = False, compare = False, hash = False)
-    total_effects: EffectBonuses = field(init = False, repr = False, compare = False, hash = False)
+    city_effects: EffectBonuses = field(
+        init = False,
+        default_factory = EffectBonuses,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
+    building_effects: EffectBonuses = field(
+        init = False,
+        default_factory = EffectBonuses,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
+    worker_effects: EffectBonuses = field(
+        init = False,
+        default_factory = EffectBonuses,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
+    total_effects: EffectBonuses = field(
+        init = False,
+        default_factory = EffectBonuses,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
     
-    base_production: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
-    productivity_bonuses: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
-    total_production: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
-    maintenance_costs: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
-    balance: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
+    base_production: ResourceCollection = field(
+        init = False,
+        default_factory = ResourceCollection,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
+    productivity_bonuses: ResourceCollection = field(
+        init = False,
+        default_factory = ResourceCollection,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
+    total_production: ResourceCollection = field(
+        init = False,
+        default_factory = ResourceCollection,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
+    maintenance_costs: ResourceCollection = field(
+        init = False,
+        default_factory = ResourceCollection,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
+    balance: ResourceCollection = field(
+        init = False,
+        default_factory = ResourceCollection,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
     
-    city_storage: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
-    buildings_storage: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
-    warehouse_storage: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
-    supply_dump_storage: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
-    total_storage: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
+    city_storage: ResourceCollection = field(
+        init = False,
+        default_factory = ResourceCollection,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
+    buildings_storage: ResourceCollection = field(
+        init = False,
+        repr = False,
+        default_factory = ResourceCollection,
+        compare = False,
+        hash = False,
+    )
+    warehouse_storage: ResourceCollection = field(
+        init = False,
+        default_factory = ResourceCollection,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
+    supply_dump_storage: ResourceCollection = field(
+        init = False,
+        default_factory = ResourceCollection,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
+    total_storage: ResourceCollection = field(
+        init = False,
+        default_factory = ResourceCollection,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
     
-    defenses: CityDefenses = field(init = False, repr = False, compare = False, hash = False)
+    defenses: CityDefenses = field(
+        init = False,
+        default_factory = CityDefenses,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
     
     focus: Resource | None = field(init = False, default = None, repr = False, compare = False, hash = False)
     
