@@ -1,4 +1,4 @@
-from modules.city import BuildingsCount
+from modules.building import BuildingsCount
 from modules.kingdom import Kingdom
 
 food_producer: BuildingsCount = {
@@ -25,7 +25,7 @@ wood_producer: BuildingsCount = {
     "large_lumber_mill": 5,
 }
 
-militarty: BuildingsCount = {
+military: BuildingsCount = {
     "city_hall": 1,
     "basilica": 1,
     "hospital": 1,
@@ -42,7 +42,7 @@ kingdom: Kingdom = Kingdom.from_list(
         {
             "campaign": "Unification of Italy",
             "name": "Roma",
-            "buildings": militarty,
+            "buildings": military,
         },
         {
             "campaign": "Unification of Italy",
@@ -263,7 +263,7 @@ kingdom: Kingdom = Kingdom.from_list(
         {
             "campaign": "Unification of Italy",
             "name": "Apulians",
-            "buildings": militarty,
+            "buildings": military,
         },
         {
             "campaign": "Unification of Italy",
@@ -316,4 +316,14 @@ kingdom: Kingdom = Kingdom.from_list(
     ],
 )
 
+from modules.city import City
+kingdom = Kingdom(
+    cities = [
+        City(
+            campaign = "Unification of Italy",
+            name = "Roma",
+            buildings = {"village_hall": 1},
+        )
+    ]
+)
 kingdom.display_kingdom_results()
