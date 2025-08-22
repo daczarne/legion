@@ -45,9 +45,9 @@ CITIES: list[CityData] = cities_data["cities"]
 # * CITY * #
 # * **** * #
 
-@dataclass
+@dataclass(kw_only = True)
 class CityDefenses:
-    garrison: str
+    garrison: str = ""
     squadrons: int = 1
     squadron_size: str = "Small"
 
