@@ -53,6 +53,7 @@ kingdom:
       - any-glob-to-any-file:
           - kingdom_example.py
           - modules/kingdom.py
+          - tests/test_kingdom.py
 scenario:
   - changed-files:
       - any-glob-to-any-file:
