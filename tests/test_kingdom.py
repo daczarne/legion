@@ -1,5 +1,4 @@
-from pytest import mark
-from collections import Counter
+from pytest import mark, raises
 
 from modules.building import BuildingsCount
 from modules.city import City
@@ -47,6 +46,28 @@ military: BuildingsCount = {
 class TestKingdom:
     
     def test_kingdom(self) -> None:
+        kingdom: Kingdom = Kingdom(
+            cities = [
+                City(
+                    campaign = "Unification of Italy",
+                    name = "Roma",
+                    buildings = {"village_hall": 1},
+                )
+            ]
+        )
+        
+        assert kingdom.campaign == "Unification of Italy"
+        assert kingdom.number_of_cities_in_campaign == 45
+        
+        assert kingdom.kingdom_total_production.food == 5
+        assert kingdom.kingdom_total_production.ore == 5
+        assert kingdom.kingdom_total_production.wood == 5
+        
+        assert kingdom.kingdom_total_storage.food == 350
+        assert kingdom.kingdom_total_storage.ore == 350
+        assert kingdom.kingdom_total_storage.wood == 350
+    
+    def test_kingdom_from_list(self) -> None:
         kingdom: Kingdom = Kingdom.from_list(
             data = [
                 {
@@ -336,3 +357,69 @@ class TestKingdom:
         assert kingdom.kingdom_total_storage.food == 9475
         assert kingdom.kingdom_total_storage.ore == 14880
         assert kingdom.kingdom_total_storage.wood == 9525
+    
+    def test_cities_from_different_campaigns_raise_value_error(self) -> None:
+        with raises(expected_exception = ValueError):
+            kingdom: Kingdom = Kingdom.from_list(
+                data = [
+                    {
+                        "campaign": "Unification of Italy",
+                        "name": "Roma",
+                        "buildings": military,
+                    },
+                    {
+                        "campaign": "Conquest of Britain",
+                        "name": "Alauna",
+                        "buildings": military,
+                    },
+                ],
+            )
+    
+    def test_duplicated_cities_raise_value_error(self) -> None:
+        with raises(expected_exception = ValueError, match = f"Found duplicated city: Roma"):
+            kingdom: Kingdom = Kingdom.from_list(
+                data = [
+                    {
+                        "campaign": "Unification of Italy",
+                        "name": "Roma",
+                        "buildings": military,
+                    },
+                    {
+                        "campaign": "Unification of Italy",
+                        "name": "Roma",
+                        "buildings": food_producer,
+                    },
+                ],
+            )
+    
+    def test_calculate_indentations(self) -> None:
+        # Toy scenarios
+        assert Kingdom._calculate_indentations(cell_value = 1, width = 1) == 0
+        assert Kingdom._calculate_indentations(cell_value = 1, width = 2) == 1
+        assert Kingdom._calculate_indentations(cell_value = 100, width = 5) == 2
+        with raises(expected_exception = AssertionError):
+            assert Kingdom._calculate_indentations(cell_value = 1, width = 2) == 0
+        
+        # Actual scenarios
+        assert Kingdom._calculate_indentations(cell_value = 0, width = 10) == 9
+        assert Kingdom._calculate_indentations(cell_value = 10, width = 10) == 8
+        assert Kingdom._calculate_indentations(cell_value = 100, width = 10) == 7
+        with raises(expected_exception = AssertionError):
+            assert Kingdom._calculate_indentations(cell_value = 1_000, width = 10) == 6
+        assert Kingdom._calculate_indentations(cell_value = 1_000, width = 10) == 5
+        assert Kingdom._calculate_indentations(cell_value = 10_000, width = 10) == 4
+        assert Kingdom._calculate_indentations(cell_value = 100_000, width = 10) == 3
+        with raises(expected_exception = AssertionError):
+            assert Kingdom._calculate_indentations(cell_value = 1_000_000, width = 10) == 2
+        assert Kingdom._calculate_indentations(cell_value = 1_000_000, width = 10) == 1
+        assert Kingdom._calculate_indentations(cell_value = 10_000_000, width = 10) == 0
+        assert Kingdom._calculate_indentations(cell_value = 100_000_000, width = 10) == 0
+        
+        assert Kingdom._calculate_indentations(cell_value = 0, width = 6) == 5
+        assert Kingdom._calculate_indentations(cell_value = 10, width = 6) == 4
+        assert Kingdom._calculate_indentations(cell_value = 100, width = 6) == 3
+        with raises(expected_exception = AssertionError):
+            assert Kingdom._calculate_indentations(cell_value = 1_000, width = 6) == 2
+        assert Kingdom._calculate_indentations(cell_value = 1_000, width = 6) == 1
+        assert Kingdom._calculate_indentations(cell_value = 10_000, width = 6) == 0
+        assert Kingdom._calculate_indentations(cell_value = 100_000, width = 6) == 0
