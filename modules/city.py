@@ -56,9 +56,9 @@ class CityProduction:
 
 @dataclass(kw_only = True)
 class CityDefenses:
-    garrison: str = ""
-    squadrons: int = 1
-    squadron_size: str = "Small"
+    garrison: str = field(default = "")
+    squadrons: int = field(default = 1)
+    squadron_size: str = field(default = "Small")
 
 
 @dataclass(
