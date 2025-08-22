@@ -52,36 +52,40 @@ class CityDefenses:
     squadron_size: str = "Small"
 
 
-@dataclass(order = True)
+@dataclass(
+    match_args = False,
+    order = False,
+    kw_only = True,
+)
 class City:
-    campaign: str = field(init = True, repr = True, compare = True)
-    name: str = field(init = True, repr = True, compare = True)
-    buildings: BuildingsCount = field(init = True, repr = False, compare = False)
+    campaign: str = field(init = True, repr = True, compare = True, hash = True)
+    name: str = field(init = True, repr = True, compare = True, hash = True)
+    buildings: BuildingsCount = field(init = True, repr = False, compare = False, hash = False)
     
     # Post init attrs
-    resource_potentials: ResourceCollection = field(init = False, repr = False, compare = False)
-    geo_features: GeoFeatures = field(init = False, repr = False, compare = False)
+    resource_potentials: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
+    geo_features: GeoFeatures = field(init = False, repr = False, compare = False, hash = False)
     
-    city_effects: EffectBonuses = field(init = False, repr = False, compare = False)
-    building_effects: EffectBonuses = field(init = False, repr = False, compare = False)
-    worker_effects: EffectBonuses = field(init = False, repr = False, compare = False)
-    total_effects: EffectBonuses = field(init = False, repr = False, compare = False)
+    city_effects: EffectBonuses = field(init = False, repr = False, compare = False, hash = False)
+    building_effects: EffectBonuses = field(init = False, repr = False, compare = False, hash = False)
+    worker_effects: EffectBonuses = field(init = False, repr = False, compare = False, hash = False)
+    total_effects: EffectBonuses = field(init = False, repr = False, compare = False, hash = False)
     
-    base_production: ResourceCollection = field(init = False, repr = False, compare = False)
-    productivity_bonuses: ResourceCollection = field(init = False, repr = False, compare = False)
-    total_production: ResourceCollection = field(init = False, repr = False, compare = False)
-    maintenance_costs: ResourceCollection = field(init = False, repr = False, compare = False)
-    balance: ResourceCollection = field(init = False, repr = False, compare = False)
+    base_production: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
+    productivity_bonuses: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
+    total_production: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
+    maintenance_costs: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
+    balance: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
     
-    city_storage: ResourceCollection = field(init = False, repr = False, compare = False)
-    buildings_storage: ResourceCollection = field(init = False, repr = False, compare = False)
-    warehouse_storage: ResourceCollection = field(init = False, repr = False, compare = False)
-    supply_dump_storage: ResourceCollection = field(init = False, repr = False, compare = False)
-    total_storage: ResourceCollection = field(init = False, repr = False, compare = False)
+    city_storage: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
+    buildings_storage: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
+    warehouse_storage: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
+    supply_dump_storage: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
+    total_storage: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
     
-    defenses: CityDefenses = field(init = False, repr = False, compare = False)
+    defenses: CityDefenses = field(init = False, repr = False, compare = False, hash = False)
     
-    focus: Resource | None = field(init = False, default = None, repr = False, compare = False)
+    focus: Resource | None = field(init = False, default = None, repr = False, compare = False, hash = False)
     
     
     # Class variables
