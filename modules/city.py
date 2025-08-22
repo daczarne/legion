@@ -273,7 +273,7 @@ class City:
         """
         from math import floor
         
-        base: ResourceCollection = ResourceCollection()
+        base_production: ResourceCollection = ResourceCollection()
         
         for building, qty_buildings in self.buildings.items():
             
@@ -290,11 +290,11 @@ class City:
             base_production_ore: int = prod_per_worker_ore * qty_buildings * max_workers
             base_production_wood: int = prod_per_worker_wood * qty_buildings * max_workers
             
-            base.food += base_production_food
-            base.ore += base_production_ore
-            base.wood += base_production_wood
+            base_production.food += base_production_food
+            base_production.ore += base_production_ore
+            base_production.wood += base_production_wood
         
-        return base
+        return base_production
     
     def _calculate_productivity_bonuses(self) -> ResourceCollection:
         """
@@ -337,7 +337,7 @@ class City:
     def _calculate_production_balance(self) -> ResourceCollection:
         """
         Calculate the balance for each rss. The balance is the difference between the total production and the
-        maintenance costs.
+        maintenance costs for each rss.
         """
         balance_food: int = self.total_production.food - self.maintenance_costs.food
         balance_ore: int = self.total_production.ore - self.maintenance_costs.ore
