@@ -191,29 +191,29 @@ class CityDisplay:
         table.add_row(
             f"Food",
             f"{self.city.resource_potentials.food}",
-            f"{self.city.base_production.food}",
-            f"{self.city.productivity_bonuses.food}",
-            f"{self.city.total_production.food}",
-            f"{-1 * self.city.maintenance_costs.food}",
-            Text(text = f"{self.city.balance.food}", style = table_style + Style(bold = True)),
+            f"{self.city.production.base.food}",
+            f"{self.city.production.productivity_bonuses.food}",
+            f"{self.city.production.total.food}",
+            f"{-1 * self.city.production.maintenance_costs.food}",
+            Text(text = f"{self.city.production.balance.food}", style = table_style + Style(bold = True)),
         )
         table.add_row(
             f"Ore",
             f"{self.city.resource_potentials.ore}",
-            f"{self.city.base_production.ore}",
-            f"{self.city.productivity_bonuses.ore}",
-            f"{self.city.total_production.ore}",
-            f"{-1 * self.city.maintenance_costs.ore}",
-            Text(text = f"{self.city.balance.ore}", style = table_style + Style(bold = True)),
+            f"{self.city.production.base.ore}",
+            f"{self.city.production.productivity_bonuses.ore}",
+            f"{self.city.production.total.ore}",
+            f"{-1 * self.city.production.maintenance_costs.ore}",
+            Text(text = f"{self.city.production.balance.ore}", style = table_style + Style(bold = True)),
         )
         table.add_row(
             f"Wood",
             f"{self.city.resource_potentials.wood}",
-            f"{self.city.base_production.wood}",
-            f"{self.city.productivity_bonuses.wood}",
-            f"{self.city.total_production.wood}",
-            f"{-1 * self.city.maintenance_costs.wood}",
-            Text(text = f"{self.city.balance.wood}", style = table_style + Style(bold = True)),
+            f"{self.city.production.base.wood}",
+            f"{self.city.production.productivity_bonuses.wood}",
+            f"{self.city.production.total.wood}",
+            f"{-1 * self.city.production.maintenance_costs.wood}",
+            Text(text = f"{self.city.production.balance.wood}", style = table_style + Style(bold = True)),
         )
         
         return table

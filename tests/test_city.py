@@ -315,13 +315,13 @@ class TestCity:
         assert city.total_effects.population_growth == 270
         assert city.total_effects.intelligence == 10
         
-        assert city.maintenance_costs.food == 62
-        assert city.maintenance_costs.ore == 24
-        assert city.maintenance_costs.wood == 45
+        assert city.production.maintenance_costs.food == 62
+        assert city.production.maintenance_costs.ore == 24
+        assert city.production.maintenance_costs.wood == 45
         
-        assert city.balance.food == -62
-        assert city.balance.ore == -24
-        assert city.balance.wood == -45
+        assert city.production.balance.food == -62
+        assert city.production.balance.ore == -24
+        assert city.production.balance.wood == -45
         
         assert city.defenses.garrison == "Legion"
         assert city.defenses.squadrons == 4
@@ -346,11 +346,11 @@ class TestCity:
         assert city.name == "Roma"
         
         assert city.resource_potentials.food == 125
-        assert city.base_production.food == 261
-        assert city.productivity_bonuses.food == 135
-        assert city.total_production.food == 613
-        assert city.maintenance_costs.food == 14
-        assert city.balance.food == 599
+        assert city.production.base.food == 261
+        assert city.production.productivity_bonuses.food == 135
+        assert city.production.total.food == 613
+        assert city.production.maintenance_costs.food == 14
+        assert city.production.balance.food == 599
         assert city.city_storage.food == 100
         assert city.buildings_storage.food == 450
         assert city.warehouse_storage.food == 0
@@ -377,11 +377,11 @@ class TestCity:
         
         assert city.resource_potentials.food == 90
         assert city.geo_features.lakes == 1
-        assert city.base_production.food == 171
-        assert city.productivity_bonuses.food == 135
-        assert city.total_production.food == 401
-        assert city.maintenance_costs.food == 14
-        assert city.balance.food == 387
+        assert city.production.base.food == 171
+        assert city.production.productivity_bonuses.food == 135
+        assert city.production.total.food == 401
+        assert city.production.maintenance_costs.food == 14
+        assert city.production.balance.food == 387
         assert city.city_storage.food == 100
         assert city.buildings_storage.food == 425
         assert city.warehouse_storage.food == 0
@@ -409,16 +409,16 @@ class TestCity:
         assert city.resource_potentials.food == 100
         assert city.resource_potentials.ore == 60
         assert city.geo_features.rock_outcrops == 1
-        assert city.base_production.food == 174
-        assert city.base_production.ore == 14
-        assert city.productivity_bonuses.food == 135
-        assert city.productivity_bonuses.ore == 85
-        assert city.total_production.food == 408
-        assert city.total_production.ore == 25
-        assert city.maintenance_costs.food == 14
-        assert city.maintenance_costs.ore == 4
-        assert city.balance.food == 394
-        assert city.balance.ore == 21
+        assert city.production.base.food == 174
+        assert city.production.base.ore == 14
+        assert city.production.productivity_bonuses.food == 135
+        assert city.production.productivity_bonuses.ore == 85
+        assert city.production.total.food == 408
+        assert city.production.total.ore == 25
+        assert city.production.maintenance_costs.food == 14
+        assert city.production.maintenance_costs.ore == 4
+        assert city.production.balance.food == 394
+        assert city.production.balance.ore == 21
         assert city.city_storage.food == 100
         assert city.city_storage.ore == 100
         assert city.buildings_storage.food == 375
@@ -447,11 +447,11 @@ class TestCity:
         assert city.resource_potentials.ore == 125
         assert city.geo_features.rock_outcrops == 1
         assert city.geo_features.mountains == 1
-        assert city.base_production.ore == 237
-        assert city.productivity_bonuses.ore == 125
-        assert city.total_production.ore == 533
-        assert city.maintenance_costs.ore == 14
-        assert city.balance.ore == 519
+        assert city.production.base.ore == 237
+        assert city.production.productivity_bonuses.ore == 125
+        assert city.production.total.ore == 533
+        assert city.production.maintenance_costs.ore == 14
+        assert city.production.balance.ore == 519
         assert city.city_storage.ore == 100
         assert city.buildings_storage.ore == 360
         assert city.warehouse_storage.ore == 0
@@ -477,11 +477,11 @@ class TestCity:
         
         assert city.resource_potentials.ore == 80
         assert city.geo_features.rock_outcrops == 1
-        assert city.base_production.ore == 155
-        assert city.productivity_bonuses.ore == 125
-        assert city.total_production.ore == 348
-        assert city.maintenance_costs.ore == 14
-        assert city.balance.ore == 334
+        assert city.production.base.ore == 155
+        assert city.production.productivity_bonuses.ore == 125
+        assert city.production.total.ore == 348
+        assert city.production.maintenance_costs.ore == 14
+        assert city.production.balance.ore == 334
         assert city.city_storage.ore == 100
         assert city.buildings_storage.ore == 405
         assert city.total_storage.ore == 505
@@ -505,11 +505,11 @@ class TestCity:
         
         assert city.resource_potentials.ore == 150
         assert city.geo_features.mountains == 2
-        assert city.base_production.ore == 276
-        assert city.productivity_bonuses.ore == 125
-        assert city.total_production.ore == 621
-        assert city.maintenance_costs.ore == 14
-        assert city.balance.ore == 607
+        assert city.production.base.ore == 276
+        assert city.production.productivity_bonuses.ore == 125
+        assert city.production.total.ore == 621
+        assert city.production.maintenance_costs.ore == 14
+        assert city.production.balance.ore == 607
         assert city.city_storage.ore == 100
         assert city.buildings_storage.ore == 360
         assert city.total_storage.ore == 460
@@ -533,11 +533,11 @@ class TestCity:
         
         assert city.resource_potentials.ore == 125
         assert city.geo_features.mountains == 1
-        assert city.base_production.ore == 250
-        assert city.productivity_bonuses.ore == 125
-        assert city.total_production.ore == 562
-        assert city.maintenance_costs.ore == 14
-        assert city.balance.ore == 548
+        assert city.production.base.ore == 250
+        assert city.production.productivity_bonuses.ore == 125
+        assert city.production.total.ore == 562
+        assert city.production.maintenance_costs.ore == 14
+        assert city.production.balance.ore == 548
         assert city.city_storage.ore == 100
         assert city.buildings_storage.ore == 405
         assert city.total_storage.ore == 505
@@ -559,11 +559,11 @@ class TestCity:
         assert city.name == "Pentri"
         
         assert city.resource_potentials.ore == 110
-        assert city.base_production.ore == 234
-        assert city.productivity_bonuses.ore == 125
-        assert city.total_production.ore == 526
-        assert city.maintenance_costs.ore == 14
-        assert city.balance.ore == 512
+        assert city.production.base.ore == 234
+        assert city.production.productivity_bonuses.ore == 125
+        assert city.production.total.ore == 526
+        assert city.production.maintenance_costs.ore == 14
+        assert city.production.balance.ore == 512
         assert city.city_storage.ore == 100
         assert city.buildings_storage.ore == 450
         assert city.total_storage.ore == 550
@@ -586,11 +586,11 @@ class TestCity:
         
         assert city.resource_potentials.wood == 150
         assert city.geo_features.forests == 1
-        assert city.base_production.wood == 324
-        assert city.productivity_bonuses.wood == 125
-        assert city.total_production.wood == 729
-        assert city.maintenance_costs.wood == 14
-        assert city.balance.wood == 715
+        assert city.production.base.wood == 324
+        assert city.production.productivity_bonuses.wood == 125
+        assert city.production.total.wood == 729
+        assert city.production.maintenance_costs.wood == 14
+        assert city.production.balance.wood == 715
         assert city.city_storage.wood == 100
         assert city.buildings_storage.wood == 450
         assert city.total_storage.wood == 550

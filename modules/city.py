@@ -46,10 +46,19 @@ CITIES: list[CityData] = cities_data["cities"]
 # * **** * #
 
 @dataclass(kw_only = True)
+class CityProduction:
+    base: ResourceCollection = field(default_factory = ResourceCollection)
+    productivity_bonuses: ResourceCollection = field(default_factory = ResourceCollection)
+    total: ResourceCollection = field(default_factory = ResourceCollection)
+    maintenance_costs: ResourceCollection = field(default_factory = ResourceCollection)
+    balance: ResourceCollection = field(default_factory = ResourceCollection)
+
+
+@dataclass(kw_only = True)
 class CityDefenses:
-    garrison: str = ""
-    squadrons: int = 1
-    squadron_size: str = "Small"
+    garrison: str = field(default = "")
+    squadrons: int = field(default = 1)
+    squadron_size: str = field(default = "Small")
 
 
 @dataclass(
@@ -107,37 +116,9 @@ class City:
         hash = False,
     )
     
-    base_production: ResourceCollection = field(
+    production: CityProduction = field(
         init = False,
-        default_factory = ResourceCollection,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    productivity_bonuses: ResourceCollection = field(
-        init = False,
-        default_factory = ResourceCollection,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    total_production: ResourceCollection = field(
-        init = False,
-        default_factory = ResourceCollection,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    maintenance_costs: ResourceCollection = field(
-        init = False,
-        default_factory = ResourceCollection,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    balance: ResourceCollection = field(
-        init = False,
-        default_factory = ResourceCollection,
+        default_factory = CityProduction,
         repr = False,
         compare = False,
         hash = False,
@@ -380,9 +361,9 @@ class City:
         """
         from math import floor
         
-        total_food: int = int(floor(self.base_production.food * (1 + self.productivity_bonuses.food / 100)))
-        total_ore: int = int(floor(self.base_production.ore * (1 + self.productivity_bonuses.ore / 100)))
-        total_wood: int = int(floor(self.base_production.wood * (1 + self.productivity_bonuses.wood / 100)))
+        total_food: int = int(floor(self.production.base.food * (1 + self.production.productivity_bonuses.food / 100)))
+        total_ore: int = int(floor(self.production.base.ore * (1 + self.production.productivity_bonuses.ore / 100)))
+        total_wood: int = int(floor(self.production.base.wood * (1 + self.production.productivity_bonuses.wood / 100)))
         
         return ResourceCollection(food = total_food, ore = total_ore, wood = total_wood)
     
@@ -404,9 +385,9 @@ class City:
         Calculate the balance for each rss. The balance is the difference between the total production and the
         maintenance costs for each rss.
         """
-        balance_food: int = self.total_production.food - self.maintenance_costs.food
-        balance_ore: int = self.total_production.ore - self.maintenance_costs.ore
-        balance_wood: int = self.total_production.wood - self.maintenance_costs.wood
+        balance_food: int = self.production.total.food - self.production.maintenance_costs.food
+        balance_ore: int = self.production.total.ore - self.production.maintenance_costs.ore
+        balance_wood: int = self.production.total.wood - self.production.maintenance_costs.wood
         
         return ResourceCollection(food = balance_food, ore = balance_ore, wood = balance_wood)
     
@@ -504,18 +485,18 @@ class City:
     
     #* City focus
     def _find_city_focus(self) -> Resource | None:
-        highest_balance: int = max(self.balance.food, self.balance.ore, self.balance.wood)
+        highest_balance: int = max(self.production.balance.food, self.production.balance.ore, self.production.balance.wood)
         
         if highest_balance < 0:
             return None
         
-        if self.balance.food == highest_balance:
+        if self.production.balance.food == highest_balance:
             return Resource.FOOD
         
-        if self.balance.ore == highest_balance:
+        if self.production.balance.ore == highest_balance:
             return Resource.ORE
         
-        if self.balance.wood == highest_balance:
+        if self.production.balance.wood == highest_balance:
             return Resource.WOOD
     
     
@@ -535,11 +516,11 @@ class City:
         self.total_effects = self._calculate_total_effects()
         
         #* Production
-        self.base_production = self._calculate_base_production()
-        self.productivity_bonuses = self._calculate_productivity_bonuses()
-        self.total_production = self._calculate_total_production()
-        self.maintenance_costs = self._calculate_maintenance_costs()
-        self.balance = self._calculate_production_balance()
+        self.production.base = self._calculate_base_production()
+        self.production.productivity_bonuses = self._calculate_productivity_bonuses()
+        self.production.total = self._calculate_total_production()
+        self.production.maintenance_costs = self._calculate_maintenance_costs()
+        self.production.balance = self._calculate_production_balance()
         
         #* Storage
         self.city_storage = self._calculate_city_storage()
