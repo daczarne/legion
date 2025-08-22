@@ -58,9 +58,9 @@ class CityDefenses:
     kw_only = True,
 )
 class City:
-    campaign: str = field(init = True, repr = True, compare = True, hash = True)
-    name: str = field(init = True, repr = True, compare = True, hash = True)
-    buildings: BuildingsCount = field(init = True, repr = False, compare = False, hash = False)
+    campaign: str = field(init = True, default = "", repr = True, compare = True, hash = True)
+    name: str = field(init = True, default = "", repr = True, compare = True, hash = True)
+    buildings: BuildingsCount = field(init = True, default_factory = dict, repr = False, compare = False, hash = False)
     
     # Post init attrs
     resource_potentials: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
