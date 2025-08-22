@@ -263,6 +263,71 @@ class City:
             raise ValueError(f"Unknown building(s): {", ".join(unknown)}")
     
     
+    #* Effect bonuses
+    def _get_city_effects(self) -> EffectBonuses:
+        """
+        Finds the city supplied by the user in the directory of cities and returns its effects.
+        """
+        for city in CITIES:
+            if (
+                city["campaign"] == self.campaign
+                and city["name"] == self.name
+            ):
+                return EffectBonuses(**city["effects"])
+        
+        return EffectBonuses()
+    
+    def _calculate_building_effects(self) -> EffectBonuses:
+        """
+        Calculates the effects produced by buildings. These do not include worker level effects.
+        """
+        building_effects: EffectBonuses = EffectBonuses()
+        
+        for building in self.buildings:
+            building_effects.troop_training += BUILDINGS[building].effect_bonuses.troop_training
+            building_effects.population_growth += BUILDINGS[building].effect_bonuses.population_growth
+            building_effects.intelligence += BUILDINGS[building].effect_bonuses.intelligence
+        
+        return building_effects
+    
+    def _calculate_worker_effects(self) -> EffectBonuses:
+        """
+        Calculates the effects produced by building workers.
+        """
+        worker_effects: EffectBonuses = EffectBonuses()
+        
+        for building in self.buildings:
+            worker_effects.troop_training += BUILDINGS[building].effect_bonuses_per_worker.troop_training * BUILDINGS[building].max_workers
+            worker_effects.population_growth += BUILDINGS[building].effect_bonuses_per_worker.population_growth * BUILDINGS[building].max_workers
+            worker_effects.intelligence += BUILDINGS[building].effect_bonuses_per_worker.intelligence * BUILDINGS[building].max_workers
+        
+        return worker_effects
+    
+    def _calculate_total_effects(self) -> EffectBonuses:
+        """
+        Calculate the total effects (base + given by buildings and its workers).
+        """
+        total_effects: EffectBonuses = EffectBonuses()
+        
+        total_effects.troop_training = (
+            self.city_effects.troop_training
+            + self.building_effects.troop_training
+            + self.worker_effects.troop_training
+        )
+        total_effects.population_growth = (
+            self.city_effects.population_growth
+            + self.building_effects.population_growth
+            + self.worker_effects.population_growth
+        )
+        total_effects.intelligence = (
+            self.city_effects.intelligence
+            + self.building_effects.intelligence
+            + self.worker_effects.intelligence
+        )
+        
+        return total_effects
+    
+    
     #* Production
     def _calculate_base_production(self) -> ResourceCollection:
         """
@@ -344,71 +409,6 @@ class City:
         balance_wood: int = self.total_production.wood - self.maintenance_costs.wood
         
         return ResourceCollection(food = balance_food, ore = balance_ore, wood = balance_wood)
-    
-    
-    #* Effects bonuses
-    def _get_city_effects(self) -> EffectBonuses:
-        """
-        Finds the city supplied by the user in the directory of cities and returns its effects.
-        """
-        for city in CITIES:
-            if (
-                city["campaign"] == self.campaign
-                and city["name"] == self.name
-            ):
-                return EffectBonuses(**city["effects"])
-        
-        return EffectBonuses()
-    
-    def _calculate_building_effects(self) -> EffectBonuses:
-        """
-        Calculates the effects produced by buildings. These do not include worker level effects.
-        """
-        building_effects: EffectBonuses = EffectBonuses()
-        
-        for building in self.buildings:
-            building_effects.troop_training += BUILDINGS[building].effect_bonuses.troop_training
-            building_effects.population_growth += BUILDINGS[building].effect_bonuses.population_growth
-            building_effects.intelligence += BUILDINGS[building].effect_bonuses.intelligence
-        
-        return building_effects
-    
-    def _calculate_worker_effects(self) -> EffectBonuses:
-        """
-        Calculates the effects produced by building workers.
-        """
-        worker_effects: EffectBonuses = EffectBonuses()
-        
-        for building in self.buildings:
-            worker_effects.troop_training += BUILDINGS[building].effect_bonuses_per_worker.troop_training * BUILDINGS[building].max_workers
-            worker_effects.population_growth += BUILDINGS[building].effect_bonuses_per_worker.population_growth * BUILDINGS[building].max_workers
-            worker_effects.intelligence += BUILDINGS[building].effect_bonuses_per_worker.intelligence * BUILDINGS[building].max_workers
-        
-        return worker_effects
-    
-    def _calculate_total_effects(self) -> EffectBonuses:
-        """
-        Calculate the total effects (base + given by buildings and its workers).
-        """
-        total_effects: EffectBonuses = EffectBonuses()
-        
-        total_effects.troop_training = (
-            self.city_effects.troop_training
-            + self.building_effects.troop_training
-            + self.worker_effects.troop_training
-        )
-        total_effects.population_growth = (
-            self.city_effects.population_growth
-            + self.building_effects.population_growth
-            + self.worker_effects.population_growth
-        )
-        total_effects.intelligence = (
-            self.city_effects.intelligence
-            + self.building_effects.intelligence
-            + self.worker_effects.intelligence
-        )
-        
-        return total_effects
     
     
     #* Storage capacity
@@ -528,7 +528,7 @@ class City:
         self._validate_halls()
         self._validate_number_of_buildings()
         
-        #* Effects
+        #* Effect bonuses
         self.city_effects = self._get_city_effects()
         self.building_effects = self._calculate_building_effects()
         self.worker_effects = self._calculate_worker_effects()
