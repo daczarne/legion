@@ -93,6 +93,8 @@ class City:
         "city_hall": 8,
     }
     
+    __match_args__: ClassVar[tuple[str, ...]] = ("campaign", "name")
+    
     
     def _get_rss_potentials(self) -> ResourceCollection:
         """
