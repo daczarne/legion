@@ -91,7 +91,7 @@ class City:
     # Class variables
     MAX_WORKERS: ClassVar[int] = 18
     POSSIBLE_CITY_HALLS: ClassVar[set[str]] = {"village_hall", "town_hall", "city_hall"}
-    MAX_BUILDINGS_PER_CITY: ClassVar[dict[str, int]] = {
+    MAX_BUILDINGS_PER_CITY: ClassVar[BuildingsCount] = {
         "village_hall": 4,
         "town_hall": 6,
         "city_hall": 8,
@@ -142,7 +142,7 @@ class City:
     
     #* Validate city buildings
     def _validate_halls(self) -> None:
-        halls: dict[str, int] = {k: v for k, v in self.buildings.items() if k in self.POSSIBLE_CITY_HALLS}
+        halls: BuildingsCount = {k: v for k, v in self.buildings.items() if k in self.POSSIBLE_CITY_HALLS}
         
         if not halls:
             raise ValueError(f"City must include a hall (village, town, or city)")
@@ -154,7 +154,7 @@ class City:
             raise ValueError(f"Too many halls for this city")
     
     def _get_hall(self) -> str:
-        halls: dict[str, int] = {k: v for k, v in self.buildings.items() if k in self.POSSIBLE_CITY_HALLS}
+        halls: BuildingsCount = {k: v for k, v in self.buildings.items() if k in self.POSSIBLE_CITY_HALLS}
         return list(halls.keys())[0]
     
     def _validate_number_of_buildings(self) -> None:
