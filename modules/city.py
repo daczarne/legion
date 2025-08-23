@@ -516,7 +516,6 @@ class City:
         self.total_storage = self._calculate_total_storage_capacity()
         
         #* Defenses
-        
         self.defenses.garrison = self._get_garrison()
         self.defenses.squadrons = self._calculate_garrison_size()
         self.defenses.squadron_size = self._calculate_squadron_size()
