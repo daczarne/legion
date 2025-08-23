@@ -42,7 +42,7 @@ military: BuildingsCount = {
 }
 
 
-@mark.kigdom
+@mark.kingdom
 class TestKingdom:
     
     def test_kingdom(self) -> None:
