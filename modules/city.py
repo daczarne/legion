@@ -46,6 +46,14 @@ CITIES: list[CityData] = cities_data["cities"]
 # * **** * #
 
 @dataclass(kw_only = True)
+class CityEffectBonuses:
+    city: EffectBonuses = field(default_factory = EffectBonuses)
+    buildings: EffectBonuses = field(default_factory = EffectBonuses)
+    workers: EffectBonuses = field(default_factory = EffectBonuses)
+    total: EffectBonuses = field(default_factory = EffectBonuses)
+
+
+@dataclass(kw_only = True)
 class CityProduction:
     base: ResourceCollection = field(default_factory = ResourceCollection)
     productivity_bonuses: ResourceCollection = field(default_factory = ResourceCollection)
@@ -87,35 +95,13 @@ class City:
         hash = False,
     )
     
-    city_effects: EffectBonuses = field(
+    effects: CityEffectBonuses = field(
         init = False,
-        default_factory = EffectBonuses,
+        default_factory = CityEffectBonuses,
         repr = False,
         compare = False,
         hash = False,
     )
-    building_effects: EffectBonuses = field(
-        init = False,
-        default_factory = EffectBonuses,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    worker_effects: EffectBonuses = field(
-        init = False,
-        default_factory = EffectBonuses,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    total_effects: EffectBonuses = field(
-        init = False,
-        default_factory = EffectBonuses,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    
     production: CityProduction = field(
         init = False,
         default_factory = CityProduction,
@@ -291,19 +277,19 @@ class City:
         total_effects: EffectBonuses = EffectBonuses()
         
         total_effects.troop_training = (
-            self.city_effects.troop_training
-            + self.building_effects.troop_training
-            + self.worker_effects.troop_training
+            self.effects.city.troop_training
+            + self.effects.buildings.troop_training
+            + self.effects.workers.troop_training
         )
         total_effects.population_growth = (
-            self.city_effects.population_growth
-            + self.building_effects.population_growth
-            + self.worker_effects.population_growth
+            self.effects.city.population_growth
+            + self.effects.buildings.population_growth
+            + self.effects.workers.population_growth
         )
         total_effects.intelligence = (
-            self.city_effects.intelligence
-            + self.building_effects.intelligence
-            + self.worker_effects.intelligence
+            self.effects.city.intelligence
+            + self.effects.buildings.intelligence
+            + self.effects.workers.intelligence
         )
         
         return total_effects
@@ -510,10 +496,10 @@ class City:
         self._validate_number_of_buildings()
         
         #* Effect bonuses
-        self.city_effects = self._get_city_effects()
-        self.building_effects = self._calculate_building_effects()
-        self.worker_effects = self._calculate_worker_effects()
-        self.total_effects = self._calculate_total_effects()
+        self.effects.city = self._get_city_effects()
+        self.effects.buildings = self._calculate_building_effects()
+        self.effects.workers = self._calculate_worker_effects()
+        self.effects.total = self._calculate_total_effects()
         
         #* Production
         self.production.base = self._calculate_base_production()
