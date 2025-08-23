@@ -150,24 +150,24 @@ class CityDisplay:
         
         table.add_row(
             "Troop training",
-            f"{self.city.city_effects.troop_training}",
-            f"{self.city.building_effects.troop_training}",
-            f"{self.city.worker_effects.troop_training}",
-            Text(text = f"{self.city.total_effects.troop_training}", style = table_style + Style(bold = True)),
+            f"{self.city.effects.city.troop_training}",
+            f"{self.city.effects.buildings.troop_training}",
+            f"{self.city.effects.workers.troop_training}",
+            Text(text = f"{self.city.effects.total.troop_training}", style = table_style + Style(bold = True)),
         )
         table.add_row(
             "Pop. growth",
-            f"{self.city.city_effects.population_growth}",
-            f"{self.city.building_effects.population_growth}",
-            f"{self.city.worker_effects.population_growth}",
-            Text(text = f"{self.city.total_effects.population_growth}", style = table_style + Style(bold = True)),
+            f"{self.city.effects.city.population_growth}",
+            f"{self.city.effects.buildings.population_growth}",
+            f"{self.city.effects.workers.population_growth}",
+            Text(text = f"{self.city.effects.total.population_growth}", style = table_style + Style(bold = True)),
         )
         table.add_row(
             "Intelligence",
-            f"{self.city.city_effects.intelligence}",
-            f"{self.city.building_effects.intelligence}",
-            f"{self.city.worker_effects.intelligence}",
-            Text(text = f"{self.city.total_effects.intelligence}", style = table_style + Style(bold = True)),
+            f"{self.city.effects.city.intelligence}",
+            f"{self.city.effects.buildings.intelligence}",
+            f"{self.city.effects.workers.intelligence}",
+            Text(text = f"{self.city.effects.total.intelligence}", style = table_style + Style(bold = True)),
         )
         
         return table

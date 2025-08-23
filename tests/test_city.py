@@ -299,21 +299,21 @@ class TestCity:
         assert city.campaign == "Unification of Italy"
         assert city.name == "Roma"
         
-        assert city.city_effects.troop_training == 0
-        assert city.city_effects.population_growth == 0
-        assert city.city_effects.intelligence == 0
+        assert city.effects.city.troop_training == 0
+        assert city.effects.city.population_growth == 0
+        assert city.effects.city.intelligence == 0
         
-        assert city.building_effects.troop_training == 30
-        assert city.building_effects.population_growth == 100
-        assert city.building_effects.intelligence == 10
+        assert city.effects.buildings.troop_training == 30
+        assert city.effects.buildings.population_growth == 100
+        assert city.effects.buildings.intelligence == 10
         
-        assert city.worker_effects.troop_training == 5
-        assert city.worker_effects.population_growth == 170
-        assert city.worker_effects.intelligence == 0
+        assert city.effects.workers.troop_training == 5
+        assert city.effects.workers.population_growth == 170
+        assert city.effects.workers.intelligence == 0
         
-        assert city.total_effects.troop_training == 35
-        assert city.total_effects.population_growth == 270
-        assert city.total_effects.intelligence == 10
+        assert city.effects.total.troop_training == 35
+        assert city.effects.total.population_growth == 270
+        assert city.effects.total.intelligence == 10
         
         assert city.production.maintenance_costs.food == 62
         assert city.production.maintenance_costs.ore == 24
