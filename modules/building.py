@@ -1,42 +1,13 @@
 import yaml
 
-from dataclasses import dataclass
-from typing import Literal, TypeAlias, TypedDict
+from dataclasses import dataclass, field
+from typing import ClassVar, Literal, TypeAlias, TypedDict
 
 from .effects import EffectBonusesData, EffectBonuses
 from .geo_features import GeoFeature
 from .resources import Resource, ResourceCollectionData, ResourceCollection
 
 BuildingsCount: TypeAlias = dict[str, int]
-
-
-# * ******** * #
-# * BUILDING * #
-# * ******** * #
-
-@dataclass
-class Building:
-    id: str
-    name: str
-    building_cost: ResourceCollection
-    maintenance_cost: ResourceCollection
-    productivity_bonuses: ResourceCollection
-    productivity_per_worker: ResourceCollection
-    effect_bonuses: EffectBonuses
-    effect_bonuses_per_worker: EffectBonuses
-    storage_capacity: ResourceCollection
-    max_workers: int
-    is_buildable: bool
-    is_deletable: bool
-    is_upgradeable: bool
-    required_geo: GeoFeature | None
-    required_rss: Resource | None
-    # Dependencies here need to be interpreted as an OR. Either of the listed buildings unblocks the building. For
-    # example, a Stable requires either a Farm, or a Large Farm, or a Vineyard, or a Fishing Village. If the city has
-    # any one for them it can build a Stable. Similarly, a Blacksmith requires either a Mine, or a Large Mine, or a
-    # Mountain Mine, or an Outcrop Mine. If a building has no dependencies the list will be empty.
-    required_building: list[str]
-    replaces: str | None
 
 
 # * ************** * #
@@ -66,29 +37,102 @@ class BuildingData(TypedDict):
     required_building: list[str]
     replaces: str | None
 
-
 with open(file = "./data/buildings.yaml", mode = "r") as file:
     buildings_data: dict[Literal["buildings"], list[BuildingData]] = yaml.safe_load(stream = file)
 
-BUILDINGS: dict[str, Building] = {}
+BUILDINGS: dict[str, BuildingData] = {building["id"]: building for building in buildings_data["buildings"]}
 
-for building in buildings_data["buildings"]:
-    BUILDINGS[building["id"]] = Building(
-        id = building["id"],
-        name = building["name"],
-        building_cost = ResourceCollection(**building["building_cost"]),
-        maintenance_cost = ResourceCollection(**building["maintenance_cost"]),
-        productivity_bonuses = ResourceCollection(**building["productivity_bonuses"]),
-        productivity_per_worker = ResourceCollection(**building["productivity_per_worker"]),
-        effect_bonuses = EffectBonuses(**building["effect_bonuses"]),
-        effect_bonuses_per_worker = EffectBonuses(**building["effect_bonuses_per_worker"]),
-        storage_capacity = ResourceCollection(**building["storage_capacity"]),
-        max_workers = building["max_workers"],
-        is_buildable = building["is_buildable"],
-        is_deletable = building["is_deletable"],
-        is_upgradeable = building["is_upgradeable"],
-        required_geo = GeoFeature(value = building["required_geo"]) if building["required_geo"] else None,
-        required_rss = Resource(value = building["required_rss"]) if building["required_rss"] else None,
-        required_building = building["required_building"],
-        replaces = building["replaces"],
-    )
+
+# * ******** * #
+# * BUILDING * #
+# * ******** * #
+
+@dataclass(match_args = False, kw_only = True)
+class Building:
+    id: str = field(init = True, repr = True, compare = True, hash = True)
+    workers: int = field(default = 0, repr = False, compare = False, hash = False)
+    
+    name: str = field(init = False, repr = False, compare = False, hash = False)
+    building_cost: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
+    maintenance_cost: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
+    productivity_bonuses: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
+    productivity_per_worker: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
+    effect_bonuses: EffectBonuses = field(init = False, repr = False, compare = False, hash = False)
+    effect_bonuses_per_worker: EffectBonuses = field(init = False, repr = False, compare = False, hash = False)
+    storage_capacity: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
+    max_workers: int = field(init = False, repr = False, compare = False, hash = False)
+    is_buildable: bool = field(init = False, repr = False, compare = False, hash = False)
+    is_deletable: bool = field(init = False, repr = False, compare = False, hash = False)
+    is_upgradeable: bool = field(init = False, repr = False, compare = False, hash = False)
+    required_geo: GeoFeature | None = field(init = False, default = None, repr = False, compare = False, hash = False)
+    required_rss: Resource | None = field(init = False, default = None, repr = False, compare = False, hash = False)
+    # Dependencies here need to be interpreted as an OR. Either of the listed buildings unblocks the building. For
+    # example, a Stable requires either a Farm, or a Large Farm, or a Vineyard, or a Fishing Village. If the city has
+    # any one for them it can build a Stable. Similarly, a Blacksmith requires either a Mine, or a Large Mine, or a
+    # Mountain Mine, or an Outcrop Mine. If a building has no dependencies the list will be empty.
+    required_building: list[str] = field(init = False, default_factory = list, repr = False, compare = False, hash = False)
+    replaces: str | None = field(init = False, default = None, repr = False, compare = False, hash = False)
+    
+    __match_args__: ClassVar[str] = ("id")
+    
+    def _validate_number_of_workers(self) -> None:
+        if self.workers > self.max_workers:
+            raise ValueError(f"Too many workers. Max is {self.max_workers} for {self.name}.")
+    
+    def __post_init__(self) -> None:
+        self.name = BUILDINGS[self.id]["name"]
+        self.building_cost = ResourceCollection(**BUILDINGS[self.id]["building_cost"])
+        self.maintenance_cost = ResourceCollection(**BUILDINGS[self.id]["maintenance_cost"])
+        self.productivity_bonuses = ResourceCollection(**BUILDINGS[self.id]["productivity_bonuses"])
+        self.productivity_per_worker = ResourceCollection(**BUILDINGS[self.id]["productivity_per_worker"])
+        self.effect_bonuses = EffectBonuses(**BUILDINGS[self.id]["effect_bonuses"])
+        self.effect_bonuses_per_worker = EffectBonuses(**BUILDINGS[self.id]["effect_bonuses_per_worker"])
+        self.storage_capacity = ResourceCollection(**BUILDINGS[self.id]["storage_capacity"])
+        self.max_workers = BUILDINGS[self.id]["max_workers"]
+        self.is_buildable = BUILDINGS[self.id]["is_buildable"]
+        self.is_deletable = BUILDINGS[self.id]["is_deletable"]
+        self.is_upgradeable = BUILDINGS[self.id]["is_upgradeable"]
+        self.required_geo = GeoFeature(value = BUILDINGS[self.id]["required_geo"]) if BUILDINGS[self.id]["required_geo"] else None
+        self.required_rss = Resource(value = BUILDINGS[self.id]["required_rss"]) if BUILDINGS[self.id]["required_rss"] else None
+        self.required_building = BUILDINGS[self.id]["required_building"]
+        self.replaces = BUILDINGS[self.id]["replaces"]
+        
+        self._validate_number_of_workers()
+    
+    def add_workers(self, qty: int) -> None:
+        if self.workers + qty > self.max_workers:
+            raise ValueError(f"Too many workers. Max is {self.max_workers} for {self.name}.")
+        
+        self.workers += qty
+    
+    def remove_workers(self, qty: int) -> None:
+        if self.workers - qty < 0:
+            raise ValueError(f"Can't remove {qty} workers, building currently has {self.workers}.")
+        
+        self.workers -= qty
+    
+    def set_workers(self, qty: int) -> None:
+        if qty > self.max_workers:
+            raise ValueError(f"{self.name} cannot allocate {qty}. Max is {self.max_workers}.")
+        
+        self.workers = qty
+    
+    def show(self) -> None:
+        print(self)
+        print(f"Name: {self.name}")
+        print(f"Building costs: {self.building_cost}")
+        print(f"Maintenance costs: {self.maintenance_cost}")
+        print(f"Productivity bonuses: {self.productivity_bonuses}")
+        print(f"Productivity per worker: {self.productivity_per_worker}")
+        print(f"Effect bonuses: {self.effect_bonuses}")
+        print(f"Effect bonuses per worker: {self.effect_bonuses_per_worker}")
+        print(f"Storage capacity: {self.storage_capacity}")
+        print(f"Max. workers: {self.max_workers}")
+        print(f"Is buildable: {self.is_buildable}")
+        print(f"Is deletable: {self.is_deletable}")
+        print(f"Is upgradeable: {self.is_upgradeable}")
+        print(f"Required GeoFeature: {self.required_geo}")
+        print(f"Required Resource: {self.required_rss}")
+        print(f"Required building: {self.required_building}")
+        print(f"Replaces: {self.replaces}")
+        print(f"Current workers: {self.workers}")

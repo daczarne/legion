@@ -1,8 +1,9 @@
 building:
   - changed-files:
       - any-glob-to-any-file:
-          - modules/building.py
+          - building_example.py
           - data/buildings.yaml
+          - modules/building.py
           - tests/test_building.py
 campaign:
   - changed-files:
@@ -24,8 +25,8 @@ docs:
   - changed-files:
       - any-glob-to-any-file:
           - docs/**
-          - README.md
           - img/**
+          - README.md
 effects:
   - changed-files:
       - any-glob-to-any-file:
@@ -39,6 +40,7 @@ env:
 examples:
   - changed-files:
       - any-glob-to-any-file:
+          - building_example.py
           - city_example.py
           - kingdom_example.py
           - scenario_example.py
