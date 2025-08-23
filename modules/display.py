@@ -10,7 +10,7 @@ from rich.style import Style
 from rich.table import Table
 from rich.text import Text
 
-from .building import BUILDINGS
+from .building import BUILDINGS, BuildingsCount
 from .city import City
 
 
@@ -89,7 +89,7 @@ class CityDisplay:
             case "city":
                 return 2
             case "buildings":
-                return len(self.city.buildings) + 2
+                return len(self.city.get_buildings_count(by = "id")) + 2
             case "effects":
                 return 8
             case "production":
@@ -124,8 +124,8 @@ class CityDisplay:
     def _build_city_buildings_list(self) -> Table:
         city_buildings_text: Text = Text()
         
-        for building, qty in self.city.buildings.items():
-            city_buildings_text.append(text = f"  - {BUILDINGS[building].name} ({qty})\n")
+        for building, qty in self.city.get_buildings_count(by = "name").items():
+            city_buildings_text.append(text = f"  - {building} ({qty})\n")
         
         city_buildings_table: Table = Table(title = "Buildings", show_header = False, box = None, padding = (0, 1))
         city_buildings_table.add_column()
