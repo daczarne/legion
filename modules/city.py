@@ -184,6 +184,27 @@ class City:
         return GeoFeatures()
     
     
+    @classmethod
+    def from_buildings_count(
+        cls,
+        campaign: str,
+        name: str,
+        buildings: BuildingsCount,
+    ) -> "City":
+        
+        city_buildings: list[Building] = []
+        
+        for id, qty in buildings.items():
+            for _ in range(qty):
+                city_buildings.append(Building(id = id))
+        
+        return cls(
+            campaign = campaign,
+            name = name,
+            buildings = city_buildings,
+        )
+    
+    
     #* Validate city buildings
     def _validate_halls(self) -> None:
         halls: BuildingsCount = {}

@@ -1,18 +1,21 @@
-from  modules.building import Building
+from modules.building import Building
 from modules.city import City
 from modules.display import CityDisplay
 
-# city: City = City(
-#     campaign = "Unification of Italy",
-#     name = "Roma",
-#     buildings = {
-#         "city_hall": 1,
-#         "basilica": 1,
-#         "farmers_guild": 1,
-#         "large_farm": 5,
-#         "vineyard": 1,
-#     }
-# )
+city: City = City.from_buildings_count(
+    campaign = "Unification of Italy",
+    name = "Roma",
+    buildings = {
+        "city_hall": 1,
+        "basilica": 1,
+        "farmers_guild": 1,
+        "large_farm": 5,
+        "vineyard": 1,
+    }
+)
+
+CityDisplay(city = city).display_city_results()
+print()
 
 city: City = City(
     campaign = "Unification of Italy",
@@ -30,8 +33,8 @@ city: City = City(
     ]
 )
 
-CityDisplay(city = city).display_city_results()
-print()
+# CityDisplay(city = city).display_city_results()
+# print()
 
 city: City = City(
     campaign = "Unification of Italy",
@@ -49,5 +52,5 @@ city: City = City(
     ]
 )
 
-CityDisplay(city = city).display_city_results()
-print()
+# CityDisplay(city = city).display_city_results()
+# print()
