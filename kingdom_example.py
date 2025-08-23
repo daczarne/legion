@@ -316,14 +316,4 @@ kingdom: Kingdom = Kingdom.from_list(
     ],
 )
 
-from modules.city import City
-kingdom = Kingdom(
-    cities = [
-        City(
-            campaign = "Unification of Italy",
-            name = "Roma",
-            buildings = {"village_hall": 1},
-        )
-    ]
-)
 kingdom.display_kingdom_results()
