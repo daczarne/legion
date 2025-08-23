@@ -235,27 +235,27 @@ class CityDisplay:
         
         table.add_row(
             "Food",
-            f"{self.city.city_storage.food}",
-            f"{self.city.buildings_storage.food}",
-            f"{self.city.warehouse_storage.food}",
-            f"{self.city.supply_dump_storage.food}",
-            Text(text = f"{self.city.total_storage.food}", style = table_style + Style(bold = True)),
+            f"{self.city.storage.city.food}",
+            f"{self.city.storage.buildings.food}",
+            f"{self.city.storage.warehouse.food}",
+            f"{self.city.storage.supply_dump.food}",
+            Text(text = f"{self.city.storage.total.food}", style = table_style + Style(bold = True)),
         )
         table.add_row(
             "Ore",
-            f"{self.city.city_storage.ore}",
-            f"{self.city.buildings_storage.ore}",
-            f"{self.city.warehouse_storage.ore}",
-            f"{self.city.supply_dump_storage.ore}",
-            Text(text = f"{self.city.total_storage.ore}", style = table_style + Style(bold = True)),
+            f"{self.city.storage.city.ore}",
+            f"{self.city.storage.buildings.ore}",
+            f"{self.city.storage.warehouse.ore}",
+            f"{self.city.storage.supply_dump.ore}",
+            Text(text = f"{self.city.storage.total.ore}", style = table_style + Style(bold = True)),
         )
         table.add_row(
             "Wood",
-            f"{self.city.city_storage.wood}",
-            f"{self.city.buildings_storage.wood}",
-            f"{self.city.warehouse_storage.wood}",
-            f"{self.city.supply_dump_storage.wood}",
-            Text(text = f"{self.city.total_storage.wood}", style = table_style + Style(bold = True)),
+            f"{self.city.storage.city.wood}",
+            f"{self.city.storage.buildings.wood}",
+            f"{self.city.storage.warehouse.wood}",
+            f"{self.city.storage.supply_dump.wood}",
+            Text(text = f"{self.city.storage.total.wood}", style = table_style + Style(bold = True)),
         )
         
         return table
