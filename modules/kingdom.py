@@ -218,8 +218,8 @@ class Kingdom:
     
     
     #* Kingdom display
+    @staticmethod
     def _calculate_indentations(
-            self,
             cell_value: int,
             width: int,
         ) -> int:
@@ -228,6 +228,9 @@ class Kingdom:
         digits_in_number: int = len(str(cell_value))
         n_of_dashes: int = (digits_in_number - 1) // CHARS_PER_THOUSAND_SEPARATOR
         n_chars_in_number: int = digits_in_number + n_of_dashes
+        
+        if width <= n_chars_in_number:
+            return 0
         
         return width - n_chars_in_number
     
@@ -286,11 +289,11 @@ class Kingdom:
             for rss in ["food", "ore", "wood"]:
                 
                 rss_potential: int = city.resource_potentials.get(key = rss)
-                indentation_rss_potential: int = self._calculate_indentations(cell_value = rss_potential, width = 3)
+                indentation_rss_potential: int = Kingdom._calculate_indentations(cell_value = rss_potential, width = 3)
                 rss_potential_cell_value: str = f"{" " * indentation_rss_potential}[dim]({rss_potential})[/dim]"
                 
                 rss_balance: int = city.production.balance.get(key = rss)
-                indentation_rss_balance: int = self._calculate_indentations(cell_value = rss_balance, width = 3)
+                indentation_rss_balance: int = Kingdom._calculate_indentations(cell_value = rss_balance, width = 3)
                 rss_balance_color: str = production_color if getattr(city.focus, "value", None) == rss else "white"
                 rss_balance_color: str = production_color if Resource(value = rss) == city.focus else "white"
                 rss_balance_cell_value: str = f"{" " * (indentation_rss_balance)}{f"[{rss_balance_color}]"}{rss_balance:_}{f"[/{rss_balance_color}]"}"
@@ -302,9 +305,9 @@ class Kingdom:
         
         table.add_section()
         
-        i_t_food: int = self._calculate_indentations(cell_value = self.kingdom_total_production.food, width = 10)
-        i_t_ore: int = self._calculate_indentations(cell_value = self.kingdom_total_production.ore, width = 10)
-        i_t_wood: int = self._calculate_indentations(cell_value = self.kingdom_total_production.wood, width = 10)
+        i_t_food: int = Kingdom._calculate_indentations(cell_value = self.kingdom_total_production.food, width = 10)
+        i_t_ore: int = Kingdom._calculate_indentations(cell_value = self.kingdom_total_production.ore, width = 10)
+        i_t_wood: int = Kingdom._calculate_indentations(cell_value = self.kingdom_total_production.wood, width = 10)
         
         table.add_row(
             f"Total",
@@ -343,7 +346,7 @@ class Kingdom:
             for rss in ["food", "ore", "wood"]:
                 
                 rss_storage: int = city.total_storage.get(key = rss)
-                indentation_rss_storage: int = self._calculate_indentations(cell_value = rss_storage, width = 6)
+                indentation_rss_storage: int = Kingdom._calculate_indentations(cell_value = rss_storage, width = 6)
                 rss_storage_color: str = storage_color if Resource(value = rss) == city.focus else "white"
                 rss_storage_cell_value: str = f"{" " * (indentation_rss_storage)}{f"[{rss_storage_color}]"}{rss_storage:_}{f"[/{rss_storage_color}]"}"
                 
@@ -354,9 +357,9 @@ class Kingdom:
         
         table.add_section()
         
-        i_t_food: int = self._calculate_indentations(cell_value = self.kingdom_total_storage.food, width = 6)
-        i_t_ore: int = self._calculate_indentations(cell_value = self.kingdom_total_storage.ore, width = 6)
-        i_t_wood: int = self._calculate_indentations(cell_value = self.kingdom_total_storage.wood, width = 6)
+        i_t_food: int = Kingdom._calculate_indentations(cell_value = self.kingdom_total_storage.food, width = 6)
+        i_t_ore: int = Kingdom._calculate_indentations(cell_value = self.kingdom_total_storage.ore, width = 6)
+        i_t_wood: int = Kingdom._calculate_indentations(cell_value = self.kingdom_total_storage.wood, width = 6)
         
         table.add_row(
             f"Total",
