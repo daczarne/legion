@@ -63,6 +63,15 @@ class CityProduction:
 
 
 @dataclass(kw_only = True)
+class CityStorage:
+    city: ResourceCollection = field(default_factory = ResourceCollection)
+    buildings: ResourceCollection = field(default_factory = ResourceCollection)
+    warehouse: ResourceCollection = field(default_factory = ResourceCollection)
+    supply_dump: ResourceCollection = field(default_factory = ResourceCollection)
+    total: ResourceCollection = field(default_factory = ResourceCollection)
+
+
+@dataclass(kw_only = True)
 class CityDefenses:
     garrison: str = field(default = "")
     squadrons: int = field(default = 1)
@@ -109,43 +118,13 @@ class City:
         compare = False,
         hash = False,
     )
-    
-    city_storage: ResourceCollection = field(
+    storage: CityStorage = field(
         init = False,
-        default_factory = ResourceCollection,
+        default_factory = CityStorage,
         repr = False,
         compare = False,
         hash = False,
     )
-    buildings_storage: ResourceCollection = field(
-        init = False,
-        repr = False,
-        default_factory = ResourceCollection,
-        compare = False,
-        hash = False,
-    )
-    warehouse_storage: ResourceCollection = field(
-        init = False,
-        default_factory = ResourceCollection,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    supply_dump_storage: ResourceCollection = field(
-        init = False,
-        default_factory = ResourceCollection,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    total_storage: ResourceCollection = field(
-        init = False,
-        default_factory = ResourceCollection,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    
     defenses: CityDefenses = field(
         init = False,
         default_factory = CityDefenses,
@@ -153,8 +132,13 @@ class City:
         compare = False,
         hash = False,
     )
-    
-    focus: Resource | None = field(init = False, default = None, repr = False, compare = False, hash = False)
+    focus: Resource | None = field(
+        init = False,
+        default = None,
+        repr = False,
+        compare = False,
+        hash = False
+    )
     
     
     # Class variables
@@ -412,22 +396,22 @@ class City:
         total_storage: ResourceCollection = ResourceCollection()
         
         total_storage.food = (
-            self.city_storage.food
-            + self.buildings_storage.food
-            + self.warehouse_storage.food
-            + self.supply_dump_storage.food
+            self.storage.city.food
+            + self.storage.buildings.food
+            + self.storage.warehouse.food
+            + self.storage.supply_dump.food
         )
         total_storage.ore = (
-            self.city_storage.ore
-            + self.buildings_storage.ore
-            + self.warehouse_storage.ore
-            + self.supply_dump_storage.ore
+            self.storage.city.ore
+            + self.storage.buildings.ore
+            + self.storage.warehouse.ore
+            + self.storage.supply_dump.ore
         )
         total_storage.wood = (
-            self.city_storage.wood
-            + self.buildings_storage.wood
-            + self.warehouse_storage.wood
-            + self.supply_dump_storage.wood
+            self.storage.city.wood
+            + self.storage.buildings.wood
+            + self.storage.warehouse.wood
+            + self.storage.supply_dump.wood
         )
         
         return total_storage
@@ -509,11 +493,11 @@ class City:
         self.production.balance = self._calculate_production_balance()
         
         #* Storage
-        self.city_storage = self._calculate_city_storage()
-        self.buildings_storage = self._calculate_buildings_storage()
-        self.warehouse_storage = self._calculate_warehouse_storage()
-        self.supply_dump_storage = self._calculate_supply_dump_storage()
-        self.total_storage = self._calculate_total_storage_capacity()
+        self.storage.city = self._calculate_city_storage()
+        self.storage.buildings = self._calculate_buildings_storage()
+        self.storage.warehouse = self._calculate_warehouse_storage()
+        self.storage.supply_dump = self._calculate_supply_dump_storage()
+        self.storage.total = self._calculate_total_storage_capacity()
         
         #* Defenses
         self.defenses.garrison = self._get_garrison()

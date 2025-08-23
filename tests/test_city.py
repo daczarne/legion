@@ -351,11 +351,11 @@ class TestCity:
         assert city.production.total.food == 613
         assert city.production.maintenance_costs.food == 14
         assert city.production.balance.food == 599
-        assert city.city_storage.food == 100
-        assert city.buildings_storage.food == 450
-        assert city.warehouse_storage.food == 0
-        assert city.supply_dump_storage.food == 0
-        assert city.total_storage.food == 550
+        assert city.storage.city.food == 100
+        assert city.storage.buildings.food == 450
+        assert city.storage.warehouse.food == 0
+        assert city.storage.supply_dump.food == 0
+        assert city.storage.total.food == 550
         assert city.focus == Resource.FOOD
     
     def test_city_roman_fishing_village(self) -> None:
@@ -382,11 +382,11 @@ class TestCity:
         assert city.production.total.food == 401
         assert city.production.maintenance_costs.food == 14
         assert city.production.balance.food == 387
-        assert city.city_storage.food == 100
-        assert city.buildings_storage.food == 425
-        assert city.warehouse_storage.food == 0
-        assert city.supply_dump_storage.food == 0
-        assert city.total_storage.food == 525
+        assert city.storage.city.food == 100
+        assert city.storage.buildings.food == 425
+        assert city.storage.warehouse.food == 0
+        assert city.storage.supply_dump.food == 0
+        assert city.storage.total.food == 525
         assert city.focus == Resource.FOOD
     
     def test_city_roman_fishing_village_and_outcrop(self) -> None:
@@ -419,12 +419,12 @@ class TestCity:
         assert city.production.maintenance_costs.ore == 4
         assert city.production.balance.food == 394
         assert city.production.balance.ore == 21
-        assert city.city_storage.food == 100
-        assert city.city_storage.ore == 100
-        assert city.buildings_storage.food == 375
-        assert city.buildings_storage.ore == 30
-        assert city.total_storage.food == 475
-        assert city.total_storage.ore == 130
+        assert city.storage.city.food == 100
+        assert city.storage.city.ore == 100
+        assert city.storage.buildings.food == 375
+        assert city.storage.buildings.ore == 30
+        assert city.storage.total.food == 475
+        assert city.storage.total.ore == 130
         assert city.focus == Resource.FOOD
     
     def test_city_roman_ore_outcrop_and_mountain_mine(self) -> None:
@@ -452,11 +452,11 @@ class TestCity:
         assert city.production.total.ore == 533
         assert city.production.maintenance_costs.ore == 14
         assert city.production.balance.ore == 519
-        assert city.city_storage.ore == 100
-        assert city.buildings_storage.ore == 360
-        assert city.warehouse_storage.ore == 0
-        assert city.supply_dump_storage.ore == 0
-        assert city.total_storage.ore == 460
+        assert city.storage.city.ore == 100
+        assert city.storage.buildings.ore == 360
+        assert city.storage.warehouse.ore == 0
+        assert city.storage.supply_dump.ore == 0
+        assert city.storage.total.ore == 460
         assert city.focus == Resource.ORE
     
     def test_city_roman_ore_outcrop_mine(self) -> None:
@@ -482,9 +482,9 @@ class TestCity:
         assert city.production.total.ore == 348
         assert city.production.maintenance_costs.ore == 14
         assert city.production.balance.ore == 334
-        assert city.city_storage.ore == 100
-        assert city.buildings_storage.ore == 405
-        assert city.total_storage.ore == 505
+        assert city.storage.city.ore == 100
+        assert city.storage.buildings.ore == 405
+        assert city.storage.total.ore == 505
         assert city.focus == Resource.ORE
     
     def test_city_roman_ore_mountains(self) -> None:
@@ -510,9 +510,9 @@ class TestCity:
         assert city.production.total.ore == 621
         assert city.production.maintenance_costs.ore == 14
         assert city.production.balance.ore == 607
-        assert city.city_storage.ore == 100
-        assert city.buildings_storage.ore == 360
-        assert city.total_storage.ore == 460
+        assert city.storage.city.ore == 100
+        assert city.storage.buildings.ore == 360
+        assert city.storage.total.ore == 460
         assert city.focus == Resource.ORE
     
     def test_city_roman_ore_mountain(self) -> None:
@@ -538,9 +538,9 @@ class TestCity:
         assert city.production.total.ore == 562
         assert city.production.maintenance_costs.ore == 14
         assert city.production.balance.ore == 548
-        assert city.city_storage.ore == 100
-        assert city.buildings_storage.ore == 405
-        assert city.total_storage.ore == 505
+        assert city.storage.city.ore == 100
+        assert city.storage.buildings.ore == 405
+        assert city.storage.total.ore == 505
         assert city.focus == Resource.ORE
     
     def test_city_roman_ore(self) -> None:
@@ -564,9 +564,9 @@ class TestCity:
         assert city.production.total.ore == 526
         assert city.production.maintenance_costs.ore == 14
         assert city.production.balance.ore == 512
-        assert city.city_storage.ore == 100
-        assert city.buildings_storage.ore == 450
-        assert city.total_storage.ore == 550
+        assert city.storage.city.ore == 100
+        assert city.storage.buildings.ore == 450
+        assert city.storage.total.ore == 550
         assert city.focus == Resource.ORE
     
     def test_city_roman_wood(self) -> None:
@@ -591,7 +591,7 @@ class TestCity:
         assert city.production.total.wood == 729
         assert city.production.maintenance_costs.wood == 14
         assert city.production.balance.wood == 715
-        assert city.city_storage.wood == 100
-        assert city.buildings_storage.wood == 450
-        assert city.total_storage.wood == 550
+        assert city.storage.city.wood == 100
+        assert city.storage.buildings.wood == 450
+        assert city.storage.total.wood == 550
         assert city.focus == Resource.WOOD

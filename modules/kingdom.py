@@ -197,9 +197,9 @@ class Kingdom:
         )
         
         for city in self.cities:
-            total_storage.food = total_storage.food + city.total_storage.food
-            total_storage.ore = total_storage.ore + city.total_storage.ore
-            total_storage.wood = total_storage.wood + city.total_storage.wood
+            total_storage.food += city.storage.total.food
+            total_storage.ore += city.storage.total.ore
+            total_storage.wood += city.storage.total.wood
         
         return total_storage
     
@@ -345,7 +345,7 @@ class Kingdom:
             
             for rss in ["food", "ore", "wood"]:
                 
-                rss_storage: int = city.total_storage.get(key = rss)
+                rss_storage: int = city.storage.total.get(key = rss)
                 indentation_rss_storage: int = Kingdom._calculate_indentations(cell_value = rss_storage, width = 6)
                 rss_storage_color: str = storage_color if Resource(value = rss) == city.focus else "white"
                 rss_storage_cell_value: str = f"{" " * (indentation_rss_storage)}{f"[{rss_storage_color}]"}{rss_storage:_}{f"[/{rss_storage_color}]"}"
