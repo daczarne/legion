@@ -84,6 +84,39 @@ class CityDefenses:
     kw_only = True,
 )
 class City:
+    """
+    Represents a city within a campaign of the game.
+    
+    A `City` is defined by its campaign, name, and a collection of buildings. The campaign and city name will be used
+    to look-up city characteristics like the resource potential of the city and its garrison. Based on the supplied
+    buildings, it will calculate the production of the city, the storage capacity, the defenses, etc.
+    
+    On initialization, the city validates its buildings to ensure consistency:
+    
+    - Exactly one hall (Village, Town, or City hall) must be present.
+    - The number of buildings must not exceed the maximum allowed for the hall type.
+        - For Village: 4
+        - For Town: 6
+        - For City: 8
+    
+    Attributes:
+        campaign (str): The campaign identifier the city belongs to.
+        name (str): The name of the city.
+        buildings (list[Building]): A list of buildings present in the city.
+        
+        resource_potentials (ResourceCollection): The resource potentials of the city.
+        geo_features (GeoFeatures): Geographical features present in the city (mountains, lakes, etc).
+        effects (CityEffectBonuses): Effect bonuses from the city, its buildings, and workers.
+        production (CityProduction): Production statistics for the city.
+        storage (CityStorage): Resource storage capacities of the city.
+        defenses (CityDefenses): Defense of the city (number of squads and their size).
+        focus (Resource | None): If a Resource, the highest producing resource of the city.
+    
+    Class Attributes:
+        POSSIBLE_CITY_HALLS (set[str]): The valid hall building IDs for a city.
+        MAX_WORKERS (BuildingsCount): Mapping of hall type to maximum number of workers the city can have.
+        MAX_BUILDINGS_PER_CITY (BuildingsCount): Mapping of hall type to maximum allowed buildings the city can have.
+    """
     campaign: str = field(init = True, default = "", repr = True, compare = True, hash = True)
     name: str = field(init = True, default = "", repr = True, compare = True, hash = True)
     buildings: list[Building] = field(init = True, default_factory = list, repr = False, compare = False, hash = False)
@@ -137,7 +170,7 @@ class City:
         default = None,
         repr = False,
         compare = False,
-        hash = False
+        hash = False,
     )
     
     
@@ -191,7 +224,21 @@ class City:
         name: str,
         buildings: BuildingsCount,
     ) -> "City":
+        """
+        Create a `City` instance from a count of buildings. The count must be a dictionary with building IDs as keys
+        and the quantity of each building type as values.
         
+        This method expands the building counts into actual `Building` objects and initializes a new city with them.
+        This implies that you can pass 0-count buildings and they will automaticall be ignored.
+        
+        Args:
+            campaign (str): the campaign identifier the city belongs to.
+            name (str): the name of the city.
+            buildings (BuildingsCount): a dictionary mapping building IDs to quantities.
+        
+        Returns:
+            City: a new `City` instance populated with the given buildings.
+        """
         city_buildings: list[Building] = []
         
         for id, qty in buildings.items():
@@ -228,6 +275,18 @@ class City:
             raise ValueError(f"Too many halls for this city")
     
     def get_building(self, id: str) -> Building:
+        """
+        Retrieve a building from the city by its ID. In case the city has more than one it will return the first one.
+        
+        Args:
+            id (str): the building ID to search for.
+        
+        Returns:
+            Building: the first building in the city with the given ID.
+        
+        Raises:
+            KeyError: if no building with the given ID exists in the city.
+        """
         for building in self.buildings:
             if building.id == id:
                 return building
@@ -235,6 +294,15 @@ class City:
         raise KeyError(f"No building with ID={id} found in {self.name}")
     
     def has_building(self, id: str) -> bool:
+        """
+        Check whether the city contains a building with the specified ID.
+        
+        Args:
+            id (str): the building ID to search for.
+        
+        Returns:
+            bool: True if the building is present, False otherwise.
+        """
         for building in self.buildings:
             if building.id == id:
                 return True
@@ -242,6 +310,14 @@ class City:
         return False
     
     def get_hall(self) -> Building: # type: ignore
+        """
+        Retrieve the hall building of the city.
+        
+        The hall is the central building of the city and must be one of "Village hall", "Town hall", or "City hall".
+        
+        Returns:
+            Building: the hall building of the city.
+        """
         for building in self.buildings:
             if building.id not in self.POSSIBLE_CITY_HALLS:
                 continue
@@ -249,6 +325,15 @@ class City:
             return building
     
     def get_buildings_count(self, by: Literal["name", "id"]) -> BuildingsCount:
+        """
+        Count the number of buildings in the city grouped by ID or name.
+        
+        Args:
+            by (Literal["name", "id"]): whether to group counts by building name or ID.
+        
+        Returns:
+            BuildingsCount: a dictionary mapping either building IDs or names to their respective counts.
+        """
         from collections import Counter
         
         if by == "name":
