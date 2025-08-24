@@ -23,7 +23,6 @@ farm.show()
 ```
 """
 
-
 import yaml
 
 from dataclasses import dataclass, field
@@ -33,6 +32,12 @@ from .effects import EffectBonusesData, EffectBonuses
 from .geo_features import GeoFeature
 from .resources import Resource, ResourceCollectionData, ResourceCollection
 
+
+"""
+Mapping of building identifiers to their counts in a city.
+
+Keys are building IDs (e.g., "farm", "mine"). Values are integers representing how many of that building exist.
+"""
 BuildingsCount: TypeAlias = dict[str, int]
 
 
@@ -42,7 +47,7 @@ BuildingsCount: TypeAlias = dict[str, int]
 
 class BuildingData(TypedDict):
     """
-    This is a helper class meant to be used when reading Building from YAML or JSON files. Its only purpose is to
+    This is a helper class meant to be used when reading Building-data from YAML or JSON files. Its only purpose is to
     provide good type annotations and hints.
     """
     id: str
