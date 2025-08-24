@@ -5,7 +5,7 @@ from pytest import fixture
 from typing import Literal
 
 from modules.building import _BuildingData
-from modules.city import CityData
+from modules.city import _CityData
 
 
 @fixture(scope = "function")
@@ -17,12 +17,12 @@ def _errors() -> Generator[list]:
 
 
 @fixture(scope = "session")
-def _cities() -> Generator[list[CityData]]:
+def _cities() -> Generator[list[_CityData]]:
     """
     Loads the cities.yaml file.
     """
     with open(file = "./data/cities.yaml", mode = "r") as file:
-        cities_data: dict[Literal["cities"], list[CityData]] = yaml.safe_load(stream = file)
+        cities_data: dict[Literal["cities"], list[_CityData]] = yaml.safe_load(stream = file)
     
     yield cities_data["cities"]
 
