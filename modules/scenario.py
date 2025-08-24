@@ -1,3 +1,14 @@
+"""
+Module for managing Scenarios.
+
+This module provides functionality to compare and display multiple city instances side by side for visual comparison.
+It leverages the `City` and `CityDisplay` classes and provides a `Scenario` class to organize and render cities in a
+grid layout using the Rich library.
+
+Public API:
+    Scenario: A class for representing a collection of cities to be compared and displayed together.
+"""
+
 from rich.align import Align
 from rich.console import Console
 from rich.layout import Layout
@@ -12,7 +23,22 @@ from .display import (
 )
 
 
+__all__: list[str] = ["Scenario"]
+
+
 class Scenario:
+    """
+    Represents a collection of cities to be compared and displayed together.
+    
+    The `Scenario` class takes a list of `City` instances and optionally a display configuration. It prepares each city
+    for display and arranges them in a grid layout for easy visual comparison.
+    
+    Public API:
+        from_list(data: list[CityDict], configuration: DisplayConfiguration | None = None) -> Scenario
+            Create a Scenario instance from a list of dictionary definitions of cities.
+        display_scenario_results() -> None
+            Render the scenario with all cities to the console using the Rich library.
+    """
     
     def __init__(
             self,
@@ -30,6 +56,18 @@ class Scenario:
         data: list[CityDict],
         configuration: DisplayConfiguration | None = None,
     ) -> "Scenario":
+        """
+        Create a Scenario instance from a list of city dictionaries.
+        
+        Each dictionary should follow the structure expected by `City.from_buildings_count`.
+        
+        Args:
+            data (list[CityDict]): List of dictionaries defining cities.
+            configuration (DisplayConfiguration | None): Optional display configuration for the scenario.
+        
+        Returns:
+            Scenario: A new Scenario instance with City objects created from the given data.
+        """
         cities: list[City] = [City.from_buildings_count(**city) for city in data]
         return cls(cities, configuration)
     
@@ -153,5 +191,12 @@ class Scenario:
         return (console_height + buildings_and_effects_height) * qty_display_rows
     
     def display_scenario_results(self) -> None:
+        """
+        Render all cities in the scenario to the console using the Rich library.
+        
+        The cities are displayed side by side in a grid layout, with the layout automatically calculated based on the
+        number of cities and the configuration provided. Each city's display is managed by an instance of the
+        `CityDisplay` class.
+        """
         console: Console = Console(width = 192, height = self._calculate_console_height())
         console.print(self._build_scenario_display())

@@ -2,7 +2,7 @@ from pytest import mark, raises, fixture
 from collections import Counter
 
 from modules.building import Building, BuildingsCount
-from modules.city import CityData, City
+from modules.city import _CityData, City
 from modules.resources import Resource
 
 
@@ -13,7 +13,7 @@ class TestCitiesData:
     def test_all_cities_have_all_expected_keys(
             self,
             _errors: list,
-            _cities: list[CityData],
+            _cities: list[_CityData],
         ) -> None:
         expected_keys: list[str] = [
             "name",
@@ -46,7 +46,7 @@ class TestCitiesData:
     def test_each_city_is_unique(
             self,
             _errors: list[str],
-            _cities: list[CityData],
+            _cities: list[_CityData],
         ) -> None:
         """
         Tests that every `campaign + name` is unique.
@@ -68,7 +68,7 @@ class TestCitiesData:
     def test_all_campaigns_are_of_expected_value(
             self,
             _errors: list[tuple[str, str]],
-            _cities: list[CityData],
+            _cities: list[_CityData],
         ) -> None:
         """
         Test that all `campaign` values are of the expected values.
@@ -94,7 +94,7 @@ class TestCitiesData:
     def test_all_resource_potentials_have_all_expected_keys(
             self,
             _errors: list,
-            _cities: list[CityData],
+            _cities: list[_CityData],
         ) -> None:
         expected_keys: list[str] = [
             "food",
@@ -124,7 +124,7 @@ class TestCitiesData:
     def test_all_resource_potentials_are_int(
             self,
             _errors: list[dict[str, str]],
-            _cities: list[CityData],
+            _cities: list[_CityData],
         ) -> None:
         """
         Validate `resource_potentials`.
@@ -155,7 +155,7 @@ class TestCitiesData:
     def test_all_geo_features_have_all_expected_keys(
             self,
             _errors: list,
-            _cities: list[CityData],
+            _cities: list[_CityData],
         ) -> None:
         expected_keys: list[str] = [
             "rock_outcrops",
@@ -186,7 +186,7 @@ class TestCitiesData:
     def test_all_geo_features_are_int(
             self,
             _errors: list[dict[str, str]],
-            _cities: list[CityData],
+            _cities: list[_CityData],
         ) -> None:
         """
         Validate `geo_features`.
@@ -218,7 +218,7 @@ class TestCitiesData:
     def test_all_effects_have_all_expected_keys(
             self,
             _errors: list,
-            _cities: list[CityData],
+            _cities: list[_CityData],
         ) -> None:
         expected_keys: list[str] = [
             "troop_training",
@@ -248,7 +248,7 @@ class TestCitiesData:
     def test_all_effects_are_int(
             self,
             _errors: list[dict[str, str]],
-            _cities: list[CityData],
+            _cities: list[_CityData],
         ) -> None:
         """
         Validates `effects`

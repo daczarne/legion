@@ -1,10 +1,40 @@
+"""
+Module for managing resources.
+
+This module defines enumerations, type hints, and a dataclass for representing the resources:
+
+- Food
+- Ore
+- Wood
+
+It also includes helper classes for reading resource collection data from YAML/JSON files and interacting with
+resources as if they were dictionaries.
+
+Public API:
+- Resource (Enum): Named constants for the main resource types.
+- ResourceCollectionData (TypedDict): Helper for type hints when reading YAML/JSON. While other modules may rely on
+    this for typing, end users are not expected to interact with it directly.
+- ResourceCollection (dataclass): Stores resource counts and provides dict-like access.
+"""
+
 from collections.abc import Iterator
 from dataclasses import dataclass, fields
 from enum import Enum
 from typing import TypedDict
 
 
+__all__: list[str] = ["Resource", "ResourceCollectionData", "ResourceCollection"]
+
+
 class Resource(Enum):
+    """
+    Enumeration of resources.
+    
+    Attributes:
+        FOOD: Represents food resources.
+        ORE: Represents ore resources.
+        WOOD: Represents wood resources.
+    """
     FOOD = "food"
     ORE = "ore"
     WOOD = "wood"
@@ -22,6 +52,17 @@ class ResourceCollectionData(TypedDict):
 
 @dataclass
 class ResourceCollection:
+    """
+    Stores counts of resources and provides dictionary-like access.
+    
+    Each instance tracks the resource: food, ore, and wood. Supports iteration and retrieval like a dictionary.
+    
+    Public methods:
+        __iter__(): Iterate over resource names.
+        items(): Return (resource_name, value) pairs.
+        values(): Return counts of all resources.
+        get(key): Get the count for a given resource name. Raises KeyError if the key is not found.
+    """
     food: int = 0
     ore: int = 0
     wood: int = 0

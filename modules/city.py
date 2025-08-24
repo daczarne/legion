@@ -1,3 +1,21 @@
+"""
+Module for defining and managing cities.
+
+This module loads city definitions from a YAML file and provides typed access to their properties. It exposes the
+public API for working with cities, including creating city instances, counting buildings, and inspecting city
+attributes like production, storage, defenses, and effect bonuses.
+
+Public API:
+- City (dataclass): Represents a city within a campaign. Handles city validation, calculates production, storage,
+    defenses, effect bonuses, and city focus.
+- CITIES (list[_CityData]): List of all city definitions loaded from `./data/cities.yaml`.
+- CityDict (TypedDict): Helper type for defining cities via dictionaries.
+
+Internal objects (not part of the public API):
+- _CityData (TypedDict): Type for internal use when reading city data from YAML/JSON.
+- _CityEffectBonuses, _CityProduction, _CityStorage, _CityDefenses: helper dataclasses for modeling city internals.
+"""
+
 import yaml
 
 from dataclasses import dataclass, field
@@ -9,10 +27,13 @@ from .geo_features import GeoFeaturesData, GeoFeatures
 from .resources import Resource, ResourceCollectionData, ResourceCollection
 
 
+__all__: list[str] = ["City", "CITIES", "CityDict"]
+
+
 class CityDict(TypedDict):
     """
-    This is a helper class meant to be used when reading defining cities using dictionaries. Its only purpose is to
-    provide good type annotations and hints.
+    This is a helper class meant to be used when defining cities using dictionaries. Its only purpose is to provide
+    good type annotations and hints.
     """
     name: str
     campaign: str
@@ -23,9 +44,9 @@ class CityDict(TypedDict):
 # * CITIES DATA * #
 # * *********** * #
 
-class CityData(TypedDict):
+class _CityData(TypedDict):
     """
-    This is a helper class meant to be used when reading CityData from YAML or JSON files. Its only purpose is to
+    This is a helper class meant to be used when reading city data from YAML or JSON files. Its only purpose is to
     provide good type annotations and hints.
     """
     campaign: str
@@ -36,9 +57,9 @@ class CityData(TypedDict):
     garrison: str
 
 with open(file = "./data/cities.yaml", mode = "r") as file:
-    cities_data: dict[Literal["cities"], list[CityData]] = yaml.safe_load(stream = file)
+    _cities_data: dict[Literal["cities"], list[_CityData]] = yaml.safe_load(stream = file)
 
-CITIES: list[CityData] = cities_data["cities"]
+CITIES: list[_CityData] = _cities_data["cities"]
 
 
 # * **** * #
@@ -46,7 +67,7 @@ CITIES: list[CityData] = cities_data["cities"]
 # * **** * #
 
 @dataclass(kw_only = True)
-class CityEffectBonuses:
+class _CityEffectBonuses:
     """
     A helper class to model the city's effect bonuses. Should not be used outside this module.
     """
@@ -57,7 +78,7 @@ class CityEffectBonuses:
 
 
 @dataclass(kw_only = True)
-class CityProduction:
+class _CityProduction:
     """
     A helper class to model the city's production. Should not be used outside this module.
     """
@@ -69,7 +90,7 @@ class CityProduction:
 
 
 @dataclass(kw_only = True)
-class CityStorage:
+class _CityStorage:
     """
     A helper class to model the city's storage capacity. Should not be used outside this module.
     """
@@ -81,7 +102,7 @@ class CityStorage:
 
 
 @dataclass(kw_only = True)
-class CityDefenses:
+class _CityDefenses:
     """
     A helper class to model the city's defenses. Should not be used outside this module.
     """
@@ -149,30 +170,30 @@ class City:
         hash = False,
     )
     
-    effects: CityEffectBonuses = field(
+    effects: _CityEffectBonuses = field(
         init = False,
-        default_factory = CityEffectBonuses,
+        default_factory = _CityEffectBonuses,
         repr = False,
         compare = False,
         hash = False,
     )
-    production: CityProduction = field(
+    production: _CityProduction = field(
         init = False,
-        default_factory = CityProduction,
+        default_factory = _CityProduction,
         repr = False,
         compare = False,
         hash = False,
     )
-    storage: CityStorage = field(
+    storage: _CityStorage = field(
         init = False,
-        default_factory = CityStorage,
+        default_factory = _CityStorage,
         repr = False,
         compare = False,
         hash = False,
     )
-    defenses: CityDefenses = field(
+    defenses: _CityDefenses = field(
         init = False,
-        default_factory = CityDefenses,
+        default_factory = _CityDefenses,
         repr = False,
         compare = False,
         hash = False,

@@ -1,26 +1,21 @@
 """
-Module for defining and managing game-buildings.
+Module for defining and managing game buildings.
 
-This module loads building definitions from a YAML file and provides typed access to their properties. It exposes two
-main components:
+This module loads building definitions from a YAML file and provides typed access to their properties. It exposes the
+public API for working with buildings in a city, including building instances, their attributes, and worker assignments.
 
-- BUILDINGS: A dictionary of all building definitions loaded from `./data/buildings.yaml`. Keys are building
-    identifiers, and values are `BuildingData` mappings with raw attributes.
-- Building: A dataclass representing a specific building instance, with runtime attributes such as costs, bonuses,
+Public API:
+- BuildingsCount (TypeAlias): Mapping of building identifiers to their counts in a city. Keys are building IDs (e.g.,
+    "farm", "mine"), values are integers representing how many of that building exist.
+- Building (dataclass): Represents a specific building instance, with runtime attributes such as costs, bonuses,
     storage capacity, worker assignment, and construction requirements.
 
-The system is designed to help players validate game assumptions about what can be built in a city, what it costs, and
-how different buildings interact (e.g., dependencies, upgrades, and resource requirements).
+Internal objects (not part of the public API):
+- _BUILDINGS: Dictionary of all building definitions loaded from `./data/buildings.yaml`.
+- _BuildingData (TypedDict): Helper for type annotations when reading building data from YAML/JSON files.
 
-Typical usage example:
-
-```python
-from buildings import Building
-
-farm = Building(id="farm")
-farm.add_workers(3)
-farm.show()
-```
+The system helps players validate game assumptions about what can be built in a city, what it costs, and how different
+buildings interact (e.g., dependencies, upgrades, and resource requirements).
 """
 
 import yaml
@@ -50,7 +45,7 @@ BuildingsCount: TypeAlias = dict[str, int]
 
 class _BuildingData(TypedDict):
     """
-    This is a helper class meant to be used when reading Building-data from YAML or JSON files. Its only purpose is to
+    This is a helper class meant to be used when reading building data from YAML or JSON files. Its only purpose is to
     provide good type annotations and hints.
     """
     id: str
@@ -72,9 +67,9 @@ class _BuildingData(TypedDict):
     replaces: str | None
 
 with open(file = "./data/buildings.yaml", mode = "r") as file:
-    buildings_data: dict[Literal["buildings"], list[_BuildingData]] = yaml.safe_load(stream = file)
+    _buildings_data: dict[Literal["buildings"], list[_BuildingData]] = yaml.safe_load(stream = file)
 
-_BUILDINGS: dict[str, _BuildingData] = {building["id"]: building for building in buildings_data["buildings"]}
+_BUILDINGS: dict[str, _BuildingData] = {building["id"]: building for building in _buildings_data["buildings"]}
 
 
 # * ******** * #

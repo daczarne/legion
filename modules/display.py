@@ -1,3 +1,23 @@
+"""
+Module for building Rich displays.
+
+This module provides classes and types for displaying city information in a structured, styled format using the Rich
+library.
+
+A `CityDisplay` object can render a `City` object into a terminal-friendly layout, showing various aspects of the city
+such as buildings, effects, production, storage, and defenses.
+
+Public API:
+    - CityDisplay: Main class to render and display city information.
+    - DisplaySection: Enum representing different display sections.
+    - DisplayConfiguration: TypedDict for configuring the display of city sections.
+    - DisplaySectionConfiguration: TypedDict for configuring individual sections.
+    - DEFAULT_SECTION_COLORS: Default colors for sections.
+
+Internal objects:
+    - _DisplaySectionColors: Mapping of section names to their default colors.
+"""
+
 from enum import Enum
 from typing import TypeAlias, TypedDict
 
@@ -13,10 +33,30 @@ from rich.text import Text
 from .city import City
 
 
-DisplaySectionColors: TypeAlias = dict[str, str]
+__all__: list[str] = [
+    "CityDisplay",
+    "DisplaySection",
+    "DisplayConfiguration",
+    "DisplaySectionConfiguration",
+    "DEFAULT_SECTION_COLORS",
+]
+
+
+_DisplaySectionColors: TypeAlias = dict[str, str]
 
 
 class DisplaySection(Enum):
+    """
+    Enum representing the different sections that can be displayed for a `CityDisplay`.
+    
+    Values:
+        CITY: City header with campaign and name.
+        BUILDINGS: List of city buildings and their counts.
+        EFFECTS: Effects table showing city, building, worker, and total bonuses.
+        PRODUCTION: Production table including resource potentials, base, bonuses, total, maintenance, and balance.
+        STORAGE: Storage capacities for city, buildings, warehouse, supply dump, and total.
+        DEFENSES: Defense information including garrison, squadrons, and squadron size.
+    """
     CITY = "city"
     BUILDINGS = "buildings"
     EFFECTS = "effects"
@@ -26,12 +66,31 @@ class DisplaySection(Enum):
 
 
 class DisplaySectionConfiguration(TypedDict, total = False):
+    """
+    Configuration for an individual display section in `CityDisplay`.
+    
+    Keys:
+        include (bool): Whether to display this section.
+        height (int): Height of the section in rows.
+        color (str): Color for the section text, as a Rich color string or HEX value.
+    """
     include: bool
     height: int
     color: str
 
 
 class DisplayConfiguration(TypedDict, total = False):
+    """
+    Full display configuration for a `CityDisplay`, mapping each section to its configuration.
+    
+    Keys:
+        city (DisplaySectionConfiguration): Configuration for the city header.
+        buildings (DisplaySectionConfiguration): Configuration for the buildings list.
+        effects (DisplaySectionConfiguration): Configuration for the effects table.
+        production (DisplaySectionConfiguration): Configuration for the production table.
+        storage (DisplaySectionConfiguration): Configuration for the storage table.
+        defenses (DisplaySectionConfiguration): Configuration for the defenses table.
+    """
     city: DisplaySectionConfiguration
     buildings: DisplaySectionConfiguration
     effects: DisplaySectionConfiguration
@@ -40,7 +99,7 @@ class DisplayConfiguration(TypedDict, total = False):
     defenses: DisplaySectionConfiguration
 
 
-DEFAULT_SECTION_COLORS: DisplaySectionColors = {
+DEFAULT_SECTION_COLORS: _DisplaySectionColors = {
     "effects": "#5f5fff",
     "production": "#228b22",
     "storage": "purple",
@@ -53,7 +112,26 @@ DEFAULT_SECTION_COLORS: DisplaySectionColors = {
 # * ************ * #
 
 class CityDisplay:
+    """
+    Handles the rendering and display of a `City` object in a structured, styled terminal layout using the Rich library.
     
+    Each `CityDisplay` instance takes a `City` object and an optional `DisplayConfiguration` that allows customizing
+    which sections are shown, their heights, and colors.
+    
+    Sections displayed:
+        - City information (campaign and name)
+        - Buildings list
+        - Effect bonuses (city, buildings, workers, total)
+        - Production (resource potentials, base production, bonuses, total, maintenance, balance)
+        - Storage capacity (city, buildings, warehouse, supply dump, total)
+        - Defenses (garrison, number of squadrons, squadron size)
+    
+    Public API:
+        build_city_display() -> Panel
+            Constructs a Rich Panel representing the city display layout.
+        display_city_results() -> None
+            Prints the city display to the console.
+    """
     def __init__(
             self,
             city: City,
