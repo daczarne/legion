@@ -18,7 +18,7 @@ print(f"Adding 2 workers to the mine...")
 large_mine.add_workers(qty = 2)
 print(f"Workers: {large_mine.workers}")
 
-print(f"Removing 1 worker to the mine...")
+print(f"Removing 1 worker from the mine...")
 large_mine.remove_workers(qty = 1)
 print(f"Workers: {large_mine.workers}")
 
