@@ -47,6 +47,9 @@ CITIES: list[CityData] = cities_data["cities"]
 
 @dataclass(kw_only = True)
 class CityEffectBonuses:
+    """
+    A helper class to model the city's effect bonuses. Should not be used outside this module.
+    """
     city: EffectBonuses = field(default_factory = EffectBonuses)
     buildings: EffectBonuses = field(default_factory = EffectBonuses)
     workers: EffectBonuses = field(default_factory = EffectBonuses)
@@ -55,6 +58,9 @@ class CityEffectBonuses:
 
 @dataclass(kw_only = True)
 class CityProduction:
+    """
+    A helper class to model the city's production. Should not be used outside this module.
+    """
     base: ResourceCollection = field(default_factory = ResourceCollection)
     productivity_bonuses: ResourceCollection = field(default_factory = ResourceCollection)
     total: ResourceCollection = field(default_factory = ResourceCollection)
@@ -64,6 +70,9 @@ class CityProduction:
 
 @dataclass(kw_only = True)
 class CityStorage:
+    """
+    A helper class to model the city's storage capacity. Should not be used outside this module.
+    """
     city: ResourceCollection = field(default_factory = ResourceCollection)
     buildings: ResourceCollection = field(default_factory = ResourceCollection)
     warehouse: ResourceCollection = field(default_factory = ResourceCollection)
@@ -73,6 +82,9 @@ class CityStorage:
 
 @dataclass(kw_only = True)
 class CityDefenses:
+    """
+    A helper class to model the city's defenses. Should not be used outside this module.
+    """
     garrison: str = field(default = "")
     squadrons: int = field(default = 1)
     squadron_size: str = field(default = "Small")
