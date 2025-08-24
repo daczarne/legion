@@ -88,6 +88,8 @@ class Building:
     on other buildings, resources, or geographic features to be constructed. They can also replace other buildings when
     built (for example, the Temple replaces the Shrine).
     
+    If a nonexistent building ID is supplied and exception will be raised.
+    
     Attributes:
         id (str): Unique identifier of the building. This is unique amongst all buildings, not amongst all building
             instances in a city. For example, if 2 Farms are built in a city, both of them will have `id = "farm"`.
