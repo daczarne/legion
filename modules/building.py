@@ -67,9 +67,9 @@ class _BuildingData(TypedDict):
     replaces: str | None
 
 with open(file = "./data/buildings.yaml", mode = "r") as file:
-    buildings_data: dict[Literal["buildings"], list[_BuildingData]] = yaml.safe_load(stream = file)
+    _buildings_data: dict[Literal["buildings"], list[_BuildingData]] = yaml.safe_load(stream = file)
 
-_BUILDINGS: dict[str, _BuildingData] = {building["id"]: building for building in buildings_data["buildings"]}
+_BUILDINGS: dict[str, _BuildingData] = {building["id"]: building for building in _buildings_data["buildings"]}
 
 
 # * ******** * #
