@@ -1,5 +1,5 @@
 """
-Module for building Scenarios.
+Module for managing Scenarios.
 
 This module provides functionality to compare and display multiple city instances side by side for visual comparison.
 It leverages the `City` and `CityDisplay` classes and provides a `Scenario` class to organize and render cities in a
