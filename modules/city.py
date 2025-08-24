@@ -621,7 +621,6 @@ class City:
         self.geo_features = self._get_geo_features()
         
         #* Validate city
-        # self._validate_unknown_buildings()
         self._validate_halls()
         self._validate_number_of_buildings()
         
