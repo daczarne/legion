@@ -8,6 +8,7 @@ from modules.geo_features import GeoFeature
 from modules.resources import Resource, ResourceCollection
 
 
+@mark.building
 @mark.buildings_data
 class TestBuildingsData:
     
