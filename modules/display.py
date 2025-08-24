@@ -31,6 +31,9 @@ from rich.text import Text
 from .city import City
 
 
+__all__: list[str] = ["CityDisplay", "DisplaySection", "DisplayConfiguration", "DisplaySectionConfiguration"]
+
+
 _DisplaySectionColors: TypeAlias = dict[str, str]
 
 
