@@ -93,7 +93,7 @@ class City:
     
     On initialization, the city validates its buildings to ensure consistency:
     
-    - Exactly one hall (Village, Town, or City hall) must be present.
+    - Exactly one hall must be present (Village, Town, or City hall).
     - The number of buildings must not exceed the maximum allowed for the hall type.
         - For Village: 4
         - For Town: 6
@@ -230,7 +230,7 @@ class City:
         and the quantity of each building type as values.
         
         This method expands the building counts into actual `Building` objects and initializes a new city with them.
-        This implies that you can pass 0-count buildings and they will automaticall be ignored.
+        This implies that you can pass 0-count buildings and they will automatically be ignored.
         
         Args:
             campaign (str): the campaign identifier the city belongs to.

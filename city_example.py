@@ -11,6 +11,7 @@ city: City = City.from_buildings_count(
         "farmers_guild": 1,
         "large_farm": 5,
         "vineyard": 1,
+        "mine": 0,
     }
 )
 

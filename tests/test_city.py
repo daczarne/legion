@@ -467,6 +467,21 @@ class TestCity:
                     Building(id = "shrine"),
                 ],
             )
+    
+    def test_zero_count_buildings_are_ignored(self) -> None:
+        city: City = City.from_buildings_count(
+            campaign = "Unification of Italy",
+            name = "Roma",
+            buildings = {
+                "village_hall": 1,
+                "mine": 0,
+                "lumber_mill": 0,
+                "farm": 0,
+            }
+        )
+        
+        assert len(city.buildings) == 1
+        assert city.get_buildings_count(by = "id") == {"village_hall": 1}
 
 
 @mark.city
