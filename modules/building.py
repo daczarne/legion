@@ -1,3 +1,29 @@
+"""
+Module for defining and managing game-buildings.
+
+This module loads building definitions from a YAML file and provides typed access to their properties. It exposes two
+main components:
+
+- BUILDINGS: A dictionary of all building definitions loaded from `./data/buildings.yaml`. Keys are building
+    identifiers, and values are `BuildingData` mappings with raw attributes.
+- Building: A dataclass representing a specific building instance, with runtime attributes such as costs, bonuses,
+    storage capacity, worker assignment, and construction requirements.
+
+The system is designed to help players validate game assumptions about what can be built in a city, what it costs, and
+how different buildings interact (e.g., dependencies, upgrades, and resource requirements).
+
+Typical usage example:
+
+```python
+from buildings import Building
+
+farm = Building(id="farm")
+farm.add_workers(3)
+farm.show()
+```
+"""
+
+
 import yaml
 
 from dataclasses import dataclass, field
@@ -52,9 +78,10 @@ class Building:
     """
     Represents a building in the game.
     
-    A building is defined by its identifier and is initialized with attributes such as costs, bonuses, worker capacity,
-    and requirements. Buildings may depend on other buildings, resources, or geographic features to be constructed.
-    They can also replace other buildings when built (for example, the Temple replaces the Shrine).
+    To create a building simply supplier the building identifier for the desired building. The class will look-up all
+    other properties for the building such as costs, bonuses, worker capacity, and requirements. Buildings may depend
+    on other buildings, resources, or geographic features to be constructed. They can also replace other buildings when
+    built (for example, the Temple replaces the Shrine).
     
     Attributes:
         id (str): Unique identifier of the building. This is unique amongst all buildings, not amongst all building
