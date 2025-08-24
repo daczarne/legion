@@ -33,24 +33,5 @@ city: City = City(
     ]
 )
 
-# CityDisplay(city = city).display_city_results()
-# print()
-
-city: City = City(
-    campaign = "Unification of Italy",
-    name = "Roma",
-    buildings = [
-        Building(id = "city_hall"),
-        Building(id = "basilica"),
-        Building(id = "farmers_guild"),
-        Building(id = "vineyard"),
-        Building(id = "large_farm"),
-        Building(id = "large_farm"),
-        Building(id = "large_farm"),
-        Building(id = "large_farm"),
-        Building(id = "large_farm"),
-    ]
-)
-
-# CityDisplay(city = city).display_city_results()
-# print()
+CityDisplay(city = city).display_city_results()
+print()

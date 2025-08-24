@@ -177,8 +177,8 @@ class City:
     # Class variables
     POSSIBLE_CITY_HALLS: ClassVar[set[str]] = {"village_hall", "town_hall", "city_hall"}
     MAX_WORKERS: ClassVar[BuildingsCount] = {
-        "village_hall": 18,
-        "town_hall": 18,
+        "village_hall": 18, # This value needs to be corrected. I think the correct number is 7.
+        "town_hall": 18, # This value needs to be corrected. I think the correct number is 12.
         "city_hall": 18,
     }
     MAX_BUILDINGS_PER_CITY: ClassVar[BuildingsCount] = {
