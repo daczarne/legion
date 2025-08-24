@@ -33,6 +33,9 @@ from .geo_features import GeoFeature
 from .resources import Resource, ResourceCollectionData, ResourceCollection
 
 
+__all__: list[str] = ["BuildingsCount", "Building"]
+
+
 """
 Mapping of building identifiers to their counts in a city.
 
