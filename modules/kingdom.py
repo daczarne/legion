@@ -1,3 +1,15 @@
+"""
+This module provides the `Kingdom` class for managing a collection of player-controlled cities in the same campaign. It
+supports sorting cities by resource focus, calculating aggregated production and storage, and generating Rich terminal
+output with tables for campaign, production, and storage.
+
+The Kingdom class validates that the cities are not duplicated and that they all belong to the same campaign.
+
+Public API:
+    Kingdom (dataclass): Represents a collection of cities under a single campaign, tracking and displaying their
+    production, storage capacity, and other aggregated statistics.
+"""
+
 from collections import Counter
 from dataclasses import dataclass, field
 from typing import ClassVar
@@ -13,6 +25,9 @@ from rich.text import Text
 
 from .city import City, CityDict, CITIES
 from .resources import ResourceCollection, Resource
+
+
+__all__: list[str] = ["Kingdom"]
 
 
 @dataclass
@@ -446,9 +461,6 @@ class Kingdom:
         
         Resource values for a city's primary focus are highlighted for quick reference. Production tables also include
         resource potential values in parentheses.
-        
-        Returns:
-            None
         """
         console: Console = Console()
         console.print(self._build_kingdom_display())
