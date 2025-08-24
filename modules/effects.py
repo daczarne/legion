@@ -64,7 +64,7 @@ class EffectBonuses:
         __iter__(): Iterate over effect names.
         items(): Return (effect_name, value) pairs.
         values(): Return values of all effects.
-        get(key): Get the value for a given effect name.
+        get(key): Get the value for a given effect name. Raises KeyError if the key is not found.
     """
     troop_training: int = 0
     population_growth: int = 0
