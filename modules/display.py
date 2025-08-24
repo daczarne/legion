@@ -1,3 +1,21 @@
+"""
+This module provides classes and types for displaying city information in a structured, styled format using the Rich
+library.
+
+A `CityDisplay` object can render a `City` object into a terminal-friendly layout, showing various aspects of the city
+such as buildings, effects, production, storage, and defenses.
+
+Public API:
+    - CityDisplay: Main class to render and display city information.
+    - DisplaySection: Enum representing different display sections.
+    - DisplayConfiguration: TypedDict for configuring the display of city sections.
+    - DisplaySectionConfiguration: TypedDict for configuring individual sections.
+    - DEFAULT_SECTION_COLORS: Default colors for sections.
+
+Internal objects:
+    - _DisplaySectionColors: Mapping of section names to their default colors.
+"""
+
 from enum import Enum
 from typing import TypeAlias, TypedDict
 
@@ -13,7 +31,7 @@ from rich.text import Text
 from .city import City
 
 
-DisplaySectionColors: TypeAlias = dict[str, str]
+_DisplaySectionColors: TypeAlias = dict[str, str]
 
 
 class DisplaySection(Enum):
@@ -40,7 +58,7 @@ class DisplayConfiguration(TypedDict, total = False):
     defenses: DisplaySectionConfiguration
 
 
-DEFAULT_SECTION_COLORS: DisplaySectionColors = {
+DEFAULT_SECTION_COLORS: _DisplaySectionColors = {
     "effects": "#5f5fff",
     "production": "#228b22",
     "storage": "purple",
