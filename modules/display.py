@@ -1,4 +1,6 @@
 """
+Module for building Rich displays.
+
 This module provides classes and types for displaying city information in a structured, styled format using the Rich
 library.
 

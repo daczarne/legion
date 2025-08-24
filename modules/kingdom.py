@@ -1,4 +1,6 @@
 """
+Module for building Kingdoms.
+
 This module provides the `Kingdom` class for managing a collection of player-controlled cities in the same campaign. It
 supports sorting cities by resource focus, calculating aggregated production and storage, and generating Rich terminal
 output with tables for campaign, production, and storage.
