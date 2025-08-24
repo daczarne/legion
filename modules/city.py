@@ -262,8 +262,8 @@ class City:
             
             if building.id in halls:
                 halls[building.id] += 1
-            
-            halls[building.id] = 1
+            else:
+                halls[building.id] = 1
         
         if not halls:
             raise ValueError(f"City must include a hall (village, town, or city)")
