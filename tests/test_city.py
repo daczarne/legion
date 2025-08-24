@@ -1,11 +1,12 @@
-from pytest import mark
+from pytest import mark, raises, fixture
 from collections import Counter
 
-from modules.building import Building
+from modules.building import Building, BuildingsCount
 from modules.city import CityData, City
 from modules.resources import Resource
 
 
+@mark.city
 @mark.cities_data
 class TestCitiesData:
     
@@ -280,8 +281,9 @@ class TestCitiesData:
 @mark.city
 class TestCity:
     
-    def test_city(self) -> None:
-        city: City = City(
+    @fixture
+    def _city(self) -> City:
+        sample_city: City = City(
             campaign = "Unification of Italy",
             name = "Roma",
             buildings = [
@@ -296,39 +298,180 @@ class TestCity:
                 Building(id = "large_fort"),
             ]
         )
+        return sample_city
+    
+    def test_city(self, _city: City) -> None:
+        assert _city.campaign == "Unification of Italy"
+        assert _city.name == "Roma"
         
-        assert city.campaign == "Unification of Italy"
-        assert city.name == "Roma"
+        assert _city.effects.city.troop_training == 0
+        assert _city.effects.city.population_growth == 0
+        assert _city.effects.city.intelligence == 0
         
-        assert city.effects.city.troop_training == 0
-        assert city.effects.city.population_growth == 0
-        assert city.effects.city.intelligence == 0
+        assert _city.effects.buildings.troop_training == 30
+        assert _city.effects.buildings.population_growth == 100
+        assert _city.effects.buildings.intelligence == 10
         
-        assert city.effects.buildings.troop_training == 30
-        assert city.effects.buildings.population_growth == 100
-        assert city.effects.buildings.intelligence == 10
+        assert _city.effects.workers.troop_training == 5
+        assert _city.effects.workers.population_growth == 170
+        assert _city.effects.workers.intelligence == 0
         
-        assert city.effects.workers.troop_training == 5
-        assert city.effects.workers.population_growth == 170
-        assert city.effects.workers.intelligence == 0
+        assert _city.effects.total.troop_training == 35
+        assert _city.effects.total.population_growth == 270
+        assert _city.effects.total.intelligence == 10
         
-        assert city.effects.total.troop_training == 35
-        assert city.effects.total.population_growth == 270
-        assert city.effects.total.intelligence == 10
+        assert _city.production.maintenance_costs.food == 62
+        assert _city.production.maintenance_costs.ore == 24
+        assert _city.production.maintenance_costs.wood == 45
         
-        assert city.production.maintenance_costs.food == 62
-        assert city.production.maintenance_costs.ore == 24
-        assert city.production.maintenance_costs.wood == 45
+        assert _city.production.balance.food == -62
+        assert _city.production.balance.ore == -24
+        assert _city.production.balance.wood == -45
         
-        assert city.production.balance.food == -62
-        assert city.production.balance.ore == -24
-        assert city.production.balance.wood == -45
+        assert _city.defenses.garrison == "Legion"
+        assert _city.defenses.squadrons == 4
+        assert _city.defenses.squadron_size == "Huge"
         
-        assert city.defenses.garrison == "Legion"
-        assert city.defenses.squadrons == 4
-        assert city.defenses.squadron_size == "Huge"
+        assert _city.focus is None
+    
+    def test_get_building(self, _city: City) -> None:
+        assert isinstance(_city.get_building(id = "city_hall"), Building)
+        assert _city.get_building(id = "city_hall").id == "city_hall"
         
-        assert city.focus is None
+        assert isinstance(_city.get_building(id = "quartermaster"), Building)
+        assert _city.get_building(id = "quartermaster").id == "quartermaster"
+    
+    def test_get_building_raises_key_error(self, _city: City) -> None:
+        with raises(expected_exception = KeyError):
+            _city.get_building(id = "nonexistent_building")
+    
+    def test_has_building_returns_true_for_existing_building(self, _city: City) -> None:
+        assert _city.has_building(id = "stables")
+    
+    def test_has_building_returns_false_for_nonexistent_building(self, _city: City) -> None:
+        assert not _city.has_building(id = "nonexistent_building")
+    
+    def test_get_hall_returns_the_hall(self, _city: City) -> None:
+        assert _city.get_hall().id == "city_hall"
+    
+    def test_get_buildings_count_by_id(self, _city: City) -> None:
+        counts: BuildingsCount = _city.get_buildings_count(by = "id")
+        expected_result: BuildingsCount = {
+            "city_hall": 1,
+            "basilica": 1,
+            "hospital": 1,
+            "training_ground": 1,
+            "gladiator_school": 1,
+            "stables": 1,
+            "bordello": 1,
+            "quartermaster": 1,
+            "large_fort": 1,
+        }
+        
+        assert counts == expected_result
+    
+    def test_get_buildings_count_by_name(self, _city: City) -> None:
+        counts: BuildingsCount = _city.get_buildings_count(by = "name")
+        expected_result: BuildingsCount = {
+            "City hall": 1,
+            "Basilica": 1,
+            "Hospital": 1,
+            "Training ground": 1,
+            "Gladiator school": 1,
+            "Stables": 1,
+            "Bordello": 1,
+            "Quartermaster": 1,
+            "Large fort": 1,
+        }
+        
+        assert counts == expected_result
+    
+    def test_city_with_no_hall_raises_value_error(self) -> None:
+        with raises(expected_exception = ValueError, match = "City must include a hall"):
+            city: City = City(
+                campaign = "Unification of Italy",
+                name = "Roma",
+                buildings = [Building(id = "farm")],
+            )
+    
+    def test_city_with_multiple_halls_raises_value_error(self) -> None:
+        with raises(expected_exception = ValueError, match = "Too many halls for this city"):
+            city: City = City(
+                campaign = "Unification of Italy",
+                name = "Roma",
+                buildings = [
+                    Building(id = "village_hall"),
+                    Building(id = "town_hall"),
+                ],
+            )
+    
+    def test_city_with_duplicated_halls_raises_value_error(self) -> None:
+        with raises(expected_exception = ValueError, match = "Too many halls for this city"):
+            city: City = City(
+                campaign = "Unification of Italy",
+                name = "Roma",
+                buildings = [
+                    Building(id = "village_hall"),
+                    Building(id = "village_hall"),
+                ],
+            )
+    
+    def test_village_with_excess_buildings_raises_value_error(self) -> None:
+        with raises(expected_exception = ValueError, match = "Too many buildings"):
+            city: City = City(
+                campaign = "Unification of Italy",
+                name = "Roma",
+                buildings = [
+                    Building(id = "village_hall"),
+                    Building(id = "farm"),
+                    Building(id = "mine"),
+                    Building(id = "lumber_mill"),
+                    Building(id = "shrine"),
+                    Building(id = "blacksmith"),
+                ],
+            )
+    
+    def test_town_with_excess_buildings_raises_value_error(self) -> None:
+        with raises(expected_exception = ValueError, match = "Too many buildings"):
+            city: City = City(
+                campaign = "Unification of Italy",
+                name = "Roma",
+                buildings = [
+                    Building(id = "town_hall"),
+                    Building(id = "farm"),
+                    Building(id = "farm"),
+                    Building(id = "mine"),
+                    Building(id = "mine"),
+                    Building(id = "lumber_mill"),
+                    Building(id = "lumber_mill"),
+                    Building(id = "shrine"),
+                ],
+            )
+    
+    def test_city_with_excess_buildings_raises_value_error(self) -> None:
+        with raises(expected_exception = ValueError, match = "Too many buildings"):
+            city: City = City(
+                campaign = "Unification of Italy",
+                name = "Roma",
+                buildings = [
+                    Building(id = "city_hall"),
+                    Building(id = "farm"),
+                    Building(id = "farm"),
+                    Building(id = "farm"),
+                    Building(id = "mine"),
+                    Building(id = "mine"),
+                    Building(id = "mine"),
+                    Building(id = "lumber_mill"),
+                    Building(id = "lumber_mill"),
+                    Building(id = "lumber_mill"),
+                    Building(id = "shrine"),
+                ],
+            )
+
+
+@mark.city
+@mark.city_scenarios
+class TestCityScenarios:
     
     def test_city_roman_military(self) -> None:
         city: City = City.from_buildings_count(
