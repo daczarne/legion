@@ -3,7 +3,7 @@ import yaml
 from dataclasses import dataclass, field
 from typing import ClassVar, Literal, TypedDict
 
-from .building import BuildingsCount, BUILDINGS
+from .building import Building, BuildingsCount
 from .effects import EffectBonusesData, EffectBonuses
 from .geo_features import GeoFeaturesData, GeoFeatures
 from .resources import Resource, ResourceCollectionData, ResourceCollection
@@ -84,9 +84,42 @@ class CityDefenses:
     kw_only = True,
 )
 class City:
+    """
+    Represents a city within a campaign of the game.
+    
+    A `City` is defined by its campaign, name, and a collection of buildings. The campaign and city name will be used
+    to look-up city characteristics like the resource potential of the city and its garrison. Based on the supplied
+    buildings, it will calculate the production of the city, the storage capacity, the defenses, etc.
+    
+    On initialization, the city validates its buildings to ensure consistency:
+    
+    - Exactly one hall must be present (Village, Town, or City hall).
+    - The number of buildings must not exceed the maximum allowed for the hall type.
+        - For Village: 4
+        - For Town: 6
+        - For City: 8
+    
+    Attributes:
+        campaign (str): The campaign identifier the city belongs to.
+        name (str): The name of the city.
+        buildings (list[Building]): A list of buildings present in the city.
+        
+        resource_potentials (ResourceCollection): The resource potentials of the city.
+        geo_features (GeoFeatures): Geographical features present in the city (mountains, lakes, etc).
+        effects (CityEffectBonuses): Effect bonuses from the city, its buildings, and workers.
+        production (CityProduction): Production statistics for the city.
+        storage (CityStorage): Resource storage capacities of the city.
+        defenses (CityDefenses): Defense of the city (number of squads and their size).
+        focus (Resource | None): If a Resource, the highest producing resource of the city.
+    
+    Class Attributes:
+        POSSIBLE_CITY_HALLS (set[str]): The valid hall building IDs for a city.
+        MAX_WORKERS (BuildingsCount): Mapping of hall type to maximum number of workers the city can have.
+        MAX_BUILDINGS_PER_CITY (BuildingsCount): Mapping of hall type to maximum allowed buildings the city can have.
+    """
     campaign: str = field(init = True, default = "", repr = True, compare = True, hash = True)
     name: str = field(init = True, default = "", repr = True, compare = True, hash = True)
-    buildings: BuildingsCount = field(init = True, default_factory = dict, repr = False, compare = False, hash = False)
+    buildings: list[Building] = field(init = True, default_factory = list, repr = False, compare = False, hash = False)
     
     # Post init fields
     resource_potentials: ResourceCollection = field(
@@ -137,13 +170,17 @@ class City:
         default = None,
         repr = False,
         compare = False,
-        hash = False
+        hash = False,
     )
     
     
     # Class variables
-    MAX_WORKERS: ClassVar[int] = 18
     POSSIBLE_CITY_HALLS: ClassVar[set[str]] = {"village_hall", "town_hall", "city_hall"}
+    MAX_WORKERS: ClassVar[BuildingsCount] = {
+        "village_hall": 18, # This value needs to be corrected. I think the correct number is 7.
+        "town_hall": 18, # This value needs to be corrected. I think the correct number is 12.
+        "city_hall": 18,
+    }
     MAX_BUILDINGS_PER_CITY: ClassVar[BuildingsCount] = {
         "village_hall": 4,
         "town_hall": 6,
@@ -180,9 +217,54 @@ class City:
         return GeoFeatures()
     
     
+    #* Alternative city creator methods
+    @classmethod
+    def from_buildings_count(
+        cls,
+        campaign: str,
+        name: str,
+        buildings: BuildingsCount,
+    ) -> "City":
+        """
+        Create a `City` instance from a count of buildings. The count must be a dictionary with building IDs as keys
+        and the quantity of each building type as values.
+        
+        This method expands the building counts into actual `Building` objects and initializes a new city with them.
+        This implies that you can pass 0-count buildings and they will automatically be ignored.
+        
+        Args:
+            campaign (str): the campaign identifier the city belongs to.
+            name (str): the name of the city.
+            buildings (BuildingsCount): a dictionary mapping building IDs to quantities.
+        
+        Returns:
+            City: a new `City` instance populated with the given buildings.
+        """
+        city_buildings: list[Building] = []
+        
+        for id, qty in buildings.items():
+            for _ in range(qty):
+                city_buildings.append(Building(id = id))
+        
+        return cls(
+            campaign = campaign,
+            name = name,
+            buildings = city_buildings,
+        )
+    
+    
     #* Validate city buildings
     def _validate_halls(self) -> None:
-        halls: BuildingsCount = {k: v for k, v in self.buildings.items() if k in self.POSSIBLE_CITY_HALLS}
+        halls: BuildingsCount = {}
+        
+        for building in self.buildings:
+            if building.id not in self.POSSIBLE_CITY_HALLS:
+                continue
+            
+            if building.id in halls:
+                halls[building.id] += 1
+            else:
+                halls[building.id] = 1
         
         if not halls:
             raise ValueError(f"City must include a hall (village, town, or city)")
@@ -193,13 +275,9 @@ class City:
         if list(halls.values())[0] != 1:
             raise ValueError(f"Too many halls for this city")
     
-    def _get_hall(self) -> str:
-        halls: BuildingsCount = {k: v for k, v in self.buildings.items() if k in self.POSSIBLE_CITY_HALLS}
-        return list(halls.keys())[0]
-    
     def _validate_number_of_buildings(self) -> None:
-        number_of_declared_buildings: int = sum(self.buildings.values())
-        max_number_of_buildings_in_city: int = self.MAX_BUILDINGS_PER_CITY[self._get_hall()]
+        number_of_declared_buildings: int = len(self.buildings)
+        max_number_of_buildings_in_city: int = self.MAX_BUILDINGS_PER_CITY[self.get_hall().id]
         
         if number_of_declared_buildings > max_number_of_buildings_in_city + 1:
             raise ValueError(
@@ -207,11 +285,6 @@ class City:
                 f"{number_of_declared_buildings} provided, "
                 f"max of {max_number_of_buildings_in_city + 1} possible ({max_number_of_buildings_in_city} + hall)"
             )
-    
-    def _validate_unknown_buildings(self) -> None:
-        unknown: set[str] = set(self.buildings) - BUILDINGS.keys()
-        if unknown:
-            raise ValueError(f"Unknown building(s): {", ".join(unknown)}")
     
     
     #* Effect bonuses
@@ -235,9 +308,9 @@ class City:
         building_effects: EffectBonuses = EffectBonuses()
         
         for building in self.buildings:
-            building_effects.troop_training += BUILDINGS[building].effect_bonuses.troop_training
-            building_effects.population_growth += BUILDINGS[building].effect_bonuses.population_growth
-            building_effects.intelligence += BUILDINGS[building].effect_bonuses.intelligence
+            building_effects.troop_training += building.effect_bonuses.troop_training
+            building_effects.population_growth += building.effect_bonuses.population_growth
+            building_effects.intelligence += building.effect_bonuses.intelligence
         
         return building_effects
     
@@ -248,9 +321,9 @@ class City:
         worker_effects: EffectBonuses = EffectBonuses()
         
         for building in self.buildings:
-            worker_effects.troop_training += BUILDINGS[building].effect_bonuses_per_worker.troop_training * BUILDINGS[building].max_workers
-            worker_effects.population_growth += BUILDINGS[building].effect_bonuses_per_worker.population_growth * BUILDINGS[building].max_workers
-            worker_effects.intelligence += BUILDINGS[building].effect_bonuses_per_worker.intelligence * BUILDINGS[building].max_workers
+            worker_effects.troop_training += building.effect_bonuses_per_worker.troop_training * building.max_workers
+            worker_effects.population_growth += building.effect_bonuses_per_worker.population_growth * building.max_workers
+            worker_effects.intelligence += building.effect_bonuses_per_worker.intelligence * building.max_workers
         
         return worker_effects
     
@@ -291,20 +364,20 @@ class City:
         
         base_production: ResourceCollection = ResourceCollection()
         
-        for building, qty_buildings in self.buildings.items():
+        for building in self.buildings:
             
-            production_per_worker: ResourceCollection = BUILDINGS[building].productivity_per_worker
-            max_workers: int = BUILDINGS[building].max_workers
+            productivity_per_worker: ResourceCollection = building.productivity_per_worker
+            max_workers: int = building.max_workers
             
             # Production per worker
-            prod_per_worker_food: int = int(floor(production_per_worker.food * self.resource_potentials.food / 100.0))
-            prod_per_worker_ore: int = int(floor(production_per_worker.ore * self.resource_potentials.ore / 100.0))
-            prod_per_worker_wood: int = int(floor(production_per_worker.wood * self.resource_potentials.wood / 100.0))
+            prod_per_worker_food: int = int(floor(productivity_per_worker.food * self.resource_potentials.food / 100.0))
+            prod_per_worker_ore: int = int(floor(productivity_per_worker.ore * self.resource_potentials.ore / 100.0))
+            prod_per_worker_wood: int = int(floor(productivity_per_worker.wood * self.resource_potentials.wood / 100.0))
             
             # Base production
-            base_production_food: int = prod_per_worker_food * qty_buildings * max_workers
-            base_production_ore: int = prod_per_worker_ore * qty_buildings * max_workers
-            base_production_wood: int = prod_per_worker_wood * qty_buildings * max_workers
+            base_production_food: int = prod_per_worker_food * max_workers
+            base_production_ore: int = prod_per_worker_ore * max_workers
+            base_production_wood: int = prod_per_worker_wood * max_workers
             
             base_production.food += base_production_food
             base_production.ore += base_production_ore
@@ -319,9 +392,9 @@ class City:
         productivity_bonuses: ResourceCollection = ResourceCollection()
         
         for building in self.buildings:
-            productivity_bonuses.food += BUILDINGS[building].productivity_bonuses.food
-            productivity_bonuses.ore += BUILDINGS[building].productivity_bonuses.ore
-            productivity_bonuses.wood += BUILDINGS[building].productivity_bonuses.wood
+            productivity_bonuses.food += building.productivity_bonuses.food
+            productivity_bonuses.ore += building.productivity_bonuses.ore
+            productivity_bonuses.wood += building.productivity_bonuses.wood
         
         return productivity_bonuses
     
@@ -344,9 +417,9 @@ class City:
         maintenance_costs: ResourceCollection = ResourceCollection()
         
         for building in self.buildings:
-            maintenance_costs.food += BUILDINGS[building].maintenance_cost.food
-            maintenance_costs.ore += BUILDINGS[building].maintenance_cost.ore
-            maintenance_costs.wood += BUILDINGS[building].maintenance_cost.wood
+            maintenance_costs.food += building.maintenance_cost.food
+            maintenance_costs.ore += building.maintenance_cost.ore
+            maintenance_costs.wood += building.maintenance_cost.wood
         
         return maintenance_costs
     
@@ -364,28 +437,28 @@ class City:
     
     #* Storage capacity
     def _calculate_city_storage(self) -> ResourceCollection:
-        return BUILDINGS[self._get_hall()].storage_capacity
+        return self.get_hall().storage_capacity
     
     def _calculate_buildings_storage(self) -> ResourceCollection:
         buildings_storage: ResourceCollection = ResourceCollection()
         
-        for building, qty in self.buildings.items():
-            if building not in [*self.POSSIBLE_CITY_HALLS, "warehouse", "supply_dump"]:
-                buildings_storage.food += BUILDINGS[building].storage_capacity.food * qty
-                buildings_storage.ore += BUILDINGS[building].storage_capacity.ore * qty
-                buildings_storage.wood += BUILDINGS[building].storage_capacity.wood * qty
+        for building in self.buildings:
+            if building.id not in [*self.POSSIBLE_CITY_HALLS, "warehouse", "supply_dump"]:
+                buildings_storage.food += building.storage_capacity.food
+                buildings_storage.ore += building.storage_capacity.ore
+                buildings_storage.wood += building.storage_capacity.wood
         
         return buildings_storage
     
     def _calculate_warehouse_storage(self) -> ResourceCollection:
-        if "warehouse" in self.buildings:
-            return BUILDINGS["warehouse"].storage_capacity
+        if self.has_building(id = "warehouse"):
+            return self.get_building(id = "warehouse").storage_capacity
         
         return ResourceCollection()
     
     def _calculate_supply_dump_storage(self) -> ResourceCollection:
-        if "supply_dump" in self.buildings:
-            return BUILDINGS["supply_dump"].storage_capacity
+        if self.has_building(id = "supply_dump"):
+            return self.get_building(id = "supply_dump").storage_capacity
         
         return ResourceCollection()
     
@@ -429,25 +502,29 @@ class City:
         raise ValueError(f"No garrison found for {self.campaign} - {self.name}")
     
     def _calculate_garrison_size(self) -> int:
-        if "large_fort" in self.buildings:
+        if self.has_building(id = "large_fort"):
             return 4
         
-        if "medium_fort" in self.buildings:
+        if self.has_building(id = "medium_fort"):
             return 3
         
-        if "small_fort" in self.buildings:
+        if self.has_building(id = "small_fort"):
             return 2
         
         return 1
     
     def _calculate_squadron_size(self) -> str:
-        if "quartermaster" in self.buildings:
+        if self.has_building(id = "quartermaster"):
             return "Huge"
         
-        if "barracks" in self.buildings:
+        if self.has_building(id = "barracks"):
             return "Large"
         
-        if any(fort in self.buildings for fort in ["small_fort", "medium_fort", "large_fort"]):
+        if any([
+            self.has_building(id = "small_fort"),
+            self.has_building(id = "medium_fort"),
+            self.has_building(id = "large_fort"),
+        ]):
             return "Medium"
         
         return "Small"
@@ -475,7 +552,6 @@ class City:
         self.geo_features = self._get_geo_features()
         
         #* Validate city
-        self._validate_unknown_buildings()
         self._validate_halls()
         self._validate_number_of_buildings()
         
@@ -506,3 +582,74 @@ class City:
         
         #* Focus
         self.focus = self._find_city_focus()
+    
+    
+    def get_building(self, id: str) -> Building:
+        """
+        Retrieve a building from the city by its ID. In case the city has more than one it will return the first one.
+        
+        Args:
+            id (str): the building ID to search for.
+        
+        Returns:
+            Building: the first building in the city with the given ID.
+        
+        Raises:
+            KeyError: if no building with the given ID exists in the city.
+        """
+        for building in self.buildings:
+            if building.id == id:
+                return building
+        
+        raise KeyError(f"No building with ID={id} found in {self.name}")
+    
+    def has_building(self, id: str) -> bool:
+        """
+        Check whether the city contains a building with the specified ID.
+        
+        Args:
+            id (str): the building ID to search for.
+        
+        Returns:
+            bool: True if the building is present, False otherwise.
+        """
+        for building in self.buildings:
+            if building.id == id:
+                return True
+        
+        return False
+    
+    def get_hall(self) -> Building: # type: ignore
+        """
+        Retrieve the hall building of the city.
+        
+        The hall is the central building of the city and must be one of "Village hall", "Town hall", or "City hall".
+        
+        Returns:
+            Building: the hall building of the city.
+        """
+        for building in self.buildings:
+            if building.id not in self.POSSIBLE_CITY_HALLS:
+                continue
+            
+            return building
+    
+    def get_buildings_count(self, by: Literal["name", "id"]) -> BuildingsCount:
+        """
+        Count the number of buildings in the city grouped by ID or name.
+        
+        Args:
+            by (Literal["name", "id"]): whether to group counts by building name or ID.
+        
+        Returns:
+            BuildingsCount: a dictionary mapping either building IDs or names to their respective counts.
+        """
+        from collections import Counter
+        
+        if by == "name":
+            buildings_count: BuildingsCount = Counter([building.name for building in self.buildings])
+            return buildings_count
+        
+        if by == "id":
+            buildings_count: BuildingsCount = Counter([building.id for building in self.buildings])
+            return buildings_count

@@ -30,7 +30,7 @@ class Scenario:
         data: list[CityDict],
         configuration: DisplayConfiguration | None = None,
     ) -> "Scenario":
-        cities: list[City] = [City(**city) for city in data]
+        cities: list[City] = [City.from_buildings_count(**city) for city in data]
         return cls(cities, configuration)
     
     def _build_default_configuration(self) -> DisplayConfiguration:

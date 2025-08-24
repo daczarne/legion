@@ -48,7 +48,7 @@ class TestKingdom:
     def test_kingdom(self) -> None:
         kingdom: Kingdom = Kingdom(
             cities = [
-                City(
+                City.from_buildings_count(
                     campaign = "Unification of Italy",
                     name = "Roma",
                     buildings = {"village_hall": 1},

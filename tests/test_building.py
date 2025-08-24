@@ -1,11 +1,14 @@
 from collections import Counter
-from pytest import mark
+from pytest import mark, raises
 from typing import Any
 
+from modules.building import Building
+from modules.effects import EffectBonuses
 from modules.geo_features import GeoFeature
-from modules.resources import Resource
+from modules.resources import Resource, ResourceCollection
 
 
+@mark.building
 @mark.buildings_data
 class TestBuildingsData:
     
@@ -285,3 +288,76 @@ class TestBuildingsData:
                 _errors.append(error)
         
         assert len(_errors) == 0, _errors
+
+
+@mark.building
+class TestBuilding:
+    
+    def test_building_instantiation(self) -> None:
+        city_hall: Building = Building(id = "city_hall")
+        
+        assert city_hall.id == "city_hall"
+        assert city_hall.name == "City hall"
+        assert isinstance(city_hall.building_cost, ResourceCollection)
+        assert city_hall.building_cost == ResourceCollection(food = 350, ore = 100, wood = 350)
+        assert isinstance(city_hall.maintenance_cost, ResourceCollection)
+        assert city_hall.maintenance_cost == ResourceCollection(food = 1, ore = 1, wood = 1)
+        assert isinstance(city_hall.productivity_bonuses, ResourceCollection)
+        assert city_hall.productivity_bonuses == ResourceCollection(food = 25, ore = 25, wood = 25)
+        assert isinstance(city_hall.productivity_per_worker, ResourceCollection)
+        assert city_hall.productivity_per_worker == ResourceCollection(food = 0, ore = 0, wood = 0)
+        assert isinstance(city_hall.effect_bonuses, EffectBonuses)
+        assert city_hall.effect_bonuses == EffectBonuses(troop_training = 0, population_growth = 0, intelligence = 0)
+        assert isinstance(city_hall.effect_bonuses_per_worker, EffectBonuses)
+        assert city_hall.effect_bonuses_per_worker == EffectBonuses(troop_training = 0, population_growth = 0, intelligence = 0)
+        assert isinstance(city_hall.storage_capacity, ResourceCollection)
+        assert city_hall.storage_capacity == ResourceCollection(food = 100, ore = 100, wood = 100)
+        assert city_hall.max_workers == 0
+        assert city_hall.is_buildable == True
+        assert city_hall.is_deletable == False
+        assert city_hall.is_upgradeable == False
+        assert city_hall.required_geo is None
+        assert city_hall.required_rss is None
+        assert city_hall.required_building == ["town_hall"]
+        assert city_hall.replaces == "town_hall"
+        assert city_hall.workers == 0
+    
+    def test_creating_nonexistent_building(self) -> None:
+        with raises(expected_exception = ValueError):
+            Building(id = "nonexistent_building")
+    
+    def test_building_requirements(self) -> None:
+        mountain_mine: Building = Building(id = "mountain_mine")
+        
+        assert mountain_mine.id == "mountain_mine"
+        assert mountain_mine.name == "Mountain mine"
+        assert mountain_mine.required_geo == GeoFeature.MOUNTAIN
+        assert mountain_mine.required_rss == Resource.ORE
+        assert mountain_mine.max_workers == 1
+    
+    def test_building_workers_logics(self) -> None:
+        large_mine: Building = Building(id = "large_mine")
+        
+        assert large_mine.id == "large_mine"
+        assert large_mine.name == "Large mine"
+        assert large_mine.required_rss == Resource.ORE
+        assert large_mine.max_workers == 3
+        assert large_mine.workers == 0
+        
+        large_mine.add_workers(qty = 2)
+        assert large_mine.workers == 2
+        
+        large_mine.remove_workers(qty = 1)
+        assert large_mine.workers == 1
+        
+        large_mine.set_workers(qty = 3)
+        assert large_mine.workers == 3
+        
+        with raises(expected_exception = ValueError):
+            large_mine.add_workers(qty = 1)
+        
+        with raises(expected_exception = ValueError):
+            large_mine.remove_workers(qty = 4)
+        
+        with raises(expected_exception = ValueError):
+            large_mine.set_workers(qty = 10)
