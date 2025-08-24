@@ -217,6 +217,7 @@ class City:
         return GeoFeatures()
     
     
+    #* Alternative city creator methods
     @classmethod
     def from_buildings_count(
         cls,
@@ -273,76 +274,6 @@ class City:
         
         if list(halls.values())[0] != 1:
             raise ValueError(f"Too many halls for this city")
-    
-    def get_building(self, id: str) -> Building:
-        """
-        Retrieve a building from the city by its ID. In case the city has more than one it will return the first one.
-        
-        Args:
-            id (str): the building ID to search for.
-        
-        Returns:
-            Building: the first building in the city with the given ID.
-        
-        Raises:
-            KeyError: if no building with the given ID exists in the city.
-        """
-        for building in self.buildings:
-            if building.id == id:
-                return building
-        
-        raise KeyError(f"No building with ID={id} found in {self.name}")
-    
-    def has_building(self, id: str) -> bool:
-        """
-        Check whether the city contains a building with the specified ID.
-        
-        Args:
-            id (str): the building ID to search for.
-        
-        Returns:
-            bool: True if the building is present, False otherwise.
-        """
-        for building in self.buildings:
-            if building.id == id:
-                return True
-        
-        return False
-    
-    def get_hall(self) -> Building: # type: ignore
-        """
-        Retrieve the hall building of the city.
-        
-        The hall is the central building of the city and must be one of "Village hall", "Town hall", or "City hall".
-        
-        Returns:
-            Building: the hall building of the city.
-        """
-        for building in self.buildings:
-            if building.id not in self.POSSIBLE_CITY_HALLS:
-                continue
-            
-            return building
-    
-    def get_buildings_count(self, by: Literal["name", "id"]) -> BuildingsCount:
-        """
-        Count the number of buildings in the city grouped by ID or name.
-        
-        Args:
-            by (Literal["name", "id"]): whether to group counts by building name or ID.
-        
-        Returns:
-            BuildingsCount: a dictionary mapping either building IDs or names to their respective counts.
-        """
-        from collections import Counter
-        
-        if by == "name":
-            buildings_count: BuildingsCount = Counter([building.name for building in self.buildings])
-            return buildings_count
-        
-        if by == "id":
-            buildings_count: BuildingsCount = Counter([building.id for building in self.buildings])
-            return buildings_count
     
     def _validate_number_of_buildings(self) -> None:
         number_of_declared_buildings: int = len(self.buildings)
@@ -651,3 +582,74 @@ class City:
         
         #* Focus
         self.focus = self._find_city_focus()
+    
+    
+    def get_building(self, id: str) -> Building:
+        """
+        Retrieve a building from the city by its ID. In case the city has more than one it will return the first one.
+        
+        Args:
+            id (str): the building ID to search for.
+        
+        Returns:
+            Building: the first building in the city with the given ID.
+        
+        Raises:
+            KeyError: if no building with the given ID exists in the city.
+        """
+        for building in self.buildings:
+            if building.id == id:
+                return building
+        
+        raise KeyError(f"No building with ID={id} found in {self.name}")
+    
+    def has_building(self, id: str) -> bool:
+        """
+        Check whether the city contains a building with the specified ID.
+        
+        Args:
+            id (str): the building ID to search for.
+        
+        Returns:
+            bool: True if the building is present, False otherwise.
+        """
+        for building in self.buildings:
+            if building.id == id:
+                return True
+        
+        return False
+    
+    def get_hall(self) -> Building: # type: ignore
+        """
+        Retrieve the hall building of the city.
+        
+        The hall is the central building of the city and must be one of "Village hall", "Town hall", or "City hall".
+        
+        Returns:
+            Building: the hall building of the city.
+        """
+        for building in self.buildings:
+            if building.id not in self.POSSIBLE_CITY_HALLS:
+                continue
+            
+            return building
+    
+    def get_buildings_count(self, by: Literal["name", "id"]) -> BuildingsCount:
+        """
+        Count the number of buildings in the city grouped by ID or name.
+        
+        Args:
+            by (Literal["name", "id"]): whether to group counts by building name or ID.
+        
+        Returns:
+            BuildingsCount: a dictionary mapping either building IDs or names to their respective counts.
+        """
+        from collections import Counter
+        
+        if by == "name":
+            buildings_count: BuildingsCount = Counter([building.name for building in self.buildings])
+            return buildings_count
+        
+        if by == "id":
+            buildings_count: BuildingsCount = Counter([building.id for building in self.buildings])
+            return buildings_count
