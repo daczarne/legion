@@ -144,7 +144,7 @@ class Kingdom:
             >>> raw_data = [{"name": "CityA", "campaign": "Alpha", "buildings": {"city_hall: 1, "farm": 4}}, ...]
             >>> kingdom = Kingdom.from_list(raw_data, ["ore", "wood"])
         """
-        cities: list[City] = [City(**city) for city in data]
+        cities: list[City] = [City.from_buildings_count(**city) for city in data]
         return cls(cities, sort_order)
     
     
