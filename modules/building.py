@@ -75,7 +75,7 @@ class Building:
     
     __match_args__: ClassVar[str] = ("id")
     
-    def _validate_number_of_workers(self) -> None:
+    def _validate_initial_number_of_workers(self) -> None:
         if self.workers > self.max_workers:
             raise ValueError(f"Too many workers. Max is {self.max_workers} for {self.name}.")
     
@@ -97,7 +97,7 @@ class Building:
         self.required_building = BUILDINGS[self.id]["required_building"]
         self.replaces = BUILDINGS[self.id]["replaces"]
         
-        self._validate_number_of_workers()
+        self._validate_initial_number_of_workers()
     
     def add_workers(self, qty: int) -> None:
         if self.workers + qty > self.max_workers:
@@ -107,7 +107,7 @@ class Building:
     
     def remove_workers(self, qty: int) -> None:
         if self.workers - qty < 0:
-            raise ValueError(f"Can't remove {qty} workers, building currently has {self.workers}.")
+            raise ValueError(f"Can't remove {qty} workers. Building currently has {self.workers}.")
         
         self.workers -= qty
     
