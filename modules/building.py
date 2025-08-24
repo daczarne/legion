@@ -45,7 +45,7 @@ BuildingsCount: TypeAlias = dict[str, int]
 # * BUILDINGS DATA * #
 # * ************** * #
 
-class BuildingData(TypedDict):
+class _BuildingData(TypedDict):
     """
     This is a helper class meant to be used when reading Building-data from YAML or JSON files. Its only purpose is to
     provide good type annotations and hints.
@@ -69,9 +69,9 @@ class BuildingData(TypedDict):
     replaces: str | None
 
 with open(file = "./data/buildings.yaml", mode = "r") as file:
-    buildings_data: dict[Literal["buildings"], list[BuildingData]] = yaml.safe_load(stream = file)
+    buildings_data: dict[Literal["buildings"], list[_BuildingData]] = yaml.safe_load(stream = file)
 
-BUILDINGS: dict[str, BuildingData] = {building["id"]: building for building in buildings_data["buildings"]}
+_BUILDINGS: dict[str, _BuildingData] = {building["id"]: building for building in buildings_data["buildings"]}
 
 
 # * ******** * #
@@ -149,7 +149,7 @@ class Building:
     
     
     def _validate_building_exists(self) -> None:
-        if self.id not in BUILDINGS:
+        if self.id not in _BUILDINGS:
             raise ValueError(f"Building {self.id} does not exist.")
     
     def _validate_initial_number_of_workers(self) -> None:
@@ -160,22 +160,22 @@ class Building:
     def __post_init__(self) -> None:
         self._validate_building_exists()
         
-        self.name = BUILDINGS[self.id]["name"]
-        self.building_cost = ResourceCollection(**BUILDINGS[self.id]["building_cost"])
-        self.maintenance_cost = ResourceCollection(**BUILDINGS[self.id]["maintenance_cost"])
-        self.productivity_bonuses = ResourceCollection(**BUILDINGS[self.id]["productivity_bonuses"])
-        self.productivity_per_worker = ResourceCollection(**BUILDINGS[self.id]["productivity_per_worker"])
-        self.effect_bonuses = EffectBonuses(**BUILDINGS[self.id]["effect_bonuses"])
-        self.effect_bonuses_per_worker = EffectBonuses(**BUILDINGS[self.id]["effect_bonuses_per_worker"])
-        self.storage_capacity = ResourceCollection(**BUILDINGS[self.id]["storage_capacity"])
-        self.max_workers = BUILDINGS[self.id]["max_workers"]
-        self.is_buildable = BUILDINGS[self.id]["is_buildable"]
-        self.is_deletable = BUILDINGS[self.id]["is_deletable"]
-        self.is_upgradeable = BUILDINGS[self.id]["is_upgradeable"]
-        self.required_geo = GeoFeature(value = BUILDINGS[self.id]["required_geo"]) if BUILDINGS[self.id]["required_geo"] else None
-        self.required_rss = Resource(value = BUILDINGS[self.id]["required_rss"]) if BUILDINGS[self.id]["required_rss"] else None
-        self.required_building = BUILDINGS[self.id]["required_building"]
-        self.replaces = BUILDINGS[self.id]["replaces"]
+        self.name = _BUILDINGS[self.id]["name"]
+        self.building_cost = ResourceCollection(**_BUILDINGS[self.id]["building_cost"])
+        self.maintenance_cost = ResourceCollection(**_BUILDINGS[self.id]["maintenance_cost"])
+        self.productivity_bonuses = ResourceCollection(**_BUILDINGS[self.id]["productivity_bonuses"])
+        self.productivity_per_worker = ResourceCollection(**_BUILDINGS[self.id]["productivity_per_worker"])
+        self.effect_bonuses = EffectBonuses(**_BUILDINGS[self.id]["effect_bonuses"])
+        self.effect_bonuses_per_worker = EffectBonuses(**_BUILDINGS[self.id]["effect_bonuses_per_worker"])
+        self.storage_capacity = ResourceCollection(**_BUILDINGS[self.id]["storage_capacity"])
+        self.max_workers = _BUILDINGS[self.id]["max_workers"]
+        self.is_buildable = _BUILDINGS[self.id]["is_buildable"]
+        self.is_deletable = _BUILDINGS[self.id]["is_deletable"]
+        self.is_upgradeable = _BUILDINGS[self.id]["is_upgradeable"]
+        self.required_geo = GeoFeature(value = _BUILDINGS[self.id]["required_geo"]) if _BUILDINGS[self.id]["required_geo"] else None
+        self.required_rss = Resource(value = _BUILDINGS[self.id]["required_rss"]) if _BUILDINGS[self.id]["required_rss"] else None
+        self.required_building = _BUILDINGS[self.id]["required_building"]
+        self.replaces = _BUILDINGS[self.id]["replaces"]
         
         self._validate_initial_number_of_workers()
     
