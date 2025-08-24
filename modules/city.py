@@ -10,10 +10,9 @@ Public API:
     defenses, effect bonuses, and city focus.
 - CITIES (list[_CityData]): List of all city definitions loaded from `./data/cities.yaml`.
 - CityDict (TypedDict): Helper type for defining cities via dictionaries.
-- BuildingsCount (TypeAlias): Mapping of building IDs or names to their counts in the city.
 
 Internal objects (not part of the public API):
-- _CityData: TypedDict for internal use when reading city data from YAML/JSON.
+- _CityData (TypedDict): Type for internal use when reading city data from YAML/JSON.
 - _CityEffectBonuses, _CityProduction, _CityStorage, _CityDefenses: helper dataclasses for modeling city internals.
 """
 
