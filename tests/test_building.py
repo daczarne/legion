@@ -293,7 +293,7 @@ class TestBuildingsData:
 @mark.building
 class TestBuilding:
     
-    def test_building_city_hall(self) -> None:
+    def test_building_instantiation(self) -> None:
         city_hall: Building = Building(id = "city_hall")
         
         assert city_hall.id == "city_hall"
@@ -322,7 +322,11 @@ class TestBuilding:
         assert city_hall.replaces == "town_hall"
         assert city_hall.workers == 0
     
-    def test_building_mountain_mine(self) -> None:
+    def test_creating_nonexistent_building(self) -> None:
+        with raises(expected_exception = ValueError):
+            Building(id = "nonexistent_building")
+    
+    def test_building_requirements(self) -> None:
         mountain_mine: Building = Building(id = "mountain_mine")
         
         assert mountain_mine.id == "mountain_mine"
@@ -331,7 +335,7 @@ class TestBuilding:
         assert mountain_mine.required_rss == Resource.ORE
         assert mountain_mine.max_workers == 1
     
-    def test_building_large_mine(self) -> None:
+    def test_building_workers_logics(self) -> None:
         large_mine: Building = Building(id = "large_mine")
         
         assert large_mine.id == "large_mine"

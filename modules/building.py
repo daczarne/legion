@@ -75,11 +75,19 @@ class Building:
     
     __match_args__: ClassVar[str] = ("id")
     
+    
+    def _validate_building_exists(self) -> None:
+        if self.id not in BUILDINGS:
+            raise ValueError(f"Building {self.id} does not exist.")
+    
     def _validate_initial_number_of_workers(self) -> None:
         if self.workers > self.max_workers:
             raise ValueError(f"Too many workers. Max is {self.max_workers} for {self.name}.")
     
+    
     def __post_init__(self) -> None:
+        self._validate_building_exists()
+        
         self.name = BUILDINGS[self.id]["name"]
         self.building_cost = ResourceCollection(**BUILDINGS[self.id]["building_cost"])
         self.maintenance_cost = ResourceCollection(**BUILDINGS[self.id]["maintenance_cost"])
@@ -98,6 +106,7 @@ class Building:
         self.replaces = BUILDINGS[self.id]["replaces"]
         
         self._validate_initial_number_of_workers()
+    
     
     def add_workers(self, qty: int) -> None:
         if self.workers + qty > self.max_workers:
