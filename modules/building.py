@@ -1,27 +1,31 @@
 """
-Module for defining and managing game buildings.
+Module for defining game buildings.
 
 This module loads building definitions from a YAML file and provides typed access to their properties. It exposes the
 public API for working with buildings in a city, including building instances, their attributes, and worker assignments.
 
 Public API:
 - BuildingsCount (TypeAlias): Mapping of building identifiers to their counts in a city. Keys are building IDs (e.g.,
-    "farm", "mine"), values are integers representing how many of that building exist.
+    "farm", "mine"), values are integers representing how many of that building should be created in the city.
 - Building (dataclass): Represents a specific building instance, with runtime attributes such as costs, bonuses,
     storage capacity, worker assignment, and construction requirements.
 
 Internal objects (not part of the public API):
 - _BUILDINGS: Dictionary of all building definitions loaded from `./data/buildings.yaml`.
 - _BuildingData (TypedDict): Helper for type annotations when reading building data from YAML/JSON files.
-
-The system helps players validate game assumptions about what can be built in a city, what it costs, and how different
-buildings interact (e.g., dependencies, upgrades, and resource requirements).
 """
 
 import yaml
 
 from dataclasses import dataclass, field
 from typing import ClassVar, Literal, TypeAlias, TypedDict
+
+from rich import box
+from rich.align import Align
+from rich.console import Console
+from rich.layout import Layout
+from rich.panel import Panel
+from rich.text import Text
 
 from .effects import EffectBonusesData, EffectBonuses
 from .geo_features import GeoFeature
@@ -143,6 +147,7 @@ class Building:
     required_building: list[str] = field(init = False, default_factory = list, repr = False, compare = False, hash = False)
     replaces: str | None = field(init = False, default = None, repr = False, compare = False, hash = False)
     
+    
     __match_args__: ClassVar[str] = ("id")
     
     
@@ -223,25 +228,343 @@ class Building:
         
         self.workers = qty
     
-    def show(self) -> None:
+    
+    #* Display building
+    def _building_information(self) -> Text:
+        text: Text = Text(
+            text = f" Building(id = \"{self.id}\") ",
+            style = "bold black on white",
+            justify = "center",
+        )
+        return text
+    
+    def _building_name(self) -> str:
+        text: str = f"[bold]Name:[/bold] " \
+            f"[yellow]{self.name}[/yellow]"
+        return text
+    
+    def _building_building_costs(self) -> str:
+        text: str = f"[bold]Building costs:[/bold] " \
+            f"[italic bold bright_cyan]ResourceCollection[/italic bold bright_cyan](" \
+            f"[italic dim]food = [/italic dim]{self.building_cost.food}, " \
+            f"[italic dim]ore = [/italic dim]{self.building_cost.ore}, " \
+            f"[italic dim]wood = [/italic dim]{self.building_cost.wood}" \
+            f")"
+        return text
+    
+    def _building_maintenance_costs(self) -> str:
+        text: str = f"[bold]Maintenance costs:[/bold] " \
+            f"[italic bold bright_cyan]ResourceCollection[/italic bold bright_cyan](" \
+            f"[italic dim]food = [/italic dim]{self.maintenance_cost.food}, " \
+            f"[italic dim]ore = [/italic dim]{self.maintenance_cost.ore}, " \
+            f"[italic dim]wood = [/italic dim]{self.maintenance_cost.wood}" \
+            f")"
+        return text
+    
+    def _building_productivity_bonuses(self) -> str:
+        text: str = f"[bold]Productivity bonuses:[/bold] " \
+            f"[italic bold bright_cyan]ResourceCollection[/italic bold bright_cyan](" \
+            f"[italic dim]food = [/italic dim]{self.productivity_bonuses.food}, " \
+            f"[italic dim]ore = [/italic dim]{self.productivity_bonuses.ore}, " \
+            f"[italic dim]wood = [/italic dim]{self.productivity_bonuses.wood}" \
+            f")"
+        return text
+    
+    def _building_productivity_per_worker(self) -> str:
+        text: str = f"[bold]Productivity per worker:[/bold] " \
+            f"[italic bold bright_cyan]ResourceCollection[/italic bold bright_cyan](" \
+            f"[italic dim]food = [/italic dim]{self.productivity_per_worker.food}, " \
+            f"[italic dim]ore = [/italic dim]{self.productivity_per_worker.ore}, " \
+            f"[italic dim]wood = [/italic dim]{self.productivity_per_worker.wood}" \
+            f")"
+        return text
+    
+    def _building_effect_bonuses(self) -> str:
+        text: str = f"[bold]Effect bonuses:[/bold] " \
+            f"[italic bold bright_cyan]EffectBonuses[/italic bold bright_cyan](" \
+            f"[italic dim]troop_training = [/italic dim]{self.effect_bonuses.troop_training}, " \
+            f"[italic dim]population_growth = [/italic dim]{self.effect_bonuses.population_growth}, " \
+            f"[italic dim]intelligence = [/italic dim]{self.effect_bonuses.intelligence}" \
+            f")"
+        return text
+    
+    def _building_effect_bonuses_per_worker(self) -> str:
+        text: str = f"[bold]Effect bonuses per worker:[/bold] " \
+            f"[italic bold bright_cyan]EffectBonuses[/italic bold bright_cyan](" \
+            f"[italic dim]troop_training = [/italic dim]{self.effect_bonuses_per_worker.troop_training}, " \
+            f"[italic dim]population_growth = [/italic dim]{self.effect_bonuses_per_worker.population_growth}, " \
+            f"[italic dim]intelligence = [/italic dim]{self.effect_bonuses_per_worker.intelligence}" \
+            f")"
+        return text
+    
+    def _building_storage_capacity(self) -> str:
+        text: str = f"[bold]Storage capacity:[/bold] " \
+            f"[italic bold bright_cyan]ResourceCollection[/italic bold bright_cyan](" \
+            f"[italic dim]food = [/italic dim]{self.storage_capacity.food}, " \
+            f"[italic dim]ore = [/italic dim]{self.storage_capacity.ore}, " \
+            f"[italic dim]wood = [/italic dim]{self.storage_capacity.wood}" \
+            f")"
+        return text
+    
+    def _building_max_workers(self) -> str:
+        text: str = f"[bold]Max. workers:[/bold] " \
+            f"[dark_magenta]{self.max_workers}[/dark_magenta]"
+        return text
+    
+    def _building_is_buildable(self) -> str:
+        text: str = f"[bold]Is buildable:[/bold] " \
+            f"[dark_magenta]{self.is_buildable}[/dark_magenta]"
+        return text
+    
+    def _building_is_deletable(self) -> str:
+        text: str = f"[bold]Is deletable:[/bold] " \
+            f"[dark_magenta]{self.is_deletable}[/dark_magenta]"
+        return text
+    
+    def _building_is_upgradeable(self) -> str:
+        text: str = f"[bold]Is upgradeable:[/bold] " \
+            f"[dark_magenta]{self.is_upgradeable}[/dark_magenta]"
+        return text
+    
+    def _building_required_geo(self) -> str:
+        text: str = f"[bold]Required GeoFeature:[/bold] "
+        if self.required_geo:
+            text += f"[italic bold bright_cyan]GeoFeature[/italic bold bright_cyan].{self.required_geo.name}"
+        else:
+            text += f"[italic dim dark_magenta]{self.required_geo}[/italic dim dark_magenta]"
+        return text
+    
+    def _building_required_rss(self) -> str:
+        text: str = f"[bold]Required Resource:[/bold] "
+        if self.required_rss:
+            text += f"[italic bold bright_cyan]GeoFeature[/italic bold bright_cyan].{self.required_rss.name}"
+        else:
+            text += f"[italic dim dark_magenta]{self.required_rss}[/italic dim dark_magenta]"
+        return text
+    
+    def _building_required_building(self) -> str:
+        text: str = f"[bold]Required building:[/bold] "
+        return text
+    
+    def _building_replaces(self) -> str:
+        text: str = f"[bold]Replaces:[/bold] "
+        if self.replaces:
+            # Building(id = \"{self.id}\")
+            text += f"[italic bold bright_cyan]Building[/italic bold bright_cyan](" \
+                f"[italic dim]id = [/italic dim][yellow]\"{self.replaces}\"[/yellow])"
+        else:
+            text += f"[italic dim dark_magenta]{self.replaces}[/italic dim dark_magenta]"
+        return text
+    
+    def _building_current_workers(self) -> str:
+        text: str = f"[bold]Current workers:[/bold] " \
+            f"[dark_magenta]{self.workers}[/dark_magenta]"
+        return text
+    
+    def _build_building_display(self) -> Panel:
+        layout: Layout = Layout()
+        
+        layout.split(
+            Layout(
+                name = "header",
+                size = 2,
+                ratio = 0,
+                visible = True,
+            ),
+            Layout(
+                name = "main",
+                size = 30,
+                ratio = 0,
+                visible = True,
+            ),
+        )
+        
+        layout["header"].update(
+            renderable = Align(renderable = self._building_information(), align = "center")
+        )
+        
+        layout["main"].split(
+            Layout(
+                name = "building_name",
+                size = 1,
+                ratio = 0,
+                visible = True,
+            ),
+            Layout(
+                name = "building_costs",
+                size = 1,
+                ratio = 0,
+                visible = True,
+            ),
+            Layout(
+                name = "maintenance_cost",
+                size = 1,
+                ratio = 0,
+                visible = True,
+            ),
+            Layout(
+                name = "productivity_bonuses",
+                size = 1,
+                ratio = 0,
+                visible = True,
+            ),
+            Layout(
+                name = "productivity_per_worker",
+                size = 1,
+                ratio = 0,
+                visible = True,
+            ),
+            Layout(
+                name = "effect_bonuses",
+                size = 1,
+                ratio = 0,
+                visible = True,
+            ),
+            Layout(
+                name = "effect_bonuses_per_worker",
+                size = 1,
+                ratio = 0,
+                visible = True,
+            ),
+            Layout(
+                name = "storage_capacity",
+                size = 1,
+                ratio = 0,
+                visible = True,
+            ),
+            Layout(
+                name = "max_workers",
+                size = 1,
+                ratio = 0,
+                visible = True,
+            ),
+            Layout(
+                name = "current_workers",
+                size = 1,
+                ratio = 0,
+                visible = True,
+            ),
+            Layout(
+                name = "is_buildable",
+                size = 1,
+                ratio = 0,
+                visible = True,
+            ),
+            Layout(
+                name = "is_deletable",
+                size = 1,
+                ratio = 0,
+                visible = True,
+            ),
+            Layout(
+                name = "is_upgradeable",
+                size = 1,
+                ratio = 0,
+                visible = True,
+            ),
+            Layout(
+                name = "required_geo",
+                size = 1,
+                ratio = 0,
+                visible = True,
+            ),
+            Layout(
+                name = "required_rss",
+                size = 1,
+                ratio = 0,
+                visible = True,
+            ),
+            Layout(
+                name = "required_building",
+                size = 1,
+                ratio = 0,
+                visible = True,
+            ),
+            Layout(
+                name = "replaces",
+                size = 1,
+                ratio = 0,
+                visible = True,
+            ),
+        )
+        
+        layout["building_name"].update(
+            renderable = Align(renderable = self._building_name(), align = "left")
+        )
+        
+        layout["building_costs"].update(
+            renderable = Align(renderable = self._building_building_costs(), align = "left")
+        )
+        
+        layout["maintenance_cost"].update(
+            renderable = Align(renderable = self._building_maintenance_costs(), align = "left")
+        )
+        
+        layout["productivity_bonuses"].update(
+            renderable = Align(renderable = self._building_productivity_bonuses(), align = "left")
+        )
+        
+        layout["productivity_per_worker"].update(
+            renderable = Align(renderable = self._building_productivity_per_worker(), align = "left")
+        )
+        
+        layout["effect_bonuses"].update(
+            renderable = Align(renderable = self._building_effect_bonuses(), align = "left")
+        )
+        
+        layout["effect_bonuses_per_worker"].update(
+            renderable = Align(renderable = self._building_effect_bonuses_per_worker(), align = "left")
+        )
+        
+        layout["storage_capacity"].update(
+            renderable = Align(renderable = self._building_storage_capacity(), align = "left")
+        )
+        
+        layout["max_workers"].update(
+            renderable = Align(renderable = self._building_max_workers(), align = "left")
+        )
+        
+        layout["current_workers"].update(
+            renderable = Align(renderable = self._building_current_workers(), align = "left")
+        )
+        
+        layout["is_buildable"].update(
+            renderable = Align(renderable = self._building_is_buildable(), align = "left")
+        )
+        
+        layout["is_deletable"].update(
+            renderable = Align(renderable = self._building_is_deletable(), align = "left")
+        )
+        
+        layout["is_upgradeable"].update(
+            renderable = Align(renderable = self._building_is_upgradeable(), align = "left")
+        )
+        
+        layout["required_geo"].update(
+            renderable = Align(renderable = self._building_required_geo(), align = "left")
+        )
+        
+        layout["required_rss"].update(
+            renderable = Align(renderable = self._building_required_rss(), align = "left")
+        )
+        
+        layout["required_building"].update(
+            renderable = Align(renderable = self._building_required_building(), align = "left")
+        )
+        
+        layout["replaces"].update(
+            renderable = Align(renderable = self._building_replaces(), align = "left")
+        )
+        
+        return Panel(
+            renderable = layout,
+            height = 21,
+            width = 105,
+        )
+    
+    def display_building(self) -> None:
         """
-        Prints detailed information about the building to stdout.
+        Render the building's information and current state to the console using the Rich library.
         """
-        print(self)
-        print(f"Name: {self.name}")
-        print(f"Building costs: {self.building_cost}")
-        print(f"Maintenance costs: {self.maintenance_cost}")
-        print(f"Productivity bonuses: {self.productivity_bonuses}")
-        print(f"Productivity per worker: {self.productivity_per_worker}")
-        print(f"Effect bonuses: {self.effect_bonuses}")
-        print(f"Effect bonuses per worker: {self.effect_bonuses_per_worker}")
-        print(f"Storage capacity: {self.storage_capacity}")
-        print(f"Max. workers: {self.max_workers}")
-        print(f"Is buildable: {self.is_buildable}")
-        print(f"Is deletable: {self.is_deletable}")
-        print(f"Is upgradeable: {self.is_upgradeable}")
-        print(f"Required GeoFeature: {self.required_geo}")
-        print(f"Required Resource: {self.required_rss}")
-        print(f"Required building: {self.required_building}")
-        print(f"Replaces: {self.replaces}")
-        print(f"Current workers: {self.workers}")
+        console: Console = Console()
+        console.print(self._build_building_display())

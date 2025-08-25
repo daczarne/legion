@@ -2,6 +2,26 @@
 
 This project is a collection of classes that help you organize your kingdom in Legion.
 
+## The `Building` class
+
+The `Building` class is used to represent an instance of a building. Cities can be created from lists of buildings or
+dictionaries of building counts.
+
+```python
+from modules.building import Building
+
+city_hall: Building = Building(id = "city_hall")
+city_hall.display_building()
+```
+
+![city_hall](img/building_city_hall.png)
+
+By default, buildings are created with zero assigned workers. Use the `add_workers()`, `remove_workers()`, and
+`set_workers()` methods to control the number of workers assigned to a building instance. Assigning more workers than
+a building can have, or removing more workers than a building has assigned to it will raise errors.
+
+See more examples in `./building_example.py`.
+
 ## The `City` class
 
 The `City` class is the backbone of it all. Given a city (identified by campaign and city name) and the configuration
