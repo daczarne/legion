@@ -1,21 +1,13 @@
 # Setting up the local environment
 
-This guide explains how to setup the basic local environment that comes with this repository. For more specialized use
-cases, update and modify as needed.
+This guide explains how to setup the basic local environment.
 
 ## Creating a new environment with Pipenv
 
-The environment includes the following packages:
-
-- [PyYAML][pyyaml-repo]
-- [YAMLlint][yamllint-repo]
-- [Pytest][pytest-repo]
-
----
 To create a new environment using the `Pipfile.lock` run the following commands:
 
 ```shell
-pipenv --python 3.10
+pipenv --python 3.13
 ```
 
 ```shell
@@ -39,35 +31,20 @@ Python 3.13.3
 
 ```shell
 $ pipenv graph
-sqlfluff==3.4.0
-├── chardet
-├── click
-├── colorama
-├── diff_cover
-│   ├── chardet
-│   ├── Jinja2
-│   │   └── MarkupSafe
-│   ├── pluggy
-│   └── Pygments
-├── Jinja2
-│   └── MarkupSafe
-├── pathspec
-├── platformdirs
-├── pytest
-│   ├── iniconfig
-│   ├── packaging
-│   └── pluggy
-├── PyYAML
-├── regex
-├── tblib
-└── tqdm
-yamllint==1.37.1
+pytest==8.3.3
+├── iniconfig
+├── packaging
+└── pluggy
+rich==14.1.0
+├── markdown-it-py
+│   └── mdurl
+└── Pygments
+yamllint==1.32.0
 ├── pathspec
 └── PyYAML
 ```
 
-The output of the `pipenv graph` command might look slightly different in the future, but the main packages should be
-there.
+> The output of the `pipenv graph` command might look slightly different in the future.
 
 ## Set the correct interpreter
 
@@ -101,7 +78,7 @@ markdownlint-cli2 --config ".markdownlint.yaml" .
 Beware of local, untracked files that may cause this to fail. If they are inside py-cached folders, these can usually
 be removed safely.
 
-This tool uses two configuration files
+This tool uses two configuration files:
 
 - `.markdownlint.yaml` defines the rules that Md files need to follow.
 - `.markdownlint-cli2.yaml` controls the behavior of the CLI tool. This configuration already ignors Md files created
@@ -125,10 +102,6 @@ cspell lint --config ".cspell.json" --dot .
 
 - [CSpell][4]
 - [CSpell CLI][5]
-
-[pyyaml-repo]: https://github.com/yaml/pyyaml
-[yamllint-repo]: https://github.com/adrienverge/yamllint
-[pytest-repo]: https://github.com/pytest-dev/pytest
 
 [1]: https://github.com/DavidAnson/markdownlint
 [2]: https://github.com/DavidAnson/markdownlint-cli2

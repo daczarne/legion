@@ -8,11 +8,12 @@ The `City` class is the backbone of it all. Given a city (identified by campaign
 of buildings that you'd like to build in it, it displays the information about the city (its effects, production,
 storage, and defenses).
 
-```python
-from modules.display import CityDisplay
-from modules.city import City
+The `City` objects can be constructed by passing lists of `Building` objects, or a dictionary of building counts.
 
-city: City = City(
+```python
+from modules.city import City, CityDisplay
+
+city: City = City.from_buildings_count(
     campaign = "Unification of Italy",
     name = "Roma",
     buildings = {
@@ -35,7 +36,7 @@ example, you could want the Defenses section to be omitted and the Production se
 ```python
 display_configuration: DisplayConfiguration = {
     "production": {
-        "color": "yellow"
+        "color": "yellow",
     },
     "defenses": {
         "include": False,
@@ -51,7 +52,8 @@ CityDisplay(city = city, configuration = display_configuration).display_city_res
 
 The `Scenario` class is used to compare two or more possible configurations for a given city, or different cities
 altogether. You can create a comparison by passing a list of `City` objects to the `Scenario` class or via a convenient
-`Scenario.from_list()` method. Each element of the list must be a dictionary just like with the `City` class.
+`Scenario.from_list()` method. Each element of the list must be a dictionary just like with the
+`City.from_buildings_count()` method.
 
 ```python
 from modules.scenario import Scenario
@@ -168,6 +170,8 @@ kingdom: Kingdom = Kingdom.from_list(
         ...
     ],
 )
+
+kingdom.display_kingdom_results()
 ```
 
 ![kingdome overview](img/kingdom_1.png)
