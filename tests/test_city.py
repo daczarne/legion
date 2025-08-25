@@ -1,8 +1,10 @@
-from pytest import mark, raises, fixture
+from typing import Literal
+from pytest import mark, raises, fixture, FixtureRequest
 from collections import Counter
 
 from modules.building import Building, BuildingsCount
-from modules.city import _CityData, City
+from modules.city import _CityData, City, CityDisplay
+from modules.display import DEFAULT_SECTION_COLORS, DisplayConfiguration, DisplaySectionConfiguration
 from modules.resources import Resource
 
 
@@ -804,3 +806,129 @@ class TestCityScenarios:
         assert city.storage.buildings.wood == 450
         assert city.storage.total.wood == 550
         assert city.focus == Resource.WOOD
+
+
+@mark.city
+@mark.display
+@mark.city_display
+class TestCityDisplay:
+    
+    @fixture
+    def _military_city(self) -> City:
+        sample_city: City = City(
+            campaign = "Unification of Italy",
+            name = "Roma",
+            buildings = [
+                Building(id = "city_hall"),
+                Building(id = "basilica"),
+                Building(id = "hospital"),
+                Building(id = "training_ground"),
+                Building(id = "gladiator_school"),
+                Building(id = "stables"),
+                Building(id = "bordello"),
+                Building(id = "quartermaster"),
+                Building(id = "large_fort"),
+            ]
+        )
+        return sample_city
+    
+    @fixture
+    def _production_city(self) -> City:
+        sample_city: City = City(
+            campaign = "Unification of Italy",
+            name = "Roma",
+            buildings = [
+                Building(id = "city_hall"),
+                Building(id = "basilica"),
+                Building(id = "farmers_guild"),
+                Building(id = "vineyard"),
+                Building(id = "large_farm"),
+                Building(id = "large_farm"),
+                Building(id = "large_farm"),
+                Building(id = "large_farm"),
+                Building(id = "large_farm"),
+            ]
+        )
+        return sample_city
+    
+    @mark.parametrize(
+        argnames = ["city", "section", "expected_height"],
+        argvalues = [
+            ("_military_city", "city", 2),
+            ("_production_city", "city", 2),
+            ("_military_city", "buildings", 11),
+            ("_production_city", "buildings", 7),
+            ("_military_city", "effects", 8),
+            ("_production_city", "effects", 8),
+            ("_military_city", "production", 8),
+            ("_production_city", "production", 8),
+            ("_military_city", "storage", 8),
+            ("_production_city", "storage", 8),
+            ("_military_city", "defenses", 6),
+            ("_production_city", "defenses", 6),
+            ("_military_city", "unknown", 0),
+            ("_production_city", "unknown", 0),
+        ],
+    )
+    def test_calculate_default_section_height(
+        self,
+        city: str,
+        section: str,
+        expected_height: int,
+        request: FixtureRequest,
+    ) -> None:
+        city_display = CityDisplay(city = request.getfixturevalue(argname = city))
+        assert city_display._calculate_default_section_height(section = section) == expected_height
+    
+    @mark.parametrize(argnames = "city", argvalues = ["_military_city", "_production_city"])
+    def test_build_default_configuration(
+        self,
+        city: str,
+        request: FixtureRequest,
+    ) -> None:
+        city_display = CityDisplay(city = request.getfixturevalue(argname = city))
+        config: DisplayConfiguration = city_display._build_default_configuration()
+        
+        expected_sections: list[str] = ["city", "buildings", "effects", "production", "storage", "defenses"]
+        assert Counter(config.keys()) == Counter(expected_sections)
+        
+        for section in expected_sections:
+            section_conf: DisplaySectionConfiguration = config[section]
+            assert section_conf["include"] is True # type: ignore
+            assert isinstance(section_conf["height"], int) # type: ignore
+            assert isinstance(section_conf["color"], str) # type: ignore
+        
+        # Spot check: buildings height must match building count + 2
+        assert config["buildings"]["height"] == len(city.buildings) + 2 if "height" in config else True
+        
+        # Spot check: colors should come from DEFAULT_SECTION_COLORS (or "white" fallback)
+        for section in expected_sections:
+            default_color: str = DEFAULT_SECTION_COLORS.get(section, "white")
+            assert config[section]["color"] == default_color
+    
+    @mark.parametrize(argnames = "city", argvalues = ["_military_city", "_production_city"])
+    def test_build_configuration_merges_user_config(
+        self,
+        city: str,
+        request: FixtureRequest,
+    ) -> None:
+        user_conf: DisplayConfiguration = {
+            "city": {
+                "include": False,
+                "color": "white",
+            },
+            "buildings": {
+                "height": 99,
+            },
+        }
+        city_display = CityDisplay(city = request.getfixturevalue(argname = city), configuration = user_conf)
+        config: DisplayConfiguration = city_display._build_configuration()
+        
+        # User config should override defaults
+        assert config["city"]["include"] is False # type: ignore
+        assert config["city"]["color"] == "white" # type: ignore
+        assert config["buildings"]["height"] == 99 # type: ignore
+        
+        # Other sections still have defaults
+        assert config["effects"]["include"] is True # type: ignore
+        assert config["effects"]["color"] == DEFAULT_SECTION_COLORS["effects"] # type: ignore
