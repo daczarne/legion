@@ -27,7 +27,6 @@ from rich.layout import Layout
 from rich.panel import Panel
 from rich.text import Text
 
-
 from .effects import EffectBonusesData, EffectBonuses
 from .geo_features import GeoFeature
 from .resources import Resource, ResourceCollectionData, ResourceCollection
@@ -147,6 +146,7 @@ class Building:
     # Mountain Mine, or an Outcrop Mine. If a building has no dependencies the list will be empty.
     required_building: list[str] = field(init = False, default_factory = list, repr = False, compare = False, hash = False)
     replaces: str | None = field(init = False, default = None, repr = False, compare = False, hash = False)
+    
     
     __match_args__: ClassVar[str] = ("id")
     
