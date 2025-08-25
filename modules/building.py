@@ -228,6 +228,7 @@ class Building:
         
         self.workers = qty
     
+    
     #* Display building
     def _building_information(self) -> Text:
         text: Text = Text(
