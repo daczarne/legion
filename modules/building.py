@@ -1,21 +1,18 @@
 """
-Module for defining and managing game buildings.
+Module for defining game buildings.
 
 This module loads building definitions from a YAML file and provides typed access to their properties. It exposes the
 public API for working with buildings in a city, including building instances, their attributes, and worker assignments.
 
 Public API:
 - BuildingsCount (TypeAlias): Mapping of building identifiers to their counts in a city. Keys are building IDs (e.g.,
-    "farm", "mine"), values are integers representing how many of that building exist.
+    "farm", "mine"), values are integers representing how many of that building should be created in the city.
 - Building (dataclass): Represents a specific building instance, with runtime attributes such as costs, bonuses,
     storage capacity, worker assignment, and construction requirements.
 
 Internal objects (not part of the public API):
 - _BUILDINGS: Dictionary of all building definitions loaded from `./data/buildings.yaml`.
 - _BuildingData (TypedDict): Helper for type annotations when reading building data from YAML/JSON files.
-
-The system helps players validate game assumptions about what can be built in a city, what it costs, and how different
-buildings interact (e.g., dependencies, upgrades, and resource requirements).
 """
 
 import yaml
@@ -565,5 +562,8 @@ class Building:
         )
     
     def display_building(self) -> None:
+        """
+        Render the building's information and current state to the console using the Rich library.
+        """
         console: Console = Console()
         console.print(self._build_building_display())
