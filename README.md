@@ -52,7 +52,8 @@ CityDisplay(city = city, configuration = display_configuration).display_city_res
 
 The `Scenario` class is used to compare two or more possible configurations for a given city, or different cities
 altogether. You can create a comparison by passing a list of `City` objects to the `Scenario` class or via a convenient
-`Scenario.from_list()` method. Each element of the list must be a dictionary just like with the `City` class.
+`Scenario.from_list()` method. Each element of the list must be a dictionary just like with the
+`City.from_buildings_count()` method.
 
 ```python
 from modules.scenario import Scenario
