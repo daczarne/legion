@@ -1,6 +1,6 @@
 from modules.building import Building
-from modules.city import City
-from modules.display import CityDisplay
+from modules.city import City, CityDisplay
+
 
 city: City = City.from_buildings_count(
     campaign = "Unification of Italy",

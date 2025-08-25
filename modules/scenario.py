@@ -13,9 +13,8 @@ from rich.align import Align
 from rich.console import Console
 from rich.layout import Layout
 
-from .city import City, CityDict
+from .city import CityDict, City, CityDisplay
 from .display import (
-    CityDisplay,
     DisplayConfiguration,
     DisplaySection,
     DisplaySectionConfiguration,
