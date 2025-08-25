@@ -170,6 +170,8 @@ kingdom: Kingdom = Kingdom.from_list(
         ...
     ],
 )
+
+kingdom.display_kingdom_results()
 ```
 
 ![kingdome overview](img/kingdom_1.png)
