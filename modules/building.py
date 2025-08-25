@@ -363,7 +363,7 @@ class Building:
             f"[dark_magenta]{self.workers}[/dark_magenta]"
         return text
     
-    def build_building_display(self) -> Panel:
+    def _build_building_display(self) -> Panel:
         layout: Layout = Layout()
         
         layout.split(
@@ -566,4 +566,4 @@ class Building:
     
     def display_building(self) -> None:
         console: Console = Console()
-        console.print(self.build_building_display())
+        console.print(self._build_building_display())
