@@ -15,15 +15,18 @@ large_mine.display_building()
 
 print()
 print(f"Adding 2 workers to the mine...")
+print("large_mine.add_workers(qty = 2)")
 large_mine.add_workers(qty = 2)
 large_mine.display_building()
 
 print()
 print(f"Removing 1 worker from the mine...")
+print("large_mine.remove_workers(qty = 1)")
 large_mine.remove_workers(qty = 1)
 large_mine.display_building()
 
 print()
 print(f"Setting the number of workers to 3...")
+print("large_mine.set_workers(qty = 3)")
 large_mine.set_workers(qty = 3)
 large_mine.display_building()
