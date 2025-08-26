@@ -5,7 +5,6 @@ This module loads city definitions from a YAML file and provides typed access to
 public API for working with cities, including creating city instances, counting buildings, and inspecting city
 attributes like production, storage, defenses, and effect bonuses.
 
-
 Public API:
 
 - City (dataclass): Represents a city within a campaign. Handles city validation, calculates production, storage,
@@ -16,10 +15,10 @@ Assets shared with other modules:
 - CityDict (TypedDict): Helper type for defining cities via dictionaries.
 - CITIES (list[_CityData]): List of all city definitions loaded from `./data/cities.yaml`.
 
-
 Internal objects (not part of the public API):
-- `CityDisplay`: Display functionality for an object of `City` class. It displays the object into a terminal-friendly
-    layout, showing various aspects of the city such as buildings, effects, production, storage, and defenses.
+- `_CityDisplay`: Display functionality for an object of `City` class. It displays the object into a
+    terminal-friendly layout, showing various aspects of the city such as buildings, effects, production, storage, and
+    defenses.
 - _CityData (TypedDict): Type for internal use when reading city data from YAML/JSON.
 - _CityEffectBonuses, _CityProduction, _CityStorage, _CityDefenses: helper dataclasses for modeling city internals.
 """
@@ -700,17 +699,31 @@ class City:
             buildings_count: BuildingsCount = Counter([building.id for building in self.buildings])
             return buildings_count
     
+    def build_city_displayer(self, configuration: DisplayConfiguration | None = None) -> "_CityDisplay":
+        """
+        Creates a displayer for the City.
+        
+        Args:
+            configuration: An optional dictionary for customizing the display. This can be used to hide specific
+                sections or change their appearance.
+        
+        Returns:
+            _CityDisplay: An instance of the _CityDisplay class.
+        """
+        displayer: _CityDisplay = _CityDisplay(city = self, configuration = configuration)
+        return displayer
+    
     def display_city(self, configuration: DisplayConfiguration | None = None) -> None:
         """
         Renders and prints the city's statistics to the console.
         
-        This method acts as a facade, delegating the display logic to the `CityDisplay` class.
+        This method acts as a facade, delegating the display logic to the `_CityDisplay` class.
         
         Args:
             configuration: An optional dictionary for customizing the display. This can be used to hide specific
                 sections or change their appearance.
         """
-        displayer: CityDisplay = CityDisplay(city = self, configuration = configuration)
+        displayer: _CityDisplay = self.build_city_displayer(configuration = configuration)
         displayer.display_city()
 
 
@@ -718,12 +731,12 @@ class City:
 # * CITY DISPLAY * #
 # * ************ * #
 
-class CityDisplay:
+class _CityDisplay:
     """
     Handles the rendering and display of a `City` object in a structured, styled terminal layout using the Rich library.
     
-    Each `CityDisplay` instance takes a `City` object and an optional `DisplayConfiguration` that allows customizing
-    which sections are shown, their heights, and colors.
+    Each `_CityDisplay` instance takes a `City` object and an optional `DisplayConfiguration` that allows
+    customizing which sections are shown, their heights, and colors.
     
     Sections displayed:
         - City information (campaign and name)
@@ -736,7 +749,7 @@ class CityDisplay:
     Public API:
         build_city_display() -> Panel
             Constructs a Rich Panel representing the city display layout.
-        display_city_results() -> None
+        display_city() -> None
             Prints the city display to the console.
     """
     def __init__(
@@ -748,6 +761,7 @@ class CityDisplay:
         self._user_configuration: DisplayConfiguration = configuration or {}
         self.configuration: DisplayConfiguration = self._build_configuration()
     
+    #* Display configuration
     def _build_default_configuration(self) -> DisplayConfiguration:
         sections: list[str] = [
             "city",

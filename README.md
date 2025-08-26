@@ -10,6 +10,7 @@ dictionaries of building counts.
 ```python
 from modules.building import Building
 
+
 city_hall: Building = Building(id = "city_hall")
 city_hall.display_building()
 ```
@@ -33,6 +34,7 @@ last one is the most offtenly used approach.
 
 ```python
 from modules.city import City
+
 
 city: City = City.from_buildings_count(
     campaign = "Unification of Italy",
@@ -64,6 +66,7 @@ display_configuration: DisplayConfiguration = {
     },
 }
 
+
 city.display_city(display_configuration)
 ```
 
@@ -78,6 +81,7 @@ altogether. You can create a comparison by passing a list of `City` objects to t
 
 ```python
 from modules.scenario import Scenario
+
 
 scenario: Scenario = Scenario.from_list(
     data = [
@@ -106,13 +110,13 @@ scenario: Scenario = Scenario.from_list(
     ],
 )
 
-scenario.display_scenario_results()
+scenario.display_scenario()
 ```
 
 ![scenario 1](img/scenario_1.png)
 
-Just as with the `CityDisplay` class, you can pass a `DisplayConfiguration` object to control how the cities are
-displayed. The configuration supplied will be used for all cities in the `Scenario`.
+You can pass a `DisplayConfiguration` object to control how the cities are displayed. The configuration supplied will
+be used for all cities in the `Scenario`.
 
 ```python
 scenario: Scenario = Scenario.from_list(
@@ -163,6 +167,7 @@ dictionaries same as with the `Scenario` class.
 ```python
 from modules.kingdom import Kingdom
 
+
 kingdom: Kingdom = Kingdom.from_list(
     data = [
         {
@@ -192,7 +197,7 @@ kingdom: Kingdom = Kingdom.from_list(
     ],
 )
 
-kingdom.display_kingdom_results()
+kingdom.display_kingdom()
 ```
 
 ![kingdome overview](img/kingdom_1.png)
