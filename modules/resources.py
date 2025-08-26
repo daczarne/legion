@@ -23,7 +23,7 @@ from enum import Enum
 from typing import TypedDict
 
 
-__all__: list[str] = ["Resource", "ResourceCollectionData", "ResourceCollection"]
+__all__: list[str] = []
 
 
 class Resource(Enum):
