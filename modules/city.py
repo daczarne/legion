@@ -16,7 +16,7 @@ Assets shared with other modules:
 - CITIES (list[_CityData]): List of all city definitions loaded from `./data/cities.yaml`.
 
 Internal objects (not part of the public API):
-- `_CityDisplayBuilder`: Display functionality for an object of `City` class. It displays the object into a
+- `_CityDisplay`: Display functionality for an object of `City` class. It displays the object into a
     terminal-friendly layout, showing various aspects of the city such as buildings, effects, production, storage, and
     defenses.
 - _CityData (TypedDict): Type for internal use when reading city data from YAML/JSON.
@@ -699,7 +699,7 @@ class City:
             buildings_count: BuildingsCount = Counter([building.id for building in self.buildings])
             return buildings_count
     
-    def build_city_displayer(self, configuration: DisplayConfiguration | None = None) -> "_CityDisplayBuilder":
+    def build_city_displayer(self, configuration: DisplayConfiguration | None = None) -> "_CityDisplay":
         """
         Creates a displayer for the City.
         
@@ -708,22 +708,22 @@ class City:
                 sections or change their appearance.
         
         Returns:
-            _CityDisplayBuilder: An instance of the _CityDisplayBuilder class.
+            _CityDisplay: An instance of the _CityDisplay class.
         """
-        displayer: _CityDisplayBuilder = _CityDisplayBuilder(city = self, configuration = configuration)
+        displayer: _CityDisplay = _CityDisplay(city = self, configuration = configuration)
         return displayer
     
     def display_city(self, configuration: DisplayConfiguration | None = None) -> None:
         """
         Renders and prints the city's statistics to the console.
         
-        This method acts as a facade, delegating the display logic to the `_CityDisplayBuilder` class.
+        This method acts as a facade, delegating the display logic to the `_CityDisplay` class.
         
         Args:
             configuration: An optional dictionary for customizing the display. This can be used to hide specific
                 sections or change their appearance.
         """
-        displayer: _CityDisplayBuilder = self.build_city_displayer(configuration = configuration)
+        displayer: _CityDisplay = self.build_city_displayer(configuration = configuration)
         displayer.display_city()
 
 
@@ -731,11 +731,11 @@ class City:
 # * CITY DISPLAY * #
 # * ************ * #
 
-class _CityDisplayBuilder:
+class _CityDisplay:
     """
     Handles the rendering and display of a `City` object in a structured, styled terminal layout using the Rich library.
     
-    Each `_CityDisplayBuilder` instance takes a `City` object and an optional `DisplayConfiguration` that allows
+    Each `_CityDisplay` instance takes a `City` object and an optional `DisplayConfiguration` that allows
     customizing which sections are shown, their heights, and colors.
     
     Sections displayed:

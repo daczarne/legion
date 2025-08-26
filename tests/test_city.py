@@ -3,7 +3,7 @@ from pytest import mark, raises, fixture, FixtureRequest
 from collections import Counter
 
 from modules.building import Building, BuildingsCount
-from modules.city import _CityData, City, _CityDisplayBuilder
+from modules.city import _CityData, City, _CityDisplay
 from modules.display import DEFAULT_SECTION_COLORS, DisplayConfiguration, DisplaySectionConfiguration
 from modules.resources import Resource
 
@@ -877,7 +877,7 @@ class TestCityDisplay:
         expected_height: int,
         request: FixtureRequest,
     ) -> None:
-        city_display = _CityDisplayBuilder(city = request.getfixturevalue(argname = city))
+        city_display = _CityDisplay(city = request.getfixturevalue(argname = city))
         assert city_display._calculate_default_section_height(section = section) == expected_height
     
     @mark.parametrize(argnames = "city", argvalues = ["_military_city", "_production_city"])
@@ -886,7 +886,7 @@ class TestCityDisplay:
         city: str,
         request: FixtureRequest,
     ) -> None:
-        city_display = _CityDisplayBuilder(city = request.getfixturevalue(argname = city))
+        city_display = _CityDisplay(city = request.getfixturevalue(argname = city))
         config: DisplayConfiguration = city_display._build_default_configuration()
         
         expected_sections: list[str] = ["city", "buildings", "effects", "production", "storage", "defenses"]
@@ -919,7 +919,7 @@ class TestCityDisplay:
                 "height": 99,
             },
         }
-        city_display = _CityDisplayBuilder(city = request.getfixturevalue(argname = city), configuration = user_conf)
+        city_display = _CityDisplay(city = request.getfixturevalue(argname = city), configuration = user_conf)
         config: DisplayConfiguration = city_display._build_configuration()
         
         # User config should override defaults
