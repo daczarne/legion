@@ -4197,6 +4197,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Aedui
     campaign: The Gallic Wars
@@ -4213,6 +4214,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Allobroges
     campaign: The Gallic Wars
@@ -4229,6 +4231,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Arverni
     campaign: The Gallic Wars
@@ -4245,6 +4248,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Atrebates
     campaign: The Gallic Wars
@@ -4261,6 +4265,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Aulerci
     campaign: The Gallic Wars
@@ -4277,6 +4282,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Autrigones
     campaign: The Gallic Wars
@@ -4293,6 +4299,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # B
   - name: Bellovaci
@@ -4310,6 +4317,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Bituriges
     campaign: The Gallic Wars
@@ -4326,6 +4334,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Boii
     campaign: The Gallic Wars
@@ -4342,6 +4351,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Branovices
     campaign: The Gallic Wars
@@ -4358,6 +4368,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   # C
   - name: Cadurci
@@ -4375,6 +4386,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Carnutes
     campaign: The Gallic Wars
@@ -4391,6 +4403,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Fanatics
   # E
   - name: Elustaes
@@ -4408,6 +4421,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   # G
   - name: Genua
@@ -4425,6 +4439,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Auxiliary Archers
   # H
   - name: Helvetii
@@ -4442,6 +4457,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # L
   - name: Lemovices
@@ -4459,6 +4475,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   - name: Lingones
     campaign: The Gallic Wars
@@ -4475,6 +4492,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   # M
   - name: Mandubii
@@ -4492,6 +4510,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Marcomanni
     campaign: The Gallic Wars
@@ -4508,6 +4527,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Massillia
     campaign: The Gallic Wars
@@ -4524,6 +4544,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Mediomatrici
     campaign: The Gallic Wars
@@ -4540,6 +4561,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Meldi
     campaign: The Gallic Wars
@@ -4556,6 +4578,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Menapii
     campaign: The Gallic Wars
@@ -4572,6 +4595,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Morini
     campaign: The Gallic Wars
@@ -4588,6 +4612,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   # N
   - name: Namnetes
@@ -4605,6 +4630,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Narbo
     campaign: The Gallic Wars
@@ -4621,6 +4647,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Nervii
     campaign: The Gallic Wars
@@ -4637,6 +4664,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   - name: Nicea
     campaign: The Gallic Wars
@@ -4653,6 +4681,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Auxilia
   # P
   - name: Parisii
@@ -4670,6 +4699,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Pictones
     campaign: The Gallic Wars
@@ -4686,6 +4716,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Pollentia
     campaign: The Gallic Wars
@@ -4702,6 +4733,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Auxiliary Archers
   # R
   - name: Remi
@@ -4735,6 +4767,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   # S
   - name: Santones
@@ -4752,6 +4785,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Sequani
     campaign: The Gallic Wars
@@ -4768,6 +4802,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Senones
     campaign: The Gallic Wars
@@ -4784,6 +4819,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Suebi
     campaign: The Gallic Wars
@@ -4800,6 +4836,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Sugambri
     campaign: The Gallic Wars
@@ -4816,6 +4853,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   # T
   - name: Tarbelli
@@ -4833,6 +4871,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Tigurini
     campaign: The Gallic Wars
@@ -4849,6 +4888,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Tolosates
     campaign: The Gallic Wars
@@ -4865,6 +4905,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Treveri
     campaign: The Gallic Wars
@@ -4881,6 +4922,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Tulingi
     campaign: The Gallic Wars
@@ -4897,6 +4939,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Veteran Warriors
   # U
   - name: Ubii
@@ -4914,6 +4957,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Usipetes
     campaign: The Gallic Wars
@@ -4930,6 +4974,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   # V
   - name: Vascones
@@ -4947,6 +4992,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Venelli
     campaign: The Gallic Wars
@@ -4963,6 +5009,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Veneti
     campaign: The Gallic Wars
@@ -4979,6 +5026,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Vercellae
     campaign: The Gallic Wars
@@ -4995,6 +5043,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Equites
   - name: Vocates
     campaign: The Gallic Wars
@@ -5011,6 +5060,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Vocontii
     campaign: The Gallic Wars
@@ -5027,6 +5077,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Volcae
     campaign: The Gallic Wars
@@ -5043,4 +5094,5 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Fanatics
