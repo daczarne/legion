@@ -450,7 +450,7 @@ class Kingdom:
             height = total_height,
         )
     
-    def display_kingdom_results(self) -> None:
+    def display_kingdom(self) -> None:
         """
         Print a formatted table-based representation of the kingdom to the terminal.
         
