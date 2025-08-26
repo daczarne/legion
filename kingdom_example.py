@@ -316,4 +316,4 @@ kingdom: Kingdom = Kingdom.from_list(
     ],
 )
 
-kingdom.display_kingdom_results()
+kingdom.display_kingdom()

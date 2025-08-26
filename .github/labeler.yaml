@@ -73,10 +73,13 @@ tests:
 tools:
   - changed-files:
       - any-glob-to-any-file:
+          - .cspell/**
           - .cspell.json
           - .editorconfig
+          - .gitattributes
+          - .gitignore
+          - .markdownlint-cli2.yaml
           - .markdownlint.yaml
-          - .sqlfluff
           - .yamllint.yaml
 troops:
   - changed-files:
