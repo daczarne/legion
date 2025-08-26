@@ -809,7 +809,6 @@ cities:
       ore: 50
       wood: 50
     geo_features:
-      # Supply dump
       rock_outcrops: 0
       mountains: 0
       lakes: 0
@@ -1431,7 +1430,6 @@ cities:
       ore: 0
       wood: 75
     geo_features:
-      # Has supply dump
       rock_outcrops: 0
       mountains: 0
       lakes: 0
