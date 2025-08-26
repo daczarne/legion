@@ -25,7 +25,7 @@ from enum import Enum
 from typing import TypedDict
 
 
-__all__: list[str] = ["GeoFeature", "GeoFeaturesData", "GeoFeatures"]
+__all__: list[str] = []
 
 
 class GeoFeature(Enum):

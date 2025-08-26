@@ -25,7 +25,7 @@ from enum import Enum
 from typing import TypedDict
 
 
-__all__: list[str] = ["EffectBonus", "EffectBonusesData", "EffectBonuses"]
+__all__: list[str] = []
 
 
 class EffectBonus(Enum):
