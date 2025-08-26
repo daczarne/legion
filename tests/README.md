@@ -31,4 +31,4 @@ Only the plain tests make sense since the cities with Supply Dump do not have an
 | food       |  ✅   |  ➖   |       ➖       |   ➖    |         ➖         |    ➖    |    ➖     |
 | ore        |       |  ➖   |       ➖       |   ➖    |         ➖         |    ➖    |    ➖     |
 | wood       |       |  ➖   |       ➖       |   ➖    |         ➖         |    ➖    |    ➖     |
-| military   |       |  ➖   |       ➖       |   ➖    |         ➖         |    ➖    |    ➖     |
+| military   |  ✅   |  ➖   |       ➖       |   ➖    |         ➖         |    ➖    |    ➖     |
