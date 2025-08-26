@@ -7,14 +7,19 @@ attributes like production, storage, defenses, and effect bonuses.
 
 
 Public API:
-- CityDict (TypedDict): Helper type for defining cities via dictionaries.
-- CITIES (list[_CityData]): List of all city definitions loaded from `./data/cities.yaml`.
+
 - City (dataclass): Represents a city within a campaign. Handles city validation, calculates production, storage,
     defenses, effect bonuses, and city focus.
-- `CityDisplay`: Display functionality for an object of `City` class. It displays the object into a terminal-friendly
-    layout, showing various aspects of the city such as buildings, effects, production, storage, and defenses.
+
+Assets shared with other modules:
+
+- CityDict (TypedDict): Helper type for defining cities via dictionaries.
+- CITIES (list[_CityData]): List of all city definitions loaded from `./data/cities.yaml`.
+
 
 Internal objects (not part of the public API):
+- `CityDisplay`: Display functionality for an object of `City` class. It displays the object into a terminal-friendly
+    layout, showing various aspects of the city such as buildings, effects, production, storage, and defenses.
 - _CityData (TypedDict): Type for internal use when reading city data from YAML/JSON.
 - _CityEffectBonuses, _CityProduction, _CityStorage, _CityDefenses: helper dataclasses for modeling city internals.
 """
@@ -157,11 +162,6 @@ class City:
         storage (CityStorage): Resource storage capacities of the city.
         defenses (CityDefenses): Defense of the city (number of squads and their size).
         focus (Resource | None): If a Resource, the highest producing resource of the city.
-    
-    Class Attributes:
-        POSSIBLE_CITY_HALLS (set[str]): The valid hall building IDs for a city.
-        MAX_WORKERS (BuildingsCount): Mapping of hall type to maximum number of workers the city can have.
-        MAX_BUILDINGS_PER_CITY (BuildingsCount): Mapping of hall type to maximum allowed buildings the city can have.
     """
     campaign: str = field(init = True, default = "", repr = True, compare = True, hash = True)
     name: str = field(init = True, default = "", repr = True, compare = True, hash = True)
@@ -701,6 +701,15 @@ class City:
             return buildings_count
     
     def display_city(self, configuration: DisplayConfiguration | None = None) -> None:
+        """
+        Renders and prints the city's statistics to the console.
+        
+        This method acts as a facade, delegating the display logic to the `CityDisplay` class.
+        
+        Args:
+            configuration: An optional dictionary for customizing the display. This can be used to hide specific
+                sections or change their appearance.
+        """
         displayer: CityDisplay = CityDisplay(city = self, configuration = configuration)
         displayer.display_city_results()
 
