@@ -1579,6 +1579,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Adgandestrius
     campaign: Germania
@@ -1595,6 +1596,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Aliso
     campaign: Germania
@@ -1611,6 +1613,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Atamaci
     campaign: Germania
@@ -1627,6 +1630,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   # B
   - name: Baduhenna
@@ -1644,6 +1648,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Boiorixia
     campaign: Germania
@@ -1660,6 +1665,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Brescia
     campaign: Germania
@@ -1676,6 +1682,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Brini
     campaign: Germania
@@ -1692,6 +1699,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Brixia
     campaign: Germania
@@ -1708,6 +1716,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Bueci
     campaign: Germania
@@ -1724,6 +1733,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   # C
   - name: Chacirici
@@ -1741,6 +1751,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Chasuari
     campaign: Germania
@@ -1757,6 +1768,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Chatii
     campaign: Germania
@@ -1773,6 +1785,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Cherusci
     campaign: Germania
@@ -1789,6 +1802,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Comum
     campaign: Germania
@@ -1805,6 +1819,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Corolamusia
     campaign: Germania
@@ -1821,6 +1836,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # D
   - name: Dructeri
@@ -1838,6 +1854,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Dubraci
     campaign: Germania
@@ -1854,6 +1871,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   # F
   - name: Felsina
@@ -1871,6 +1889,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   # G
   - name: Gadgaesus
@@ -1888,6 +1907,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Gambrivi
     campaign: Germania
@@ -1904,6 +1924,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   # H
   - name: Hermandurii
@@ -1921,6 +1942,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # I
   - name: Idistavisa
@@ -1938,6 +1960,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # L
   - name: Langobardii
@@ -1955,6 +1978,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Libici
     campaign: Germania
@@ -1971,6 +1995,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Lugii
     campaign: Germania
@@ -1987,6 +2012,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   # M
   - name: Marsii
@@ -2004,6 +2030,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Matagarci
     campaign: Germania
@@ -2020,6 +2047,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Matiaci
     campaign: Germania
@@ -2036,6 +2064,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   # N
   - name: Namenones
@@ -2053,6 +2082,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Naristi
     campaign: Germania
@@ -2069,6 +2099,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Nehalennia
     campaign: Germania
@@ -2085,6 +2116,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Nementes
     campaign: Germania
@@ -2101,6 +2133,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Nerthus
     campaign: Germania
@@ -2117,6 +2150,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Novesium
     campaign: Germania
@@ -2133,6 +2167,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Auxilia
   - name: Nuitones
     campaign: Germania
@@ -2149,6 +2184,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # O
   - name: Osi
@@ -2166,6 +2202,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Oxiones
     campaign: Germania
@@ -2182,6 +2219,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   # P
   - name: Peucini
@@ -2199,6 +2237,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # R
   - name: Radaci
@@ -2216,6 +2255,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Rendingi
     campaign: Germania
@@ -2232,6 +2272,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Rogomagnum
     campaign: Germania
@@ -2266,6 +2307,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Soci
     campaign: Germania
@@ -2282,6 +2324,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Sturi
     campaign: Germania
@@ -2298,6 +2341,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Suarines
     campaign: Germania
@@ -2314,6 +2358,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Suebii
     campaign: Germania
@@ -2330,6 +2375,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Sugambrii
     campaign: Germania
@@ -2346,6 +2392,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # T
   - name: Tanfana
@@ -2363,6 +2410,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Tencterii
     campaign: Germania
@@ -2379,6 +2427,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Tuder
     campaign: Germania
@@ -2395,6 +2444,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Tuisto
     campaign: Germania
@@ -2411,6 +2461,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   # V
   - name: Valeda
@@ -2428,6 +2479,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Valeda II
     # This is the Valeda in the south
@@ -2445,6 +2497,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Varini
     campaign: Germania
@@ -2461,6 +2514,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   # ************ #
   # * Hispania * #
