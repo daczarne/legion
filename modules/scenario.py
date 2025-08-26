@@ -189,7 +189,7 @@ class Scenario:
         
         return (console_height + buildings_and_effects_height) * qty_display_rows
     
-    def display_scenario_results(self) -> None:
+    def display_scenario(self) -> None:
         """
         Render all cities in the scenario to the console using the Rich library.
         
