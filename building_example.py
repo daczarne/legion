@@ -1,5 +1,6 @@
 from modules.building import Building
 
+
 city_hall: Building = Building(id = "city_hall")
 city_hall.display_building()
 
