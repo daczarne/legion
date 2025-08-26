@@ -755,6 +755,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Anderitum
     campaign: Conquest of Britain
@@ -789,6 +790,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   # B
   - name: Bagendun
@@ -806,6 +808,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   - name: Blaenau
     campaign: Conquest of Britain
@@ -822,6 +825,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Pictish Warband
   - name: Bomio
     campaign: Conquest of Britain
@@ -838,6 +842,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Pictish Warband
   - name: Branodun
     campaign: Conquest of Britain
@@ -854,6 +859,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Brocavon
     campaign: Conquest of Britain
@@ -870,6 +876,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   # C
   - name: Calleva
@@ -887,6 +894,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   - name: Camulodun
     campaign: Conquest of Britain
@@ -903,6 +911,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Canovion
     campaign: Conquest of Britain
@@ -919,6 +928,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Pictish Warband
   - name: Coria
     campaign: Conquest of Britain
@@ -935,6 +945,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   # D
   - name: Dana
@@ -952,6 +963,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Fanatics
   - name: Derventio
     campaign: Conquest of Britain
@@ -968,6 +980,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Deva
     campaign: Conquest of Britain
@@ -984,6 +997,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Dor
     campaign: Conquest of Britain
@@ -1000,6 +1014,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   - name: Durobrivae
     campaign: Conquest of Britain
@@ -1016,6 +1031,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Durobrivae II
     # This refers to the more northern one in the marshes
@@ -1033,6 +1049,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Durocornovion
     campaign: Conquest of Britain
@@ -1049,6 +1066,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Duroliponte
     campaign: Conquest of Britain
@@ -1065,6 +1083,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   - name: Durovern
     campaign: Conquest of Britain
@@ -1081,6 +1100,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   # G
   - name: Gabratovicia
@@ -1098,6 +1118,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   - name: Galagon
     campaign: Conquest of Britain
@@ -1114,6 +1135,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   - name: Gangan
     campaign: Conquest of Britain
@@ -1130,6 +1152,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # I
   - name: Isca
@@ -1147,6 +1170,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Ischalis
     campaign: Conquest of Britain
@@ -1163,6 +1187,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Fanatics
   - name: Isurion
     campaign: Conquest of Britain
@@ -1179,6 +1204,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Ixia
     campaign: Conquest of Britain
@@ -1195,6 +1221,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   # L
   - name: Letoceton
@@ -1212,6 +1239,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   - name: Lindinis
     campaign: Conquest of Britain
@@ -1228,6 +1256,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Lindun
     campaign: Conquest of Britain
@@ -1244,6 +1273,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   - name: Londun
     campaign: Conquest of Britain
@@ -1260,6 +1290,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Luguvalion
     campaign: Conquest of Britain
@@ -1276,6 +1307,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   # M
   - name: Maidun
@@ -1293,6 +1325,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Melin
     campaign: Conquest of Britain
@@ -1309,6 +1342,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Mona
     campaign: Conquest of Britain
@@ -1325,6 +1359,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Moridun
     campaign: Conquest of Britain
@@ -1341,6 +1376,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # N
   - name: Noviomagus
@@ -1377,6 +1413,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # R
   - name: Ratae
@@ -1394,6 +1431,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # S
   - name: Setantia
@@ -1411,6 +1449,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   - name: Sorviodun
     campaign: Conquest of Britain
@@ -1427,6 +1466,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   - name: Stoukia
     campaign: Conquest of Britain
@@ -1443,6 +1483,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Pictish Warband
   # T
   - name: Tamara
@@ -1460,6 +1501,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Fanatics
   # U
   - name: Uxella
@@ -1477,6 +1519,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   # V
   - name: Venta
@@ -1494,6 +1537,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Vertis
     campaign: Conquest of Britain
@@ -1510,6 +1554,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Verulam
     campaign: Conquest of Britain
@@ -1526,6 +1571,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Virocon
     campaign: Conquest of Britain
@@ -1542,6 +1588,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   # Y
   - name: Yule
@@ -1559,6 +1606,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # ************ #
   # * Germania * #
