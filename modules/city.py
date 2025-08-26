@@ -711,7 +711,7 @@ class City:
                 sections or change their appearance.
         """
         displayer: CityDisplay = CityDisplay(city = self, configuration = configuration)
-        displayer.display_city_results()
+        displayer.display_city()
 
 
 # * ************ * #
@@ -1109,7 +1109,7 @@ class CityDisplay:
             height = total_layout_height,
         )
     
-    def display_city_results(self) -> None:
+    def display_city(self) -> None:
         """
         Prints the city display to the console.
         
