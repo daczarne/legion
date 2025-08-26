@@ -1,5 +1,6 @@
 from modules.scenario import Scenario
 
+
 scenario: Scenario = Scenario.from_list(
     data = [
         {
@@ -30,16 +31,10 @@ scenario: Scenario = Scenario.from_list(
         },
     ],
     configuration = {
-        "city": {
-            "include": True,
-        },
         "defenses": {
-            "include": True,
-        },
-        "storage": {
-            "include": True,
+            "include": False,
         },
     },
 )
 
-scenario.display_scenario_results()
+scenario.display_scenario()

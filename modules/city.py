@@ -700,6 +700,20 @@ class City:
             buildings_count: BuildingsCount = Counter([building.id for building in self.buildings])
             return buildings_count
     
+    def build_city_displayer(self, configuration: DisplayConfiguration | None = None):
+        """
+        Creates a displayer for the City.
+        
+        Args:
+            configuration: An optional dictionary for customizing the display. This can be used to hide specific
+                sections or change their appearance.
+        
+        Returns:
+            CityDisplay: An instance of the CityDisplay class.
+        """
+        displayer: CityDisplay = CityDisplay(city = self, configuration = configuration)
+        return displayer
+    
     def display_city(self, configuration: DisplayConfiguration | None = None) -> None:
         """
         Renders and prints the city's statistics to the console.
@@ -710,8 +724,8 @@ class City:
             configuration: An optional dictionary for customizing the display. This can be used to hide specific
                 sections or change their appearance.
         """
-        displayer: CityDisplay = CityDisplay(city = self, configuration = configuration)
-        displayer.display_city_results()
+        displayer: CityDisplay = self.build_city_displayer(configuration = configuration)
+        displayer.display_city()
 
 
 # * ************ * #
@@ -736,7 +750,7 @@ class CityDisplay:
     Public API:
         build_city_display() -> Panel
             Constructs a Rich Panel representing the city display layout.
-        display_city_results() -> None
+        display_city() -> None
             Prints the city display to the console.
     """
     def __init__(
@@ -748,6 +762,7 @@ class CityDisplay:
         self._user_configuration: DisplayConfiguration = configuration or {}
         self.configuration: DisplayConfiguration = self._build_configuration()
     
+    #* Display configuration
     def _build_default_configuration(self) -> DisplayConfiguration:
         sections: list[str] = [
             "city",
@@ -1109,7 +1124,7 @@ class CityDisplay:
             height = total_layout_height,
         )
     
-    def display_city_results(self) -> None:
+    def display_city(self) -> None:
         """
         Prints the city display to the console.
         
