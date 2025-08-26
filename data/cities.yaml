@@ -3509,6 +3509,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Abraven
     campaign: Pacifying the North
@@ -3525,6 +3526,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Alauna
     campaign: Pacifying the North
@@ -3541,6 +3543,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   # B
   - name: Bannetia
@@ -3558,6 +3561,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   - name: Boresti
     campaign: Pacifying the North
@@ -3574,6 +3578,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Brocavon
     campaign: Pacifying the North
@@ -3590,6 +3595,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Auxilia
   # C
   - name: Caer Idris
@@ -3607,6 +3613,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Fanatics
   - name: Caer Righ
     campaign: Pacifying the North
@@ -3623,6 +3630,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Pictish Warband
   - name: Caereni
     campaign: Pacifying the North
@@ -3639,6 +3647,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Brithish Cavalry
   - name: Caledones
     campaign: Pacifying the North
@@ -3655,6 +3664,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Pictish Warband
   - name: Carbantorigon
     campaign: Pacifying the North
@@ -3671,6 +3681,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Carnonacae
     campaign: Pacifying the North
@@ -3687,6 +3698,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Pictish Warband
   - name: Carpow
     campaign: Pacifying the North
@@ -3703,6 +3715,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Cataractonium
     campaign: Pacifying the North
@@ -3719,6 +3732,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Peasants
   - name: Colanica
     campaign: Pacifying the North
@@ -3735,6 +3749,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Corda
     campaign: Pacifying the North
@@ -3751,6 +3766,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Coria
     campaign: Pacifying the North
@@ -3767,6 +3783,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Auxiliary Archers
   - name: Cornovii
     campaign: Pacifying the North
@@ -3783,6 +3800,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Creones
     campaign: Pacifying the North
@@ -3799,6 +3817,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # D
   - name: Decantae
@@ -3816,6 +3835,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Deva
     campaign: Pacifying the North
@@ -3832,6 +3852,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Dumardun
     campaign: Pacifying the North
@@ -3848,6 +3869,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   # E
   - name: Eburacum
@@ -3865,6 +3887,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Epidii
     campaign: Pacifying the North
@@ -3881,6 +3904,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Etain
     campaign: Pacifying the North
@@ -3897,6 +3921,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   # G
   - name: Galacum
@@ -3914,6 +3939,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   # I
   - name: Isurium
@@ -3931,6 +3957,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   # L
   - name: Lindon
@@ -3948,6 +3975,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Loxa
     campaign: Pacifying the North
@@ -3964,6 +3992,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Lugii
     campaign: Pacifying the North
@@ -3980,6 +4009,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Pictish Warband
   - name: Luguvalium
     campaign: Pacifying the North
@@ -3996,6 +4026,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Equites
   # N
   - name: Nemeton
@@ -4013,6 +4044,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Novanta
     campaign: Pacifying the North
@@ -4029,6 +4061,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   # O
   - name: Olenacum
@@ -4046,6 +4079,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Brithish Warband
   # S
   - name: Smertae
@@ -4063,6 +4097,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Pictish Warband
   - name: Stracathro
     campaign: Pacifying the North
@@ -4079,6 +4114,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   # T
   - name: Tameia
@@ -4096,6 +4132,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Traprain Law
     campaign: Pacifying the North
@@ -4112,6 +4149,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Trimontium
     campaign: Pacifying the North
@@ -4128,6 +4166,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Fanatics
   # V
   - name: Vacomagi
@@ -4145,6 +4184,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Pictish Warband
   - name: Velunia
     campaign: Pacifying the North
@@ -4161,6 +4201,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Vindogara
     campaign: Pacifying the North
@@ -4177,6 +4218,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   # ******************* #
   # * The Gallic Wars * #
