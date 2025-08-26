@@ -40,7 +40,7 @@ from .geo_features import GeoFeaturesData, GeoFeatures
 from .resources import Resource, ResourceCollectionData, ResourceCollection
 
 
-__all__: list[str] = ["CityDict", "CITIES", "City", "CityDisplay"]
+__all__: list[str] = ["City"]
 
 
 class CityDict(TypedDict):
@@ -699,6 +699,10 @@ class City:
         if by == "id":
             buildings_count: BuildingsCount = Counter([building.id for building in self.buildings])
             return buildings_count
+    
+    def display_city(self, configuration: DisplayConfiguration | None = None) -> None:
+        displayer: CityDisplay = CityDisplay(city = self, configuration = configuration)
+        displayer.display_city_results()
 
 
 # * ************ * #

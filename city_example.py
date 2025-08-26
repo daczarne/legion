@@ -1,5 +1,5 @@
 from modules.building import Building
-from modules.city import City, CityDisplay
+from modules.city import City
 
 
 city: City = City.from_buildings_count(
@@ -14,7 +14,7 @@ city: City = City.from_buildings_count(
     }
 )
 
-CityDisplay(city = city).display_city_results()
+city.display_city()
 print()
 
 city: City = City(
@@ -33,5 +33,4 @@ city: City = City(
     ]
 )
 
-CityDisplay(city = city).display_city_results()
-print()
+city.display_city()
