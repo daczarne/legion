@@ -1,6 +1,5 @@
 from modules.scenario import Scenario
 
-
 scenario: Scenario = Scenario.from_list(
     data = [
         {
