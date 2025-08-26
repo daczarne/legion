@@ -19,7 +19,7 @@ print()
 
 city: City = City(
     campaign = "Unification of Italy",
-    name = "Roma",
+    name = "Anxur",
     buildings = [
         Building(id = "city_hall"),
         Building(id = "basilica"),
