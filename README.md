@@ -25,10 +25,11 @@ See more examples in `./building_example.py`.
 ## The `City` class
 
 The `City` class is the backbone of it all. Given a city (identified by campaign and city name) and the configuration
-of buildings that you'd like to build in it, it displays the information about the city (its effects, production,
+of buildings that you'd like to build in it, it calculates the information about the city (its effects, production,
 storage, and defenses).
 
-The `City` objects can be constructed by passing lists of `Building` objects, or a dictionary of building counts.
+The `City` objects can be constructed by passing lists of `Building` objects, or a dictionary of building counts. This
+last one is the most offtenly used approach.
 
 ```python
 from modules.city import City
