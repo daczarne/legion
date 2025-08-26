@@ -24,9 +24,11 @@ already been implemented. Other checks still need to be implemented.
 
 ## Cities with Supply Dump
 
+Only the plain tests make sense since the cities with Supply Dump do not have any geo. features.
+
 | city focus | plain | lake  | lake + outcrop | outcrop | outcrop + mountain | mountain | mountains |
 |:----------:|:-----:|:-----:|:--------------:|:-------:|:------------------:|:--------:|:---------:|
-| food       |  ✅   |       |                |         |                    |          |           |
-| ore        |       |       |                |         |                    |          |           |
-| wood       |       |       |                |         |                    |          |           |
-| military   |       |       |                |         |                    |          |           |
+| food       |  ✅   |  ➖   |       ➖       |   ➖    |         ➖         |    ➖    |    ➖     |
+| ore        |       |  ➖   |       ➖       |   ➖    |         ➖         |    ➖    |    ➖     |
+| wood       |       |  ➖   |       ➖       |   ➖    |         ➖         |    ➖    |    ➖     |
+| military   |       |  ➖   |       ➖       |   ➖    |         ➖         |    ➖    |    ➖     |
