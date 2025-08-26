@@ -2481,6 +2481,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Aki
     campaign: Hispania
@@ -2497,6 +2498,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Ammaia
     campaign: Hispania
@@ -2513,6 +2515,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Arbokala
     campaign: Hispania
@@ -2529,6 +2532,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Argentiola
     campaign: Hispania
@@ -2545,6 +2549,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Arsa
     campaign: Hispania
@@ -2561,6 +2566,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Asturika
     campaign: Hispania
@@ -2577,6 +2583,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   # B
   - name: Baraka
@@ -2594,6 +2601,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Bergidon
     campaign: Hispania
@@ -2610,6 +2618,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Biskargis
     campaign: Hispania
@@ -2626,6 +2635,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Auxiliary Archers
   - name: Blendion
     campaign: Hispania
@@ -2642,6 +2652,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Brigantion
     campaign: Hispania
@@ -2658,6 +2669,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   # D
   - name: Dertosa
@@ -2675,6 +2687,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Auxilia
   - name: Diobriga
     campaign: Hispania
@@ -2691,6 +2704,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   # E
   - name: Ebora
@@ -2708,6 +2722,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # G
   - name: Gadeira
@@ -2725,6 +2740,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # H
   - name: Helike
@@ -2742,6 +2758,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Hispalis
     campaign: Hispania
@@ -2758,6 +2775,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # I
   - name: Igaiditania
@@ -2775,6 +2793,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Ilerda
     campaign: Hispania
@@ -2791,6 +2810,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Ilorki
     campaign: Hispania
@@ -2807,6 +2827,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Ilumberis
     campaign: Hispania
@@ -2823,6 +2844,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   # K
   - name: Kalagurris
@@ -2840,6 +2862,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Kaliabriga
     campaign: Hispania
@@ -2856,6 +2879,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Kamarika
     campaign: Hispania
@@ -2872,6 +2896,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Karaka
     campaign: Hispania
@@ -2888,6 +2913,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Karanikon
     campaign: Hispania
@@ -2904,6 +2930,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Kartagenea
     campaign: Hispania
@@ -2920,6 +2947,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Kaspiana
     campaign: Hispania
@@ -2936,6 +2964,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Kastulon
     campaign: Hispania
@@ -2952,6 +2981,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Kauka
     campaign: Hispania
@@ -2968,6 +2998,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Konsabura
     campaign: Hispania
@@ -2984,6 +3015,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Kontrebia
     campaign: Hispania
@@ -3000,6 +3032,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Kordoba
     campaign: Hispania
@@ -3016,6 +3049,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   # L
   - name: Lakobriga
@@ -3033,6 +3067,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Peltasts
   - name: Libora
     campaign: Hispania
@@ -3049,6 +3084,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   # M
   - name: Malaka
@@ -3066,6 +3102,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Mirobriga
     campaign: Hispania
@@ -3082,6 +3119,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Myrtilis
     campaign: Hispania
@@ -3098,6 +3136,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   # N
   - name: Nertobriga
@@ -3115,6 +3154,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Noega
     campaign: Hispania
@@ -3131,6 +3171,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Numantia
     campaign: Hispania
@@ -3147,6 +3188,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # O
   - name: Oiasson
@@ -3164,6 +3206,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Onoba
     campaign: Hispania
@@ -3180,6 +3223,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Hoplites
   - name: Oreton
     campaign: Hispania
@@ -3196,6 +3240,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Osikerda
     campaign: Hispania
@@ -3212,6 +3257,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Oska
     campaign: Hispania
@@ -3228,6 +3274,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   # P
   - name: Pallantia
@@ -3245,6 +3292,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # S
   - name: Salika
@@ -3262,6 +3310,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Salmantika
     campaign: Hispania
@@ -3278,6 +3327,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Segida
     campaign: Hispania
@@ -3294,6 +3344,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Segontia
     campaign: Hispania
@@ -3310,6 +3361,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Segovia
     campaign: Hispania
@@ -3326,6 +3378,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Skallabis
     campaign: Hispania
@@ -3342,6 +3395,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   # T
   - name: Tarbelles
@@ -3359,6 +3413,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Tarrako
     campaign: Hispania
@@ -3375,6 +3430,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Legion
   - name: Toleton
     campaign: Hispania
@@ -3391,6 +3447,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Tolosa
     campaign: Hispania
@@ -3407,6 +3464,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Torbella
     campaign: Hispania
@@ -3423,6 +3481,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Turmogon
     campaign: Hispania
@@ -3439,6 +3498,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   # U
   - name: Urki
@@ -3456,6 +3516,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Uxama
     campaign: Hispania
@@ -3472,6 +3533,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   # V
   - name: Vokata
@@ -3489,6 +3551,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   # *********************** #
   # * Pacifying the North * #
