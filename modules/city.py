@@ -5,7 +5,6 @@ This module loads city definitions from a YAML file and provides typed access to
 public API for working with cities, including creating city instances, counting buildings, and inspecting city
 attributes like production, storage, defenses, and effect bonuses.
 
-
 Public API:
 
 - City (dataclass): Represents a city within a campaign. Handles city validation, calculates production, storage,
@@ -16,10 +15,10 @@ Assets shared with other modules:
 - CityDict (TypedDict): Helper type for defining cities via dictionaries.
 - CITIES (list[_CityData]): List of all city definitions loaded from `./data/cities.yaml`.
 
-
 Internal objects (not part of the public API):
-- `CityDisplay`: Display functionality for an object of `City` class. It displays the object into a terminal-friendly
-    layout, showing various aspects of the city such as buildings, effects, production, storage, and defenses.
+- `_CityDisplayBuilder`: Display functionality for an object of `City` class. It displays the object into a
+    terminal-friendly layout, showing various aspects of the city such as buildings, effects, production, storage, and
+    defenses.
 - _CityData (TypedDict): Type for internal use when reading city data from YAML/JSON.
 - _CityEffectBonuses, _CityProduction, _CityStorage, _CityDefenses: helper dataclasses for modeling city internals.
 """
@@ -700,7 +699,7 @@ class City:
             buildings_count: BuildingsCount = Counter([building.id for building in self.buildings])
             return buildings_count
     
-    def build_city_displayer(self, configuration: DisplayConfiguration | None = None):
+    def build_city_displayer(self, configuration: DisplayConfiguration | None = None) -> "_CityDisplayBuilder":
         """
         Creates a displayer for the City.
         
@@ -709,22 +708,22 @@ class City:
                 sections or change their appearance.
         
         Returns:
-            CityDisplay: An instance of the CityDisplay class.
+            _CityDisplayBuilder: An instance of the _CityDisplayBuilder class.
         """
-        displayer: CityDisplay = CityDisplay(city = self, configuration = configuration)
+        displayer: _CityDisplayBuilder = _CityDisplayBuilder(city = self, configuration = configuration)
         return displayer
     
     def display_city(self, configuration: DisplayConfiguration | None = None) -> None:
         """
         Renders and prints the city's statistics to the console.
         
-        This method acts as a facade, delegating the display logic to the `CityDisplay` class.
+        This method acts as a facade, delegating the display logic to the `_CityDisplayBuilder` class.
         
         Args:
             configuration: An optional dictionary for customizing the display. This can be used to hide specific
                 sections or change their appearance.
         """
-        displayer: CityDisplay = self.build_city_displayer(configuration = configuration)
+        displayer: _CityDisplayBuilder = self.build_city_displayer(configuration = configuration)
         displayer.display_city()
 
 
@@ -732,12 +731,12 @@ class City:
 # * CITY DISPLAY * #
 # * ************ * #
 
-class CityDisplay:
+class _CityDisplayBuilder:
     """
     Handles the rendering and display of a `City` object in a structured, styled terminal layout using the Rich library.
     
-    Each `CityDisplay` instance takes a `City` object and an optional `DisplayConfiguration` that allows customizing
-    which sections are shown, their heights, and colors.
+    Each `_CityDisplayBuilder` instance takes a `City` object and an optional `DisplayConfiguration` that allows
+    customizing which sections are shown, their heights, and colors.
     
     Sections displayed:
         - City information (campaign and name)

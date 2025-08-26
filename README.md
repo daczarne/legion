@@ -111,8 +111,8 @@ scenario.display_scenario_results()
 
 ![scenario 1](img/scenario_1.png)
 
-Just as with the `CityDisplay` class, you can pass a `DisplayConfiguration` object to control how the cities are
-displayed. The configuration supplied will be used for all cities in the `Scenario`.
+You can pass a `DisplayConfiguration` object to control how the cities are displayed. The configuration supplied will
+be used for all cities in the `Scenario`.
 
 ```python
 scenario: Scenario = Scenario.from_list(

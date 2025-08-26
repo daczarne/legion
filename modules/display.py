@@ -29,7 +29,7 @@ _DisplaySectionColors: TypeAlias = dict[str, str]
 
 class DisplaySection(Enum):
     """
-    Enum representing the different sections that can be displayed for a `CityDisplay`.
+    Enum representing the different sections that can be displayed for a `_CityDisplayBuilder`.
     
     Values:
         CITY: City header with campaign and name.
@@ -49,7 +49,7 @@ class DisplaySection(Enum):
 
 class DisplaySectionConfiguration(TypedDict, total = False):
     """
-    Configuration for an individual display section in `CityDisplay`.
+    Configuration for an individual display section in `_CityDisplayBuilder`.
     
     Keys:
         include (bool): Whether to display this section.
@@ -63,7 +63,7 @@ class DisplaySectionConfiguration(TypedDict, total = False):
 
 class DisplayConfiguration(TypedDict, total = False):
     """
-    Full display configuration for a `CityDisplay`, mapping each section to its configuration.
+    Full display configuration for a `_CityDisplayBuilder`, mapping each section to its configuration.
     
     Keys:
         city (DisplaySectionConfiguration): Configuration for the city header.
