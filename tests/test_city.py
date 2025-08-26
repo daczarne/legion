@@ -931,3 +931,53 @@ class TestCityDisplay:
         # Other sections still have defaults
         assert config["effects"]["include"] is True # type: ignore
         assert config["effects"]["color"] == DEFAULT_SECTION_COLORS["effects"] # type: ignore
+    
+    def test_city_roman_food_with_supply_dump_declared(self) -> None:
+        city: City = City.from_buildings_count(
+            campaign = "Conquest of Britain",
+            name = "Anderitum",
+            buildings = {
+                "city_hall": 1,
+                "basilica": 1,
+                "farmers_guild": 1,
+                "large_farm": 4,
+                "vineyard": 1,
+            },
+        )
+        
+        assert city.campaign == "Conquest of Britain"
+        assert city.name == "Anderitum"
+        
+        assert city.resource_potentials.food == 100
+        assert city.production.base.food == 174
+        assert city.production.productivity_bonuses.food == 135
+        assert city.production.total.food == 408
+        assert city.production.maintenance_costs.food == 4
+        assert city.production.balance.food == 404
+        assert city.storage.city.food == 100
+        assert city.storage.buildings.food == 375
+        assert city.storage.warehouse.food == 0
+        assert city.storage.supply_dump.food == 300
+        assert city.storage.total.food == 775
+        assert city.has_supply_dump is True
+        assert city.focus == Resource.FOOD
+    
+    def test_city_roman_food_with_supply_dump_added(self) -> None:
+        city: City = City.from_buildings_count(
+            campaign = "Germania",
+            name = "Rogomagnum",
+            buildings = {
+                "city_hall": 1,
+                "basilica": 1,
+                "supply_dump": 1,
+                "farmers_guild": 1,
+                "vineyard": 1,
+                "large_farm": 4,
+            },
+        )
+        
+        assert city.campaign == "Germania"
+        assert city.name == "Rogomagnum"
+        
+        assert city.has_supply_dump is True
+        assert city.has_building(id = "supply_dump")

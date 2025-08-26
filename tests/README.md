@@ -8,10 +8,10 @@ already been implemented. Other checks still need to be implemented.
 
 | city focus | plain | lake  | lake + outcrop | outcrop | outcrop + mountain | mountain | mountains |
 |:----------:|:-----:|:-----:|:--------------:|:-------:|:------------------:|:--------:|:---------:|
-| food       |   ✅  |   ✅  |                |    ✅   |                    |          |           |
-| ore        |   ✅  |       |                |    ✅   |         ✅         |    ✅    |    ✅     |
-| wood       |   ✅  |       |                |         |                    |          |           |
-| military   |   ✅  |       |                |         |                    |          |           |
+| food       |  ✅   |  ✅   |                |   ✅    |                    |          |           |
+| ore        |  ✅   |       |                |   ✅    |         ✅         |    ✅    |    ✅     |
+| wood       |  ✅   |       |                |         |                    |          |           |
+| military   |  ✅   |       |                |         |                    |          |           |
 
 ## Cities with Warehouse
 
@@ -26,7 +26,7 @@ already been implemented. Other checks still need to be implemented.
 
 | city focus | plain | lake  | lake + outcrop | outcrop | outcrop + mountain | mountain | mountains |
 |:----------:|:-----:|:-----:|:--------------:|:-------:|:------------------:|:--------:|:---------:|
-| food       |       |       |                |         |                    |          |           |
+| food       |  ✅   |       |                |         |                    |          |           |
 | ore        |       |       |                |         |                    |          |           |
 | wood       |       |       |                |         |                    |          |           |
 | military   |       |       |                |         |                    |          |           |

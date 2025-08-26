@@ -317,7 +317,7 @@ class City:
     #* Validate city buildings
     def _add_supply_dump_to_buildings(self) -> None:
         if self.has_supply_dump:
-            if not self.get_building(id = "supply_dump"):
+            if not self.has_building(id = "supply_dump"):
                 self.buildings.append(Building(id = "supply_dump"))
     
     def _validate_halls(self) -> None:
