@@ -21,7 +21,6 @@ __all__: list[str] = [
     "DisplaySection",
     "DisplayConfiguration",
     "DisplaySectionConfiguration",
-    "DEFAULT_SECTION_COLORS",
 ]
 
 
