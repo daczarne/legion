@@ -18,6 +18,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Italiot Greek Cavalry
   - name: Apuani
     campaign: Unification of Italy
@@ -34,6 +35,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   - name: Apulians
     campaign: Unification of Italy
@@ -50,6 +52,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Italiot Greek Cavalry
   - name: Ariminum
     campaign: Unification of Italy
@@ -66,6 +69,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Fanatics
   - name: Arpi
     campaign: Unification of Italy
@@ -82,6 +86,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Asculum
     campaign: Unification of Italy
@@ -98,6 +103,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   - name: Aurunci
     campaign: Unification of Italy
@@ -114,6 +120,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Hill Tribe Warriors
   # B
   - name: Boii
@@ -131,6 +138,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   # C
   - name: Caercini
@@ -148,6 +156,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Hill Tribe Warriors
   - name: Caere
     campaign: Unification of Italy
@@ -164,6 +173,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Hoplites
   - name: Canusium
     campaign: Unification of Italy
@@ -180,6 +190,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   - name: Capua
     campaign: Unification of Italy
@@ -196,6 +207,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Peltasts
   - name: Carsioli
     campaign: Unification of Italy
@@ -212,6 +224,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Hill Tribe Warriors
   - name: Caudini
     campaign: Unification of Italy
@@ -228,6 +241,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Consentia
     campaign: Unification of Italy
@@ -244,6 +258,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Italiot Greek Cavalry
   - name: Clusium
     campaign: Unification of Italy
@@ -260,6 +275,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Hoplites
   - name: Croton
     campaign: Unification of Italy
@@ -276,6 +292,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # F
   - name: Faesula
@@ -293,6 +310,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Hoplites
   - name: Falerii
     campaign: Unification of Italy
@@ -309,6 +327,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Hoplites
   - name: Friniates
     campaign: Unification of Italy
@@ -325,6 +344,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Hill Tribe Warriors
   # G
   - name: Grumentum
@@ -342,6 +362,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Peltasts
   # H
   - name: Heraclea
@@ -359,6 +380,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Hoplites
   - name: Hernici
     campaign: Unification of Italy
@@ -375,6 +397,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Auxilia
   - name: Hirpini
     campaign: Unification of Italy
@@ -391,6 +414,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Hill Tribe Warriors
   - name: Histonium
     campaign: Unification of Italy
@@ -407,6 +431,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Italiot Greek Cavalry
   # L
   - name: Latins
@@ -424,6 +449,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Auxiliary Archers
   - name: Lingones
     campaign: Unification of Italy
@@ -440,6 +466,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   # M
   - name: Marrucini
@@ -457,6 +484,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Italiot Greek Cavalry
   - name: Marsi
     campaign: Unification of Italy
@@ -473,6 +501,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Hill Tribe Warriors
   - name: Messapi
     campaign: Unification of Italy
@@ -489,6 +518,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   # N
   - name: Neapolis
@@ -506,6 +536,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Italiot Greek Cavalry
   - name: Nuceria
     campaign: Unification of Italy
@@ -522,6 +553,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Hoplites
   # P
   - name: Paeligni
@@ -539,6 +571,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Paestum
     campaign: Unification of Italy
@@ -555,6 +588,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Italiot Greek Cavalry
   - name: Pentri
     campaign: Unification of Italy
@@ -571,6 +605,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Italiot Greek Cavalry
   - name: Pisae
     campaign: Unification of Italy
@@ -587,6 +622,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Populonia
     campaign: Unification of Italy
@@ -603,6 +639,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Italiot Greek Cavalry
   # R
   - name: Reate
@@ -620,6 +657,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Hill Tribe Warriors
   - name: Roma
     campaign: Unification of Italy
@@ -636,6 +674,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Legion
   # S
   - name: Sena
@@ -653,6 +692,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Sentinum
     campaign: Unification of Italy
@@ -669,6 +709,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Italiot Greek Cavalry
   - name: Spoletium
     campaign: Unification of Italy
@@ -685,6 +726,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Hill Tribe Warriors
   # T
   - name: Tarentum
@@ -702,6 +744,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Peltasts
   - name: Thurii
     campaign: Unification of Italy
@@ -718,6 +761,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Italiot Greek Cavalry
   # V
   - name: Volsinii
@@ -735,6 +779,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # *********************** #
   # * Conquest of Britain * #
@@ -755,6 +800,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Anderitum
     campaign: Conquest of Britain
@@ -763,7 +809,6 @@ cities:
       ore: 50
       wood: 50
     geo_features:
-      # Supply dump
       rock_outcrops: 0
       mountains: 0
       lakes: 0
@@ -772,6 +817,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: true
     garrison: Auxilia
   - name: Aricon
     campaign: Conquest of Britain
@@ -788,6 +834,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   # B
   - name: Bagendun
@@ -805,6 +852,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   - name: Blaenau
     campaign: Conquest of Britain
@@ -821,6 +869,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Pictish Warband
   - name: Bomio
     campaign: Conquest of Britain
@@ -837,6 +886,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Pictish Warband
   - name: Branodun
     campaign: Conquest of Britain
@@ -853,6 +903,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Brocavon
     campaign: Conquest of Britain
@@ -869,6 +920,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   # C
   - name: Calleva
@@ -886,6 +938,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   - name: Camulodun
     campaign: Conquest of Britain
@@ -902,6 +955,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Canovion
     campaign: Conquest of Britain
@@ -918,6 +972,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Pictish Warband
   - name: Coria
     campaign: Conquest of Britain
@@ -934,6 +989,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   # D
   - name: Dana
@@ -951,6 +1007,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Fanatics
   - name: Derventio
     campaign: Conquest of Britain
@@ -967,6 +1024,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Deva
     campaign: Conquest of Britain
@@ -983,6 +1041,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Dor
     campaign: Conquest of Britain
@@ -999,6 +1058,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   - name: Durobrivae
     campaign: Conquest of Britain
@@ -1015,6 +1075,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Durobrivae II
     # This refers to the more northern one in the marshes
@@ -1032,6 +1093,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Durocornovion
     campaign: Conquest of Britain
@@ -1048,6 +1110,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Duroliponte
     campaign: Conquest of Britain
@@ -1064,6 +1127,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   - name: Durovern
     campaign: Conquest of Britain
@@ -1080,6 +1144,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   # G
   - name: Gabratovicia
@@ -1097,6 +1162,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   - name: Galagon
     campaign: Conquest of Britain
@@ -1113,6 +1179,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   - name: Gangan
     campaign: Conquest of Britain
@@ -1129,6 +1196,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # I
   - name: Isca
@@ -1146,6 +1214,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Ischalis
     campaign: Conquest of Britain
@@ -1162,6 +1231,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Fanatics
   - name: Isurion
     campaign: Conquest of Britain
@@ -1178,6 +1248,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Ixia
     campaign: Conquest of Britain
@@ -1194,6 +1265,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   # L
   - name: Letoceton
@@ -1211,6 +1283,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   - name: Lindinis
     campaign: Conquest of Britain
@@ -1227,6 +1300,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Lindun
     campaign: Conquest of Britain
@@ -1243,6 +1317,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   - name: Londun
     campaign: Conquest of Britain
@@ -1259,6 +1334,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Luguvalion
     campaign: Conquest of Britain
@@ -1275,6 +1351,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   # M
   - name: Maidun
@@ -1292,6 +1369,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Melin
     campaign: Conquest of Britain
@@ -1308,6 +1386,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Mona
     campaign: Conquest of Britain
@@ -1324,6 +1403,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Moridun
     campaign: Conquest of Britain
@@ -1340,6 +1420,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # N
   - name: Noviomagus
@@ -1349,7 +1430,6 @@ cities:
       ore: 0
       wood: 75
     geo_features:
-      # Has supply dump
       rock_outcrops: 0
       mountains: 0
       lakes: 0
@@ -1358,6 +1438,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: true
     garrison: Legion
   # P
   - name: Petuaria
@@ -1375,6 +1456,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # R
   - name: Ratae
@@ -1392,6 +1474,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # S
   - name: Setantia
@@ -1409,6 +1492,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   - name: Sorviodun
     campaign: Conquest of Britain
@@ -1425,6 +1509,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   - name: Stoukia
     campaign: Conquest of Britain
@@ -1441,6 +1526,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Pictish Warband
   # T
   - name: Tamara
@@ -1458,6 +1544,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Fanatics
   # U
   - name: Uxella
@@ -1475,6 +1562,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   # V
   - name: Venta
@@ -1492,6 +1580,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Vertis
     campaign: Conquest of Britain
@@ -1508,6 +1597,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Verulam
     campaign: Conquest of Britain
@@ -1524,6 +1614,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Virocon
     campaign: Conquest of Britain
@@ -1540,6 +1631,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   # Y
   - name: Yule
@@ -1557,6 +1649,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # ************ #
   # * Germania * #
@@ -1577,6 +1670,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Adgandestrius
     campaign: Germania
@@ -1593,6 +1687,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Aliso
     campaign: Germania
@@ -1609,6 +1704,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Atamaci
     campaign: Germania
@@ -1625,6 +1721,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   # B
   - name: Baduhenna
@@ -1642,6 +1739,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Boiorixia
     campaign: Germania
@@ -1658,6 +1756,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Brescia
     campaign: Germania
@@ -1674,6 +1773,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Brini
     campaign: Germania
@@ -1690,6 +1790,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Brixia
     campaign: Germania
@@ -1706,6 +1807,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Bueci
     campaign: Germania
@@ -1722,6 +1824,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   # C
   - name: Chacirici
@@ -1739,6 +1842,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Chasuari
     campaign: Germania
@@ -1755,6 +1859,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Chatii
     campaign: Germania
@@ -1771,6 +1876,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Cherusci
     campaign: Germania
@@ -1787,6 +1893,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Comum
     campaign: Germania
@@ -1803,6 +1910,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Corolamusia
     campaign: Germania
@@ -1819,6 +1927,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # D
   - name: Dructeri
@@ -1836,6 +1945,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Dubraci
     campaign: Germania
@@ -1852,6 +1962,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   # F
   - name: Felsina
@@ -1869,6 +1980,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   # G
   - name: Gadgaesus
@@ -1886,6 +1998,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Gambrivi
     campaign: Germania
@@ -1902,6 +2015,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   # H
   - name: Hermandurii
@@ -1919,6 +2033,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # I
   - name: Idistavisa
@@ -1936,6 +2051,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # L
   - name: Langobardii
@@ -1953,6 +2069,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Libici
     campaign: Germania
@@ -1969,6 +2086,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Lugii
     campaign: Germania
@@ -1985,6 +2103,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   # M
   - name: Marsii
@@ -2002,6 +2121,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Matagarci
     campaign: Germania
@@ -2018,6 +2138,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Matiaci
     campaign: Germania
@@ -2034,6 +2155,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   # N
   - name: Namenones
@@ -2051,6 +2173,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Naristi
     campaign: Germania
@@ -2067,6 +2190,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Nehalennia
     campaign: Germania
@@ -2083,6 +2207,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Nementes
     campaign: Germania
@@ -2099,6 +2224,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Nerthus
     campaign: Germania
@@ -2115,6 +2241,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Novesium
     campaign: Germania
@@ -2131,6 +2258,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Auxilia
   - name: Nuitones
     campaign: Germania
@@ -2147,6 +2275,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # O
   - name: Osi
@@ -2164,6 +2293,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Oxiones
     campaign: Germania
@@ -2180,6 +2310,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   # P
   - name: Peucini
@@ -2197,6 +2328,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # R
   - name: Radaci
@@ -2214,6 +2346,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Rendingi
     campaign: Germania
@@ -2230,6 +2363,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Rogomagnum
     campaign: Germania
@@ -2246,6 +2380,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: true
     garrison: Equites
   # S
   - name: Salassi
@@ -2263,6 +2398,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Soci
     campaign: Germania
@@ -2279,6 +2415,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Sturi
     campaign: Germania
@@ -2295,6 +2432,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Suarines
     campaign: Germania
@@ -2311,6 +2449,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Suebii
     campaign: Germania
@@ -2327,6 +2466,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Sugambrii
     campaign: Germania
@@ -2343,6 +2483,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # T
   - name: Tanfana
@@ -2360,6 +2501,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Tencterii
     campaign: Germania
@@ -2376,6 +2518,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Tuder
     campaign: Germania
@@ -2392,6 +2535,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Tuisto
     campaign: Germania
@@ -2408,6 +2552,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   # V
   - name: Valeda
@@ -2425,6 +2570,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   - name: Valeda II
     # This is the Valeda in the south
@@ -2442,6 +2588,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Varini
     campaign: Germania
@@ -2458,6 +2605,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   # ************ #
   # * Hispania * #
@@ -2478,6 +2626,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Aki
     campaign: Hispania
@@ -2494,6 +2643,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Ammaia
     campaign: Hispania
@@ -2510,6 +2660,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Arbokala
     campaign: Hispania
@@ -2526,6 +2677,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Argentiola
     campaign: Hispania
@@ -2542,6 +2694,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Arsa
     campaign: Hispania
@@ -2558,6 +2711,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Asturika
     campaign: Hispania
@@ -2574,6 +2728,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   # B
   - name: Baraka
@@ -2591,6 +2746,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Bergidon
     campaign: Hispania
@@ -2607,6 +2763,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Biskargis
     campaign: Hispania
@@ -2623,6 +2780,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Auxiliary Archers
   - name: Blendion
     campaign: Hispania
@@ -2639,6 +2797,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Brigantion
     campaign: Hispania
@@ -2655,6 +2814,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   # D
   - name: Dertosa
@@ -2672,6 +2832,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Auxilia
   - name: Diobriga
     campaign: Hispania
@@ -2688,6 +2849,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   # E
   - name: Ebora
@@ -2705,6 +2867,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # G
   - name: Gadeira
@@ -2722,6 +2885,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # H
   - name: Helike
@@ -2739,6 +2903,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Hispalis
     campaign: Hispania
@@ -2755,6 +2920,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # I
   - name: Igaiditania
@@ -2772,6 +2938,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Ilerda
     campaign: Hispania
@@ -2788,6 +2955,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Ilorki
     campaign: Hispania
@@ -2804,6 +2972,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Ilumberis
     campaign: Hispania
@@ -2820,6 +2989,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   # K
   - name: Kalagurris
@@ -2837,6 +3007,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Kaliabriga
     campaign: Hispania
@@ -2853,6 +3024,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Kamarika
     campaign: Hispania
@@ -2869,6 +3041,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Karaka
     campaign: Hispania
@@ -2885,6 +3058,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Karanikon
     campaign: Hispania
@@ -2901,6 +3075,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Kartagenea
     campaign: Hispania
@@ -2917,6 +3092,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Kaspiana
     campaign: Hispania
@@ -2933,6 +3109,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Kastulon
     campaign: Hispania
@@ -2949,6 +3126,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Kauka
     campaign: Hispania
@@ -2965,6 +3143,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Konsabura
     campaign: Hispania
@@ -2981,6 +3160,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Kontrebia
     campaign: Hispania
@@ -2997,6 +3177,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Kordoba
     campaign: Hispania
@@ -3013,6 +3194,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   # L
   - name: Lakobriga
@@ -3030,6 +3212,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Peltasts
   - name: Libora
     campaign: Hispania
@@ -3046,6 +3229,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   # M
   - name: Malaka
@@ -3063,6 +3247,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Mirobriga
     campaign: Hispania
@@ -3079,6 +3264,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Myrtilis
     campaign: Hispania
@@ -3095,6 +3281,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   # N
   - name: Nertobriga
@@ -3112,6 +3299,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Noega
     campaign: Hispania
@@ -3128,6 +3316,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Numantia
     campaign: Hispania
@@ -3144,6 +3333,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # O
   - name: Oiasson
@@ -3161,6 +3351,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Onoba
     campaign: Hispania
@@ -3177,6 +3368,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Hoplites
   - name: Oreton
     campaign: Hispania
@@ -3193,6 +3385,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Osikerda
     campaign: Hispania
@@ -3209,6 +3402,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Oska
     campaign: Hispania
@@ -3225,6 +3419,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   # P
   - name: Pallantia
@@ -3242,6 +3437,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # S
   - name: Salika
@@ -3259,6 +3455,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Salmantika
     campaign: Hispania
@@ -3275,6 +3472,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Segida
     campaign: Hispania
@@ -3291,6 +3489,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Segontia
     campaign: Hispania
@@ -3307,6 +3506,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Segovia
     campaign: Hispania
@@ -3323,6 +3523,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Skallabis
     campaign: Hispania
@@ -3339,6 +3540,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   # T
   - name: Tarbelles
@@ -3356,6 +3558,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Tarrako
     campaign: Hispania
@@ -3372,6 +3575,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Legion
   - name: Toleton
     campaign: Hispania
@@ -3388,6 +3592,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Tolosa
     campaign: Hispania
@@ -3404,6 +3609,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Torbella
     campaign: Hispania
@@ -3420,6 +3626,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Turmogon
     campaign: Hispania
@@ -3436,6 +3643,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   # U
   - name: Urki
@@ -3453,6 +3661,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Uxama
     campaign: Hispania
@@ -3469,6 +3678,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   # V
   - name: Vokata
@@ -3486,6 +3696,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   # *********************** #
   # * Pacifying the North * #
@@ -3506,6 +3717,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Abraven
     campaign: Pacifying the North
@@ -3522,6 +3734,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Alauna
     campaign: Pacifying the North
@@ -3538,6 +3751,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   # B
   - name: Bannetia
@@ -3555,6 +3769,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   - name: Boresti
     campaign: Pacifying the North
@@ -3571,6 +3786,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Brocavon
     campaign: Pacifying the North
@@ -3587,6 +3803,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Auxilia
   # C
   - name: Caer Idris
@@ -3604,6 +3821,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Fanatics
   - name: Caer Righ
     campaign: Pacifying the North
@@ -3620,6 +3838,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Pictish Warband
   - name: Caereni
     campaign: Pacifying the North
@@ -3636,6 +3855,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Brithish Cavalry
   - name: Caledones
     campaign: Pacifying the North
@@ -3652,6 +3872,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Pictish Warband
   - name: Carbantorigon
     campaign: Pacifying the North
@@ -3668,6 +3889,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Carnonacae
     campaign: Pacifying the North
@@ -3684,6 +3906,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Pictish Warband
   - name: Carpow
     campaign: Pacifying the North
@@ -3700,6 +3923,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Cataractonium
     campaign: Pacifying the North
@@ -3716,6 +3940,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Peasants
   - name: Colanica
     campaign: Pacifying the North
@@ -3732,6 +3957,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Corda
     campaign: Pacifying the North
@@ -3748,6 +3974,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Coria
     campaign: Pacifying the North
@@ -3764,6 +3991,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Auxiliary Archers
   - name: Cornovii
     campaign: Pacifying the North
@@ -3780,6 +4008,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Creones
     campaign: Pacifying the North
@@ -3796,6 +4025,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # D
   - name: Decantae
@@ -3813,6 +4043,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Deva
     campaign: Pacifying the North
@@ -3829,6 +4060,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Dumardun
     campaign: Pacifying the North
@@ -3845,6 +4077,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   # E
   - name: Eburacum
@@ -3862,6 +4095,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Epidii
     campaign: Pacifying the North
@@ -3878,6 +4112,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Etain
     campaign: Pacifying the North
@@ -3894,6 +4129,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   # G
   - name: Galacum
@@ -3911,6 +4147,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   # I
   - name: Isurium
@@ -3928,6 +4165,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   # L
   - name: Lindon
@@ -3945,6 +4183,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Loxa
     campaign: Pacifying the North
@@ -3961,6 +4200,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Lugii
     campaign: Pacifying the North
@@ -3977,6 +4217,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Pictish Warband
   - name: Luguvalium
     campaign: Pacifying the North
@@ -3993,6 +4234,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Equites
   # N
   - name: Nemeton
@@ -4010,6 +4252,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Novanta
     campaign: Pacifying the North
@@ -4026,6 +4269,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   # O
   - name: Olenacum
@@ -4043,6 +4287,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Brithish Warband
   # S
   - name: Smertae
@@ -4060,6 +4305,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Pictish Warband
   - name: Stracathro
     campaign: Pacifying the North
@@ -4076,6 +4322,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   # T
   - name: Tameia
@@ -4093,6 +4340,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Cavalry
   - name: Traprain Law
     campaign: Pacifying the North
@@ -4109,6 +4357,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Trimontium
     campaign: Pacifying the North
@@ -4125,6 +4374,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Fanatics
   # V
   - name: Vacomagi
@@ -4142,6 +4392,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Pictish Warband
   - name: Velunia
     campaign: Pacifying the North
@@ -4158,6 +4409,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Vindogara
     campaign: Pacifying the North
@@ -4174,6 +4426,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: British Warband
   # ******************* #
   # * The Gallic Wars * #
@@ -4194,6 +4447,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Aedui
     campaign: The Gallic Wars
@@ -4210,6 +4464,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Allobroges
     campaign: The Gallic Wars
@@ -4226,6 +4481,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Arverni
     campaign: The Gallic Wars
@@ -4242,6 +4498,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Atrebates
     campaign: The Gallic Wars
@@ -4258,6 +4515,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Aulerci
     campaign: The Gallic Wars
@@ -4274,6 +4532,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Autrigones
     campaign: The Gallic Wars
@@ -4290,6 +4549,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # B
   - name: Bellovaci
@@ -4307,6 +4567,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Bituriges
     campaign: The Gallic Wars
@@ -4323,6 +4584,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Boii
     campaign: The Gallic Wars
@@ -4339,6 +4601,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Branovices
     campaign: The Gallic Wars
@@ -4355,6 +4618,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   # C
   - name: Cadurci
@@ -4372,6 +4636,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Carnutes
     campaign: The Gallic Wars
@@ -4388,6 +4653,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Fanatics
   # E
   - name: Elustaes
@@ -4405,6 +4671,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   # G
   - name: Genua
@@ -4422,6 +4689,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Auxiliary Archers
   # H
   - name: Helvetii
@@ -4439,6 +4707,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   # L
   - name: Lemovices
@@ -4456,6 +4725,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   - name: Lingones
     campaign: The Gallic Wars
@@ -4472,6 +4742,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   # M
   - name: Mandubii
@@ -4489,6 +4760,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Marcomanni
     campaign: The Gallic Wars
@@ -4505,6 +4777,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Massillia
     campaign: The Gallic Wars
@@ -4521,6 +4794,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Mediomatrici
     campaign: The Gallic Wars
@@ -4537,6 +4811,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Meldi
     campaign: The Gallic Wars
@@ -4553,6 +4828,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Menapii
     campaign: The Gallic Wars
@@ -4569,6 +4845,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Morini
     campaign: The Gallic Wars
@@ -4585,6 +4862,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   # N
   - name: Namnetes
@@ -4602,6 +4880,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Narbo
     campaign: The Gallic Wars
@@ -4618,6 +4897,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Nervii
     campaign: The Gallic Wars
@@ -4634,6 +4914,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   - name: Nicea
     campaign: The Gallic Wars
@@ -4650,6 +4931,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Auxilia
   # P
   - name: Parisii
@@ -4667,6 +4949,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Pictones
     campaign: The Gallic Wars
@@ -4683,6 +4966,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Pollentia
     campaign: The Gallic Wars
@@ -4699,6 +4983,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Auxiliary Archers
   # R
   - name: Remi
@@ -4716,6 +5001,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Ruteni
     campaign: The Gallic Wars
@@ -4732,6 +5018,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   # S
   - name: Santones
@@ -4749,6 +5036,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Sequani
     campaign: The Gallic Wars
@@ -4765,6 +5053,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Senones
     campaign: The Gallic Wars
@@ -4781,6 +5070,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Suebi
     campaign: The Gallic Wars
@@ -4797,6 +5087,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Sugambri
     campaign: The Gallic Wars
@@ -4813,6 +5104,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Cavalry
   # T
   - name: Tarbelli
@@ -4830,6 +5122,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Tigurini
     campaign: The Gallic Wars
@@ -4846,6 +5139,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Tolosates
     campaign: The Gallic Wars
@@ -4862,6 +5156,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Treveri
     campaign: The Gallic Wars
@@ -4878,6 +5173,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Archers
   - name: Tulingi
     campaign: The Gallic Wars
@@ -4894,6 +5190,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Veteran Warriors
   # U
   - name: Ubii
@@ -4911,6 +5208,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: German Mercenaries
   - name: Usipetes
     campaign: The Gallic Wars
@@ -4927,6 +5225,7 @@ cities:
       troop_training: 25
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Javelinmen
   # V
   - name: Vascones
@@ -4944,6 +5243,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Spanish Mercenaries
   - name: Venelli
     campaign: The Gallic Wars
@@ -4960,6 +5260,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Veneti
     campaign: The Gallic Wars
@@ -4976,6 +5277,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Vercellae
     campaign: The Gallic Wars
@@ -4992,6 +5294,7 @@ cities:
       troop_training: 0
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Equites
   - name: Vocates
     campaign: The Gallic Wars
@@ -5008,6 +5311,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Vocontii
     campaign: The Gallic Wars
@@ -5024,6 +5328,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Cavalry
   - name: Volcae
     campaign: The Gallic Wars
@@ -5040,4 +5345,5 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Fanatics

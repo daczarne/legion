@@ -71,6 +71,7 @@ class _CityData(TypedDict):
     resource_potentials: ResourceCollectionData
     geo_features: GeoFeaturesData
     effects: EffectBonusesData
+    has_supply_dump: bool
     garrison: str
 
 with open(file = "./data/cities.yaml", mode = "r") as file:
@@ -156,6 +157,7 @@ class City:
         
         resource_potentials (ResourceCollection): The resource potentials of the city.
         geo_features (GeoFeatures): Geographical features present in the city (mountains, lakes, etc).
+        has_supply_dump (bool): A boolean indicating whether the city has a Supply Dump (True), or not (False).
         effects (CityEffectBonuses): Effect bonuses from the city, its buildings, and workers.
         production (CityProduction): Production statistics for the city.
         storage (CityStorage): Resource storage capacities of the city.
@@ -165,6 +167,7 @@ class City:
     campaign: str = field(init = True, default = "", repr = True, compare = True, hash = True)
     name: str = field(init = True, default = "", repr = True, compare = True, hash = True)
     buildings: list[Building] = field(init = True, default_factory = list, repr = False, compare = False, hash = False)
+    has_supply_dump: bool = field(init = False, default = False, repr = False, compare = False, hash = False)
     
     # Post init fields
     resource_potentials: ResourceCollection = field(
@@ -261,6 +264,19 @@ class City:
         
         return GeoFeatures()
     
+    def _get_has_supply_dump(self) -> bool:
+        """
+        Checks if the city has a Supply dump.
+        """
+        for city in CITIES:
+            if (
+                city["campaign"] == self.campaign
+                and city["name"] == self.name
+            ):
+                return city["has_supply_dump"]
+        
+        return False
+    
     
     #* Alternative city creator methods
     @classmethod
@@ -299,6 +315,11 @@ class City:
     
     
     #* Validate city buildings
+    def _add_supply_dump_to_buildings(self) -> None:
+        if self.has_supply_dump:
+            if not self.has_building(id = "supply_dump"):
+                self.buildings.append(Building(id = "supply_dump"))
+    
     def _validate_halls(self) -> None:
         halls: BuildingsCount = {}
         
@@ -321,6 +342,7 @@ class City:
             raise ValueError(f"Too many halls for this city")
     
     def _validate_number_of_buildings(self) -> None:
+        
         number_of_declared_buildings: int = len(self.buildings)
         max_number_of_buildings_in_city: int = self.MAX_BUILDINGS_PER_CITY[self.get_hall().id]
         
@@ -595,9 +617,11 @@ class City:
     def __post_init__(self) -> None:
         self.resource_potentials = self._get_rss_potentials()
         self.geo_features = self._get_geo_features()
+        self.has_supply_dump = self._get_has_supply_dump()
         
         #* Validate city
         self._validate_halls()
+        self._add_supply_dump_to_buildings()
         self._validate_number_of_buildings()
         
         #* Effect bonuses
