@@ -191,8 +191,7 @@ class Scenario:
         Render all cities in the scenario to the console using the Rich library.
         
         The cities are displayed side by side in a grid layout, with the layout automatically calculated based on the
-        number of cities and the configuration provided. Each city's display is managed by an instance of the
-        `CityDisplay` class.
+        number of cities and the configuration provided.
         """
         console: Console = Console(width = 192, height = self._calculate_console_height())
         console.print(self._build_scenario_display())
