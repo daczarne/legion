@@ -25,13 +25,14 @@ See more examples in `./building_example.py`.
 ## The `City` class
 
 The `City` class is the backbone of it all. Given a city (identified by campaign and city name) and the configuration
-of buildings that you'd like to build in it, it displays the information about the city (its effects, production,
+of buildings that you'd like to build in it, it calculates the information about the city (its effects, production,
 storage, and defenses).
 
-The `City` objects can be constructed by passing lists of `Building` objects, or a dictionary of building counts.
+The `City` objects can be constructed by passing lists of `Building` objects, or a dictionary of building counts. This
+last one is the most offtenly used approach.
 
 ```python
-from modules.city import City, CityDisplay
+from modules.city import City
 
 city: City = City.from_buildings_count(
     campaign = "Unification of Italy",
@@ -45,13 +46,13 @@ city: City = City.from_buildings_count(
     },
 )
 
-CityDisplay(city = city).display_city_results()
+city.display_city()
 ```
 
 ![full city](img/city_1.png)
 
-You can pass a `DisplayConfiguration` dictionary to the `CityDisplay` class to control how the city is displayed. For
-example, you could want the Defenses section to be omitted and the Production section to be shown in yellow.
+You can pass a `DisplayConfiguration` dictionary to the `display_city()` method to control how the city is displayed.
+For example, you could want the Defenses section to be omitted and the Production section to be shown in yellow.
 
 ```python
 display_configuration: DisplayConfiguration = {
@@ -63,7 +64,7 @@ display_configuration: DisplayConfiguration = {
     },
 }
 
-CityDisplay(city = city, configuration = display_configuration).display_city_results()
+city.display_city(display_configuration)
 ```
 
 ![partial city](img/city_2.png)
