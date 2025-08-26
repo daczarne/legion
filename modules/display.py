@@ -17,12 +17,7 @@ Internal objects:
 from enum import Enum
 from typing import TypeAlias, TypedDict
 
-__all__: list[str] = [
-    "DisplaySection",
-    "DisplayConfiguration",
-    "DisplaySectionConfiguration",
-    "DEFAULT_SECTION_COLORS",
-]
+__all__: list[str] = ["DisplayConfiguration"]
 
 
 _DisplaySectionColors: TypeAlias = dict[str, str]
