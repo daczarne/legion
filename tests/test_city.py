@@ -23,6 +23,7 @@ class TestCitiesData:
             "resource_potentials",
             "geo_features",
             "effects",
+            "has_supply_dump",
             "garrison",
         ]
         

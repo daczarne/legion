@@ -5003,6 +5003,7 @@ cities:
       troop_training: 10
       population_growth: 0
       intelligence: 0
+    has_supply_dump: false
     garrison: Celtic Warband
   - name: Ruteni
     campaign: The Gallic Wars
