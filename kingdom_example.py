@@ -1,6 +1,7 @@
 from modules.building import BuildingsCount
 from modules.kingdom import Kingdom
 
+
 food_producer: BuildingsCount = {
     "city_hall": 1,
     "basilica": 1,
