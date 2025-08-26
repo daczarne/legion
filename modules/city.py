@@ -966,6 +966,15 @@ class CityDisplay:
         return table
     
     def build_city_display(self) -> Panel:
+        """
+        Constructs a Rich Panel representing the city display layout.
+        
+        This method assembles the various display components (tables, lists, etc.) into a single Rich Panel object,
+        which can then be rendered.
+        
+        Returns:
+            Panel: A `rich.panel.Panel` object ready for printing.
+        """
         # Expected Layout
         # |---------------------------|
         # |      Campaign - City      |
@@ -1101,5 +1110,11 @@ class CityDisplay:
         )
     
     def display_city_results(self) -> None:
+        """
+        Prints the city display to the console.
+        
+        This method uses the `build_city_display` method to create the panel and then prints it to the terminal via a
+        `rich.console.Console` instance.
+        """
         console: Console = Console()
         console.print(self.build_city_display())
