@@ -362,3 +362,20 @@ class TestBuilding:
         
         with raises(expected_exception = ValueError):
             large_mine.set_workers(qty = 10)
+
+
+@mark.building
+@mark.building_scenarios
+class TestBuildingScenarios:
+    
+    def test_farmers_guild(self) -> None:
+        farmers_guild: Building = Building(id = "farmers_guild")
+        
+        assert farmers_guild.required_building == [("city_hall", "large_farm")]
+        assert farmers_guild.required_rss == Resource.FOOD
+    
+    def test_stables(self) -> None:
+        stables: Building = Building(id = "stables")
+        
+        assert stables.required_building == [("farm", ), ("large_farm", ), ("vineyard", ), ("fishing_village", )]
+        assert stables.required_rss is None
