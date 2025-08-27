@@ -671,7 +671,7 @@ buildings:
     required_geo: null
     required_rss: wood
     required_building:
-      -  city_hall, large_lumber_mill
+      - city_hall, large_lumber_mill
     replaces: null
   # ************ #
   # * Military * #
