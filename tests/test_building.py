@@ -262,10 +262,11 @@ class TestBuildingsData:
             building_id: str = building["id"]
             required_building: list[str] = building["required_building"]
             
-            for rb in required_building:
-                if rb not in all_building_ids:
-                    error: tuple[str, str] = (building_id, rb)
-                    _errors.append(error)
+            for requirement in required_building:
+                for building in tuple(requirement.split(sep = ", ")):
+                    if building not in all_building_ids:
+                        error: tuple[str, str] = (building_id, building)
+                        _errors.append(error)
         
         assert len(_errors) == 0, _errors
     
@@ -318,7 +319,7 @@ class TestBuilding:
         assert city_hall.is_upgradeable == False
         assert city_hall.required_geo is None
         assert city_hall.required_rss is None
-        assert city_hall.required_building == ["town_hall"]
+        assert city_hall.required_building == [("town_hall",)]
         assert city_hall.replaces == "town_hall"
         assert city_hall.workers == 0
     
@@ -361,3 +362,20 @@ class TestBuilding:
         
         with raises(expected_exception = ValueError):
             large_mine.set_workers(qty = 10)
+
+
+@mark.building
+@mark.building_scenarios
+class TestBuildingScenarios:
+    
+    def test_farmers_guild(self) -> None:
+        farmers_guild: Building = Building(id = "farmers_guild")
+        
+        assert farmers_guild.required_building == [("city_hall", "large_farm")]
+        assert farmers_guild.required_rss == Resource.FOOD
+    
+    def test_stables(self) -> None:
+        stables: Building = Building(id = "stables")
+        
+        assert stables.required_building == [("farm", ), ("large_farm", ), ("vineyard", ), ("fishing_village", )]
+        assert stables.required_rss is None

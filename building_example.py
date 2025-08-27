@@ -11,7 +11,22 @@ mountain_mine.display_building()
 
 print()
 
-large_mine: Building = Building(id = "large_mine", workers = 0)
+village_hall: Building = Building(id = "village_hall")
+village_hall.display_building()
+
+print()
+
+stables: Building = Building(id = "stables")
+stables.display_building()
+
+print()
+
+carpenters_guild: Building = Building(id = "carpenters_guild", workers = 0)
+carpenters_guild.display_building()
+
+print()
+
+large_mine: Building = Building(id = "large_mine")
 large_mine.display_building()
 
 print()

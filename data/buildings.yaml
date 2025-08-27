@@ -314,8 +314,7 @@ buildings:
     required_geo: null
     required_rss: food
     required_building:
-      - large_farm
-      - city_hall
+      - city_hall, large_farm
     replaces: null
   # ****************** #
   # * Ore production * #
@@ -513,8 +512,7 @@ buildings:
     required_geo: null
     required_rss: ore
     required_building:
-      - large_mine
-      - city_hall
+      - city_hall, large_mine
     replaces: null
   # ******************* #
   # * Wood production * #
@@ -633,7 +631,8 @@ buildings:
     is_upgradeable: false
     required_geo: forest
     required_rss: wood
-    required_building: []
+    required_building:
+      - village_hall
     replaces: null
   - id: carpenters_guild
     name: Carpenters' guild
@@ -672,8 +671,7 @@ buildings:
     required_geo: null
     required_rss: wood
     required_building:
-      - large_lumber_mill
-      - city_hall
+      - city_hall, large_lumber_mill
     replaces: null
   # ************ #
   # * Military * #
@@ -1034,8 +1032,7 @@ buildings:
     required_geo: null
     required_rss: null
     required_building:
-      - small_fort
-      - town_hall
+      - town_hall, small_fort
     replaces: small_fort
   - id: large_fort
     name: Large fort
@@ -1074,8 +1071,7 @@ buildings:
     required_geo: null
     required_rss: null
     required_building:
-      - medium_fort
-      - city_hall
+      - city_hall, medium_fort
     replaces: medium_fort
   - id: barracks
     name: Barracks
@@ -1114,8 +1110,7 @@ buildings:
     required_geo: null
     required_rss: null
     required_building:
-      - town_hall
-      - small_fort
+      - town_hall, small_fort
     replaces: null
   - id: quartermaster
     name: Quartermaster
@@ -1154,8 +1149,7 @@ buildings:
     required_geo: null
     required_rss: null
     required_building:
-      - barracks
-      - city_hall
+      - city_hall, barracks
     replaces: barracks
   - id: watch_tower
     name: Watch tower
@@ -1194,8 +1188,7 @@ buildings:
     required_geo: null
     required_rss: null
     required_building:
-      - small_fort
-      - village_hall
+      - village_hall, small_fort
     replaces: null
   # *********** #
   # * Support * #
@@ -1276,8 +1269,7 @@ buildings:
     required_geo: null
     required_rss: null
     required_building:
-      - shrine
-      - town_hall
+      - town_hall, shrine
     replaces: shrine
   - id: basilica
     name: Basilica
@@ -1316,8 +1308,7 @@ buildings:
     required_geo: null
     required_rss: null
     required_building:
-      - temple
-      - city_hall
+      - city_hall, temple
     replaces: temple
   - id: bath_house
     name: Bath house
@@ -1434,8 +1425,7 @@ buildings:
     required_geo: forest
     required_rss: null
     required_building:
-      - forest
-      - town_hall
+      - town_hall, forest
     replaces: forest
   - id: herbalist
     name: Herbalist
@@ -1592,7 +1582,6 @@ buildings:
     required_rss: null
     required_building:
       - small_market
-      - village_hall
     replaces: small_market
   # ********* #
   # * Other * #

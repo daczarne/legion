@@ -144,7 +144,7 @@ class Building:
     # example, a Stable requires either a Farm, or a Large Farm, or a Vineyard, or a Fishing Village. If the city has
     # any one for them it can build a Stable. Similarly, a Blacksmith requires either a Mine, or a Large Mine, or a
     # Mountain Mine, or an Outcrop Mine. If a building has no dependencies the list will be empty.
-    required_building: list[str] = field(init = False, default_factory = list, repr = False, compare = False, hash = False)
+    required_building: list[tuple[str, ...]] = field(init = False, default_factory = list, repr = False, compare = False, hash = False)
     replaces: str | None = field(init = False, default = None, repr = False, compare = False, hash = False)
     
     
@@ -159,6 +159,14 @@ class Building:
         if self.workers > self.max_workers:
             raise ValueError(f"Too many workers. Max is {self.max_workers} for {self.name}.")
     
+    def _unpack_required_buildings(self) -> list[tuple[str, ...]]:
+        required_buildings_list_of_strings: list[str] = _BUILDINGS[self.id]["required_building"]
+        required_buildings: list[tuple[str, ...]] = []
+        
+        for requirement in required_buildings_list_of_strings:
+            required_buildings.append(tuple(requirement.split(sep = ", ")))
+        
+        return required_buildings
     
     def __post_init__(self) -> None:
         self._validate_building_exists()
@@ -177,7 +185,7 @@ class Building:
         self.is_upgradeable = _BUILDINGS[self.id]["is_upgradeable"]
         self.required_geo = GeoFeature(value = _BUILDINGS[self.id]["required_geo"]) if _BUILDINGS[self.id]["required_geo"] else None
         self.required_rss = Resource(value = _BUILDINGS[self.id]["required_rss"]) if _BUILDINGS[self.id]["required_rss"] else None
-        self.required_building = _BUILDINGS[self.id]["required_building"]
+        self.required_building = self._unpack_required_buildings()
         self.replaces = _BUILDINGS[self.id]["replaces"]
         
         self._validate_initial_number_of_workers()
@@ -230,6 +238,15 @@ class Building:
     
     
     #* Display building
+    @staticmethod
+    def _format_building(text: str) -> str:
+        return f"[italic bold bright_cyan]Building[/italic bold bright_cyan](" \
+            f"[italic dim]id = [/italic dim][yellow]\"{text}\"[/yellow])"
+    
+    @staticmethod
+    def _format_none() -> str:
+        return f"[italic dim dark_magenta]None[/italic dim dark_magenta]"
+    
     def _building_information(self) -> Text:
         text: Text = Text(
             text = f" Building(id = \"{self.id}\") ",
@@ -327,34 +344,46 @@ class Building:
         return text
     
     def _building_required_geo(self) -> str:
-        text: str = f"[bold]Required GeoFeature:[/bold] "
+        text: str = f"[bold]Required geo. feature:[/bold] "
+        
         if self.required_geo:
             text += f"[italic bold bright_cyan]GeoFeature[/italic bold bright_cyan].{self.required_geo.name}"
         else:
-            text += f"[italic dim dark_magenta]{self.required_geo}[/italic dim dark_magenta]"
+            text += Building._format_none()
+        
         return text
     
     def _building_required_rss(self) -> str:
-        text: str = f"[bold]Required Resource:[/bold] "
+        text: str = f"[bold]Required resource:[/bold] "
+        
         if self.required_rss:
-            text += f"[italic bold bright_cyan]GeoFeature[/italic bold bright_cyan].{self.required_rss.name}"
+            text += f"[italic bold bright_cyan]Resource[/italic bold bright_cyan].{self.required_rss.name}"
         else:
-            text += f"[italic dim dark_magenta]{self.required_rss}[/italic dim dark_magenta]"
+            text += Building._format_none()
+        
         return text
     
     def _building_required_building(self) -> str:
         text: str = f"[bold]Required building:[/bold] "
+        
+        if len(self.required_building) == 0:
+            return text + Building._format_none()
+        
+        lines: list[str] = []
+        
+        for idx, group in enumerate(self.required_building):
+            prefix: str = "" if idx == 0 else "               [italic dim]OR:[/italic dim] "
+            transformed: list[str] = [Building._format_building(text = element) for element in group]
+            line: str = prefix + " [italic dim]AND[/italic dim] ".join(transformed)
+            lines.append(line)
+        
+        text += "\n".join(lines)
+        
         return text
     
     def _building_replaces(self) -> str:
         text: str = f"[bold]Replaces:[/bold] "
-        if self.replaces:
-            # Building(id = \"{self.id}\")
-            text += f"[italic bold bright_cyan]Building[/italic bold bright_cyan](" \
-                f"[italic dim]id = [/italic dim][yellow]\"{self.replaces}\"[/yellow])"
-        else:
-            text += f"[italic dim dark_magenta]{self.replaces}[/italic dim dark_magenta]"
-        return text
+        return text + (Building._format_building(text = self.replaces) if self.replaces else Building._format_none())
     
     def _building_current_workers(self) -> str:
         text: str = f"[bold]Current workers:[/bold] " \
@@ -362,18 +391,29 @@ class Building:
         return text
     
     def _build_building_display(self) -> Panel:
+        #* Heights
+        padding: int = 2
+        title_height: int = 2
+        
+        required_building_height: int = max(len(self.required_building), 1)
+        number_of_other_properties_to_print: int = 16
+        main_height: int = number_of_other_properties_to_print + required_building_height
+        
+        total_height: int = title_height + main_height
+        
+        #* Layout building
         layout: Layout = Layout()
         
         layout.split(
             Layout(
                 name = "header",
-                size = 2,
+                size = title_height,
                 ratio = 0,
                 visible = True,
             ),
             Layout(
                 name = "main",
-                size = 30,
+                size = main_height,
                 ratio = 0,
                 visible = True,
             ),
@@ -476,7 +516,7 @@ class Building:
             ),
             Layout(
                 name = "required_building",
-                size = 1,
+                size = required_building_height,
                 ratio = 0,
                 visible = True,
             ),
@@ -558,7 +598,7 @@ class Building:
         
         return Panel(
             renderable = layout,
-            height = 21,
+            height = total_height + padding,
             width = 105,
         )
     
