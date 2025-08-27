@@ -51,10 +51,10 @@ kingdom: Kingdom = Kingdom.from_list(
             "buildings": {
                 "city_hall": 1,
                 "basilica": 1,
+                "farmers_guild": 1,
                 "vineyard": 1,
                 "large_farm": 4,
                 "supply_dump": 1,
-                "warehouse": 1,
             },
         },
         {
@@ -66,6 +66,11 @@ kingdom: Kingdom = Kingdom.from_list(
             "campaign": "Germania",
             "name": "Oxiones",
             "buildings": military,
+        },
+        {
+            "campaign": "Germania",
+            "name": "Suarines",
+            "buildings": ore_producer,
         },
     ],
 )
