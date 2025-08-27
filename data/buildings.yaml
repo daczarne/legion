@@ -236,7 +236,7 @@ buildings:
     required_geo: null
     required_rss: food
     required_building:
-      - farm
+      - town_hall, farm
     replaces: farm
   - id: fishing_village
     name: Fishing village
