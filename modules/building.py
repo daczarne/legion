@@ -344,7 +344,7 @@ class Building:
         return text
     
     def _building_required_geo(self) -> str:
-        text: str = f"[bold]Required GeoFeature:[/bold] "
+        text: str = f"[bold]Required geo. feature:[/bold] "
         
         if self.required_geo:
             text += f"[italic bold bright_cyan]GeoFeature[/italic bold bright_cyan].{self.required_geo.name}"
@@ -354,7 +354,7 @@ class Building:
         return text
     
     def _building_required_rss(self) -> str:
-        text: str = f"[bold]Required Resource:[/bold] "
+        text: str = f"[bold]Required resource:[/bold] "
         
         if self.required_rss:
             text += f"[italic bold bright_cyan]Resource[/italic bold bright_cyan].{self.required_rss.name}"
