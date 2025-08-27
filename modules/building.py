@@ -238,6 +238,15 @@ class Building:
     
     
     #* Display building
+    @staticmethod
+    def _format_building(text: str) -> str:
+        return f"[italic bold bright_cyan]Building[/italic bold bright_cyan](" \
+            f"[italic dim]id = [/italic dim][yellow]\"{text}\"[/yellow])"
+    
+    @staticmethod
+    def _format_none() -> str:
+        return f"[italic dim dark_magenta]None[/italic dim dark_magenta]"
+    
     def _building_information(self) -> Text:
         text: Text = Text(
             text = f" Building(id = \"{self.id}\") ",
@@ -336,61 +345,45 @@ class Building:
     
     def _building_required_geo(self) -> str:
         text: str = f"[bold]Required GeoFeature:[/bold] "
+        
         if self.required_geo:
             text += f"[italic bold bright_cyan]GeoFeature[/italic bold bright_cyan].{self.required_geo.name}"
         else:
-            text += f"[italic dim dark_magenta]{self.required_geo}[/italic dim dark_magenta]"
+            text += Building._format_none()
+        
         return text
     
     def _building_required_rss(self) -> str:
         text: str = f"[bold]Required Resource:[/bold] "
+        
         if self.required_rss:
             text += f"[italic bold bright_cyan]Resource[/italic bold bright_cyan].{self.required_rss.name}"
         else:
-            text += f"[italic dim dark_magenta]{self.required_rss}[/italic dim dark_magenta]"
+            text += Building._format_none()
+        
         return text
     
     def _building_required_building(self) -> str:
-        
-        def _format_building(text: str) -> str:
-            return f"[italic bold bright_cyan]Building[/italic bold bright_cyan](" \
-                f"[italic dim]id = [/italic dim][yellow]\"{text}\"[/yellow])"
-        
         text: str = f"[bold]Required building:[/bold] "
-        text_rows: list[list[str]] = []
         
         if len(self.required_building) == 0:
-            return text + f"[italic dim dark_magenta]None[/italic dim dark_magenta]"
-        
-        for requirement in self.required_building:
-            text_row: list[str] = []
-            for building_id in requirement:
-                text_element: str = f"[italic bold bright_cyan]Building[/italic bold bright_cyan](" \
-                    f"[italic dim]id = [/italic dim][yellow]\"{building_id}\"[/yellow])"
-                text_row.append(text_element)
-            text_rows.append(text_row)
+            return text + Building._format_none()
         
         lines: list[str] = []
         
-        for idx, group in enumerate(text_rows):
+        for idx, group in enumerate(self.required_building):
             prefix: str = "" if idx == 0 else "               [italic dim]OR:[/italic dim] "
-            line: str = prefix + " [italic dim]AND[/italic dim] ".join(group)
+            transformed: list[str] = [Building._format_building(text = element) for element in group]
+            line: str = prefix + " [italic dim]AND[/italic dim] ".join(transformed)
             lines.append(line)
+        
         text += "\n".join(lines)
         
         return text
     
     def _building_replaces(self) -> str:
         text: str = f"[bold]Replaces:[/bold] "
-        
-        if self.replaces:
-            # Building(id = \"{self.id}\")
-            text += f"[italic bold bright_cyan]Building[/italic bold bright_cyan](" \
-                f"[italic dim]id = [/italic dim][yellow]\"{self.replaces}\"[/yellow])"
-        else:
-            text += f"[italic dim dark_magenta]{self.replaces}[/italic dim dark_magenta]"
-        
-        return text
+        return text + (Building._format_building(text = self.replaces) if self.replaces else Building._format_none())
     
     def _building_current_workers(self) -> str:
         text: str = f"[bold]Current workers:[/bold] " \
