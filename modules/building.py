@@ -351,17 +351,45 @@ class Building:
         return text
     
     def _building_required_building(self) -> str:
+        
+        def _format_building(text: str) -> str:
+            return f"[italic bold bright_cyan]Building[/italic bold bright_cyan](" \
+                f"[italic dim]id = [/italic dim][yellow]\"{text}\"[/yellow])"
+        
         text: str = f"[bold]Required building:[/bold] "
+        text_rows: list[list[str]] = []
+        
+        if len(self.required_building) == 0:
+            return text + f"[italic dim dark_magenta]None[/italic dim dark_magenta]"
+        
+        for requirement in self.required_building:
+            text_row: list[str] = []
+            for building_id in requirement:
+                text_element: str = f"[italic bold bright_cyan]Building[/italic bold bright_cyan](" \
+                    f"[italic dim]id = [/italic dim][yellow]\"{building_id}\"[/yellow])"
+                text_row.append(text_element)
+            text_rows.append(text_row)
+        
+        lines: list[str] = []
+        
+        for idx, group in enumerate(text_rows):
+            prefix: str = "" if idx == 0 else "               [italic dim]OR:[/italic dim] "
+            line: str = prefix + " [italic dim]AND[/italic dim] ".join(group)
+            lines.append(line)
+        text += "\n".join(lines)
+        
         return text
     
     def _building_replaces(self) -> str:
         text: str = f"[bold]Replaces:[/bold] "
+        
         if self.replaces:
             # Building(id = \"{self.id}\")
             text += f"[italic bold bright_cyan]Building[/italic bold bright_cyan](" \
                 f"[italic dim]id = [/italic dim][yellow]\"{self.replaces}\"[/yellow])"
         else:
             text += f"[italic dim dark_magenta]{self.replaces}[/italic dim dark_magenta]"
+        
         return text
     
     def _building_current_workers(self) -> str:
@@ -370,18 +398,29 @@ class Building:
         return text
     
     def _build_building_display(self) -> Panel:
+        #* Heights
+        padding: int = 2
+        title_height: int = 2
+        
+        required_building_height: int = max(len(self.required_building), 1)
+        number_of_other_properties_to_print: int = 16
+        main_height: int = number_of_other_properties_to_print + required_building_height
+        
+        total_height: int = title_height + main_height
+        
+        #* Layout building
         layout: Layout = Layout()
         
         layout.split(
             Layout(
                 name = "header",
-                size = 2,
+                size = title_height,
                 ratio = 0,
                 visible = True,
             ),
             Layout(
                 name = "main",
-                size = 30,
+                size = main_height,
                 ratio = 0,
                 visible = True,
             ),
@@ -484,7 +523,7 @@ class Building:
             ),
             Layout(
                 name = "required_building",
-                size = 1,
+                size = required_building_height,
                 ratio = 0,
                 visible = True,
             ),
@@ -566,7 +605,7 @@ class Building:
         
         return Panel(
             renderable = layout,
-            height = 21,
+            height = total_height + padding,
             width = 105,
         )
     
