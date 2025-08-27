@@ -144,7 +144,7 @@ class Building:
     # example, a Stable requires either a Farm, or a Large Farm, or a Vineyard, or a Fishing Village. If the city has
     # any one for them it can build a Stable. Similarly, a Blacksmith requires either a Mine, or a Large Mine, or a
     # Mountain Mine, or an Outcrop Mine. If a building has no dependencies the list will be empty.
-    required_building: list[str] = field(init = False, default_factory = list, repr = False, compare = False, hash = False)
+    required_building: list[tuple[str, ...]] = field(init = False, default_factory = list, repr = False, compare = False, hash = False)
     replaces: str | None = field(init = False, default = None, repr = False, compare = False, hash = False)
     
     
@@ -159,6 +159,14 @@ class Building:
         if self.workers > self.max_workers:
             raise ValueError(f"Too many workers. Max is {self.max_workers} for {self.name}.")
     
+    def _unpack_required_buildings(self) -> list[tuple[str, ...]]:
+        required_buildings_list_of_strings: list[str] = _BUILDINGS[self.id]["required_building"]
+        required_buildings: list[tuple[str, ...]] = []
+        
+        for requirement in required_buildings_list_of_strings:
+            required_buildings.append(tuple(requirement.split(sep = ", ")))
+        
+        return required_buildings
     
     def __post_init__(self) -> None:
         self._validate_building_exists()
@@ -177,7 +185,7 @@ class Building:
         self.is_upgradeable = _BUILDINGS[self.id]["is_upgradeable"]
         self.required_geo = GeoFeature(value = _BUILDINGS[self.id]["required_geo"]) if _BUILDINGS[self.id]["required_geo"] else None
         self.required_rss = Resource(value = _BUILDINGS[self.id]["required_rss"]) if _BUILDINGS[self.id]["required_rss"] else None
-        self.required_building = _BUILDINGS[self.id]["required_building"]
+        self.required_building = self._unpack_required_buildings()
         self.replaces = _BUILDINGS[self.id]["replaces"]
         
         self._validate_initial_number_of_workers()
