@@ -345,7 +345,7 @@ class Building:
     def _building_required_rss(self) -> str:
         text: str = f"[bold]Required Resource:[/bold] "
         if self.required_rss:
-            text += f"[italic bold bright_cyan]GeoFeature[/italic bold bright_cyan].{self.required_rss.name}"
+            text += f"[italic bold bright_cyan]Resource[/italic bold bright_cyan].{self.required_rss.name}"
         else:
             text += f"[italic dim dark_magenta]{self.required_rss}[/italic dim dark_magenta]"
         return text
