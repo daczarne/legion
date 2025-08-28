@@ -106,6 +106,21 @@ kingdom: Kingdom = Kingdom.from_list(
             "name": "Marsii",
             "buildings": ore_producer,
         },
+        {
+            "campaign": "Germania",
+            "name": "Tencterii",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": "Germania",
+            "name": "Adgandestrius",
+            "buildings": military,
+        },
+        {
+            "campaign": "Germania",
+            "name": "Atamaci",
+            "buildings": ore_producer,
+        },
     ],
 )
 
