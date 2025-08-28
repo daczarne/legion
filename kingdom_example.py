@@ -146,6 +146,11 @@ kingdom: Kingdom = Kingdom.from_list(
             "name": "Cherusci",
             "buildings": wood_producer,
         },
+        {
+            "campaign": "Germania",
+            "name": "Chasuari",
+            "buildings": military,
+        },
     ],
 )
 
