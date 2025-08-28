@@ -51,9 +51,8 @@ kingdom: Kingdom = Kingdom.from_list(
             "buildings": {
                 "city_hall": 1,
                 "basilica": 1,
-                "farmers_guild": 1,
-                "vineyard": 1,
-                "large_farm": 4,
+                "miners_guild": 1,
+                "large_mine": 5,
                 "supply_dump": 1,
             },
         },
