@@ -200,9 +200,9 @@ class Kingdom:
         total_production: ResourceCollection = ResourceCollection()
         
         for city in self.cities:
-            total_production.food += city.production.balance.food
-            total_production.ore += city.production.balance.ore
-            total_production.wood += city.production.balance.wood
+            total_production.food = total_production.food + city.production.balance.food
+            total_production.ore = total_production.ore + city.production.balance.ore
+            total_production.wood = total_production.wood + city.production.balance.wood
         
         return total_production
     
@@ -268,12 +268,12 @@ class Kingdom:
         )
         
         table.add_column(header = "Total cities", header_style = "bold", justify = "center")
-        table.add_column(header = "Victory threshold", header_style = "bold", justify = "center")
+        table.add_column(header = "40% threshold", header_style = "bold", justify = "center")
         table.add_column(header = "Player cities", header_style = "bold", justify = "center")
         from math import ceil
         table.add_row(
             f"{self.number_of_cities_in_campaign}",
-            f"{ceil(self.number_of_cities_in_campaign * 0.8)}",
+            f"{ceil(self.number_of_cities_in_campaign * 0.4)}",
             f"{len(self.cities)}",
         )
         
