@@ -372,7 +372,7 @@ class City:
             
             if self.is_fort:
                 raise ValueError(
-                    f"Small Forts cannot have buildings."
+                    f"Forts cannot have buildings."
                 )
             
             raise ValueError(
