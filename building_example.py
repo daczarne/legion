@@ -26,8 +26,13 @@ carpenters_guild.display_building()
 
 print()
 
-small_fort_hall: Building = Building(id = "small_fort_hall")
-small_fort_hall.display_building()
+fort: Building = Building(id = "fort")
+fort.display_building()
+
+print()
+
+small_fort: Building = Building(id = "small_fort")
+small_fort.display_building()
 
 print()
 
