@@ -14,7 +14,7 @@ city: City = City.from_buildings_count(
     }
 )
 
-# city.display_city()
+city.display_city()
 
 print()
 
@@ -34,7 +34,7 @@ city: City = City(
     ]
 )
 
-# city.display_city()
+city.display_city()
 
 print()
 
@@ -51,7 +51,7 @@ city: City = City.from_buildings_count(
     },
 )
 
-# city.display_city()
+city.display_city()
 
 print()
 
@@ -64,4 +64,3 @@ city: City = City.from_buildings_count(
 )
 
 city.display_city()
-# print(city.get_hall().display_building())
