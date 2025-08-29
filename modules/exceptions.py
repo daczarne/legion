@@ -44,6 +44,26 @@ class CityError(LegionError):
     pass
 
 
+class NoCityHallError(CityError):
+    pass
+
+
+class TooManyHallsError(CityError):
+    pass
+
+
+class FortsCannotHaveBuildingsError(CityError):
+    pass
+
+
+class TooManyBuildingsError(CityError):
+    pass
+
+
+class NoGarrisonFoundError(CityError):
+    pass
+
+
 # * ******* * #
 # * DISPLAY * #
 # * ******* * #
