@@ -16,6 +16,23 @@ class BuildingError(LegionError):
     pass
 
 
+class UnknownBuildingError(BuildingError):
+    pass
+
+
+class TooManyWorkersError(BuildingError):
+    pass
+
+
+class InsufficientNumberOfWorkersError(BuildingError):
+    pass
+
+
+class NegativeNumberOfWorkersError(BuildingError):
+    pass
+
+
+
 # * **** * #
 # * CITY * #
 # * **** * #

@@ -28,6 +28,12 @@ from rich.panel import Panel
 from rich.text import Text
 
 from .effects import EffectBonusesData, EffectBonuses
+from .exceptions import (
+    InsufficientNumberOfWorkersError,
+    NegativeNumberOfWorkersError,
+    TooManyWorkersError,
+    UnknownBuildingError,
+)
 from .geo_features import GeoFeature
 from .resources import Resource, ResourceCollectionData, ResourceCollection
 
@@ -153,11 +159,11 @@ class Building:
     
     def _validate_building_exists(self) -> None:
         if self.id not in _BUILDINGS:
-            raise ValueError(f"Building {self.id} does not exist.")
+            raise UnknownBuildingError(f"Building {self.id} does not exist.")
     
     def _validate_initial_number_of_workers(self) -> None:
         if self.workers > self.max_workers:
-            raise ValueError(f"Too many workers. Max is {self.max_workers} for {self.name}.")
+            raise TooManyWorkersError(f"Too many workers. Max is {self.max_workers} for {self.name}.")
     
     def _unpack_required_buildings(self) -> list[tuple[str, ...]]:
         required_buildings_list_of_strings: list[str] = _BUILDINGS[self.id]["required_building"]
@@ -167,6 +173,7 @@ class Building:
             required_buildings.append(tuple(requirement.split(sep = ", ")))
         
         return required_buildings
+    
     
     def __post_init__(self) -> None:
         self._validate_building_exists()
@@ -199,10 +206,14 @@ class Building:
             qty (int): Number of workers to add.
         
         Raises:
-            ValueError: If the new total (current + the qty to be added) exceeds the maximum worker capacity.
+            TooManyWorkersError: If the new total (current + the qty to be added) exceeds the maximum worker capacity.
+            NegativeNumberOfWorkersError: If the supplied quantity (`qty`) is negative.
         """
+        if qty < 0:
+            raise NegativeNumberOfWorkersError("Cannot add a negative number of workers.")
+        
         if self.workers + qty > self.max_workers:
-            raise ValueError(f"Too many workers. Max is {self.max_workers} for {self.name}.")
+            raise TooManyWorkersError(f"Too many workers. Max is {self.max_workers} for {self.name}.")
         
         self.workers += qty
     
@@ -214,10 +225,14 @@ class Building:
             qty (int): Number of workers to remove.
         
         Raises:
-            ValueError: If the operation results in fewer than zero workers.
+            InsufficientNumberOfWorkersError: If the operation results in fewer than zero workers.
+            NegativeNumberOfWorkersError: If the supplied quantity (`qty`) is negative.
         """
+        if qty < 0:
+            raise NegativeNumberOfWorkersError("Cannot remove a negative number of workers.")
+        
         if self.workers - qty < 0:
-            raise ValueError(f"Can't remove {qty} workers. Building currently has {self.workers}.")
+            raise InsufficientNumberOfWorkersError(f"Can not remove {qty} workers. Building currently has {self.workers}.")
         
         self.workers -= qty
     
@@ -229,10 +244,14 @@ class Building:
             qty (int): Number of workers to assign.
         
         Raises:
-            ValueError: If the value exceeds the maximum number of workers the building can have.
+            TooManyWorkersError: If the value exceeds the maximum number of workers the building can have.
+            NegativeNumberOfWorkersError: If the supplied quantity (`qty`) is negative.
         """
+        if qty < 0:
+            raise NegativeNumberOfWorkersError("Cannot set a negative number of workers.")
+        
         if qty > self.max_workers:
-            raise ValueError(f"{self.name} cannot allocate {qty}. Max is {self.max_workers}.")
+            raise TooManyWorkersError(f"{self.name} cannot allocate {qty} workers. Max is {self.max_workers}.")
         
         self.workers = qty
     
