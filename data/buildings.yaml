@@ -118,6 +118,44 @@ buildings:
     required_building:
       - town_hall
     replaces: town_hall
+  - id: small_fort_hall
+    name: Small Fort
+    building_cost:
+      food: 0
+      ore: 0
+      wood: 0
+    maintenance_cost:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_bonuses:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 0
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    effect_bonuses_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    storage_capacity:
+      food: 150
+      ore: 150
+      wood: 150
+    max_workers: 0
+    is_buildable: false
+    is_deletable: false
+    is_upgradeable: false
+    required_geo: null
+    required_rss: null
+    required_building: []
+    replaces: null
   # ******************* #
   # * Food production * #
   # ******************* #
