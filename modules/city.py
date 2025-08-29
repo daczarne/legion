@@ -597,6 +597,9 @@ class City:
         raise ValueError(f"No garrison found for {self.campaign} - {self.name}")
     
     def _calculate_garrison_size(self) -> int:
+        if self.is_small_fort:
+            return 3
+        
         if self.has_building(id = "large_fort"):
             return 4
         
@@ -609,6 +612,9 @@ class City:
         return 1
     
     def _calculate_squadron_size(self) -> str:
+        if self.is_small_fort:
+            return "Medium"
+        
         if self.has_building(id = "quartermaster"):
             return "Huge"
         

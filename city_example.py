@@ -64,3 +64,4 @@ city: City = City.from_buildings_count(
 )
 
 city.display_city()
+# print(city.get_hall().display_building())
