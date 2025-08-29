@@ -1723,6 +1723,24 @@ cities:
       intelligence: 0
     has_supply_dump: false
     garrison: German Mercenaries
+  - name: Argentaria
+    campaign: Germania
+    resource_potentials:
+      food: 0
+      ore: 0
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 20
+      population_growth: 0
+      intelligence: 30
+    has_supply_dump: false
+    is_small_fort: true
+    garrison: Legion
   # B
   - name: Baduhenna
     campaign: Germania
@@ -2157,6 +2175,24 @@ cities:
       intelligence: 0
     has_supply_dump: false
     garrison: German Cavalry
+  - name: Moguntiacum
+    campaign: Germania
+    resource_potentials:
+      food: 0
+      ore: 0
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 20
+      population_growth: 0
+      intelligence: 30
+    has_supply_dump: false
+    is_small_fort: true
+    garrison: Legion
   # N
   - name: Namenones
     campaign: Germania
@@ -2607,6 +2643,24 @@ cities:
       intelligence: 0
     has_supply_dump: false
     garrison: German Mercenaries
+  - name: Vetera
+    campaign: Germania
+    resource_potentials:
+      food: 0
+      ore: 0
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 20
+      population_growth: 0
+      intelligence: 30
+    has_supply_dump: false
+    is_small_fort: true
+    garrison: Legion
   # ************ #
   # * Hispania * #
   # ************ #
