@@ -338,10 +338,10 @@ class City:
             if not self.has_building(id = "supply_dump"):
                 self.buildings.append(Building(id = "supply_dump"))
     
-    def _add_small_fort_hall_to_buildings(self) -> None:
+    def _add_fort_hall_to_buildings(self) -> None:
         if self.is_fort:
-            if not self.has_building(id = "small_fort_hall"):
-                self.buildings.append(Building(id = "small_fort_hall"))
+            if not self.has_building(id = "fort"):
+                self.buildings.append(Building(id = "fort"))
     
     def _validate_halls(self) -> None:
         halls: BuildingsCount = {}
@@ -356,7 +356,7 @@ class City:
                 halls[building.id] = 1
         
         if not halls:
-            raise ValueError(f"City must include a hall (village, town, or city)")
+            raise ValueError(f"City must include a hall (Village, Town, or City)")
         
         if len(halls) > 1:
             raise ValueError(f"Too many halls for this city")
@@ -655,8 +655,9 @@ class City:
         self.is_fort = self._is_fort()
         
         #* Validate city
-        self._validate_halls()
         self._add_supply_dump_to_buildings()
+        self._add_fort_hall_to_buildings()
+        self._validate_halls()
         self._validate_number_of_buildings()
         
         #* Effect bonuses
