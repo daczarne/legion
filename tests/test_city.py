@@ -609,7 +609,7 @@ class TestCityScenarios:
         assert city.storage.total.food == 525
         assert city.focus == Resource.FOOD
     
-    def test_city_roman_fishing_village_and_outcrop(self) -> None:
+    def test_city_roman_fishing_village_and_outcrop_mine(self) -> None:
         city: City = City.from_buildings_count(
             campaign = "Unification of Italy",
             name = "Falerii",
@@ -707,7 +707,7 @@ class TestCityScenarios:
         assert city.storage.total.ore == 505
         assert city.focus == Resource.ORE
     
-    def test_city_roman_ore_mountains(self) -> None:
+    def test_city_roman_ore_mountain_mines(self) -> None:
         city: City = City.from_buildings_count(
             campaign = "Unification of Italy",
             name = "Reate",
@@ -735,7 +735,7 @@ class TestCityScenarios:
         assert city.storage.total.ore == 460
         assert city.focus == Resource.ORE
     
-    def test_city_roman_ore_mountain(self) -> None:
+    def test_city_roman_ore_mountain_mine(self) -> None:
         city: City = City.from_buildings_count(
             campaign = "Unification of Italy",
             name = "Hirpini",
@@ -856,6 +856,8 @@ class TestCityScenarios:
         assert city.defenses.garrison == "Legion"
         assert city.defenses.squadrons == 3
         assert city.defenses.squadron_size == "Medium"
+        
+        assert city.focus is None
     
     def test_fort_with_buildings(self) -> None:
         with raises(expected_exception = FortsCannotHaveBuildingsError, match = "Forts cannot have buildings"):
