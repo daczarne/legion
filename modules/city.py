@@ -72,6 +72,7 @@ class _CityData(TypedDict):
     geo_features: GeoFeaturesData
     effects: EffectBonusesData
     has_supply_dump: bool
+    is_fort: bool
     garrison: str
 
 with open(file = "./data/cities.yaml", mode = "r") as file:
@@ -168,6 +169,7 @@ class City:
     name: str = field(init = True, default = "", repr = True, compare = True, hash = True)
     buildings: list[Building] = field(init = True, default_factory = list, repr = False, compare = False, hash = False)
     has_supply_dump: bool = field(init = False, default = False, repr = False, compare = False, hash = False)
+    is_fort: bool = field(init = False, default = False, repr = False, compare = False, hash = False)
     
     # Post init fields
     resource_potentials: ResourceCollection = field(
@@ -223,13 +225,16 @@ class City:
     
     
     # Class variables
-    POSSIBLE_CITY_HALLS: ClassVar[set[str]] = {"village_hall", "town_hall", "city_hall"}
+    POSSIBLE_CITY_HALLS: ClassVar[set[str]] = {"village_hall", "town_hall", "city_hall", "fort"}
     MAX_WORKERS: ClassVar[BuildingsCount] = {
+        "fort": 0,
         "village_hall": 10,
         "town_hall": 14,
         "city_hall": 18,
     }
+    # The maximum number of buildings the city can have, not counting the hall itself.
     MAX_BUILDINGS_PER_CITY: ClassVar[BuildingsCount] = {
+        "fort": 0,
         "village_hall": 4,
         "town_hall": 6,
         "city_hall": 8,
@@ -264,7 +269,7 @@ class City:
         
         return GeoFeatures()
     
-    def _get_has_supply_dump(self) -> bool:
+    def _has_supply_dump(self) -> bool:
         """
         Checks if the city has a Supply dump.
         """
@@ -274,6 +279,19 @@ class City:
                 and city["name"] == self.name
             ):
                 return city["has_supply_dump"]
+        
+        return False
+    
+    def _is_fort(self) -> bool:
+        """
+        Checks if the city is a "Small Fort" city.
+        """
+        for city in CITIES:
+            if (
+                city["campaign"] == self.campaign
+                and city["name"] == self.name
+            ):
+                return city["is_fort"]
         
         return False
     
@@ -320,6 +338,11 @@ class City:
             if not self.has_building(id = "supply_dump"):
                 self.buildings.append(Building(id = "supply_dump"))
     
+    def _add_fort_hall_to_buildings(self) -> None:
+        if self.is_fort:
+            if not self.has_building(id = "fort"):
+                self.buildings.append(Building(id = "fort"))
+    
     def _validate_halls(self) -> None:
         halls: BuildingsCount = {}
         
@@ -333,7 +356,7 @@ class City:
                 halls[building.id] = 1
         
         if not halls:
-            raise ValueError(f"City must include a hall (village, town, or city)")
+            raise ValueError(f"City must include a hall (Village, Town, or City)")
         
         if len(halls) > 1:
             raise ValueError(f"Too many halls for this city")
@@ -342,11 +365,16 @@ class City:
             raise ValueError(f"Too many halls for this city")
     
     def _validate_number_of_buildings(self) -> None:
-        
         number_of_declared_buildings: int = len(self.buildings)
         max_number_of_buildings_in_city: int = self.MAX_BUILDINGS_PER_CITY[self.get_hall().id]
         
         if number_of_declared_buildings > max_number_of_buildings_in_city + 1:
+            
+            if self.is_fort:
+                raise ValueError(
+                    f"Forts cannot have buildings."
+                )
+            
             raise ValueError(
                 f"Too many buildings for this city: "
                 f"{number_of_declared_buildings} provided, "
@@ -569,6 +597,9 @@ class City:
         raise ValueError(f"No garrison found for {self.campaign} - {self.name}")
     
     def _calculate_garrison_size(self) -> int:
+        if self.is_fort:
+            return 3
+        
         if self.has_building(id = "large_fort"):
             return 4
         
@@ -581,6 +612,9 @@ class City:
         return 1
     
     def _calculate_squadron_size(self) -> str:
+        if self.is_fort:
+            return "Medium"
+        
         if self.has_building(id = "quartermaster"):
             return "Huge"
         
@@ -617,11 +651,13 @@ class City:
     def __post_init__(self) -> None:
         self.resource_potentials = self._get_rss_potentials()
         self.geo_features = self._get_geo_features()
-        self.has_supply_dump = self._get_has_supply_dump()
+        self.has_supply_dump = self._has_supply_dump()
+        self.is_fort = self._is_fort()
         
         #* Validate city
-        self._validate_halls()
         self._add_supply_dump_to_buildings()
+        self._add_fort_hall_to_buildings()
+        self._validate_halls()
         self._validate_number_of_buildings()
         
         #* Effect bonuses
@@ -837,8 +873,10 @@ class _CityDisplay:
     
     #* Display results
     def _build_city_information(self) -> Text:
+        fort: str = f" (Fort)" if self.city.is_fort else ""
+        
         city_information: Text = Text(
-            text = f" {self.city.campaign} --- {self.city.name} ",
+            text = f" {self.city.campaign} --- {self.city.name}{fort} ",
             style = "bold black on white",
             justify = "center",
         )

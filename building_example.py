@@ -21,8 +21,18 @@ stables.display_building()
 
 print()
 
-carpenters_guild: Building = Building(id = "carpenters_guild", workers = 0)
+carpenters_guild: Building = Building(id = "carpenters_guild")
 carpenters_guild.display_building()
+
+print()
+
+fort: Building = Building(id = "fort")
+fort.display_building()
+
+print()
+
+small_fort: Building = Building(id = "small_fort")
+small_fort.display_building()
 
 print()
 
