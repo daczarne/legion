@@ -44,6 +44,10 @@ examples:
           - city_example.py
           - kingdom_example.py
           - scenario_example.py
+exceptions:
+  - changed-files:
+      - any-glob-to-any-file:
+          - modules/exceptions.py
 geo_features:
   - changed-files:
       - any-glob-to-any-file:
