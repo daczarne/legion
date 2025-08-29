@@ -641,10 +641,11 @@ class City:
     #* City focus
     def _find_city_focus(self) -> Resource | None:
         highest_balance: int = max(self.production.balance.food, self.production.balance.ore, self.production.balance.wood)
-        rss_with_highest_balance: list[str] = self.production.balance.find_fields_by_value(value = highest_balance)
         
         if highest_balance < 0:
             return None
+        
+        rss_with_highest_balance: list[str] = self.production.balance.find_fields_by_value(value = highest_balance)
         
         if len(rss_with_highest_balance) > 1:
             return None
