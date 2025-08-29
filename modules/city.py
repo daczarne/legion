@@ -40,6 +40,13 @@ from rich.text import Text
 from .building import Building, BuildingsCount
 from .display import DisplayConfiguration, DisplaySectionConfiguration, DEFAULT_SECTION_COLORS
 from .effects import EffectBonusesData, EffectBonuses
+from .exceptions import (
+    NoCityHallError,
+    TooManyHallsError,
+    FortsCannotHaveBuildingsError,
+    TooManyBuildingsError,
+    NoGarrisonFoundError,
+)
 from .geo_features import GeoFeaturesData, GeoFeatures
 from .resources import Resource, ResourceCollectionData, ResourceCollection
 
@@ -356,13 +363,13 @@ class City:
                 halls[building.id] = 1
         
         if not halls:
-            raise ValueError(f"City must include a hall (Village, Town, or City)")
+            raise NoCityHallError(f"City must include a hall (Village, Town, or City).")
         
         if len(halls) > 1:
-            raise ValueError(f"Too many halls for this city")
+            raise TooManyHallsError(f"Too many halls for this city.")
         
         if list(halls.values())[0] != 1:
-            raise ValueError(f"Too many halls for this city")
+            raise TooManyHallsError(f"Too many halls for this city.")
     
     def _validate_number_of_buildings(self) -> None:
         number_of_declared_buildings: int = len(self.buildings)
@@ -371,14 +378,14 @@ class City:
         if number_of_declared_buildings > max_number_of_buildings_in_city + 1:
             
             if self.is_fort:
-                raise ValueError(
+                raise FortsCannotHaveBuildingsError(
                     f"Forts cannot have buildings."
                 )
             
-            raise ValueError(
+            raise TooManyBuildingsError(
                 f"Too many buildings for this city: "
                 f"{number_of_declared_buildings} provided, "
-                f"max of {max_number_of_buildings_in_city + 1} possible ({max_number_of_buildings_in_city} + hall)"
+                f"max of {max_number_of_buildings_in_city + 1} possible ({max_number_of_buildings_in_city} + hall)."
             )
     
     
@@ -594,7 +601,7 @@ class City:
             ):
                 return city["garrison"]
         
-        raise ValueError(f"No garrison found for {self.campaign} - {self.name}")
+        raise NoGarrisonFoundError(f"No garrison found for {self.campaign} - {self.name}")
     
     def _calculate_garrison_size(self) -> int:
         if self.is_fort:
@@ -706,7 +713,7 @@ class City:
             if building.id == id:
                 return building
         
-        raise KeyError(f"No building with ID={id} found in {self.name}")
+        raise KeyError(f"No building with ID={id} found in {self.name}.")
     
     def has_building(self, id: str) -> bool:
         """

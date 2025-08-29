@@ -5,6 +5,13 @@ from collections import Counter
 from modules.building import Building, BuildingsCount
 from modules.city import _CityData, City, _CityDisplay
 from modules.display import DEFAULT_SECTION_COLORS, DisplayConfiguration, DisplaySectionConfiguration
+from modules.exceptions import (
+    NoCityHallError,
+    TooManyHallsError,
+    FortsCannotHaveBuildingsError,
+    TooManyBuildingsError,
+    NoGarrisonFoundError,
+)
 from modules.resources import Resource
 
 
@@ -391,7 +398,7 @@ class TestCity:
         assert counts == expected_result
     
     def test_city_with_no_hall_raises_value_error(self) -> None:
-        with raises(expected_exception = ValueError, match = "City must include a hall"):
+        with raises(expected_exception = NoCityHallError, match = "City must include a hall."):
             city: City = City(
                 campaign = "Unification of Italy",
                 name = "Roma",
@@ -399,7 +406,7 @@ class TestCity:
             )
     
     def test_city_with_multiple_halls_raises_value_error(self) -> None:
-        with raises(expected_exception = ValueError, match = "Too many halls for this city"):
+        with raises(expected_exception = TooManyHallsError, match = "Too many halls for this city"):
             city: City = City(
                 campaign = "Unification of Italy",
                 name = "Roma",
@@ -410,7 +417,7 @@ class TestCity:
             )
     
     def test_city_with_duplicated_halls_raises_value_error(self) -> None:
-        with raises(expected_exception = ValueError, match = "Too many halls for this city"):
+        with raises(expected_exception = TooManyHallsError, match = "Too many halls for this city"):
             city: City = City(
                 campaign = "Unification of Italy",
                 name = "Roma",
@@ -421,7 +428,7 @@ class TestCity:
             )
     
     def test_village_with_excess_buildings_raises_value_error(self) -> None:
-        with raises(expected_exception = ValueError, match = "Too many buildings"):
+        with raises(expected_exception = TooManyBuildingsError, match = "Too many buildings"):
             city: City = City(
                 campaign = "Unification of Italy",
                 name = "Roma",
@@ -436,7 +443,7 @@ class TestCity:
             )
     
     def test_town_with_excess_buildings_raises_value_error(self) -> None:
-        with raises(expected_exception = ValueError, match = "Too many buildings"):
+        with raises(expected_exception = TooManyBuildingsError, match = "Too many buildings"):
             city: City = City(
                 campaign = "Unification of Italy",
                 name = "Roma",
@@ -453,7 +460,7 @@ class TestCity:
             )
     
     def test_city_with_excess_buildings_raises_value_error(self) -> None:
-        with raises(expected_exception = ValueError, match = "Too many buildings"):
+        with raises(expected_exception = TooManyBuildingsError, match = "Too many buildings"):
             city: City = City(
                 campaign = "Unification of Italy",
                 name = "Roma",
@@ -851,7 +858,7 @@ class TestCityScenarios:
         assert city.defenses.squadron_size == "Medium"
     
     def test_fort_with_buildings(self) -> None:
-        with raises(expected_exception = ValueError, match = "Forts cannot have buildings"):
+        with raises(expected_exception = FortsCannotHaveBuildingsError, match = "Forts cannot have buildings"):
             city: City = City.from_buildings_count(
                 campaign = "Germania",
                 name = "Vetera",

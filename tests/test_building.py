@@ -4,6 +4,12 @@ from typing import Any
 
 from modules.building import Building
 from modules.effects import EffectBonuses
+from modules.exceptions import (
+    InsufficientNumberOfWorkersError,
+    NegativeNumberOfWorkersError,
+    TooManyWorkersError,
+    UnknownBuildingError,
+)
 from modules.geo_features import GeoFeature
 from modules.resources import Resource, ResourceCollection
 
@@ -324,7 +330,7 @@ class TestBuilding:
         assert city_hall.workers == 0
     
     def test_creating_nonexistent_building(self) -> None:
-        with raises(expected_exception = ValueError):
+        with raises(expected_exception = UnknownBuildingError):
             Building(id = "nonexistent_building")
     
     def test_building_requirements(self) -> None:
@@ -354,14 +360,23 @@ class TestBuilding:
         large_mine.set_workers(qty = 3)
         assert large_mine.workers == 3
         
-        with raises(expected_exception = ValueError):
+        with raises(expected_exception = TooManyWorkersError):
             large_mine.add_workers(qty = 1)
         
-        with raises(expected_exception = ValueError):
+        with raises(expected_exception = NegativeNumberOfWorkersError):
+            large_mine.add_workers(qty = -1)
+        
+        with raises(expected_exception = InsufficientNumberOfWorkersError):
             large_mine.remove_workers(qty = 4)
         
-        with raises(expected_exception = ValueError):
+        with raises(expected_exception = NegativeNumberOfWorkersError):
+            large_mine.remove_workers(qty = -1)
+        
+        with raises(expected_exception = TooManyWorkersError):
             large_mine.set_workers(qty = 10)
+        
+        with raises(expected_exception = NegativeNumberOfWorkersError):
+            large_mine.set_workers(qty = -1)
 
 
 @mark.building
