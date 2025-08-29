@@ -24,6 +24,7 @@ class TestCitiesData:
             "geo_features",
             "effects",
             "has_supply_dump",
+            "is_small_fort",
             "garrison",
         ]
         
