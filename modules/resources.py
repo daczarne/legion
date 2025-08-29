@@ -62,6 +62,7 @@ class ResourceCollection:
         items(): Return (resource_name, value) pairs.
         values(): Return counts of all resources.
         get(key): Get the count for a given resource name. Raises KeyError if the key is not found.
+        find_fields_by_value(value): Returns a list of all the resources that have a given value.
     """
     food: int = 0
     ore: int = 0
