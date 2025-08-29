@@ -79,7 +79,7 @@ class TestResourceCollection:
         
         assert rss_collection.get(key = key) == expected
     
-    def test_get_invalid_key_raises_keyerror(self) -> None:
+    def test_get_invalid_key_raises_key_error(self) -> None:
         rss_collection: ResourceCollection = ResourceCollection(
             food = 1,
             ore = 2,
@@ -88,3 +88,36 @@ class TestResourceCollection:
         
         with raises(expected_exception = KeyError, match = "Invalid resource name: gold"):
             rss_collection.get(key = "gold")
+    
+    def test_find_fields_by_value_is_empty(self) -> None:
+        rss_collection: ResourceCollection = ResourceCollection(
+            food = 1,
+            ore = 2,
+            wood = 3,
+        )
+        
+        rss_matches: list[str] = rss_collection.find_fields_by_value(value = 5)
+        
+        assert Counter(rss_matches) == Counter([])
+    
+    def test_find_fields_by_value_one_match(self) -> None:
+        rss_collection: ResourceCollection = ResourceCollection(
+            food = 1,
+            ore = 2,
+            wood = 3,
+        )
+        
+        rss_matches: list[str] = rss_collection.find_fields_by_value(value = 3)
+        
+        assert Counter(rss_matches) == Counter(["wood"])
+    
+    def test_find_fields_by_value_multiple_matches(self) -> None:
+        rss_collection: ResourceCollection = ResourceCollection(
+            food = 3,
+            ore = 3,
+            wood = 1,
+        )
+        
+        rss_matches: list[str] = rss_collection.find_fields_by_value(value = 3)
+        
+        assert Counter(rss_matches) == Counter(["food", "ore"])
