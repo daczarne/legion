@@ -232,6 +232,7 @@ class City:
         "town_hall": 14,
         "city_hall": 18,
     }
+    # The maximum number of buildings the city can have, not counting the hall itself.
     MAX_BUILDINGS_PER_CITY: ClassVar[BuildingsCount] = {
         "small_fort_hall": 0,
         "village_hall": 4,
@@ -337,6 +338,11 @@ class City:
             if not self.has_building(id = "supply_dump"):
                 self.buildings.append(Building(id = "supply_dump"))
     
+    def _add_small_fort_hall_to_buildings(self) -> None:
+        if self.is_small_fort:
+            if not self.has_building(id = "small_fort_hall"):
+                self.buildings.append(Building(id = "small_fort_hall"))
+    
     def _validate_halls(self) -> None:
         halls: BuildingsCount = {}
         
@@ -359,11 +365,16 @@ class City:
             raise ValueError(f"Too many halls for this city")
     
     def _validate_number_of_buildings(self) -> None:
-        
         number_of_declared_buildings: int = len(self.buildings)
         max_number_of_buildings_in_city: int = self.MAX_BUILDINGS_PER_CITY[self.get_hall().id]
         
         if number_of_declared_buildings > max_number_of_buildings_in_city + 1:
+            
+            if self.is_small_fort:
+                raise ValueError(
+                    f"Small Forts cannot have buildings."
+                )
+            
             raise ValueError(
                 f"Too many buildings for this city: "
                 f"{number_of_declared_buildings} provided, "
