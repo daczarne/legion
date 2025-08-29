@@ -159,9 +159,9 @@ For each section you can control:
 ## The `Kingdom` class
 
 The `Kingdom` class produces an overview of the player's situation in a given campaing. It takes as input a list of
-cities and a list of sorting order. It displays the total production and storage situation of the kingdom.
+cities. It displays the total production and storage situation of the kingdom.
 
-You can also use the `Kingdom.from_list()` method to create the Kingdom instance. The list should be a list of city
+You can also use the `Kingdom.from_list()` method to create the `Kingdom` instance. The list should be a list of city
 dictionaries same as with the `Scenario` class.
 
 ```python
@@ -171,27 +171,40 @@ from modules.kingdom import Kingdom
 kingdom: Kingdom = Kingdom.from_list(
     data = [
         {
-            "campaign": "Unification of Italy",
-            "name": "Hernici",
+            "campaign": "Germania",
+            "name": "Vetera",
+            "buildings": {},
+        },
+        {
+            "campaign": "Germania",
+            "name": "Argentaria",
+            "buildings": {},
+        },
+        {
+            "campaign": "Germania",
+            "name": "Moguntiacum",
+            "buildings": {},
+        },
+        {
+            "campaign": "Germania",
+            "name": "Novesium",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": "Germania",
+            "name": "Rogomagnum",
             "buildings": {
                 "city_hall": 1,
                 "basilica": 1,
                 "miners_guild": 1,
-                "outcrop_mine": 1,
-                "fishing_village": 1,
-                "large_mine": 4,
+                "large_mine": 5,
+                "supply_dump": 1,
             },
         },
         {
-            "campaign": "Unification of Italy",
-            "name": "Reate",
-            "buildings": {
-                "city_hall": 1,
-                "basilica": 1,
-                "miners_guild": 1,
-                "mountain_mine": 2,
-                "large_mine": 4,
-            },
+            "campaign": "Germania",
+            "name": "Peucini",
+            "buildings": wood_producer,
         },
         ...
     ],
@@ -201,6 +214,19 @@ kingdom.display_kingdom()
 ```
 
 ![kingdome overview](img/kingdom_1.png)
+
+You can pass a list to the `sort_order` argument and it will change how the cities are sorted. By default, food
+producers will show first, followed by ore producers, wood producers, and, lastly, cities that don't specialize in any
+resource.
+
+The list can be partial. If you just want to specify that "ore" producers should go first
+
+```python
+sort_order = ["ore"]
+```
+
+is sufficient. The class will sort the cities by ore, followed by food, wood, and no-focus. In short, the list moves
+the order that you supplied to the front and keeps the rest in the default sorting order.
 
 This class will raise `ValueError` if:
 
