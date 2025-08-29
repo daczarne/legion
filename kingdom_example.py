@@ -64,7 +64,7 @@ kingdom: Kingdom = Kingdom.from_list(
         {
             "campaign": "Germania",
             "name": "Oxiones",
-            "buildings": military,
+            "buildings": ore_producer,
         },
         {
             "campaign": "Germania",
@@ -149,7 +149,7 @@ kingdom: Kingdom = Kingdom.from_list(
         {
             "campaign": "Germania",
             "name": "Chasuari",
-            "buildings": military,
+            "buildings": food_producer,
         },
         {
             "campaign": "Germania",
@@ -199,6 +199,56 @@ kingdom: Kingdom = Kingdom.from_list(
         {
             "campaign": "Germania",
             "name": "Tuder",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": "Germania",
+            "name": "Langobardii",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": "Germania",
+            "name": "Matiaci",
+            "buildings": food_producer,
+        },
+        {
+            "campaign": "Germania",
+            "name": "Nementes",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": "Germania",
+            "name": "Sturi",
+            "buildings": wood_producer,
+        },
+        {
+            "campaign": "Germania",
+            "name": "Salassi",
+            "buildings": wood_producer,
+        },
+        {
+            "campaign": "Germania",
+            "name": "Sugambrii",
+            "buildings": military,
+        },
+        {
+            "campaign": "Germania",
+            "name": "Abdagaesus",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": "Germania",
+            "name": "Varini",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": "Germania",
+            "name": "Libici",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": "Germania",
+            "name": "Valeda II",
             "buildings": ore_producer,
         },
     ],
