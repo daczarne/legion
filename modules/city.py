@@ -72,6 +72,7 @@ class _CityData(TypedDict):
     geo_features: GeoFeaturesData
     effects: EffectBonusesData
     has_supply_dump: bool
+    is_small_fort: bool
     garrison: str
 
 with open(file = "./data/cities.yaml", mode = "r") as file:
@@ -168,6 +169,7 @@ class City:
     name: str = field(init = True, default = "", repr = True, compare = True, hash = True)
     buildings: list[Building] = field(init = True, default_factory = list, repr = False, compare = False, hash = False)
     has_supply_dump: bool = field(init = False, default = False, repr = False, compare = False, hash = False)
+    is_small_fort: bool = field(init = False, default = False, repr = False, compare = False, hash = False)
     
     # Post init fields
     resource_potentials: ResourceCollection = field(
@@ -274,6 +276,19 @@ class City:
                 and city["name"] == self.name
             ):
                 return city["has_supply_dump"]
+        
+        return False
+    
+    def _is_small_fort(self) -> bool:
+        """
+        Checks if the city is a "Small Fort" city.
+        """
+        for city in CITIES:
+            if (
+                city["campaign"] == self.campaign
+                and city["name"] == self.name
+            ):
+                return city["is_small_fort"]
         
         return False
     
@@ -618,6 +633,7 @@ class City:
         self.resource_potentials = self._get_rss_potentials()
         self.geo_features = self._get_geo_features()
         self.has_supply_dump = self._get_has_supply_dump()
+        self.is_small_fort = self._is_small_fort()
         
         #* Validate city
         self._validate_halls()
