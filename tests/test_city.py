@@ -808,6 +808,26 @@ class TestCityScenarios:
         assert city.storage.buildings.wood == 450
         assert city.storage.total.wood == 550
         assert city.focus == Resource.WOOD
+    
+    def test_fort(self) -> None:
+        city: City = City.from_buildings_count(
+            campaign = "Germania",
+            name = "Vetera",
+            buildings = {},
+        )
+        
+        assert len(city.buildings) == 1
+        assert city.get_hall() == Building(id = "fort")
+    
+    def test_fort_with_buildings(self) -> None:
+        with raises(expected_exception = ValueError, match = "Forts cannot have buildings"):
+            city: City = City.from_buildings_count(
+                campaign = "Germania",
+                name = "Vetera",
+                buildings = {
+                    "farm": 1,
+                },
+            )
 
 
 @mark.city
