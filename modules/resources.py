@@ -93,3 +93,9 @@ class ResourceCollection:
             raise KeyError(f"Invalid resource name: {key}")
         
         return getattr(self, key)
+    
+    def find_fields_by_value(self, value: int) -> list[str]:
+        """
+        Return a list of resource names that have the given value.
+        """
+        return [field.name for field in fields(class_or_instance = self) if getattr(self, field.name) == value]
