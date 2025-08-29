@@ -238,5 +238,5 @@ the order that you supplied to the front and keeps the rest in the default sorti
 
 This class will raise the following exceptions:
 
-- `CitiesFromMultipleCampaignsError`: not all cities are from the same campaign
-- `DuplicatedCityError`: if there are duplicated cities
+- `CitiesFromMultipleCampaignsError`: not all cities are from the same campaign.
+- `DuplicatedCityError`: if there are duplicated cities.
