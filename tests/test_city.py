@@ -818,6 +818,37 @@ class TestCityScenarios:
         
         assert len(city.buildings) == 1
         assert city.get_hall() == Building(id = "fort")
+        
+        assert city.resource_potentials.food == 0
+        assert city.resource_potentials.ore == 0
+        assert city.resource_potentials.wood == 0
+        
+        assert city.geo_features.rock_outcrops == 0
+        assert city.geo_features.mountains == 0
+        assert city.geo_features.lakes == 0
+        assert city.geo_features.forests == 0
+        
+        assert city.production.total.food == 0
+        assert city.production.total.ore == 0
+        assert city.production.total.wood == 0
+        
+        assert city.effects.city.troop_training == 20
+        assert city.effects.city.population_growth == 0
+        assert city.effects.city.intelligence == 30
+        assert city.effects.total.troop_training == 20
+        assert city.effects.total.population_growth == 0
+        assert city.effects.total.intelligence == 30
+        
+        assert city.storage.city.food == 150
+        assert city.storage.city.ore == 150
+        assert city.storage.city.wood == 150
+        assert city.storage.total.food == 150
+        assert city.storage.total.ore == 150
+        assert city.storage.total.wood == 150
+        
+        assert city.defenses.garrison == "Legion"
+        assert city.defenses.squadrons == 3
+        assert city.defenses.squadron_size == "Medium"
     
     def test_fort_with_buildings(self) -> None:
         with raises(expected_exception = ValueError, match = "Forts cannot have buildings"):
