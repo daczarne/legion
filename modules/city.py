@@ -872,8 +872,10 @@ class _CityDisplay:
     
     #* Display results
     def _build_city_information(self) -> Text:
+        fort: str = f" (Fort)" if self.city.is_small_fort else ""
+        
         city_information: Text = Text(
-            text = f" {self.city.campaign} --- {self.city.name} ",
+            text = f" {self.city.campaign} --- {self.city.name}{fort} ",
             style = "bold black on white",
             justify = "center",
         )
