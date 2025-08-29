@@ -11,10 +11,12 @@ It also includes helper classes for reading resource collection data from YAML/J
 resources as if they were dictionaries.
 
 Public API:
-- Resource (Enum): Named constants for the main resource types.
-- ResourceCollectionData (TypedDict): Helper for type hints when reading YAML/JSON. While other modules may rely on
-    this for typing, end users are not expected to interact with it directly.
+
+- Resource (Enum): Named constants for the resource types.
+- ResourceCollectionData (TypedDict): Helper for type hints when reading YAML/JSON.
 - ResourceCollection (dataclass): Stores resource counts and provides dict-like access.
+
+This classes and types are meant to be used only in other modules. End-users should have no use for them.
 """
 
 from collections.abc import Iterator
@@ -62,6 +64,7 @@ class ResourceCollection:
         items(): Return (resource_name, value) pairs.
         values(): Return counts of all resources.
         get(key): Get the count for a given resource name. Raises KeyError if the key is not found.
+        find_fields_by_value(value): Returns a list of all the resources that have a given value.
     """
     food: int = 0
     ore: int = 0
