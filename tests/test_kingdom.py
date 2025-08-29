@@ -2,6 +2,7 @@ from pytest import mark, raises
 
 from modules.building import BuildingsCount
 from modules.city import City
+from modules.exceptions import DuplicatedCityError, CitiesFromMultipleCampaignsError
 from modules.kingdom import Kingdom
 
 
@@ -358,8 +359,8 @@ class TestKingdom:
         assert kingdom.kingdom_total_storage.ore == 14880
         assert kingdom.kingdom_total_storage.wood == 9525
     
-    def test_cities_from_different_campaigns_raise_value_error(self) -> None:
-        with raises(expected_exception = ValueError):
+    def test_cities_from_different_campaigns_raise_error(self) -> None:
+        with raises(expected_exception = CitiesFromMultipleCampaignsError):
             kingdom: Kingdom = Kingdom.from_list(
                 data = [
                     {
@@ -375,8 +376,8 @@ class TestKingdom:
                 ],
             )
     
-    def test_duplicated_cities_raise_value_error(self) -> None:
-        with raises(expected_exception = ValueError, match = f"Found duplicated city: Roma"):
+    def test_duplicated_cities_raise_error(self) -> None:
+        with raises(expected_exception = DuplicatedCityError, match = f"Found duplicated city: Roma"):
             kingdom: Kingdom = Kingdom.from_list(
                 data = [
                     {

@@ -108,6 +108,14 @@ class KingdomError(LegionError):
     pass
 
 
+class DuplicatedCityError(KingdomError):
+    pass
+
+
+class CitiesFromMultipleCampaignsError(KingdomError):
+    pass
+
+
 # * ********* * #
 # * RESOURCES * #
 # * ********* * #

@@ -26,6 +26,7 @@ from rich.table import Table
 from rich.text import Text
 
 from .city import City, CityDict, CITIES
+from .exceptions import DuplicatedCityError, CitiesFromMultipleCampaignsError
 from .resources import ResourceCollection, Resource
 
 
@@ -44,20 +45,20 @@ class Kingdom:
     campaign, production, and storage tables.
     
     Attributes:
-        cities (list[City]): list of `City` instances belonging to the kingdom.
-        sort_order (list[str | None] | None): optional resource sort order for cities. Defaults to `["food", "ore",
+        cities (list[City]): List of `City` instances belonging to the kingdom.
+        sort_order (list[str | None] | None): Pptional resource sort order for cities. Defaults to `["food", "ore",
             "wood", None]`). If not provided, a default order is used. Accept partial orders, e.g. `["ore"]` means
             "show ore first". For all resources not specified in the list the default will be used.
-        campaign (str): the campaign name shared by all cities in the kingdom. Automatically set during initialization.
-        number_of_cities_in_campaign (int): total number of cities in the campaign (including those not owned by the
+        campaign (str): The campaign name shared by all cities in the kingdom. Automatically set during initialization.
+        number_of_cities_in_campaign (int): Total number of cities in the campaign (including those not owned by the
             player). Calculated during initialization.
-        kingdom_total_production (ResourceCollection): aggregated net production of all resources across the player's
+        kingdom_total_production (ResourceCollection): Aggregated net production of all resources across the player's
             kingdom.
-        kingdom_total_storage (ResourceCollection): aggregated total storage capacity across the player's kingdom,
+        kingdom_total_storage (ResourceCollection): Aggregated total storage capacity across the player's kingdom,
             including the base storage.
         
     Class Attributes:
-        BASE_KINGDOM_STORAGE (int): fixed storage amount (per resource) granted to the player, independent of any
+        BASE_KINGDOM_STORAGE (int): Fixed storage amount (per resource) granted to the player, independent of any
             cities or buildings.
     
     Methods:
@@ -69,7 +70,8 @@ class Kingdom:
             Prints a formatted representation of the kingdom, including campaign info, production, and storage tables.
     
     Raises:
-        ValueError: if there are duplicate city names or cities from multiple campaigns.
+        DuplicatedCityError: If there are duplicated city names
+        CitiesFromMultipleCampaignsError: If there are cities from multiple campaigns.
     """
     cities: list[City]
     sort_order: list[str | None] | None = field(default = None)
@@ -171,13 +173,13 @@ class Kingdom:
         city_counts: Counter = Counter(all_cities)
         for city, count in city_counts.items():
             if count > 1:
-                raise ValueError(f"Found duplicated city: {city}")
+                raise DuplicatedCityError(f"Found duplicated city: {city}")
     
     def _validate_all_cities_are_from_the_same_campaign(self) -> None:
         all_campaigns: list[str] = [city.campaign for city in self.cities]
         campaign_counts: Counter = Counter(all_campaigns)
         if len(campaign_counts) > 1:
-            raise ValueError(
+            raise CitiesFromMultipleCampaignsError(
                 f"All cities must belong to the same campaign. "
                 f"Found cities from: {" and ".join(campaign_counts.keys())}"
             )
