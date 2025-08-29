@@ -23,6 +23,16 @@ a building can have, or removing more workers than a building has assigned to it
 
 See more examples in `./building_example.py`.
 
+### Exceptions
+
+This class will raise the following exceptions:
+
+- `InsufficientNumberOfWorkersError`: if you try to remove more workers than the building currently has.
+- `NegativeNumberOfWorkersError`: if you try to add, remove, or set a negative number of workers.
+- `TooManyWorkersError`: if you try to add to many workers to a building or set the total number of workers to a value
+  greater than the maximum number of workers the build can have.
+- `UnknownBuildingError`: if an unknown building ID is passed to the initalizer.
+
 ## The `City` class
 
 The `City` class is the backbone of it all. Given a city (identified by campaign and city name) and the configuration
@@ -71,6 +81,17 @@ city.display_city(display_configuration)
 ```
 
 ![partial city](img/city_2.png)
+
+### Exceptions
+
+This class will raise the following exceptions:
+
+- `NoCityHallError`: if no hall is included in the city buildings.
+- `TooManyHallsError`: if more than one hall is included in the city buildings.
+- `FortsCannotHaveBuildingsError`: if you try to add buildings to a Fort (Germania campaign).
+- `TooManyBuildingsError`: if you try to include more buildings in a city than what its hall can support.
+- `NoGarrisonFoundError`: if no garrison is found. This usually means that there was no city found. Check the spelling
+  of the city's name or the name of the campaign.
 
 ## The `Scenario` class
 
@@ -213,7 +234,9 @@ sort_order = ["ore"]
 is sufficient. The class will sort the cities by ore, followed by food, wood, and no-focus. In short, the list moves
 the order that you supplied to the front and keeps the rest in the default sorting order.
 
-This class will raise `ValueError` if:
+### Exceptions
 
-- not all cities are from the same campaign
-- there are duplicated cities
+This class will raise the following exceptions:
+
+- `CitiesFromMultipleCampaignsError`: not all cities are from the same campaign
+- `DuplicatedCityError`: if there are duplicated cities
