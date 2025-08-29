@@ -118,7 +118,7 @@ buildings:
     required_building:
       - town_hall
     replaces: town_hall
-  - id: small_fort_hall
+  - id: fort
     name: Small Fort
     building_cost:
       food: 0

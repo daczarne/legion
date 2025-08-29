@@ -72,7 +72,7 @@ class _CityData(TypedDict):
     geo_features: GeoFeaturesData
     effects: EffectBonusesData
     has_supply_dump: bool
-    is_small_fort: bool
+    is_fort: bool
     garrison: str
 
 with open(file = "./data/cities.yaml", mode = "r") as file:
@@ -169,7 +169,7 @@ class City:
     name: str = field(init = True, default = "", repr = True, compare = True, hash = True)
     buildings: list[Building] = field(init = True, default_factory = list, repr = False, compare = False, hash = False)
     has_supply_dump: bool = field(init = False, default = False, repr = False, compare = False, hash = False)
-    is_small_fort: bool = field(init = False, default = False, repr = False, compare = False, hash = False)
+    is_fort: bool = field(init = False, default = False, repr = False, compare = False, hash = False)
     
     # Post init fields
     resource_potentials: ResourceCollection = field(
@@ -225,16 +225,16 @@ class City:
     
     
     # Class variables
-    POSSIBLE_CITY_HALLS: ClassVar[set[str]] = {"village_hall", "town_hall", "city_hall", "small_fort_hall"}
+    POSSIBLE_CITY_HALLS: ClassVar[set[str]] = {"village_hall", "town_hall", "city_hall", "fort"}
     MAX_WORKERS: ClassVar[BuildingsCount] = {
-        "small_fort_hall": 0,
+        "fort": 0,
         "village_hall": 10,
         "town_hall": 14,
         "city_hall": 18,
     }
     # The maximum number of buildings the city can have, not counting the hall itself.
     MAX_BUILDINGS_PER_CITY: ClassVar[BuildingsCount] = {
-        "small_fort_hall": 0,
+        "fort": 0,
         "village_hall": 4,
         "town_hall": 6,
         "city_hall": 8,
@@ -282,7 +282,7 @@ class City:
         
         return False
     
-    def _is_small_fort(self) -> bool:
+    def _is_fort(self) -> bool:
         """
         Checks if the city is a "Small Fort" city.
         """
@@ -291,7 +291,7 @@ class City:
                 city["campaign"] == self.campaign
                 and city["name"] == self.name
             ):
-                return city["is_small_fort"]
+                return city["is_fort"]
         
         return False
     
@@ -339,7 +339,7 @@ class City:
                 self.buildings.append(Building(id = "supply_dump"))
     
     def _add_small_fort_hall_to_buildings(self) -> None:
-        if self.is_small_fort:
+        if self.is_fort:
             if not self.has_building(id = "small_fort_hall"):
                 self.buildings.append(Building(id = "small_fort_hall"))
     
@@ -370,7 +370,7 @@ class City:
         
         if number_of_declared_buildings > max_number_of_buildings_in_city + 1:
             
-            if self.is_small_fort:
+            if self.is_fort:
                 raise ValueError(
                     f"Small Forts cannot have buildings."
                 )
@@ -597,7 +597,7 @@ class City:
         raise ValueError(f"No garrison found for {self.campaign} - {self.name}")
     
     def _calculate_garrison_size(self) -> int:
-        if self.is_small_fort:
+        if self.is_fort:
             return 3
         
         if self.has_building(id = "large_fort"):
@@ -612,7 +612,7 @@ class City:
         return 1
     
     def _calculate_squadron_size(self) -> str:
-        if self.is_small_fort:
+        if self.is_fort:
             return "Medium"
         
         if self.has_building(id = "quartermaster"):
@@ -652,7 +652,7 @@ class City:
         self.resource_potentials = self._get_rss_potentials()
         self.geo_features = self._get_geo_features()
         self.has_supply_dump = self._has_supply_dump()
-        self.is_small_fort = self._is_small_fort()
+        self.is_fort = self._is_fort()
         
         #* Validate city
         self._validate_halls()
@@ -872,7 +872,7 @@ class _CityDisplay:
     
     #* Display results
     def _build_city_information(self) -> Text:
-        fort: str = f" (Fort)" if self.city.is_small_fort else ""
+        fort: str = f" (Fort)" if self.city.is_fort else ""
         
         city_information: Text = Text(
             text = f" {self.city.campaign} --- {self.city.name}{fort} ",

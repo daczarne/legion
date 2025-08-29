@@ -59,7 +59,7 @@ city: City = City.from_buildings_count(
     campaign = "Germania",
     name = "Vetera",
     buildings = {
-        "small_fort_hall": 1,
+        "fort": 1,
     },
 )
 
