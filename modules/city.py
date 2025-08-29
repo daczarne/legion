@@ -268,7 +268,7 @@ class City:
         
         return GeoFeatures()
     
-    def _get_has_supply_dump(self) -> bool:
+    def _has_supply_dump(self) -> bool:
         """
         Checks if the city has a Supply dump.
         """
@@ -634,7 +634,7 @@ class City:
     def __post_init__(self) -> None:
         self.resource_potentials = self._get_rss_potentials()
         self.geo_features = self._get_geo_features()
-        self.has_supply_dump = self._get_has_supply_dump()
+        self.has_supply_dump = self._has_supply_dump()
         self.is_small_fort = self._is_small_fort()
         
         #* Validate city
