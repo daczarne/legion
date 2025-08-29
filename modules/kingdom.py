@@ -268,7 +268,7 @@ class Kingdom:
         )
         
         table.add_column(header = "Total cities", header_style = "bold", justify = "center")
-        table.add_column(header = "40% threshold", header_style = "bold", justify = "center")
+        table.add_column(header = "Victory threshold", header_style = "bold", justify = "center")
         table.add_column(header = "Player cities", header_style = "bold", justify = "center")
         from math import ceil
         table.add_row(
