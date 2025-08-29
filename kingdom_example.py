@@ -251,6 +251,16 @@ kingdom: Kingdom = Kingdom.from_list(
             "name": "Valeda II",
             "buildings": ore_producer,
         },
+        {
+            "campaign": "Germania",
+            "name": "Osi",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": "Germania",
+            "name": "Suebii",
+            "buildings": ore_producer,
+        },
     ],
 )
 
