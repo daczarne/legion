@@ -42,6 +42,21 @@ kingdom: Kingdom = Kingdom.from_list(
     data = [
         {
             "campaign": "Germania",
+            "name": "Vetera",
+            "buildings": {},
+        },
+        {
+            "campaign": "Germania",
+            "name": "Argentaria",
+            "buildings": {},
+        },
+        {
+            "campaign": "Germania",
+            "name": "Moguntiacum",
+            "buildings": {},
+        },
+        {
+            "campaign": "Germania",
             "name": "Novesium",
             "buildings": ore_producer,
         },
