@@ -351,14 +351,6 @@ class City:
         
         self.buildings.append(Building(id = "fort"))
     
-    def _validate_halls(self) -> None:
-        halls: BuildingsCount = {}
-        
-        if self.has_building(id = "fort"):
-            return
-        
-        self.buildings.append(Building(id = "fort"))
-    
     
     #* Effect bonuses
     def _get_city_effects(self) -> EffectBonuses:
