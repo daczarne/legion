@@ -350,27 +350,6 @@ class City:
             if not self.has_building(id = "fort"):
                 self.buildings.append(Building(id = "fort"))
     
-    def _validate_halls(self) -> None:
-        halls: BuildingsCount = {}
-        
-        for building in self.buildings:
-            if building.id not in self.POSSIBLE_CITY_HALLS:
-                continue
-            
-            if building.id in halls:
-                halls[building.id] += 1
-            else:
-                halls[building.id] = 1
-        
-        if not halls:
-            raise NoCityHallError(f"City must include a hall (Village, Town, or City).")
-        
-        if len(halls) > 1:
-            raise TooManyHallsError(f"Too many halls for this city.")
-        
-        if list(halls.values())[0] != 1:
-            raise TooManyHallsError(f"Too many halls for this city.")
-    
     def _validate_number_of_buildings(self) -> None:
         number_of_declared_buildings: int = len(self.buildings)
         max_number_of_buildings_in_city: int = self.MAX_BUILDINGS_PER_CITY[self.get_hall().id]
@@ -658,11 +637,12 @@ class City:
         self.geo_features = self._get_geo_features()
         self.has_supply_dump = self._has_supply_dump()
         self.is_fort = self._is_fort()
-        
-        #* Validate city
         self._add_supply_dump_to_buildings()
         self._add_fort_hall_to_buildings()
-        self._validate_halls()
+        
+        #* Validate city
+        validator: _CityValidator = _CityValidator(city = self)
+        validator._validate_halls()
         self._validate_number_of_buildings()
         
         #* Effect bonuses
@@ -790,6 +770,36 @@ class City:
         """
         displayer: _CityDisplay = self.build_city_displayer(configuration = configuration)
         displayer.display_city()
+
+
+# * ************** * #
+# * CITY VALIDATOR * #
+# * ************** * #
+
+@dataclass
+class _CityValidator:
+    city: City
+    
+    def _validate_halls(self) -> None:
+        halls: BuildingsCount = {}
+        
+        for building in self.city.buildings:
+            if building.id not in self.city.POSSIBLE_CITY_HALLS:
+                continue
+            
+            if building.id in halls:
+                halls[building.id] += 1
+            else:
+                halls[building.id] = 1
+        
+        if not halls:
+            raise NoCityHallError(f"City must include a hall (Village, Town, or City).")
+        
+        if len(halls) > 1:
+            raise TooManyHallsError(f"Too many halls for this city.")
+        
+        if list(halls.values())[0] != 1:
+            raise TooManyHallsError(f"Too many halls for this city.")
 
 
 # * ************ * #
