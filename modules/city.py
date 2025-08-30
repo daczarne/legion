@@ -239,13 +239,6 @@ class City:
         "town_hall": 14,
         "city_hall": 18,
     }
-    # The maximum number of buildings the city can have, not counting the hall itself.
-    MAX_BUILDINGS_PER_CITY: ClassVar[BuildingsCount] = {
-        "fort": 0,
-        "village_hall": 4,
-        "town_hall": 6,
-        "city_hall": 8,
-    }
     
     __match_args__: ClassVar[tuple[str, ...]] = ("campaign", "name")
     
@@ -353,23 +346,6 @@ class City:
             return
         
         self.buildings.append(Building(id = "fort"))
-    
-    def _validate_number_of_buildings(self) -> None:
-        number_of_declared_buildings: int = len(self.buildings)
-        max_number_of_buildings_in_city: int = self.MAX_BUILDINGS_PER_CITY[self.get_hall().id]
-        
-        if number_of_declared_buildings > max_number_of_buildings_in_city + 1:
-            
-            if self.is_fort:
-                raise FortsCannotHaveBuildingsError(
-                    f"Forts cannot have buildings."
-                )
-            
-            raise TooManyBuildingsError(
-                f"Too many buildings for this city: "
-                f"{number_of_declared_buildings} provided, "
-                f"max of {max_number_of_buildings_in_city + 1} possible ({max_number_of_buildings_in_city} + hall)."
-            )
     
     
     #* Effect bonuses
@@ -649,7 +625,7 @@ class City:
         #* Validate city
         validator: _CityValidator = _CityValidator(city = self)
         validator._validate_halls()
-        self._validate_number_of_buildings()
+        validator._validate_number_of_buildings()
         
         #* Effect bonuses
         self.effects.city = self._get_city_effects()
@@ -761,8 +737,7 @@ class City:
         Returns:
             _CityDisplay: An instance of the _CityDisplay class.
         """
-        displayer: _CityDisplay = _CityDisplay(city = self, configuration = configuration)
-        return displayer
+        return _CityDisplay(city = self, configuration = configuration)
     
     def display_city(self, configuration: DisplayConfiguration | None = None) -> None:
         """
@@ -786,6 +761,14 @@ class City:
 class _CityValidator:
     city: City
     
+    # The maximum number of buildings the city can have, not counting the hall itself.
+    MAX_BUILDINGS_PER_CITY: ClassVar[BuildingsCount] = {
+        "fort": 0,
+        "village_hall": 4,
+        "town_hall": 6,
+        "city_hall": 8,
+    }
+    
     def _validate_halls(self) -> None:
         halls: BuildingsCount = {}
         
@@ -806,6 +789,23 @@ class _CityValidator:
         
         if list(halls.values())[0] != 1:
             raise TooManyHallsError(f"Too many halls for this city.")
+    
+    def _validate_number_of_buildings(self) -> None:
+        number_of_declared_buildings: int = len(self.city.buildings)
+        max_number_of_buildings_in_city: int = self.MAX_BUILDINGS_PER_CITY[self.city.get_hall().id]
+        
+        if number_of_declared_buildings > max_number_of_buildings_in_city + 1:
+            
+            if self.city.is_fort:
+                raise FortsCannotHaveBuildingsError(
+                    f"Forts cannot have buildings."
+                )
+            
+            raise TooManyBuildingsError(
+                f"Too many buildings for this city: "
+                f"{number_of_declared_buildings} provided, "
+                f"max of {max_number_of_buildings_in_city + 1} possible ({max_number_of_buildings_in_city} + hall)."
+            )
 
 
 # * ************ * #
