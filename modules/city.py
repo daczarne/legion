@@ -345,10 +345,14 @@ class City:
             if not self.has_building(id = "supply_dump"):
                 self.buildings.append(Building(id = "supply_dump"))
     
-    def _add_fort_hall_to_buildings(self) -> None:
-        if self.is_fort:
-            if not self.has_building(id = "fort"):
-                self.buildings.append(Building(id = "fort"))
+    def _add_fort_to_buildings(self) -> None:
+        if not self.is_fort:
+            return
+        
+        if self.has_building(id = "fort"):
+            return
+        
+        self.buildings.append(Building(id = "fort"))
     
     def _validate_halls(self) -> None:
         halls: BuildingsCount = {}
@@ -661,7 +665,7 @@ class City:
         
         #* Validate city
         self._add_supply_dump_to_buildings()
-        self._add_fort_hall_to_buildings()
+        self._add_fort_to_buildings()
         self._validate_halls()
         self._validate_number_of_buildings()
         
