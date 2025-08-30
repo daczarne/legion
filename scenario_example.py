@@ -46,6 +46,7 @@ scenario: Scenario = Scenario.from_list(
 )
 
 scenario.display_scenario()
+print()
 
 scenario: Scenario = Scenario.from_list(
     data = [
@@ -120,6 +121,68 @@ scenario: Scenario = Scenario.from_list(
                 "mountain_mine": 1,
                 "outcrop_mine": 1,
                 "large_mine": 1,
+                "vineyard": 1,
+                "gladiator_school": 1,
+                "hidden_grove": 1,
+            },
+        },
+    ],
+    configuration = {
+        "storage": {
+            "include": False,
+        },
+        "defenses": {
+            "include": False,
+        },
+    },
+)
+
+scenario.display_scenario()
+print()
+
+scenario: Scenario = Scenario.from_list(
+    data = [
+        {
+            "campaign": "Unification of Italy",
+            "name": "Latins",
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "carpenters_guild": 1,
+                "large_lumber_mill": 6,
+            },
+        },
+        {
+            "campaign": "Unification of Italy",
+            "name": "Latins",
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "carpenters_guild": 1,
+                "large_lumber_mill": 5,
+                "vineyard": 1,
+            },
+        },
+        {
+            "campaign": "Unification of Italy",
+            "name": "Latins",
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "carpenters_guild": 1,
+                "large_lumber_mill": 4,
+                "vineyard": 1,
+                "gladiator_school": 1,
+            },
+        },
+        {
+            "campaign": "Unification of Italy",
+            "name": "Latins",
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "carpenters_guild": 1,
+                "large_lumber_mill": 3,
                 "vineyard": 1,
                 "gladiator_school": 1,
                 "hidden_grove": 1,
