@@ -646,6 +646,9 @@ class _BuldingNode:
         self.max_per_city: int = max_per_city
         self.current_count: int = current_count
         self.is_available: bool = is_available
+    
+    def __repr__(self) -> str:
+        return self.building.__repr__()
 
 
 class BuildingsGraph:
