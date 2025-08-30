@@ -792,6 +792,15 @@ class City:
         displayer.display_city()
 
 
+# * ************** * #
+# * CITY VALIDATOR * #
+# * ************** * #
+
+@dataclass
+class _CityValidator:
+    city: City
+
+
 # * ************ * #
 # * CITY DISPLAY * #
 # * ************ * #
