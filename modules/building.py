@@ -660,11 +660,11 @@ class BuildingsGraph:
         if not node.building.id in self.nodes:
             self.nodes[node.building.id] = node
     
-    def remove_node(self, building: _BuldingNode):
+    def remove_node(self, node: _BuldingNode):
         pass
     
-    def add_edge(self, source: Building, target: Building):
+    def add_edge(self, source: _BuldingNode, target: _BuldingNode):
         pass
     
-    def remove_edge(self, source: Building, target: Building):
+    def remove_edge(self, source: _BuldingNode, target: _BuldingNode):
         pass
