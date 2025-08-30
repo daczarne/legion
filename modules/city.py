@@ -345,10 +345,14 @@ class City:
             if not self.has_building(id = "supply_dump"):
                 self.buildings.append(Building(id = "supply_dump"))
     
-    def _add_fort_hall_to_buildings(self) -> None:
-        if self.is_fort:
-            if not self.has_building(id = "fort"):
-                self.buildings.append(Building(id = "fort"))
+    def _add_fort_to_buildings(self) -> None:
+        if not self.is_fort:
+            return
+        
+        if self.has_building(id = "fort"):
+            return
+        
+        self.buildings.append(Building(id = "fort"))
     
     def _validate_number_of_buildings(self) -> None:
         number_of_declared_buildings: int = len(self.buildings)
@@ -635,10 +639,12 @@ class City:
     def __post_init__(self) -> None:
         self.resource_potentials = self._get_rss_potentials()
         self.geo_features = self._get_geo_features()
+        
         self.has_supply_dump = self._has_supply_dump()
-        self.is_fort = self._is_fort()
         self._add_supply_dump_to_buildings()
-        self._add_fort_hall_to_buildings()
+        
+        self.is_fort = self._is_fort()
+        self._add_fort_to_buildings()
         
         #* Validate city
         validator: _CityValidator = _CityValidator(city = self)
