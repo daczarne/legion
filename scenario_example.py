@@ -83,6 +83,48 @@ scenario: Scenario = Scenario.from_list(
                 "large_mine": 5,
             },
         },
+        {
+            "campaign": "Unification of Italy",
+            "name": "Caercini",
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "miners_guild": 1,
+                "mountain_mine": 1,
+                "outcrop_mine": 1,
+                "large_mine": 3,
+                "vineyard": 1,
+            },
+        },
+        {
+            "campaign": "Unification of Italy",
+            "name": "Caercini",
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "miners_guild": 1,
+                "mountain_mine": 1,
+                "outcrop_mine": 1,
+                "large_mine": 2,
+                "vineyard": 1,
+                "gladiator_school": 1,
+            },
+        },
+        {
+            "campaign": "Unification of Italy",
+            "name": "Caercini",
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "miners_guild": 1,
+                "mountain_mine": 1,
+                "outcrop_mine": 1,
+                "large_mine": 1,
+                "vineyard": 1,
+                "gladiator_school": 1,
+                "hidden_grove": 1,
+            },
+        },
     ],
     configuration = {
         "storage": {
