@@ -341,14 +341,22 @@ class City:
     
     #* Validate city buildings
     def _add_supply_dump_to_buildings(self) -> None:
-        if self.has_supply_dump:
-            if not self.has_building(id = "supply_dump"):
-                self.buildings.append(Building(id = "supply_dump"))
+        if not self.has_supply_dump:
+            return
+        
+        if self.has_building(id = "supply_dump"):
+            return
+        
+        self.buildings.append(Building(id = "supply_dump"))
     
-    def _add_fort_hall_to_buildings(self) -> None:
-        if self.is_fort:
-            if not self.has_building(id = "fort"):
-                self.buildings.append(Building(id = "fort"))
+    def _add_fort_to_buildings(self) -> None:
+        if not self.is_fort:
+            return
+        
+        if self.has_building(id = "fort"):
+            return
+        
+        self.buildings.append(Building(id = "fort"))
     
     def _validate_halls(self) -> None:
         halls: BuildingsCount = {}
@@ -656,12 +664,14 @@ class City:
     def __post_init__(self) -> None:
         self.resource_potentials = self._get_rss_potentials()
         self.geo_features = self._get_geo_features()
+        
         self.has_supply_dump = self._has_supply_dump()
+        self._add_supply_dump_to_buildings()
+        
         self.is_fort = self._is_fort()
+        self._add_fort_to_buildings()
         
         #* Validate city
-        self._add_supply_dump_to_buildings()
-        self._add_fort_hall_to_buildings()
         self._validate_halls()
         self._validate_number_of_buildings()
         
@@ -775,8 +785,7 @@ class City:
         Returns:
             _CityDisplay: An instance of the _CityDisplay class.
         """
-        displayer: _CityDisplay = _CityDisplay(city = self, configuration = configuration)
-        return displayer
+        return _CityDisplay(city = self, configuration = configuration)
     
     def display_city(self, configuration: DisplayConfiguration | None = None) -> None:
         """
