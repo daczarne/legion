@@ -232,7 +232,6 @@ class City:
     
     
     # Class variables
-    POSSIBLE_CITY_HALLS: ClassVar[set[str]] = {"village_hall", "town_hall", "city_hall", "fort"}
     MAX_WORKERS: ClassVar[BuildingsCount] = {
         "fort": 0,
         "village_hall": 10,
@@ -508,7 +507,7 @@ class City:
         buildings_storage: ResourceCollection = ResourceCollection()
         
         for building in self.buildings:
-            if building.id not in [*self.POSSIBLE_CITY_HALLS, "warehouse", "supply_dump"]:
+            if building.id not in [*_CityValidator.POSSIBLE_CITY_HALLS, "warehouse", "supply_dump"]:
                 buildings_storage.food += building.storage_capacity.food
                 buildings_storage.ore += building.storage_capacity.ore
                 buildings_storage.wood += building.storage_capacity.wood
@@ -705,7 +704,7 @@ class City:
             Building: the hall building of the city.
         """
         for building in self.buildings:
-            if building.id not in self.POSSIBLE_CITY_HALLS:
+            if building.id not in _CityValidator.POSSIBLE_CITY_HALLS:
                 continue
             
             return building
@@ -765,6 +764,8 @@ class City:
 class _CityValidator:
     city: City
     
+    POSSIBLE_CITY_HALLS: ClassVar[set[str]] = {"village_hall", "town_hall", "city_hall", "fort"}
+    
     # The maximum number of buildings the city can have, not counting the hall itself.
     MAX_BUILDINGS_PER_CITY: ClassVar[BuildingsCount] = {
         "fort": 0,
@@ -777,7 +778,7 @@ class _CityValidator:
         halls: BuildingsCount = {}
         
         for building in self.city.buildings:
-            if building.id not in self.city.POSSIBLE_CITY_HALLS:
+            if building.id not in self.POSSIBLE_CITY_HALLS:
                 continue
             
             if building.id in halls:
