@@ -5,32 +5,89 @@ scenario: Scenario = Scenario.from_list(
     data = [
         {
             "campaign": "Unification of Italy",
-            "name": "Roma",
+            "name": "Reate",
             "buildings": {
                 "city_hall": 1,
                 "basilica": 1,
-                "farmers_guild": 1,
-                "large_farm": 5,
-                "vineyard": 1,
+                "miners_guild": 1,
+                "mountain_mine": 2,
+                "large_mine": 4,
             },
         },
         {
             "campaign": "Unification of Italy",
-            "name": "Roma",
+            "name": "Reate",
             "buildings": {
                 "city_hall": 1,
                 "basilica": 1,
-                "hospital": 1,
-                "training_ground": 1,
-                "gladiator_school": 1,
-                "stables": 1,
-                "bordello": 1,
-                "quartermaster": 1,
-                "large_fort": 1,
+                "mountain_mine": 2,
+                "large_mine": 5,
+            },
+        },
+        {
+            "campaign": "Unification of Italy",
+            "name": "Reate",
+            "buildings": {
+                "city_hall": 1,
+                "miners_guild": 1,
+                "mountain_mine": 2,
+                "large_mine": 5,
             },
         },
     ],
     configuration = {
+        "storage": {
+            "include": False,
+        },
+        "defenses": {
+            "include": False,
+        },
+    },
+)
+
+scenario.display_scenario()
+
+scenario: Scenario = Scenario.from_list(
+    data = [
+        {
+            "campaign": "Unification of Italy",
+            "name": "Caercini",
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "miners_guild": 1,
+                "mountain_mine": 1,
+                "outcrop_mine": 1,
+                "large_mine": 4,
+            },
+        },
+        {
+            "campaign": "Unification of Italy",
+            "name": "Caercini",
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "mountain_mine": 1,
+                "outcrop_mine": 1,
+                "large_mine": 5,
+            },
+        },
+        {
+            "campaign": "Unification of Italy",
+            "name": "Caercini",
+            "buildings": {
+                "city_hall": 1,
+                "miners_guild": 1,
+                "mountain_mine": 1,
+                "outcrop_mine": 1,
+                "large_mine": 5,
+            },
+        },
+    ],
+    configuration = {
+        "storage": {
+            "include": False,
+        },
         "defenses": {
             "include": False,
         },
