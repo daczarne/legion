@@ -779,8 +779,7 @@ class City:
         Returns:
             _CityDisplay: An instance of the _CityDisplay class.
         """
-        displayer: _CityDisplay = _CityDisplay(city = self, configuration = configuration)
-        return displayer
+        return _CityDisplay(city = self, configuration = configuration)
     
     def display_city(self, configuration: DisplayConfiguration | None = None) -> None:
         """
