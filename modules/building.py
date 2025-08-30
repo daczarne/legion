@@ -647,3 +647,24 @@ class _BuldingNode:
         self.max_per_city: int = max_per_city
         self.current_count: int = current_count
         self.is_available: bool = is_available
+
+
+class BuildingsGraph:
+    
+    def __init__(
+            self,
+        ) -> None:
+        self.nodes: dict[str, _BuldingNode] = {}
+    
+    def add_node(self, node: _BuldingNode) -> None:
+        if not node.building.id in self.nodes:
+            self.nodes[node.building.id] = node
+    
+    def remove_node(self, building: _BuldingNode):
+        pass
+    
+    def add_edge(self, source: Building, target: Building):
+        pass
+    
+    def remove_edge(self, source: Building, target: Building):
+        pass
