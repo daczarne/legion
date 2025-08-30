@@ -1,6 +1,5 @@
-from typing import Literal
-from pytest import mark, raises, fixture, FixtureRequest
 from collections import Counter
+from pytest import mark, raises, fixture, FixtureRequest
 
 from modules.building import Building, BuildingsCount
 from modules.city import _CityData, City, _CityDisplay
