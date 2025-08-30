@@ -341,9 +341,13 @@ class City:
     
     #* Validate city buildings
     def _add_supply_dump_to_buildings(self) -> None:
-        if self.has_supply_dump:
-            if not self.has_building(id = "supply_dump"):
-                self.buildings.append(Building(id = "supply_dump"))
+        if not self.has_supply_dump:
+            return
+        
+        if self.has_building(id = "supply_dump"):
+            return
+        
+        self.buildings.append(Building(id = "supply_dump"))
     
     def _add_fort_to_buildings(self) -> None:
         if not self.is_fort:
