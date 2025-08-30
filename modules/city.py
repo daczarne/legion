@@ -660,12 +660,14 @@ class City:
     def __post_init__(self) -> None:
         self.resource_potentials = self._get_rss_potentials()
         self.geo_features = self._get_geo_features()
+        
         self.has_supply_dump = self._has_supply_dump()
+        self._add_supply_dump_to_buildings()
+        
         self.is_fort = self._is_fort()
+        self._add_fort_to_buildings()
         
         #* Validate city
-        self._add_supply_dump_to_buildings()
-        self._add_fort_to_buildings()
         self._validate_halls()
         self._validate_number_of_buildings()
         
