@@ -627,3 +627,23 @@ class Building:
         """
         console: Console = Console()
         console.print(self._build_building_display())
+
+
+# * ************** * #
+# * BUILDING GRAPH * #
+# * ************** * #
+
+
+class _BuldingNode:
+    
+    def __init__(
+            self,
+            building: Building,
+            max_per_city: int = 1,
+            current_count: int = 0,
+            is_available: bool = True,
+        ) -> None:
+        self.building: Building = building
+        self.max_per_city: int = max_per_city
+        self.current_count: int = current_count
+        self.is_available: bool = is_available
