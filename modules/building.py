@@ -666,7 +666,19 @@ class BuildingsGraph:
     def remove_node(self, node: _BuldingNode):
         pass
     
-    def add_edge(self, source: _BuldingNode, target: _BuldingNode):
+    def add_edge(self, source: _BuldingNode, target: _BuldingNode) -> None:
+        if not isinstance(source, _BuldingNode):
+            raise ValueError(f"Nodes must be of `_BuldingNode` class")
+        
+        if source.building.id not in self.nodes:
+            raise ValueError(f"{source.building.id} is not in the graph")
+        
+        if not isinstance(target, _BuldingNode):
+            raise ValueError(f"Nodes must be of `_BuldingNode` class")
+        
+        if target.building.id not in self.nodes:
+            raise ValueError(f"{source.building.id} is not in the graph")
+        
         pass
     
     def remove_edge(self, source: _BuldingNode, target: _BuldingNode):
