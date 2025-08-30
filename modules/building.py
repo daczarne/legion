@@ -655,6 +655,7 @@ class BuildingsGraph:
             self,
         ) -> None:
         self.nodes: dict[str, _BuldingNode] = {}
+        self.edges: list = []
     
     def add_node(self, node: _BuldingNode) -> None:
         if not isinstance(node, _BuldingNode):
