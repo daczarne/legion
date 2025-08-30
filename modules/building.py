@@ -657,6 +657,9 @@ class BuildingsGraph:
         self.nodes: dict[str, _BuldingNode] = {}
     
     def add_node(self, node: _BuldingNode) -> None:
+        if not isinstance(node, _BuldingNode):
+            raise ValueError(f"Nodes must be of `_BuldingNode` class")
+        
         if not node.building.id in self.nodes:
             self.nodes[node.building.id] = node
     
