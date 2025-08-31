@@ -762,42 +762,56 @@ class City:
 
 class _CityBuildingNode:
     
+    __slots__: tuple[str, ...] = ("building", "_allowed_count", "_current_count", "_is_available")
+
     def __init__(
             self,
             building: Building,
             allowed_count: int = 1,
         ) -> None:
         self.building: Building = building
-        self.allowed_count: int = allowed_count
-        self.current_count: int = 0
-        self.is_available: bool = allowed_count > 0
+        self._allowed_count: int = allowed_count
+        self._current_count: int = 0
+        self._is_available: bool = allowed_count > 0
+    
+    @property
+    def allowed_count(self) -> int:
+        return self._allowed_count
+    
+    @property
+    def current_count(self) -> int:
+        return self._current_count
+    
+    @property
+    def is_available(self) -> bool:
+        return self._is_available
     
     def increment_count(self) -> None:
         """
         Increment the `current_count` by one.
         """
-        if not self.is_available:
+        if not self._is_available:
             raise ValueError(
                 f"Cannot build \"{self.building.id}\": "
-                f"limit of {self.allowed_count} reached (current = {self.current_count})."
+                f"limit of {self._allowed_count} reached (current = {self._current_count})."
             )
         
-        if self.current_count + 1 > self.allowed_count:
+        if self._current_count + 1 > self._allowed_count:
             raise RuntimeError(
                 f"Internal error: \"{self.building.id}\" exceeded allowed_count. "
-                f"current = {self.current_count}, allowed = {self.allowed_count}"
+                f"current = {self._current_count}, allowed = {self._allowed_count}"
             )
         
-        self.current_count += 1
+        self._current_count += 1
         
-        if self.current_count == self.allowed_count:
-            self.is_available = False
+        if self._current_count == self.allowed_count:
+            self._is_available = False
     
     def __repr__(self) -> str:
         return (
             f"_CityBuildingNode(id = \"{self.building.id}\", "
-            f"count = {self.current_count}/{self.allowed_count}, "
-            f"is_available = {self.is_available})"
+            f"count = {self._current_count}/{self._allowed_count}, "
+            f"is_available = {self._is_available})"
         )
 
 

@@ -890,7 +890,6 @@ class TestCityBuildingNode:
         assert node.building.id == "fishing_village"
         assert node.allowed_count == 0
         assert node.current_count == 0
-        # should be marked unavailable immediately
         assert node.is_available is False
     
     def test_increment_count_until_limit(self) -> None:
@@ -917,19 +916,22 @@ class TestCityBuildingNode:
         with raises(expected_exception = ValueError):
             node.increment_count()
     
-    def test_runtime_error_if_internal_state_corrupted(self) -> None:
-        """
-        If current_count is manually corrupted, increment should raise RuntimeError.
-        """
+    def test_cannot_corrupt_internal_state(self):
+        """Attempting to overwrite internal state should raise AttributeError due to __slots__."""
         building = Building(id = "farm")
         node = _CityBuildingNode(building = building, allowed_count = 1)
         
-        # Simulate corruption
-        node.current_count = 1
-        node.is_available = True  # inconsistent state
+        with raises(expected_exception = AttributeError):
+            # cannot set property
+            node.current_count = 10 # type: ignore
         
-        with raises(expected_exception = RuntimeError):
-            node.increment_count()
+        with raises(expected_exception = AttributeError):
+            # cannot set property
+            node.is_available = True # type: ignore
+        
+        with raises(expected_exception = AttributeError):
+            # cannot add new attributes
+            node.random_attr = 123 # type: ignore
 
 
 
