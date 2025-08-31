@@ -762,17 +762,21 @@ class City:
 
 class _CityBuildingNode:
     
-    __slots__: tuple[str, ...] = ("building", "_allowed_count", "_current_count", "_is_available")
-
+    __slots__: tuple[str, ...] = ("_building", "_allowed_count", "_current_count", "_is_available")
+    
     def __init__(
             self,
             building: Building,
             allowed_count: int = 1,
         ) -> None:
-        self.building: Building = building
+        self._building: Building = building
         self._allowed_count: int = allowed_count
         self._current_count: int = 0
         self._is_available: bool = allowed_count > 0
+    
+    @property
+    def building(self) -> Building:
+        return self._building
     
     @property
     def allowed_count(self) -> int:
@@ -792,13 +796,13 @@ class _CityBuildingNode:
         """
         if not self._is_available:
             raise ValueError(
-                f"Cannot build \"{self.building.id}\": "
+                f"Cannot build \"{self._building.id}\": "
                 f"limit of {self._allowed_count} reached (current = {self._current_count})."
             )
         
         if self._current_count + 1 > self._allowed_count:
             raise RuntimeError(
-                f"Internal error: \"{self.building.id}\" exceeded allowed_count. "
+                f"Internal error: \"{self._building.id}\" exceeded allowed_count. "
                 f"current = {self._current_count}, allowed = {self._allowed_count}"
             )
         

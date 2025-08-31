@@ -904,7 +904,7 @@ class TestCityBuildingNode:
         assert node.current_count == 2
         assert node.is_available is False
     
-    def test_increment_count_raises_if_over_limit(self) -> None:
+    def test_increment_count_raises_error_if_over_limit(self) -> None:
         building = Building(id = "farm")
         node = _CityBuildingNode(building = building, allowed_count = 1)
         
@@ -916,7 +916,7 @@ class TestCityBuildingNode:
         with raises(expected_exception = ValueError):
             node.increment_count()
     
-    def test_cannot_corrupt_internal_state(self):
+    def test_cannot_corrupt_internal_state(self) -> None:
         """Attempting to overwrite internal state should raise AttributeError due to __slots__."""
         building = Building(id = "farm")
         node = _CityBuildingNode(building = building, allowed_count = 1)
@@ -932,7 +932,16 @@ class TestCityBuildingNode:
         with raises(expected_exception = AttributeError):
             # cannot add new attributes
             node.random_attr = 123 # type: ignore
-
+    
+    def test_cannot_change_building_after_init(self) -> None:
+        building = Building(id = "farm")
+        node = _CityBuildingNode(building = building, allowed_count = 1)
+        
+        new_building = Building(id = "city_hall")
+        
+        with raises(expected_exception = AttributeError):
+            # cannot change the building
+            node.building = new_building # type: ignore 
 
 
 @mark.city
