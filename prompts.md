@@ -89,7 +89,7 @@ First, I have decided that the class names will be `_CityBuildingNode` and `_Cit
 Here's the node class
 
 ```python
-class _CityBuldingNode:
+class _CityBuildingNode:
 
     def __init__(
             self,
@@ -114,7 +114,7 @@ But what I am not sure I follow with your idea of `self.edges`. Remember we need
 
 ## p3
 
-Not yet. First let's talk about the inicialization of the graph. Usually, when creating a graph model one needs to add methods for `add_node()`, `delete_node()`, `add_edge()`, and `delete_edge()`. We clarily don't need the methods for adding and removing edges since we don't have that concept here. But what about the methods for creating nodes? We probably won't need one for removing nodes either given the natue of what we are doing.
+Not yet. First let's talk about the inicialization of the graph. Usually, when creating a graph model one needs to add methods for `add_node()`, `delete_node()`, `add_edge()`, and `delete_edge()`. We clarily don't need the methods for adding and removing edges since we don't have that concept here. But what about the methods for creating nodes? We probably won't need one for removing nodes either given the nature of what we are doing.
 
 ## p4
 
