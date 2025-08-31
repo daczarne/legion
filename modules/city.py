@@ -756,6 +756,66 @@ class City:
         displayer.display_city()
 
 
+# * ******************** * #
+# * CITY BUILDINGS GRAPH * #
+# * ******************** * #
+
+class _CityBuldingNode:
+    
+    def __init__(
+            self,
+            building: Building,
+            max_per_city: int = 1,
+            current_count: int = 0,
+            is_available: bool = True,
+        ) -> None:
+        self.building: Building = building
+        self.max_per_city: int = max_per_city
+        self.current_count: int = current_count
+        self.is_available: bool = is_available
+    
+    def __repr__(self) -> str:
+        # return self.building.__repr__()
+        return f"{self.building.id} (count = {self.current_count}/{self.max_per_city} - is_available = {self.is_available})"
+
+
+class _CityBuildingsGraph:
+    
+    def __init__(
+            self,
+        ) -> None:
+        self.nodes: dict[str, _CityBuldingNode] = {}
+        self.edges: list = []
+    
+    def add_node(self, node: _CityBuldingNode) -> None:
+        if not isinstance(node, _CityBuldingNode):
+            raise ValueError(f"Nodes must be of `_BuldingNode` class")
+        
+        if not node.building.id in self.nodes:
+            self.nodes[node.building.id] = node
+    
+    def remove_node(self, node: _CityBuldingNode):
+        pass
+    
+    def add_edge(self, source: _CityBuldingNode, target: _CityBuldingNode) -> None:
+        if not isinstance(source, _CityBuldingNode):
+            raise ValueError(f"Nodes must be of `_BuldingNode` class")
+        
+        if source.building.id not in self.nodes:
+            raise ValueError(f"{source.building.id} is not in the graph")
+        
+        if not isinstance(target, _CityBuldingNode):
+            raise ValueError(f"Nodes must be of `_BuldingNode` class")
+        
+        if target.building.id not in self.nodes:
+            raise ValueError(f"{source.building.id} is not in the graph")
+        
+        pass
+    
+    def remove_edge(self, source: _CityBuldingNode, target: _CityBuldingNode):
+        pass
+
+
 # * ************** * #
 # * CITY VALIDATOR * #
 # * ************** * #
