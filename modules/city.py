@@ -859,8 +859,7 @@ class _CityBuildingsGraph:
             self,
         ) -> None:
         self.nodes: dict[str, _CityBuildingNode] = {}
-        self.edges: list = []
-    
+
 
 
 # * ************** * #
