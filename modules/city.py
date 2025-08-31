@@ -37,10 +37,11 @@ from rich.style import Style
 from rich.table import Table
 from rich.text import Text
 
-from .building import Building, BuildingsCount
+from .building import _BUILDINGS, Building, BuildingsCount
 from .display import DisplayConfiguration, DisplaySectionConfiguration, DEFAULT_SECTION_COLORS
 from .effects import EffectBonusesData, EffectBonuses
 from .exceptions import (
+    BuildingError,
     NoCityHallError,
     TooManyHallsError,
     FortsCannotHaveBuildingsError,
@@ -49,6 +50,7 @@ from .exceptions import (
 )
 from .geo_features import GeoFeaturesData, GeoFeatures
 from .resources import Resource, ResourceCollectionData, ResourceCollection
+from modules import building
 
 
 __all__: list[str] = ["City"]
@@ -857,9 +859,100 @@ class _CityBuildingsGraph:
     
     def __init__(
             self,
+            city: City,
         ) -> None:
+        self.city: City = city
         self.nodes: dict[str, _CityBuildingNode] = {}
-
+        self._initialize_nodes()
+    
+    def _initialize_nodes(self) -> None:
+        """
+        Create _CityBuildingNode instances for all buildings in _BUILDINGS and store them in self.nodes.
+        """
+        allowed_counts: dict[str, int] = self._calculate_allowed_counts()
+        
+        for building_id in _BUILDINGS:
+            self.nodes[building_id] = _CityBuildingNode(
+                building = Building(id = building_id),
+                allowed_count = allowed_counts[building_id],
+            )
+    
+    def _calculate_allowed_counts(self) -> BuildingsCount:
+        """
+        Determine the allowed_count for each building based on city state.
+        """
+        if self.city.is_fort:
+            allowed_counts: BuildingsCount = {building_id: 0 for building_id in _BUILDINGS}
+            allowed_counts["fort"] = 1
+            return allowed_counts
+        
+        basic_production_buildings: list[str] = [
+            "farm",
+            "large_farm",
+            "mine",
+            "large_mine",
+            "lumber_mill",
+            "large_lumber_mill",
+        ]
+        
+        allowed_counts: BuildingsCount = {building_id: 1 for building_id in _BUILDINGS}
+        
+        total_spots: int = _CityValidator.MAX_BUILDINGS_PER_CITY[self.city.get_hall().id]
+        
+        pre_occupied_spots: int = self.city.geo_features.lakes \
+            + self.city.geo_features.rock_outcrops \
+            + self.city.geo_features.mountains
+        
+        if self.city.has_supply_dump:
+            pre_occupied_spots += 1
+        
+        for building_id in _BUILDINGS:
+            # Cities that are not forts, cannot build the fort
+            if building_id == "fort":
+                allowed_counts[building_id] = 0
+            
+            #! I need to work-out the rules for the hunters_lodge, so for now, setting it to 0
+            if building_id == "hunters_lodge":
+                allowed_counts[building_id] = 0
+            
+            # Supply dumps are available in only three cities. There's only one per city and they are either there from
+            # the start or they are not. They cannot be deleted.
+            if building_id == "supply_dump":
+                if not self.city.has_supply_dump:
+                    allowed_counts[building_id] = 0
+            
+            # We start by assuming that basic production buildings can build as many as there are building slots
+            # available in that city. This is determined by the hall minus the pre_occupied_spots.
+            if building_id in basic_production_buildings:
+                allowed_counts[building_id] = total_spots - pre_occupied_spots
+            
+            # Geo-dependent buildings
+            if building_id == "fishing_village":
+                allowed_counts[building_id] = self.city.geo_features.lakes
+            
+            if building_id == "outcrop_mine":
+                allowed_counts[building_id] = self.city.geo_features.rock_outcrops
+            
+            if building_id == "mountain_mine":
+                allowed_counts[building_id] = self.city.geo_features.mountains
+            
+            if building_id in ["forest", "hidden_grove"]:
+                allowed_counts[building_id] = self.city.geo_features.forests
+            
+            # Rss-production-potential-dependent buildings
+            if building in ["farm", "large_farm", "vineyard", "fishing_village", "farmers_guild", "stables"]:
+                if self.city.resource_potentials.food == 0:
+                    allowed_counts[building_id] = 0
+            
+            if building in ["mine", "large_mine", "outcrop_mine", "mountain_mine", "miners_guild", "blacksmith"]:
+                if self.city.resource_potentials.ore == 0:
+                    allowed_counts[building_id] = 0
+            
+            if building in ["lumber_mill", "large_lumber_mill", "carpenters_guild", "fletcher"]:
+                if self.city.resource_potentials.wood == 0:
+                    allowed_counts[building_id] = 0
+        
+        return allowed_counts
 
 
 # * ************** * #

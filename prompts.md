@@ -1,4 +1,5 @@
 <!-- markdownlint-disable MD013 -->
+<!-- markdownlint-disable MD029 -->
 # Prompts
 
 ## p1
@@ -177,3 +178,1094 @@ Now suppose the algo starts with the "village_hall" instead. At the end of the f
 Next, the loop moves on to "city_hall". It starts from the "village_hall", which has already been set to is_available = False, but that is not a problem. The traversal can travel through unavailable nodes, it just cannot end in them. It reaches the "city_hall" node and adds the building. Then it moves upwards to the "town_hall" and it does the backwards steps there too. Now it needs to move up to the "village_hall". It will set the current_count = 2. This is a problem! If we have no validation for this value, it will not change the flag because the changing of the flag is only asking whether current_count == allowed_count, and since 2 != 1, the changing of the flag will be skipped, and since we are already at the "village_hall" node, the iteration terminates "successfully" and the error is not caught.
 
 By ensuring that current_count cannot be greater than allowed_count in the nodes, we prevent this error.
+
+## p6
+
+I like it when, without me even saying it, you already start going in the right direction.
+
+The city is already aware of its geography. Let me show you how.
+
+There's an entire module called `geo_features.py` in the program. Amongst a few other small things, the main class in
+that module is:
+
+```python
+@dataclass
+class GeoFeatures:
+    """
+    Stores counts of geographic features and provides dictionary-like access.
+
+    Each instance tracks the four geographic feature types: rock outcrops, mountains, lakes, and forests. Supports
+    iteration and retrieval like a dictionary.
+
+    Public methods:
+        __iter__(): Iterate over feature names.
+        items(): Return (feature_name, value) pairs.
+        values(): Return counts of all features.
+        get(key): Get the count for a given feature name. Raises KeyError if the key is not found.
+    """
+    rock_outcrops: int = 0
+    mountains: int = 0
+    lakes: int = 0
+    forests: int = 0
+
+    def __iter__(self) -> Iterator[str]:
+        """
+        Iterate over keys, like a dict.
+        """
+        return (field.name for field in fields(class_or_instance = self))
+
+    def items(self) -> Iterator[tuple[str, int]]:
+        """
+        Return an iterator of (key, value) pairs, like dict.items().
+        """
+        return ((field.name, getattr(self, field.name)) for field in fields(class_or_instance = self))
+
+    def values(self) -> Iterator[int]:
+        """
+        Return an iterator of values, like dict.values().
+        """
+        return (getattr(self, field.name) for field in fields(class_or_instance = self))
+
+    def get(self, key: str) -> int:
+        """
+        Get the value for a given geo feature name.
+        """
+        if key not in (f.name for f in fields(class_or_instance = self)):
+            raise KeyError(f"Invalid geo feature name: {key}")
+
+        return getattr(self, key)
+```
+
+When an instance of the city class gets created it reads for a YAML file the info about that city. In this info, it learns about the city's geo features. Here's an excerpt of the city class. It's not the whole thing of course, just the part that concerns us right now.
+
+```python
+@dataclass(
+    match_args = False,
+    order = False,
+    kw_only = True,
+)
+class City:
+    campaign: str = field(init = True, default = "", repr = True, compare = True, hash = True)
+    name: str = field(init = True, default = "", repr = True, compare = True, hash = True)
+    buildings: list[Building] = field(init = True, default_factory = list, repr = False, compare = False, hash = False)
+    has_supply_dump: bool = field(init = False, default = False, repr = False, compare = False, hash = False)
+    is_fort: bool = field(init = False, default = False, repr = False, compare = False, hash = False)
+
+    # Post init fields
+    resource_potentials: ResourceCollection = field(
+        init = False,
+        default_factory = ResourceCollection,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
+    geo_features: GeoFeatures = field(
+        init = False,
+        default_factory = GeoFeatures,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
+
+    __match_args__: ClassVar[tuple[str, ...]] = ("campaign", "name")
+
+    def _get_rss_potentials(self) -> ResourceCollection:
+        """
+        Finds the city supplied by the user in the directory of cities and returns its resource potentials.
+        """
+        for city in CITIES:
+            if (
+                city["campaign"] == self.campaign
+                and city["name"] == self.name
+            ):
+                return ResourceCollection(**city["resource_potentials"])
+
+        return ResourceCollection()
+
+    def _get_geo_features(self) -> GeoFeatures:
+        """
+        Finds the city supplied by the user in the directory of cities and returns its geo-features.
+        """
+        for city in CITIES:
+            if (
+                city["campaign"] == self.campaign
+                and city["name"] == self.name
+            ):
+                return GeoFeatures(**city["geo_features"])
+
+        return GeoFeatures()
+
+    def _has_supply_dump(self) -> bool:
+        """
+        Checks if the city has a Supply dump.
+        """
+        for city in CITIES:
+            if (
+                city["campaign"] == self.campaign
+                and city["name"] == self.name
+            ):
+                return city["has_supply_dump"]
+
+        return False
+
+    def _is_fort(self) -> bool:
+        """
+        Checks if the city is a "Small Fort" city.
+        """
+        for city in CITIES:
+            if (
+                city["campaign"] == self.campaign
+                and city["name"] == self.name
+            ):
+                return city["is_fort"]
+
+        return False
+
+    # Lots of other methods and things here until we get to the __post_init__ method
+    def __post_init__(self) -> None:
+        self.resource_potentials = self._get_rss_potentials()
+        self.geo_features = self._get_geo_features()
+
+        self.has_supply_dump = self._has_supply_dump()
+        self._add_supply_dump_to_buildings()
+
+        self.is_fort = self._is_fort()
+        self._add_fort_to_buildings()
+
+        #* Validate city
+        validator: _CityValidator = _CityValidator(city = self)
+        validator._validate_halls()
+        validator._validate_number_of_buildings()
+
+        # Lots of other things here too that are not relevant now.
+
+    def get_building(self, id: str) -> Building:
+        """
+        Retrieve a building from the city by its ID. In case the city has more than one it will return the first one.
+
+        Args:
+            id (str): the building ID to search for.
+
+        Returns:
+            Building: the first building in the city with the given ID.
+
+        Raises:
+            KeyError: if no building with the given ID exists in the city.
+        """
+        for building in self.buildings:
+            if building.id == id:
+                return building
+
+        raise KeyError(f"No building with ID={id} found in {self.name}.")
+
+    def has_building(self, id: str) -> bool:
+        """
+        Check whether the city contains a building with the specified ID.
+
+        Args:
+            id (str): the building ID to search for.
+
+        Returns:
+            bool: True if the building is present, False otherwise.
+        """
+        for building in self.buildings:
+            if building.id == id:
+                return True
+
+        return False
+
+    def get_hall(self) -> Building: # type: ignore
+        """
+        Retrieve the hall building of the city.
+
+        The hall is the central building of the city and must be one of "Village hall", "Town hall", or "City hall".
+
+        Returns:
+            Building: the hall building of the city.
+        """
+        for building in self.buildings:
+            if building.id not in _CityValidator.POSSIBLE_CITY_HALLS:
+                continue
+
+            return building
+
+    def get_buildings_count(self, by: Literal["name", "id"]) -> BuildingsCount:
+        """
+        Count the number of buildings in the city grouped by ID or name.
+
+        Args:
+            by (Literal["name", "id"]): whether to group counts by building name or ID.
+
+        Returns:
+            BuildingsCount: a dictionary mapping either building IDs or names to their respective counts.
+        """
+        from collections import Counter
+
+        if by == "name":
+            buildings_count: BuildingsCount = Counter([building.name for building in self.buildings])
+            return buildings_count
+
+        if by == "id":
+            buildings_count: BuildingsCount = Counter([building.id for building in self.buildings])
+            return buildings_count
+
+    def build_city_displayer(self, configuration: DisplayConfiguration | None = None) -> "_CityDisplay":
+        """
+        Creates a displayer for the City.
+
+        Args:
+            configuration: An optional dictionary for customizing the display. This can be used to hide specific
+                sections or change their appearance.
+
+        Returns:
+            _CityDisplay: An instance of the _CityDisplay class.
+        """
+        return _CityDisplay(city = self, configuration = configuration)
+
+    def display_city(self, configuration: DisplayConfiguration | None = None) -> None:
+        """
+        Renders and prints the city's statistics to the console.
+
+        This method acts as a facade, delegating the display logic to the `_CityDisplay` class.
+
+        Args:
+            configuration: An optional dictionary for customizing the display. This can be used to hide specific
+                sections or change their appearance.
+        """
+        displayer: _CityDisplay = self.build_city_displayer(configuration = configuration)
+        displayer.display_city()
+```
+
+And here's an example of what the `./data/cities.yaml` file has for each city:
+
+```yaml
+  - name: Caercini
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 50
+      ore: 125
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    has_supply_dump: false
+    is_fort: false
+    garrison: Hill Tribe Warriors
+  - name: Hernici
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 80
+      ore: 100
+      wood: 80
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 1
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    has_supply_dump: false
+    is_fort: false
+    garrison: Auxilia
+  - name: Roma
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 125
+      ore: 0
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    has_supply_dump: false
+    is_fort: false
+    garrison: Legion
+```
+
+There are hundreds more cities across several campaigns. But I think this gives you an idea of how they all look.
+
+Then there's the Building class. Apart from the properties that we have already discussed, the buildings have two that are going to become relevant here: `required_geo` and `required_rss`. Here are some examples that we have been talking about
+
+```yaml
+  - id: village_hall
+    name: Village hall
+    building_cost:
+      food: 0
+      ore: 0
+      wood: 0
+    maintenance_cost:
+      food: -5
+      ore: -5
+      wood: -5
+    productivity_bonuses:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 0
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    effect_bonuses_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    storage_capacity:
+      food: 50
+      ore: 50
+      wood: 50
+    max_workers: 0
+    is_buildable: false
+    is_deletable: false
+    is_upgradeable: true
+    required_geo: null
+    required_rss: null
+    required_building: []
+    replaces: null
+  - id: town_hall
+    name: Town hall
+    building_cost:
+      food: 250
+      ore: 0
+      wood: 250
+    maintenance_cost:
+      food: -3
+      ore: -3
+      wood: -3
+    productivity_bonuses:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 0
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    effect_bonuses_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    storage_capacity:
+      food: 75
+      ore: 75
+      wood: 75
+    max_workers: 0
+    is_buildable: true
+    is_deletable: false
+    is_upgradeable: true
+    required_geo: null
+    required_rss: null
+    required_building:
+      - village_hall
+    replaces: village_hall
+  - id: city_hall
+    name: City hall
+    building_cost:
+      food: 350
+      ore: 100
+      wood: 350
+    maintenance_cost:
+      food: 1
+      ore: 1
+      wood: 1
+    productivity_bonuses:
+      food: 25
+      ore: 25
+      wood: 25
+    productivity_per_worker:
+      food: 0
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    effect_bonuses_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    storage_capacity:
+      food: 100
+      ore: 100
+      wood: 100
+    max_workers: 0
+    is_buildable: true
+    is_deletable: false
+    is_upgradeable: false
+    required_geo: null
+    required_rss: null
+    required_building:
+      - town_hall
+    replaces: town_hall
+  - id: farm
+    name: Farm
+    building_cost:
+      food: 0
+      ore: 100
+      wood: 0
+    maintenance_cost:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_bonuses:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 7
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    effect_bonuses_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    storage_capacity:
+      food: 50
+      ore: 0
+      wood: 0
+    max_workers: 3
+    is_buildable: true
+    is_deletable: true
+    is_upgradeable: true
+    required_geo: null
+    required_rss: food
+    required_building:
+      - village_hall
+    replaces: null
+  - id: large_farm
+    name: Large farm
+    building_cost:
+      food: 0
+      ore: 150
+      wood: 150
+    maintenance_cost:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_bonuses:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 12
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    effect_bonuses_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    storage_capacity:
+      food: 75
+      ore: 0
+      wood: 0
+    max_workers: 3
+    is_buildable: true
+    is_deletable: true
+    is_upgradeable: false
+    required_geo: null
+    required_rss: food
+    required_building:
+      - farm
+    replaces: farm
+  - id: vineyard
+    name: Vineyard
+    building_cost:
+      food: 0
+      ore: 150
+      wood: 150
+    maintenance_cost:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_bonuses:
+      food: 10
+      ore: 10
+      wood: 10
+    productivity_per_worker:
+      food: 10
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    effect_bonuses_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    storage_capacity:
+      food: 75
+      ore: 0
+      wood: 0
+    max_workers: 3
+    is_buildable: true
+    is_deletable: true
+    is_upgradeable: false
+    required_geo: null
+    required_rss: food
+    required_building:
+      - town_hall, farm
+    replaces: farm
+  - id: fishing_village
+    name: Fishing village
+    building_cost:
+      food: 0
+      ore: 50
+      wood: 0
+    maintenance_cost:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_bonuses:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 9
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    effect_bonuses_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    storage_capacity:
+      food: 50
+      ore: 0
+      wood: 0
+    max_workers: 3
+    is_buildable: true
+    is_deletable: false
+    is_upgradeable: false
+    required_geo: lake
+    required_rss: food
+    required_building:
+      - village_hall
+    replaces: null
+  - id: farmers_guild
+    name: Farmers' guild
+    building_cost:
+      food: 250
+      ore: 250
+      wood: 250
+    maintenance_cost:
+      food: 10
+      ore: 0
+      wood: 0
+    productivity_bonuses:
+      food: 50
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 0
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    effect_bonuses_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    storage_capacity:
+      food: 0
+      ore: 0
+      wood: 0
+    max_workers: 0
+    is_buildable: true
+    is_deletable: true
+    is_upgradeable: false
+    required_geo: null
+    required_rss: food
+    required_building:
+      - city_hall, large_farm
+    replaces: null
+  - id: stables
+    name: Stables
+    building_cost:
+      food: 200
+      ore: 0
+      wood: 0
+    maintenance_cost:
+      food: 5
+      ore: 0
+      wood: 0
+    productivity_bonuses:
+      food: 0
+      ore: 0
+      wood: 0
+    productivity_per_worker:
+      food: 0
+      ore: 0
+      wood: 0
+    effect_bonuses:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    effect_bonuses_per_worker:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    storage_capacity:
+      food: 0
+      ore: 0
+      wood: 0
+    max_workers: 0
+    is_buildable: true
+    is_deletable: true
+    is_upgradeable: false
+    required_geo: null
+    required_rss: null
+    required_building:
+      - farm
+      - large_farm
+      - vineyard
+      - fishing_village
+    replaces: null
+```
+
+Before we continue, do let me know if you have any questions about how this all works?
+
+## p7
+
+Answering to your questions.
+
+1. Can a building’s required_geo ever be plural (e.g. needs 2 lakes, or one mountain + one forest), or is it always a single feature?
+
+Great question. The answer is no. Buildings will ever only need one geo feature. If there are multiple geo features, that means multiple buildings can be built. Here's an example.
+
+```yaml
+  - name: Reate
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 50
+      ore: 150
+      wood: 0
+    geo_features:
+      rock_outcrops: 0
+      mountains: 2
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    has_supply_dump: false
+    is_fort: false
+    garrison: Hill Tribe Warriors
+```
+
+This city has two mountains. That means that two instances of `Building(id = "mountain_mine")` can be built. This means that the `allowed_count` for the mountain mine node of the graph for this city, needs to be 2.
+
+Here's another city, this one with one outcrop and one mountain
+
+```yaml
+  - name: Grumentum
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 50
+      ore: 115
+      wood: 50
+    geo_features:
+      rock_outcrops: 1
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    has_supply_dump: false
+    is_fort: false
+    garrison: Peltasts
+```
+
+This city will be able to build 1 mountain mine, and one outcrop mine. It will not be able to build any fishing_villages.
+
+2. Same for required_rss: always a single resource type, or can it be multiple?
+
+Same here too: only one per building. For example, a farm requires that a city has rss production potential for food > 0. All types of mines (mine, large_mine, outcrop_mine, or mountain_mine) required that the city have rss production potential for ore > 0.
+
+3. For prerequisites (required_building): sometimes you list one (["farm"]), sometimes many (["farm", "large_farm", "vineyard"]). Do we treat that as an OR (any one suffices) or AND (all required)?
+
+This has not changed from what we discussed. This is how to express the DNF in YAML. YAML doesn't have things like tuples. So line here is an OR condition. In each line, there can be more than one requirement, those are AND conditions.
+
+Here's an excerpt of the `Building` class. I think seeing the init and post init here shed better light on how this gets treated than what words can ever do.
+
+```python
+@dataclass(match_args = False, kw_only = True)
+class Building:
+    id: str = field(init = True, repr = True, compare = True, hash = True)
+    workers: int = field(default = 0, repr = False, compare = False, hash = False)
+
+    name: str = field(init = False, repr = False, compare = False, hash = False)
+    building_cost: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
+    maintenance_cost: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
+    productivity_bonuses: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
+    productivity_per_worker: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
+    effect_bonuses: EffectBonuses = field(init = False, repr = False, compare = False, hash = False)
+    effect_bonuses_per_worker: EffectBonuses = field(init = False, repr = False, compare = False, hash = False)
+    storage_capacity: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
+    max_workers: int = field(init = False, repr = False, compare = False, hash = False)
+    is_buildable: bool = field(init = False, repr = False, compare = False, hash = False)
+    is_deletable: bool = field(init = False, repr = False, compare = False, hash = False)
+    is_upgradeable: bool = field(init = False, repr = False, compare = False, hash = False)
+    required_geo: GeoFeature | None = field(init = False, default = None, repr = False, compare = False, hash = False)
+    required_rss: Resource | None = field(init = False, default = None, repr = False, compare = False, hash = False)
+    # Dependencies here need to be interpreted as an OR. Either of the listed buildings unblocks the building. For
+    # example, a Stable requires either a Farm, or a Large Farm, or a Vineyard, or a Fishing Village. If the city has
+    # any one for them it can build a Stable. Similarly, a Blacksmith requires either a Mine, or a Large Mine, or a
+    # Mountain Mine, or an Outcrop Mine. If a building has no dependencies the list will be empty.
+    required_building: list[tuple[str, ...]] = field(init = False, default_factory = list, repr = False, compare = False, hash = False)
+    replaces: str | None = field(init = False, default = None, repr = False, compare = False, hash = False)
+
+
+    __match_args__: ClassVar[str] = ("id")
+
+
+    def _validate_building_exists(self) -> None:
+        if self.id not in _BUILDINGS:
+            raise UnknownBuildingError(f"Building {self.id} does not exist.")
+
+    def _validate_initial_number_of_workers(self) -> None:
+        if self.workers > self.max_workers:
+            raise TooManyWorkersError(f"Too many workers. Max is {self.max_workers} for {self.name}.")
+
+    def _unpack_required_buildings(self) -> list[tuple[str, ...]]:
+        required_buildings_list_of_strings: list[str] = _BUILDINGS[self.id]["required_building"]
+        required_buildings: list[tuple[str, ...]] = []
+
+        for requirement in required_buildings_list_of_strings:
+            required_buildings.append(tuple(requirement.split(sep = ", ")))
+
+        return required_buildings
+
+
+    def __post_init__(self) -> None:
+        self._validate_building_exists()
+
+        self.name = _BUILDINGS[self.id]["name"]
+        self.building_cost = ResourceCollection(**_BUILDINGS[self.id]["building_cost"])
+        self.maintenance_cost = ResourceCollection(**_BUILDINGS[self.id]["maintenance_cost"])
+        self.productivity_bonuses = ResourceCollection(**_BUILDINGS[self.id]["productivity_bonuses"])
+        self.productivity_per_worker = ResourceCollection(**_BUILDINGS[self.id]["productivity_per_worker"])
+        self.effect_bonuses = EffectBonuses(**_BUILDINGS[self.id]["effect_bonuses"])
+        self.effect_bonuses_per_worker = EffectBonuses(**_BUILDINGS[self.id]["effect_bonuses_per_worker"])
+        self.storage_capacity = ResourceCollection(**_BUILDINGS[self.id]["storage_capacity"])
+        self.max_workers = _BUILDINGS[self.id]["max_workers"]
+        self.is_buildable = _BUILDINGS[self.id]["is_buildable"]
+        self.is_deletable = _BUILDINGS[self.id]["is_deletable"]
+        self.is_upgradeable = _BUILDINGS[self.id]["is_upgradeable"]
+        self.required_geo = GeoFeature(value = _BUILDINGS[self.id]["required_geo"]) if _BUILDINGS[self.id]["required_geo"] else None
+        self.required_rss = Resource(value = _BUILDINGS[self.id]["required_rss"]) if _BUILDINGS[self.id]["required_rss"] else None
+        self.required_building = self._unpack_required_buildings()
+        self.replaces = _BUILDINGS[self.id]["replaces"]
+
+        self._validate_initial_number_of_workers()
+
+
+    def add_workers(self, qty: int) -> None:
+        """
+        Assigns additional workers to the building.
+
+        Args:
+            qty (int): Number of workers to add.
+
+        Raises:
+            TooManyWorkersError: If the new total (current + the qty to be added) exceeds the maximum worker capacity.
+            NegativeNumberOfWorkersError: If the supplied quantity (`qty`) is negative.
+        """
+        if qty < 0:
+            raise NegativeNumberOfWorkersError("Cannot add a negative number of workers.")
+
+        if self.workers + qty > self.max_workers:
+            raise TooManyWorkersError(f"Too many workers. Max is {self.max_workers} for {self.name}.")
+
+        self.workers += qty
+
+    def remove_workers(self, qty: int) -> None:
+        """
+        Removes workers from the building.
+
+        Args:
+            qty (int): Number of workers to remove.
+
+        Raises:
+            InsufficientNumberOfWorkersError: If the operation results in fewer than zero workers.
+            NegativeNumberOfWorkersError: If the supplied quantity (`qty`) is negative.
+        """
+        if qty < 0:
+            raise NegativeNumberOfWorkersError("Cannot remove a negative number of workers.")
+
+        if self.workers - qty < 0:
+            raise InsufficientNumberOfWorkersError(f"Can not remove {qty} workers. Building currently has {self.workers}.")
+
+        self.workers -= qty
+
+    def set_workers(self, qty: int) -> None:
+        """
+        Sets the exact number of workers for the building.
+
+        Args:
+            qty (int): Number of workers to assign.
+
+        Raises:
+            TooManyWorkersError: If the value exceeds the maximum number of workers the building can have.
+            NegativeNumberOfWorkersError: If the supplied quantity (`qty`) is negative.
+        """
+        if qty < 0:
+            raise NegativeNumberOfWorkersError("Cannot set a negative number of workers.")
+
+        if qty > self.max_workers:
+            raise TooManyWorkersError(f"{self.name} cannot allocate {qty} workers. Max is {self.max_workers}.")
+
+        self.workers = qty
+```
+
+## p8
+
+I think I have found the reason why I don't follow with your proposal. You are assuming that `_BUILDINGS` from the `building.py` module is already a collection of all possible buildings. And, in a way, it is. But this is just the data being read from the yaml file, it is not a collection of `Building` objects.
+
+Here's the code that creates it
+
+```python
+class _BuildingData(TypedDict):
+    """
+    This is a helper class meant to be used when reading building data from YAML or JSON files. Its only purpose is to
+    provide good type annotations and hints.
+    """
+    id: str
+    name: str
+    building_cost: ResourceCollectionData
+    maintenance_cost: ResourceCollectionData
+    productivity_bonuses: ResourceCollectionData
+    productivity_per_worker: ResourceCollectionData
+    effect_bonuses: EffectBonusesData
+    effect_bonuses_per_worker: EffectBonusesData
+    storage_capacity: ResourceCollectionData
+    max_workers: int
+    is_buildable: bool
+    is_deletable: bool
+    is_upgradeable: bool
+    required_geo: str | None
+    required_rss: str | None
+    required_building: list[str]
+    replaces: str | None
+
+with open(file = "./data/buildings.yaml", mode = "r") as file:
+    _buildings_data: dict[Literal["buildings"], list[_BuildingData]] = yaml.safe_load(stream = file)
+
+_BUILDINGS: dict[str, _BuildingData] = {building["id"]: building for building in _buildings_data["buildings"]}
+```
+
+This dictionary of "raw data" is used by the `Building` class to init the `Building` objects.
+
+## p9
+
+This is quite bad. But it's not your fault. I think you need more information about how the cities work.
+
+In this game, a city can be thought as a collection of buildings. At the center of this collection is the Hall. The hall can be evolved from village to town to city, but there can always be only one, and there must always be one.
+
+The hall determines many things for a city. One of those things is how many other buildings the city can support. The `MAX_BUILDINGS_PER_CITY` variable describes this limit. A city that only has a "village_hall" can only build 4, with a "town_hall" that grows to 6 and with a "city_hall" that grows to its maximum of 8.
+
+What happens with other buildings?
+
+Well, those can be classified into two groups: production buildings, and non-production buildings.
+
+Non-production buildings (like a bath -> hospital, a shrine -> temple -> basilica, training grounds, etc) are limited to 1 per city. This means that most buildings are limited to 1 by default, and that's why I set the default `allowed_count` to 1 in the `_CityBuildingNode` class.
+
+The problem happens with the production buildings. One rule that governs all production buildings is that a city can only have production buildings that produce a resource for which the city itself has a production potential > 0. Therefore, everytime we see a city with rss pot of 0 for a given rss, we need to set the `allowed_count` to 0, for all buildings that have that rss as `required_rss`.
+
+Next, production buildings can be further sub-classified into two groups. Let's call these groups "basic" and "geo-dependent".
+
+The "basic" ones are the "farm -> large_farm", "mine -> large_mine", and "lumber_mill -> large_lumber_mill". The number of `allowed_count` for this count depends on two things:
+
+- the size of the hall. For example, a city with only a "village_hall" will only be able to build a max of 4 total buildings, so this limits the basic production buildings. On the other end, a city with a "city_hall" will be able to have 8 total buildings.
+- the presence of geo features. Geo features like lakes or mountains are always present in the city. This building spots can only be "evolved" into the specific building to expolit it. For example, if the city has a lake, the only thing that can be built there is a fishing_village
+
+So let's go over some examples. Let's start with a city with no geo features:
+
+```yaml
+  - name: Roma
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 125
+      ore: 0
+      wood: 50
+    geo_features:
+      rock_outcrops: 0
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 0
+      population_growth: 0
+      intelligence: 0
+    has_supply_dump: false
+    is_fort: false
+    garrison: Legion
+```
+
+and let's assume that the city only has
+
+```python
+City(
+  campaign = "Unification of Italy",
+  name = "Roma",
+  buildings = [
+    Building(id = "village_hall"),
+    ...
+  ]
+)
+```
+
+Since this city no geo features already occupying any building spot, the max number of, for example, farms that it can build needs to be set to 4.
+
+If instead, the player says that:
+
+```python
+City(
+  campaign = "Unification of Italy",
+  name = "Roma",
+  buildings = [
+    Building(id = "town_hall"),
+    ...
+  ]
+)
+```
+
+then the `allowed_count` for the "farm" node grows to 6.
+
+Now let's look at a city with one geo feature and enough rss production potential to exploit that geo feature.
+
+```yaml
+  - name: Friniates
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 0
+      ore: 100
+      wood: 100
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    has_supply_dump: false
+    is_fort: false
+    garrison: Hill Tribe Warriors
+```
+
+If when this city first starts it only has a "village_hall":
+
+```python
+City(
+  campaign = "Unification of Italy",
+  name = "Friniates",
+  buildings = [
+    Building(id = "village_hall"),
+    ...
+  ]
+)
+```
+
+Since this city has one "rock_outcrop", there's already one spot that can only be evolved into an "outcrop_mine". Therefore, the maximum number of "mine -> large_mine" or "lumber_mill -> large_lumber_mill" that it can build is 3. Why? Well it has a "village_hall" so max_number_of_buildings = 4, but one is already occupied by an "rock_outcrop", leaving us with three building spots available for other buildings.
+
+Now let's look at this city with two geo features:
+
+```yaml
+  - name: Caercini
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 50
+      ore: 125
+      wood: 0
+    geo_features:
+      rock_outcrops: 1
+      mountains: 1
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    has_supply_dump: false
+    is_fort: false
+    garrison: Hill Tribe Warriors
+```
+
+```python
+City(
+  campaign = "Unification of Italy",
+  name = "Caercini",
+  buildings = [
+    Building(id = "village_hall"),
+    ...
+  ]
+)
+```
+
+Here the player will only be able to build 2 mines. Why? Same as before. It has a "village_hall", so the total number of supported buildings is 4. But two are already occupied with an "outcrop_rock" (which can only be evolved into an "outcrop_mine") and a "mountain" (which can only be evolved into a "mountain_mine"), leaving us with two more available spots.
+
+One last example that has an ugly complication. Take this city:
+
+```yaml
+  - name: Sentinum
+    campaign: Unification of Italy
+    resource_potentials:
+      food: 110
+      ore: 0
+      wood: 50
+    geo_features:
+      rock_outcrops: 1
+      mountains: 0
+      lakes: 0
+      forests: 0
+    effects:
+      troop_training: 25
+      population_growth: 0
+      intelligence: 0
+    has_supply_dump: false
+    is_fort: false
+    garrison: Italiot Greek Cavalry
+```
+
+The city has an "outcrop_rock". But the rss prod potential for ore is zero. This, sadly, means that this city will "loose" a building spot. There's nothing that can be done about it. There's nothing that can be done about it. The ourcrop rock is already there at the start. It cannot be deleted. But there's no rss prod pot for building mines.
+
+I hope this helps give a better understanding of how the `allowed_count` property needs to work. But feel free to ask more questions if you need further clarifications.
+
+I think at this point it would be best to start with some TDD. Let's create some tests scenarios that create graph objects for all these different scenarios, and then we can validate the implementation aginst the tests. Wdyt?
