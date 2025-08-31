@@ -2,7 +2,7 @@ from collections import Counter
 from pytest import mark, raises, fixture, FixtureRequest
 
 from modules.building import Building, BuildingsCount
-from modules.city import _CityData, City, _CityDisplay
+from modules.city import _CityData, City, _CityBuildingNode, _CityDisplay
 from modules.display import DEFAULT_SECTION_COLORS, DisplayConfiguration, DisplaySectionConfiguration
 from modules.exceptions import (
     NoCityHallError,
@@ -867,6 +867,70 @@ class TestCityScenarios:
                     "farm": 1,
                 },
             )
+
+
+@mark.city
+@mark.city_buildings_graph
+@mark.city_buildings_node
+class TestCityBuildingNode:
+    
+    def test_initialization_with_positive_allowed_count(self) -> None:
+        building = Building(id = "farm")
+        node = _CityBuildingNode(building = building, allowed_count = 2)
+        
+        assert node.building.id == "farm"
+        assert node.allowed_count == 2
+        assert node.current_count == 0
+        assert node.is_available is True
+    
+    def test_initialization_with_zero_allowed_count(self) -> None:
+        building = Building(id = "fishing_village")
+        node = _CityBuildingNode(building = building, allowed_count = 0)
+        
+        assert node.building.id == "fishing_village"
+        assert node.allowed_count == 0
+        assert node.current_count == 0
+        # should be marked unavailable immediately
+        assert node.is_available is False
+    
+    def test_increment_count_until_limit(self) -> None:
+        building = Building(id = "farm")
+        node = _CityBuildingNode(building = building, allowed_count = 2)
+        
+        node.increment_count()
+        assert node.current_count == 1
+        assert node.is_available is True
+        
+        node.increment_count()
+        assert node.current_count == 2
+        assert node.is_available is False
+    
+    def test_increment_count_raises_if_over_limit(self) -> None:
+        building = Building(id = "farm")
+        node = _CityBuildingNode(building = building, allowed_count = 1)
+        
+        node.increment_count()
+        assert node.current_count == 1
+        assert node.is_available is False
+        
+        # trying to increment past limit -> should raise ValueError
+        with raises(expected_exception = ValueError):
+            node.increment_count()
+    
+    def test_runtime_error_if_internal_state_corrupted(self) -> None:
+        """
+        If current_count is manually corrupted, increment should raise RuntimeError.
+        """
+        building = Building(id = "farm")
+        node = _CityBuildingNode(building = building, allowed_count = 1)
+        
+        # Simulate corruption
+        node.current_count = 1
+        node.is_available = True  # inconsistent state
+        
+        with raises(expected_exception = RuntimeError):
+            node.increment_count()
+
 
 
 @mark.city
