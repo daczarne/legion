@@ -111,3 +111,13 @@ Now let's talk about the graph class it self. I agree with the `self.nodes` memb
 standard graph stuff.
 
 But what I am not sure I follow with your idea of `self.edges`. Remember we need to implement the idea of multiple requirements being statisfied. What does this member add?
+
+## p3
+
+Not yet. First let's talk about the inicialization of the graph. Usually, when creating a graph model one needs to add methods for `add_node()`, `delete_node()`, `add_edge()`, and `delete_edge()`. We clarily don't need the methods for adding and removing edges since we don't have that concept here. But what about the methods for creating nodes? We probably won't need one for removing nodes either given the natue of what we are doing.
+
+## p4
+
+Aha! That's good! So we don't need methods for adding and removing neither nodes nor edges.
+
+But, the graph instances will be instantiated by the `_CityValidator` class. This class will have to already inject some state (context) into the graph. For example, if the city has no lake, then it will need to inform the graph that the `max_per_city` for the "fishing_village" node is actually zero in this case. The node needs to receive this information and, since now the current count and the max match, flip the is available flag to False already. How would you handled that? It seems to me like we need to add some methods to the node class so that the node class knows how to handle its own state. Or should the state of the node always be updated by the graph class?

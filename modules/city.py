@@ -765,17 +765,19 @@ class _CityBuildingNode:
     def __init__(
             self,
             building: Building,
-            max_per_city: int = 1,
-            current_count: int = 0,
-            is_available: bool = True,
+            allowed_count: int = 1,
         ) -> None:
         self.building: Building = building
-        self.max_per_city: int = max_per_city
-        self.current_count: int = current_count
-        self.is_available: bool = is_available
+        self.max_per_city: int = allowed_count
+        self.current_count: int = 0
+        self.is_available: bool = allowed_count > 0
     
     def __repr__(self) -> str:
-        return f"_CityBuildingNode(id = \"{self.building.id}\", count = {self.current_count}/{self.max_per_city}, is_available = {self.is_available})"
+        return (
+            f"_CityBuildingNode(id = \"{self.building.id}\", "
+            f"count = {self.current_count}/{self.max_per_city}, "
+            f"is_available = {self.is_available})"
+        )
 
 
 class _CityBuildingsGraph:
@@ -786,33 +788,6 @@ class _CityBuildingsGraph:
         self.nodes: dict[str, _CityBuildingNode] = {}
         self.edges: list = []
     
-    def add_node(self, node: _CityBuildingNode) -> None:
-        if not isinstance(node, _CityBuildingNode):
-            raise ValueError(f"Nodes must be of `_BuldingNode` class")
-        
-        if not node.building.id in self.nodes:
-            self.nodes[node.building.id] = node
-    
-    def remove_node(self, node: _CityBuildingNode):
-        pass
-    
-    def add_edge(self, source: _CityBuildingNode, target: _CityBuildingNode) -> None:
-        if not isinstance(source, _CityBuildingNode):
-            raise ValueError(f"Nodes must be of `_BuldingNode` class")
-        
-        if source.building.id not in self.nodes:
-            raise ValueError(f"{source.building.id} is not in the graph")
-        
-        if not isinstance(target, _CityBuildingNode):
-            raise ValueError(f"Nodes must be of `_BuldingNode` class")
-        
-        if target.building.id not in self.nodes:
-            raise ValueError(f"{source.building.id} is not in the graph")
-        
-        pass
-    
-    def remove_edge(self, source: _CityBuildingNode, target: _CityBuildingNode):
-        pass
 
 
 # * ************** * #
