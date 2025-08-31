@@ -30,7 +30,7 @@ You algo will say that this city is valid because all requirements are met. But 
 Here's where I think that having a `BuildingsGraph` model that keeps track of the state is better. We could define the nodes as
 
 ```python
-class _BuldingNode:
+class _BuildingNode:
 
     def __init__(
             self,
@@ -84,7 +84,7 @@ I know that there are some rough edges still to polish here. But you see now why
 
 I'm glad we are on the same page now as what we are going to be doing. But before we move on to the traversal, let's align in a few other spots.
 
-First, I have decided that the class names will be `_CityBuldingNode` and `_CityBuildingsGraph`. These are better names. Since each graph is city-dependent, these classes are more at home in the `city.py` module. Therefore, they should be named "city..." and they are not private to the module, so they should start with underscore.
+First, I have decided that the class names will be `_CityBuildingNode` and `_CityBuildingsGraph`. These are better names. Since each graph is city-dependent, these classes are more at home in the `city.py` module. Therefore, they should be named "city..." and they are not private to the module, so they should start with underscore.
 
 Here's the node class
 
@@ -107,4 +107,7 @@ class _CityBuldingNode:
         return f"_CityBuildingNode(id = \"{self.building.id}\", count = {self.current_count}/{self.max_per_city}, is_available = {self.is_available})"
 ```
 
-Now let's
+Now let's talk about the graph class it self. I agree with the `self.nodes` members. No argument there. That's pretty
+standard graph stuff.
+
+But what I am not sure I follow with your idea of `self.edges`. Remember we need to implement the idea of multiple requirements being statisfied. What does this member add?

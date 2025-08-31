@@ -760,7 +760,7 @@ class City:
 # * CITY BUILDINGS GRAPH * #
 # * ******************** * #
 
-class _CityBuldingNode:
+class _CityBuildingNode:
     
     def __init__(
             self,
@@ -783,27 +783,27 @@ class _CityBuildingsGraph:
     def __init__(
             self,
         ) -> None:
-        self.nodes: dict[str, _CityBuldingNode] = {}
+        self.nodes: dict[str, _CityBuildingNode] = {}
         self.edges: list = []
     
-    def add_node(self, node: _CityBuldingNode) -> None:
-        if not isinstance(node, _CityBuldingNode):
+    def add_node(self, node: _CityBuildingNode) -> None:
+        if not isinstance(node, _CityBuildingNode):
             raise ValueError(f"Nodes must be of `_BuldingNode` class")
         
         if not node.building.id in self.nodes:
             self.nodes[node.building.id] = node
     
-    def remove_node(self, node: _CityBuldingNode):
+    def remove_node(self, node: _CityBuildingNode):
         pass
     
-    def add_edge(self, source: _CityBuldingNode, target: _CityBuldingNode) -> None:
-        if not isinstance(source, _CityBuldingNode):
+    def add_edge(self, source: _CityBuildingNode, target: _CityBuildingNode) -> None:
+        if not isinstance(source, _CityBuildingNode):
             raise ValueError(f"Nodes must be of `_BuldingNode` class")
         
         if source.building.id not in self.nodes:
             raise ValueError(f"{source.building.id} is not in the graph")
         
-        if not isinstance(target, _CityBuldingNode):
+        if not isinstance(target, _CityBuildingNode):
             raise ValueError(f"Nodes must be of `_BuldingNode` class")
         
         if target.building.id not in self.nodes:
@@ -811,7 +811,7 @@ class _CityBuildingsGraph:
         
         pass
     
-    def remove_edge(self, source: _CityBuldingNode, target: _CityBuldingNode):
+    def remove_edge(self, source: _CityBuildingNode, target: _CityBuildingNode):
         pass
 
 

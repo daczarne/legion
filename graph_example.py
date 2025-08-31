@@ -1,7 +1,7 @@
-from modules.city import City, _CityBuldingNode
+from modules.city import City, _CityBuildingNode
 from modules.building import Building
 
-node: _CityBuldingNode = _CityBuldingNode(
+node: _CityBuildingNode = _CityBuildingNode(
     building = Building(id = "city_hall"),
 )
 
