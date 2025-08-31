@@ -775,8 +775,7 @@ class _CityBuldingNode:
         self.is_available: bool = is_available
     
     def __repr__(self) -> str:
-        # return self.building.__repr__()
-        return f"{self.building.id} (count = {self.current_count}/{self.max_per_city} - is_available = {self.is_available})"
+        return f"_CityBuildingNode(id = \"{self.building.id}\", count = {self.current_count}/{self.max_per_city}, is_available = {self.is_available})"
 
 
 class _CityBuildingsGraph:
