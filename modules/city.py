@@ -761,6 +761,27 @@ class City:
 # * ******************** * #
 
 class _CityBuildingNode:
+    """
+    Internal node used by `_CityBuildingsGraph` to represent a single type of building within the context of a specific
+    city.
+    
+    Each node keeps track of:
+    
+    - The building it represents (`building`)
+    - The maximum number of such buildings that may exist in the city (`allowed_count`)
+    - How many instances have currently been placed (`current_count`)
+    - Whether the building is still available for construction (`is_available`)
+    
+    Key invariants:
+    
+    - `allowed_count` is immutable after initialization and must be >= 0.
+    - `building` is immutable after initialization.
+    - `current_count` is always in the range [0, allowed_count].
+    - `is_available` is True if and only if `current_count < allowed_count`.
+    
+    Nodes are not meant to be mutated directly. The only way to update state is through `increment_count()`, which
+    enforces these invariants.
+    """
     
     __slots__: tuple[str, ...] = ("_building", "_allowed_count", "_current_count", "_is_available")
     
@@ -796,7 +817,16 @@ class _CityBuildingNode:
     
     def increment_count(self) -> None:
         """
-        Increment the `current_count` by one.
+        Increment the count of this building in the city by one.
+        
+        Raises:
+            ValueError: If the building is no longer available for construction (i.e. `is_available` is False).
+            RuntimeError: If incrementing would cause `current_count` to exceed `allowed_count`. This indicates a logic
+                error elsewhere in the validation or graph traversal process.
+        
+        Side effects:
+            - Increases `current_count` by one.
+            - If `current_count` reaches `allowed_count`, sets `is_available` to False.
         """
         if not self._is_available:
             raise ValueError(
