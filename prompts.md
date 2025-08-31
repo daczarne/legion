@@ -1,4 +1,7 @@
+<!-- markdownlint-disable MD013 -->
 # Prompts
+
+## p1
 
 At least at a first glance, your algorithm seems correct in validating that all requirements for a given building are present.
 That's good.
@@ -76,3 +79,32 @@ I don't have the full traversal algorithm solved. That (and creating the graph m
 - now that we have finished evaluating the node itself, we need to move "upwards" until we reach the "village_hall" node again. We do this so that we can account for building evolution. If the building that we are validating has a `replaces` value, then we need to also increment the counter of that building (node). And, once again, if the current counter matches the max, then the availability flag gets switched to False.
 
 I know that there are some rough edges still to polish here. But you see now why I think that having a graph model is better?
+
+## p2
+
+I'm glad we are on the same page now as what we are going to be doing. But before we move on to the traversal, let's align in a few other spots.
+
+First, I have decided that the class names will be `_CityBuldingNode` and `_CityBuildingsGraph`. These are better names. Since each graph is city-dependent, these classes are more at home in the `city.py` module. Therefore, they should be named "city..." and they are not private to the module, so they should start with underscore.
+
+Here's the node class
+
+```python
+class _CityBuldingNode:
+
+    def __init__(
+            self,
+            building: Building,
+            max_per_city: int = 1,
+            current_count: int = 0,
+            is_available: bool = True,
+        ) -> None:
+        self.building: Building = building
+        self.max_per_city: int = max_per_city
+        self.current_count: int = current_count
+        self.is_available: bool = is_available
+
+    def __repr__(self) -> str:
+        return f"_CityBuildingNode(id = \"{self.building.id}\", count = {self.current_count}/{self.max_per_city}, is_available = {self.is_available})"
+```
+
+Now let's
