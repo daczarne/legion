@@ -768,14 +768,35 @@ class _CityBuildingNode:
             allowed_count: int = 1,
         ) -> None:
         self.building: Building = building
-        self.max_per_city: int = allowed_count
+        self.allowed_count: int = allowed_count
         self.current_count: int = 0
         self.is_available: bool = allowed_count > 0
+    
+    def increment_count(self) -> None:
+        """
+        Increment the `current_count` by one.
+        """
+        if not self.is_available:
+            raise ValueError(
+                f"Cannot build \"{self.building.id}\": "
+                f"limit of {self.allowed_count} reached (current = {self.current_count})."
+            )
+        
+        if self.current_count + 1 > self.allowed_count:
+            raise RuntimeError(
+                f"Internal error: \"{self.building.id}\" exceeded allowed_count. "
+                f"current = {self.current_count}, allowed = {self.allowed_count}"
+            )
+        
+        self.current_count += 1
+        
+        if self.current_count == self.allowed_count:
+            self.is_available = False
     
     def __repr__(self) -> str:
         return (
             f"_CityBuildingNode(id = \"{self.building.id}\", "
-            f"count = {self.current_count}/{self.max_per_city}, "
+            f"count = {self.current_count}/{self.allowed_count}, "
             f"is_available = {self.is_available})"
         )
 

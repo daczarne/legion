@@ -121,3 +121,59 @@ Not yet. First let's talk about the inicialization of the graph. Usually, when c
 Aha! That's good! So we don't need methods for adding and removing neither nodes nor edges.
 
 But, the graph instances will be instantiated by the `_CityValidator` class. This class will have to already inject some state (context) into the graph. For example, if the city has no lake, then it will need to inform the graph that the `max_per_city` for the "fishing_village" node is actually zero in this case. The node needs to receive this information and, since now the current count and the max match, flip the is available flag to False already. How would you handled that? It seems to me like we need to add some methods to the node class so that the node class knows how to handle its own state. Or should the state of the node always be updated by the graph class?
+
+## p5
+
+That's alright, but how about:
+
+```python
+def increment_count(self) -> None:
+    """
+    Increment the `current_count` by one.
+    """
+    if not self.is_available:
+        raise ValueError(
+            f"Cannot build \"{self.building.id}\": "
+            f"limit of {self.allowed_count} reached (current = {self.current_count})."
+        )
+
+    if self.current_count + 1 > self.allowed_count:
+        raise RuntimeError(
+            f"Internal error: \"{self.building.id}\" exceeded allowed_count. "
+            f"current = {self.current_count}, allowed = {self.allowed_count}"
+        )
+
+    self.current_count += 1
+
+    if self.current_count == self.allowed_count:
+        self.is_available = False
+```
+
+This means that we validate the action before doing it.
+
+You have to keep in mind that this is actually not an unimportant thing. We actually do need to consider this problem so that the validation is not dependent on the order of the buildings. Let me give you an example.
+
+Suppose you have the following city
+
+```python
+city: City = City.from_buildings_count(
+    campaign = "Conquest of Britain",
+    name = "Anderitum",
+    buildings = {
+        "city_hall": 1,
+        "village_hall": 1,
+    },
+)
+```
+
+This city is invalid. But, will the algo catch it? Well, if our algo is not order-agnostic, we will need to be careful about the order in which the buildings are passed (i.e. the order in which the buildings are traversed).
+
+Let's suppose that the first step of the loop is with "city_hall". The algo starts from "village_hall". It searches DFS until it finds "city_hall". Changes the state. And then it searches backwards changing the states of those nodes too.
+
+Next up, the loop moves on to the "village_hall". The algo finds the node. It sees that the node is in the is_available = False state. An error is raised. The algo worked fine.
+
+Now suppose the algo starts with the "village_hall" instead. At the end of the first iteration, the graph will have hte "village_hall" node in the is available False state, but the "city_hall" node will be in the is available True state.
+
+Next, the loop moves on to "city_hall". It starts from the "village_hall", which has already been set to is_available = False, but that is not a problem. The traversal can travel through unavailable nodes, it just cannot end in them. It reaches the "city_hall" node and adds the building. Then it moves upwards to the "town_hall" and it does the backwards steps there too. Now it needs to move up to the "village_hall". It will set the current_count = 2. This is a problem! If we have no validation for this value, it will not change the flag because the changing of the flag is only asking whether current_count == allowed_count, and since 2 != 1, the changing of the flag will be skipped, and since we are already at the "village_hall" node, the iteration terminates "successfully" and the error is not caught.
+
+By ensuring that current_count cannot be greater than allowed_count in the nodes, we prevent this error.
