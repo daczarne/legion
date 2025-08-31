@@ -942,6 +942,11 @@ class TestCityBuildingNode:
         with raises(expected_exception = AttributeError):
             # cannot change the building
             node.building = new_building # type: ignore 
+    
+    def test_negative_allowed_count_raises_value_error(self) -> None:
+        building = Building(id = "farm")
+        with raises(expected_exception = ValueError):
+            _CityBuildingNode(building = building, allowed_count = -1)
 
 
 @mark.city

@@ -769,6 +769,10 @@ class _CityBuildingNode:
             building: Building,
             allowed_count: int = 1,
         ) -> None:
+        if allowed_count < 0:
+            raise ValueError(
+                f"allowed_count must be >= 0 (got {allowed_count}) for building \"{building.id}\"."
+            )
         self._building: Building = building
         self._allowed_count: int = allowed_count
         self._current_count: int = 0
