@@ -1565,6 +1565,115 @@ class TestCityBuildingsGraph:
     ) -> None:
         graph: _CityBuildingsGraph = _CityBuildingsGraph(city = request.getfixturevalue(argname = city))
         assert graph.nodes[building].allowed_count == expected_allowed_count
+    
+    
+    @fixture
+    def _village_with_supply_dump(self) -> City:
+        city: City = City(
+            campaign = "Conquest of Britain",
+            name = "Noviomagus",
+            buildings = [
+                Building(id = "village_hall"),
+            ],
+        )
+        return city
+    
+    @fixture
+    def _town_with_supply_dump(self) -> City:
+        city: City = City(
+            campaign = "Conquest of Britain",
+            name = "Noviomagus",
+            buildings = [
+                Building(id = "town_hall"),
+            ],
+        )
+        return city
+    
+    @fixture
+    def _city_with_supply_dump(self) -> City:
+        city: City = City(
+            campaign = "Conquest of Britain",
+            name = "Noviomagus",
+            buildings = [
+                Building(id = "city_hall"),
+            ],
+        )
+        return city
+    
+    @mark.parametrize(
+        argnames = ["city", "building", "expected_allowed_count"],
+        argvalues = [
+            ("_village_with_supply_dump", "farm", 3),
+            ("_village_with_supply_dump", "large_farm", 3),
+            ("_village_with_supply_dump", "vineyard", 1),
+            ("_village_with_supply_dump", "fishing_village", 0),
+            ("_village_with_supply_dump", "farmers_guild", 1),
+            ("_village_with_supply_dump", "mine", 0),
+            ("_village_with_supply_dump", "large_mine", 0),
+            ("_village_with_supply_dump", "outcrop_mine", 0),
+            ("_village_with_supply_dump", "mountain_mine", 0),
+            ("_village_with_supply_dump", "miners_guild", 0),
+            ("_village_with_supply_dump", "lumber_mill", 3),
+            ("_village_with_supply_dump", "large_lumber_mill", 3),
+            ("_village_with_supply_dump", "forest", 0),
+            ("_village_with_supply_dump", "carpenters_guild", 1),
+            ("_village_with_supply_dump", "stables", 1),
+            ("_village_with_supply_dump", "blacksmith", 0),
+            ("_village_with_supply_dump", "fletcher", 1),
+            ("_village_with_supply_dump", "hidden_grove", 0),
+            ("_village_with_supply_dump", "hunters_lodge", 0),
+            ("_village_with_supply_dump", "supply_dump", 1),
+            ("_town_with_supply_dump", "farm", 5),
+            ("_town_with_supply_dump", "large_farm", 5),
+            ("_town_with_supply_dump", "vineyard", 1),
+            ("_town_with_supply_dump", "fishing_village", 0),
+            ("_town_with_supply_dump", "farmers_guild", 1),
+            ("_town_with_supply_dump", "mine", 0),
+            ("_town_with_supply_dump", "large_mine", 0),
+            ("_town_with_supply_dump", "outcrop_mine", 0),
+            ("_town_with_supply_dump", "mountain_mine", 0),
+            ("_town_with_supply_dump", "miners_guild", 0),
+            ("_town_with_supply_dump", "lumber_mill", 5),
+            ("_town_with_supply_dump", "large_lumber_mill", 5),
+            ("_town_with_supply_dump", "forest", 0),
+            ("_town_with_supply_dump", "carpenters_guild", 1),
+            ("_town_with_supply_dump", "stables", 1),
+            ("_town_with_supply_dump", "blacksmith", 0),
+            ("_town_with_supply_dump", "fletcher", 1),
+            ("_town_with_supply_dump", "hidden_grove", 0),
+            ("_town_with_supply_dump", "hunters_lodge", 0),
+            ("_town_with_supply_dump", "supply_dump", 1),
+            ("_city_with_supply_dump", "farm", 7),
+            ("_city_with_supply_dump", "large_farm", 7),
+            ("_city_with_supply_dump", "vineyard", 1),
+            ("_city_with_supply_dump", "fishing_village", 0),
+            ("_city_with_supply_dump", "farmers_guild", 1),
+            ("_city_with_supply_dump", "mine", 0),
+            ("_city_with_supply_dump", "large_mine", 0),
+            ("_city_with_supply_dump", "outcrop_mine", 0),
+            ("_city_with_supply_dump", "mountain_mine", 0),
+            ("_city_with_supply_dump", "miners_guild", 0),
+            ("_city_with_supply_dump", "lumber_mill", 7),
+            ("_city_with_supply_dump", "large_lumber_mill", 7),
+            ("_city_with_supply_dump", "forest", 0),
+            ("_city_with_supply_dump", "carpenters_guild", 1),
+            ("_city_with_supply_dump", "stables", 1),
+            ("_city_with_supply_dump", "blacksmith", 0),
+            ("_city_with_supply_dump", "fletcher", 1),
+            ("_city_with_supply_dump", "hidden_grove", 0),
+            ("_city_with_supply_dump", "hunters_lodge", 0),
+            ("_city_with_supply_dump", "supply_dump", 1),
+        ],
+    )
+    def test_allowed_supply_dump(
+        self,
+        city: str,
+        building: str,
+        expected_allowed_count: int,
+        request: FixtureRequest,
+    ) -> None:
+        graph: _CityBuildingsGraph = _CityBuildingsGraph(city = request.getfixturevalue(argname = city))
+        assert graph.nodes[building].allowed_count == expected_allowed_count
 
 
 @mark.city
