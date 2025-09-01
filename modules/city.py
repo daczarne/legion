@@ -951,6 +951,61 @@ class _CityBuildingsGraph:
                     allowed_counts[building_id] = 0
         
         return allowed_counts
+    
+    def traverse_and_add(self, building_id: str) -> None:
+        """
+        Traverse the graph using DFS to validate and add the given building.
+        
+        Args:
+            building_id (str): The ID of the building to add.
+        
+        Raises:
+            ValueError: If the building cannot be added (limit reached or unavailable).
+        """
+        start: _CityBuildingNode = self.nodes["village_hall"]
+        visited: set[str] = set()
+        
+        def dfs(node: _CityBuildingNode) -> bool:
+            if node.building.id == building_id:
+                node.increment_count()
+                self._propagate_replacements(node = node)
+                return True
+            
+            visited.add(node.building.id)
+            
+            for child in self._get_children(node = node):
+                if child.building.id not in visited and dfs(node = child):
+                    return True
+            
+            return False
+        
+        if not dfs(node = start):
+            raise ValueError(f"Building '{building_id}' is not reachable from village_hall.")
+    
+    def _propagate_replacements(self, node: _CityBuildingNode) -> None:
+        """
+        Walk upward and increment any replaced buildings in the chain.
+        """
+        replaced: str | None = node.building.replaces
+        
+        while replaced:
+            parent_node: _CityBuildingNode = self.nodes[replaced]
+            parent_node.increment_count()
+            replaced = parent_node.building.replaces
+    
+    def _get_children(self, node: _CityBuildingNode) -> list[_CityBuildingNode]:
+        """
+        Get children nodes of the current node, based on building dependencies.
+        For now, this just scans required_building relationships.
+        """
+        children: list[_CityBuildingNode] = []
+        for candidate in self.nodes.values():
+            for requirement in candidate.building.required_building:
+                if node.building.id in requirement:
+                    children.append(candidate)
+                    break
+        
+        return children
 
 
 # * ************** * #
