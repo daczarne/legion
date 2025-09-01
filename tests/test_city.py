@@ -1857,7 +1857,7 @@ class TestCityBuildingsGraph:
                 Building(id = "village_hall"),
             ]
         )
-        graph = _CityBuildingsGraph(city = city)
+        graph: _CityBuildingsGraph = _CityBuildingsGraph(city = city)
         
         with raises(expected_exception = BuildingLimitReachedError):
             graph.traverse_and_add(building_id = "farm")
