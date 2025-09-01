@@ -168,9 +168,9 @@ class TestCitiesData:
             _cities: list[_CityData],
         ) -> None:
         expected_keys: list[str] = [
+            "lakes",
             "rock_outcrops",
             "mountains",
-            "lakes",
             "forests",
         ]
         
