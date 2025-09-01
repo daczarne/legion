@@ -37,7 +37,7 @@ from rich.style import Style
 from rich.table import Table
 from rich.text import Text
 
-from .building import _BUILDINGS, Building, BuildingsCount
+from .building import Building, BuildingsCount, _BUILDINGS
 from .display import DisplayConfiguration, DisplaySectionConfiguration, DEFAULT_SECTION_COLORS
 from .effects import EffectBonusesData, EffectBonuses
 from .exceptions import (
