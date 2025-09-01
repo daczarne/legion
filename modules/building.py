@@ -20,7 +20,6 @@ import yaml
 from dataclasses import dataclass, field
 from typing import ClassVar, Literal, TypeAlias, TypedDict
 
-from rich import box
 from rich.align import Align
 from rich.console import Console
 from rich.layout import Layout
