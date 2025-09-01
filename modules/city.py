@@ -46,6 +46,7 @@ from .exceptions import (
     FortsCannotHaveBuildingsError,
     TooManyBuildingsError,
     NoGarrisonFoundError,
+    UnknownBuildingError,
 )
 from .geo_features import GeoFeaturesData, GeoFeatures
 from .resources import Resource, ResourceCollectionData, ResourceCollection
@@ -960,8 +961,12 @@ class _CityBuildingsGraph:
             building_id (str): The ID of the building to add.
         
         Raises:
+            UnknownBuildingError: If the building does not exist.
             ValueError: If the building cannot be added (limit reached or unavailable).
         """
+        if building_id not in self.nodes:
+            raise UnknownBuildingError(f"No building with ID = \"{building_id}\" found.")
+        
         start: _CityBuildingNode = self.nodes["village_hall"]
         visited: set[str] = set()
         
@@ -974,7 +979,10 @@ class _CityBuildingsGraph:
             visited.add(node.building.id)
             
             for child in self._get_children(node = node):
-                if child.building.id not in visited and dfs(node = child):
+                if (
+                    child.building.id not in visited
+                    and dfs(node = child)
+                ):
                     return True
             
             return False
@@ -996,7 +1004,6 @@ class _CityBuildingsGraph:
     def _get_children(self, node: _CityBuildingNode) -> list[_CityBuildingNode]:
         """
         Get children nodes of the current node, based on building dependencies.
-        For now, this just scans required_building relationships.
         """
         children: list[_CityBuildingNode] = []
         for candidate in self.nodes.values():
