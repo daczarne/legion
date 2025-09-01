@@ -1865,6 +1865,22 @@ class TestCityBuildingsGraph:
         # Mine should work
         graph.traverse_and_add(building_id = "mine")
         assert graph.nodes["mine"].current_count == 1
+    
+    def test_training_ground(self) -> None:
+        city: City = City(
+            campaign = "Hispania",
+            name = "Biskargis",
+            buildings = [
+                Building(id = "village_hall"),
+                Building(id = "training_ground"),
+            ]
+        )
+        graph: _CityBuildingsGraph = _CityBuildingsGraph(city = city)
+        graph.traverse_and_add(building_id = "village_hall")
+        graph.traverse_and_add(building_id = "training_ground")
+        
+        assert graph.nodes["village_hall"].current_count == 1
+        assert graph.nodes["training_ground"].current_count == 0
 
 
 @mark.city
