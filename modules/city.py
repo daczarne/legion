@@ -41,7 +41,6 @@ from .building import _BUILDINGS, Building, BuildingsCount
 from .display import DisplayConfiguration, DisplaySectionConfiguration, DEFAULT_SECTION_COLORS
 from .effects import EffectBonusesData, EffectBonuses
 from .exceptions import (
-    BuildingError,
     NoCityHallError,
     TooManyHallsError,
     FortsCannotHaveBuildingsError,
@@ -50,7 +49,6 @@ from .exceptions import (
 )
 from .geo_features import GeoFeaturesData, GeoFeatures
 from .resources import Resource, ResourceCollectionData, ResourceCollection
-from modules import building
 
 
 __all__: list[str] = ["City"]
