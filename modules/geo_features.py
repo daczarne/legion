@@ -4,9 +4,9 @@ Module for managing geographic features.
 This module defines enumerations, type hints, and a dataclass for representing the geographic features a city might
 have:
 
+- Lakes
 - Rock outcrops
 - Mountains
-- Lakes
 - Forests
 
 It also includes helper classes for reading geographic feature data from YAML/JSON files and interacting with the
@@ -33,9 +33,9 @@ class GeoFeature(Enum):
     Enumeration of the geographic features a city may contain.
     
     Attributes:
+        LAKE: Lakes within the city area.
         OUTCROP_ROCK: Rock outcrops in the city.
         MOUNTAIN: Mountains present in the city.
-        LAKE: Lakes within the city area.
         FOREST: Forests surrounding the city.
     """
     LAKE = "lake"
@@ -60,7 +60,7 @@ class GeoFeatures:
     """
     Stores counts of geographic features and provides dictionary-like access.
     
-    Each instance tracks the four geographic feature types: rock outcrops, mountains, lakes, and forests. Supports
+    Each instance tracks the four geographic feature types: lakes, rock outcrops, mountains, and forests. Supports
     iteration and retrieval like a dictionary.
     
     Public methods:

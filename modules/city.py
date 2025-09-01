@@ -166,7 +166,7 @@ class City:
         buildings (list[Building]): A list of buildings present in the city.
         
         resource_potentials (ResourceCollection): The resource potentials of the city.
-        geo_features (GeoFeatures): Geographical features present in the city (mountains, lakes, etc).
+        geo_features (GeoFeatures): Geographical features present in the city (lakes, mountains, etc).
         has_supply_dump (bool): A boolean indicating whether the city has a Supply Dump (True), or not (False).
         effects (CityEffectBonuses): Effect bonuses from the city, its buildings, and workers.
         production (CityProduction): Production statistics for the city.
