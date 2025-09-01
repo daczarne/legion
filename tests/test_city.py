@@ -1665,7 +1665,75 @@ class TestCityBuildingsGraph:
             ("_city_with_supply_dump", "supply_dump", 1),
         ],
     )
-    def test_allowed_supply_dump(
+    def test_allowed_count_supply_dump(
+        self,
+        city: str,
+        building: str,
+        expected_allowed_count: int,
+        request: FixtureRequest,
+    ) -> None:
+        graph: _CityBuildingsGraph = _CityBuildingsGraph(city = request.getfixturevalue(argname = city))
+        assert graph.nodes[building].allowed_count == expected_allowed_count
+    
+    
+    @fixture
+    def _fort(self) -> City:
+        city: City = City(
+            campaign = "Germania",
+            name = "Vetera",
+            buildings = [],
+        )
+        return city
+    
+    @mark.parametrize(
+        argnames = ["city", "building", "expected_allowed_count"],
+        argvalues = [
+            ("_fort", "village_hall", 0),
+            ("_fort", "town_hall", 0),
+            ("_fort", "city_hall", 0),
+            ("_fort", "fort", 1),
+            ("_fort", "farm", 0),
+            ("_fort", "large_farm", 0),
+            ("_fort", "vineyard", 0),
+            ("_fort", "fishing_village", 0),
+            ("_fort", "farmers_guild", 0),
+            ("_fort", "mine", 0),
+            ("_fort", "large_mine", 0),
+            ("_fort", "outcrop_mine", 0),
+            ("_fort", "mountain_mine", 0),
+            ("_fort", "miners_guild", 0),
+            ("_fort", "lumber_mill", 0),
+            ("_fort", "large_lumber_mill", 0),
+            ("_fort", "forest", 0),
+            ("_fort", "carpenters_guild", 0),
+            ("_fort", "training_ground", 0),
+            ("_fort", "gladiator_school", 0),
+            ("_fort", "bordello", 0),
+            ("_fort", "stables", 0),
+            ("_fort", "blacksmith", 0),
+            ("_fort", "fletcher", 0),
+            ("_fort", "imperial_residence", 0),
+            ("_fort", "small_fort", 0),
+            ("_fort", "medium_fort", 0),
+            ("_fort", "large_fort", 0),
+            ("_fort", "barracks", 0),
+            ("_fort", "quartermaster", 0),
+            ("_fort", "watch_tower", 0),
+            ("_fort", "shrine", 0),
+            ("_fort", "temple", 0),
+            ("_fort", "basilica", 0),
+            ("_fort", "bath_house", 0),
+            ("_fort", "hospital", 0),
+            ("_fort", "hidden_grove", 0),
+            ("_fort", "herbalist", 0),
+            ("_fort", "warehouse", 0),
+            ("_fort", "small_market", 0),
+            ("_fort", "large_market", 0),
+            ("_fort", "hunters_lodge", 0),
+            ("_fort", "supply_dump", 0),
+        ],
+    )
+    def test_allowed_count_fort(
         self,
         city: str,
         building: str,
