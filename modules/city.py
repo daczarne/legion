@@ -926,7 +926,7 @@ class _CityBuildingsGraph:
             if building_id in basic_production_buildings:
                 allowed_counts[building_id] = total_spots - pre_occupied_spots
             
-            # Geo-dependent buildings
+            # Adjustments for geo features
             if building_id == "fishing_village":
                 allowed_counts[building_id] = self.city.geo_features.lakes
             
@@ -939,16 +939,16 @@ class _CityBuildingsGraph:
             if building_id in ["forest", "hidden_grove"]:
                 allowed_counts[building_id] = self.city.geo_features.forests
             
-            # Rss-production-potential-dependent buildings
-            if building in ["farm", "large_farm", "vineyard", "fishing_village", "farmers_guild", "stables"]:
+            # Adjustments for resource production potentials
+            if building_id in ["farm", "large_farm", "vineyard", "fishing_village", "farmers_guild", "stables"]:
                 if self.city.resource_potentials.food == 0:
                     allowed_counts[building_id] = 0
             
-            if building in ["mine", "large_mine", "outcrop_mine", "mountain_mine", "miners_guild", "blacksmith"]:
+            if building_id in ["mine", "large_mine", "outcrop_mine", "mountain_mine", "miners_guild", "blacksmith"]:
                 if self.city.resource_potentials.ore == 0:
                     allowed_counts[building_id] = 0
             
-            if building in ["lumber_mill", "large_lumber_mill", "carpenters_guild", "fletcher"]:
+            if building_id in ["lumber_mill", "large_lumber_mill", "carpenters_guild", "fletcher"]:
                 if self.city.resource_potentials.wood == 0:
                     allowed_counts[building_id] = 0
         

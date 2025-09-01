@@ -1239,6 +1239,115 @@ class TestCityBuildingsGraph:
     ) -> None:
         graph: _CityBuildingsGraph = _CityBuildingsGraph(city = request.getfixturevalue(argname = city))
         assert graph.nodes[building].allowed_count == expected_allowed_count
+    
+    
+    @fixture
+    def _village_with_one_lake_but_no_food_rss_and_one_mountain(self) -> City:
+        city: City = City(
+            campaign = "Pacifying the North",
+            name = "Olenacum",
+            buildings = [
+                Building(id = "village_hall"),
+            ],
+        )
+        return city
+    
+    @fixture
+    def _town_with_one_lake_but_no_food_rss_and_one_mountain(self) -> City:
+        city: City = City(
+            campaign = "Pacifying the North",
+            name = "Olenacum",
+            buildings = [
+                Building(id = "town_hall"),
+            ],
+        )
+        return city
+    
+    @fixture
+    def _city_with_one_lake_but_no_food_rss_and_one_mountain(self) -> City:
+        city: City = City(
+            campaign = "Pacifying the North",
+            name = "Olenacum",
+            buildings = [
+                Building(id = "city_hall"),
+            ],
+        )
+        return city
+    
+    @mark.parametrize(
+        argnames = ["city", "building", "expected_allowed_count"],
+        argvalues = [
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "farm", 0),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "large_farm", 0),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "vineyard", 0),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "fishing_village", 0),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "farmers_guild", 0),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "mine", 2),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "large_mine", 2),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "outcrop_mine", 0),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "mountain_mine", 1),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "miners_guild", 1),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "lumber_mill", 2),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "large_lumber_mill", 2),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "forest", 0),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "carpenters_guild", 1),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "stables", 0),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "blacksmith", 1),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "fletcher", 1),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "hidden_grove", 0),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "hunters_lodge", 0),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "supply_dump", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "farm", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "large_farm", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "vineyard", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "fishing_village", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "farmers_guild", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "mine", 4),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "large_mine", 4),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "outcrop_mine", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "mountain_mine", 1),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "miners_guild", 1),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "lumber_mill", 4),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "large_lumber_mill", 4),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "forest", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "carpenters_guild", 1),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "stables", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "blacksmith", 1),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "fletcher", 1),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "hidden_grove", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "hunters_lodge", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "supply_dump", 0),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "farm", 0),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "large_farm", 0),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "vineyard", 0),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "fishing_village", 0),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "farmers_guild", 0),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "mine", 6),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "large_mine", 6),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "outcrop_mine", 0),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "mountain_mine", 1),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "miners_guild", 1),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "lumber_mill", 6),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "large_lumber_mill", 6),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "forest", 0),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "carpenters_guild", 1),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "stables", 0),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "blacksmith", 1),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "fletcher", 1),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "hidden_grove", 0),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "hunters_lodge", 0),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "supply_dump", 0),
+        ],
+    )
+    def test_allowed_count_one_lake_but_no_food_rss_and_one_mountain(
+        self,
+        city: str,
+        building: str,
+        expected_allowed_count: int,
+        request: FixtureRequest,
+    ) -> None:
+        graph: _CityBuildingsGraph = _CityBuildingsGraph(city = request.getfixturevalue(argname = city))
+        assert graph.nodes[building].allowed_count == expected_allowed_count
 
 
 @mark.city
