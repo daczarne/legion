@@ -1769,9 +1769,9 @@ class TestCityBuildingsGraph:
     @mark.parametrize(
         argnames = ["city"],
         argvalues = [
-            ("_village_with_one_lake", ),
-            ("_town_with_one_lake", ),
-            ("_city_with_one_lake", ),
+            ("_village_with_no_restrictions", ),
+            ("_town_with_no_restrictions", ),
+            ("_city_with_no_restrictions", ),
         ],
     )
     def test_cannot_add_two_village_halls(
@@ -1785,50 +1785,86 @@ class TestCityBuildingsGraph:
         with raises(expected_exception = BuildingLimitReachedError, match = "limit of 1 reached"):
             graph.traverse_and_add(building_id = "village_hall")
     
-    # def test_city_hall_and_village_hall_conflict(self, anderitum_city):
-    #     graph = _CityBuildingsGraph(anderitum_city)
+    @mark.parametrize(
+        argnames = ["city"],
+        argvalues = [
+            ("_village_with_no_restrictions", ),
+            ("_town_with_no_restrictions", ),
+            ("_city_with_no_restrictions", ),
+        ],
+    )
+    def test_city_hall_and_village_hall_conflict(
+        self,
+        city: str,
+        request: FixtureRequest,
+    ) -> None:
+        graph: _CityBuildingsGraph = _CityBuildingsGraph(city = request.getfixturevalue(argname = city))
         
-    #     # Add city_hall first
-    #     graph.traverse_and_add("city_hall")
+        # Add city_hall first
+        graph.traverse_and_add(building_id = "city_hall")
         
-    #     # Adding village_hall afterwards should fail
-    #     with raises(ValueError):
-    #         graph.traverse_and_add("village_hall")
+        # Adding village_hall afterwards should fail
+        with raises(expected_exception = BuildingLimitReachedError):
+            graph.traverse_and_add(building_id = "village_hall")
     
-    # def test_propagates_replacement_chain(self, roma_city):
-    #     graph = _CityBuildingsGraph(roma_city)
-    #     graph.traverse_and_add("large_farm")
+    @mark.parametrize(
+        argnames = ["city"],
+        argvalues = [
+            ("_village_with_no_restrictions", ),
+            ("_town_with_no_restrictions", ),
+            ("_city_with_no_restrictions", ),
+        ],
+    )
+    def test_village_hall_and_city_hall_conflict(
+        self,
+        city: str,
+        request: FixtureRequest,
+    ) -> None:
+        graph: _CityBuildingsGraph = _CityBuildingsGraph(city = request.getfixturevalue(argname = city))
         
-    #     # Both large_farm and farm counts should be updated
-    #     assert graph.nodes["large_farm"].current_count == 1
-    #     assert graph.nodes["farm"].current_count == 1
+        # Add village_hall first
+        graph.traverse_and_add(building_id = "village_hall")
+        
+        # Adding city_hall afterwards should fail
+        with raises(expected_exception = BuildingLimitReachedError):
+            graph.traverse_and_add(building_id = "city_hall")
     
-    # def test_production_building_blocked_by_zero_rss(self, friniates_city):
-    #     graph = _CityBuildingsGraph(friniates_city)
+    @mark.parametrize(
+        argnames = ["city"],
+        argvalues = [
+            ("_village_with_no_restrictions", ),
+            ("_town_with_no_restrictions", ),
+            ("_city_with_no_restrictions", ),
+        ],
+    )
+    def test_propagates_replacement_chain(
+        self,
+        city: str,
+        request: FixtureRequest,
+    ) -> None:
+        graph: _CityBuildingsGraph = _CityBuildingsGraph(city = request.getfixturevalue(argname = city))
+        graph.traverse_and_add(building_id = "large_farm")
         
-    #     # Friniates has ore potential but no food
-    #     with raises(ValueError):
-    #         graph.traverse_and_add("farm")
-        
-    #     # Mine should work
-    #     graph.traverse_and_add("mine")
-    #     assert graph.nodes["mine"].current_count == 1
+        # Both large_farm and farm counts should be updated
+        assert graph.nodes["large_farm"].current_count == 1
+        assert graph.nodes["farm"].current_count == 1
     
-    # def test_geo_feature_reduces_other_slots(self, caercini_city):
-    #     graph = _CityBuildingsGraph(caercini_city)
+    def test_production_building_blocked_by_zero_rss(self) -> None:
+        city: City = City(
+            campaign = "Hispania",
+            name = "Biskargis",
+            buildings = [
+                Building(id = "village_hall"),
+            ]
+        )
+        graph = _CityBuildingsGraph(city = city)
         
-    #     # Caercini has 1 rock_outcrop + 1 mountain
-    #     # So allowed_count for "mine" must be reduced accordingly
-    #     mine_node = graph.nodes["mine"]
-    #     assert mine_node.allowed_count == 2
-    
-    # def test_geo_feature_lost_if_no_rss_potential(self, sentinum_city):
-    #     graph = _CityBuildingsGraph(sentinum_city)
+        with raises(expected_exception = BuildingLimitReachedError):
+            graph.traverse_and_add(building_id = "farm")
         
-    #     # Outcrop exists but ore potential is 0 → outcrop_mine unavailable
-    #     node = graph.nodes["outcrop_mine"]
-    #     assert node.allowed_count == 0
-    #     assert not node.is_available
+        # Mine should work
+        graph.traverse_and_add(building_id = "mine")
+        assert graph.nodes["mine"].current_count == 1
 
 
 @mark.city
