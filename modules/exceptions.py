@@ -68,6 +68,10 @@ class BuildingCannotBeAddedToTheCityError(CityError):
     pass
 
 
+class BuildingLimitReachedError(CityError):
+    pass
+
+
 # * ******* * #
 # * DISPLAY * #
 # * ******* * #

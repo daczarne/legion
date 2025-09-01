@@ -48,6 +48,7 @@ from .exceptions import (
     NoGarrisonFoundError,
     UnknownBuildingError,
     BuildingCannotBeAddedToTheCityError,
+    BuildingLimitReachedError,
 )
 from .geo_features import GeoFeaturesData, GeoFeatures
 from .resources import Resource, ResourceCollectionData, ResourceCollection
@@ -822,29 +823,28 @@ class _CityBuildingNode:
         Increment the count of this building in the city by one.
         
         Raises:
-            ValueError: If the building is no longer available for construction (i.e. `is_available` is False).
-            RuntimeError: If incrementing would cause `current_count` to exceed `allowed_count`. This indicates a logic
-                error elsewhere in the validation or graph traversal process.
+            BuildingLimitReachedError: If the building is no longer available for construction (i.e. `is_available` is
+                False).
         
         Side effects:
             - Increases `current_count` by one.
             - If `current_count` reaches `allowed_count`, sets `is_available` to False.
         """
         if not self._is_available:
-            raise ValueError(
+            raise BuildingLimitReachedError(
                 f"Cannot build \"{self._building.id}\": "
                 f"limit of {self._allowed_count} reached (current = {self._current_count})."
             )
         
         if self._current_count + 1 > self._allowed_count:
-            raise RuntimeError(
-                f"Internal error: \"{self._building.id}\" exceeded allowed_count. "
-                f"current = {self._current_count}, allowed = {self._allowed_count}"
+            raise BuildingLimitReachedError(
+                f"Cannot build \"{self._building.id}\": "
+                f"limit of {self._allowed_count} reached (current = {self._current_count})."
             )
         
         self._current_count += 1
         
-        if self._current_count == self.allowed_count:
+        if self._current_count == self._allowed_count:
             self._is_available = False
     
     def __repr__(self) -> str:
