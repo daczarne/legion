@@ -38,9 +38,9 @@ class GeoFeature(Enum):
         LAKE: Lakes within the city area.
         FOREST: Forests surrounding the city.
     """
+    LAKE = "lake"
     OUTCROP_ROCK = "outcrop_rock"
     MOUNTAIN = "mountain"
-    LAKE = "lake"
     FOREST = "forest"
 
 
@@ -49,9 +49,9 @@ class GeoFeaturesData(TypedDict):
     This is a helper class meant to be used when reading GeoFeatures from YAML or JSON files. Its only purpose is to
     provide good type annotations and hints.
     """
+    lakes: int
     rock_outcrops: int
     mountains: int
-    lakes: int
     forests: int
 
 
@@ -69,9 +69,9 @@ class GeoFeatures:
         values(): Return counts of all features.
         get(key): Get the count for a given feature name. Raises KeyError if the key is not found.
     """
+    lakes: int = 0
     rock_outcrops: int = 0
     mountains: int = 0
-    lakes: int = 0
     forests: int = 0
     
     def __iter__(self) -> Iterator[str]:
