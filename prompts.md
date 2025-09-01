@@ -1268,4 +1268,4 @@ The city has an "outcrop_rock". But the rss prod potential for ore is zero. This
 
 I hope this helps give a better understanding of how the `allowed_count` property needs to work. But feel free to ask more questions if you need further clarifications.
 
-I think at this point it would be best to start with some TDD. Let's create some tests scenarios that create graph objects for all these different scenarios, and then we can validate the implementation aginst the tests. Wdyt?
+I think at this point it would be best to start with some TDD. Let's create some tests scenarios that create graph objects for all these different scenarios, and then we can validate the implementation aginst the tests.
