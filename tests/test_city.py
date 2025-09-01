@@ -168,9 +168,9 @@ class TestCitiesData:
             _cities: list[_CityData],
         ) -> None:
         expected_keys: list[str] = [
+            "lakes",
             "rock_outcrops",
             "mountains",
-            "lakes",
             "forests",
         ]
         
@@ -829,9 +829,9 @@ class TestCityScenarios:
         assert city.resource_potentials.ore == 0
         assert city.resource_potentials.wood == 0
         
+        assert city.geo_features.lakes == 0
         assert city.geo_features.rock_outcrops == 0
         assert city.geo_features.mountains == 0
-        assert city.geo_features.lakes == 0
         assert city.geo_features.forests == 0
         
         assert city.production.total.food == 0

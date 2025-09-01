@@ -12,29 +12,29 @@ class TestGeoFeatures:
     def test_default_initialization(self) -> None:
         geo_features: GeoFeatures = GeoFeatures()
         
+        assert geo_features.lakes == 0
         assert geo_features.rock_outcrops == 0
         assert geo_features.mountains == 0
-        assert geo_features.lakes == 0
         assert geo_features.forests == 0
     
     def test_custom_initialization(self) -> None:
         geo_features: GeoFeatures = GeoFeatures(
-            rock_outcrops = 1,
-            mountains = 2,
-            lakes = 3,
+            lakes = 1,
+            rock_outcrops = 2,
+            mountains = 3,
             forests = 4,
         )
         
-        assert geo_features.rock_outcrops == 1
-        assert geo_features.mountains == 2
-        assert geo_features.lakes == 3
+        assert geo_features.lakes == 1
+        assert geo_features.rock_outcrops == 2
+        assert geo_features.mountains == 3
         assert geo_features.forests == 4
     
     def test_iter_returns_keys(self) -> None:
         geo_features: GeoFeatures = GeoFeatures(
-            rock_outcrops = 1,
-            mountains = 2,
-            lakes = 3,
+            lakes = 1,
+            rock_outcrops = 2,
+            mountains = 3,
             forests = 4,
         )
         keys: list[str] = list(iter(geo_features))
@@ -44,20 +44,20 @@ class TestGeoFeatures:
     
     def test_items_returns_key_value_pairs(self) -> None:
         geo_features: GeoFeatures = GeoFeatures(
-            rock_outcrops = 1,
-            mountains = 2,
-            lakes = 3,
+            lakes = 1,
+            rock_outcrops = 2,
+            mountains = 3,
             forests = 4,
         )
         items: dict[str, int] = dict(geo_features.items())
         
-        assert items == {"rock_outcrops": 1, "mountains": 2, "lakes": 3, "forests": 4}
+        assert items == {"lakes": 1, "rock_outcrops": 2, "mountains": 3, "forests": 4}
     
     def test_values_returns_values(self) -> None:
         geo_features: GeoFeatures = GeoFeatures(
-            rock_outcrops = 1,
-            mountains = 2,
-            lakes = 3,
+            lakes = 1,
+            rock_outcrops = 2,
+            mountains = 3,
             forests = 4,
         )
         values: list[int] = list(geo_features.values())
@@ -67,21 +67,21 @@ class TestGeoFeatures:
     @mark.parametrize(
         argnames = "key, expected",
         argvalues = [
-            ("rock_outcrops", 11),
-            ("mountains", 22),
-            ("lakes", 33),
+            ("lakes", 11),
+            ("rock_outcrops", 22),
+            ("mountains", 33),
             ("forests", 44),
         ],
     )
     def test_get_valid_keys(
         self,
-        key: Literal["rock_outcrops"] | Literal["mountains"] | Literal["lakes"] | Literal["forests"],
+        key: Literal["lakes"] | Literal["rock_outcrops"] | Literal["mountains"] | Literal["forests"],
         expected: Literal[11] | Literal[22] | Literal[33] | Literal[44],
     ) -> None:
         geo_features: GeoFeatures = GeoFeatures(
-            rock_outcrops = 11,
-            mountains = 22,
-            lakes = 33,
+            lakes = 11,
+            rock_outcrops = 22,
+            mountains = 33,
             forests = 44,
         )
         
@@ -89,9 +89,9 @@ class TestGeoFeatures:
     
     def test_get_invalid_key_raises_keyerror(self) -> None:
         geo_features: GeoFeatures = GeoFeatures(
+            lakes = 3,
             rock_outcrops = 1,
             mountains = 2,
-            lakes = 3,
             forests = 4,
         )
         

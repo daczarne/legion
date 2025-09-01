@@ -4,9 +4,9 @@ Module for managing geographic features.
 This module defines enumerations, type hints, and a dataclass for representing the geographic features a city might
 have:
 
+- Lakes
 - Rock outcrops
 - Mountains
-- Lakes
 - Forests
 
 It also includes helper classes for reading geographic feature data from YAML/JSON files and interacting with the
@@ -33,14 +33,14 @@ class GeoFeature(Enum):
     Enumeration of the geographic features a city may contain.
     
     Attributes:
+        LAKE: Lakes within the city area.
         OUTCROP_ROCK: Rock outcrops in the city.
         MOUNTAIN: Mountains present in the city.
-        LAKE: Lakes within the city area.
         FOREST: Forests surrounding the city.
     """
+    LAKE = "lake"
     OUTCROP_ROCK = "outcrop_rock"
     MOUNTAIN = "mountain"
-    LAKE = "lake"
     FOREST = "forest"
 
 
@@ -49,9 +49,9 @@ class GeoFeaturesData(TypedDict):
     This is a helper class meant to be used when reading GeoFeatures from YAML or JSON files. Its only purpose is to
     provide good type annotations and hints.
     """
+    lakes: int
     rock_outcrops: int
     mountains: int
-    lakes: int
     forests: int
 
 
@@ -60,7 +60,7 @@ class GeoFeatures:
     """
     Stores counts of geographic features and provides dictionary-like access.
     
-    Each instance tracks the four geographic feature types: rock outcrops, mountains, lakes, and forests. Supports
+    Each instance tracks the four geographic feature types: lakes, rock outcrops, mountains, and forests. Supports
     iteration and retrieval like a dictionary.
     
     Public methods:
@@ -69,9 +69,9 @@ class GeoFeatures:
         values(): Return counts of all features.
         get(key): Get the count for a given feature name. Raises KeyError if the key is not found.
     """
+    lakes: int = 0
     rock_outcrops: int = 0
     mountains: int = 0
-    lakes: int = 0
     forests: int = 0
     
     def __iter__(self) -> Iterator[str]:
