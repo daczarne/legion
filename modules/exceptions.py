@@ -64,6 +64,10 @@ class NoGarrisonFoundError(CityError):
     pass
 
 
+class BuildingCannotBeAddedToTheCityError(CityError):
+    pass
+
+
 # * ******* * #
 # * DISPLAY * #
 # * ******* * #

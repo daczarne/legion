@@ -47,6 +47,7 @@ from .exceptions import (
     TooManyBuildingsError,
     NoGarrisonFoundError,
     UnknownBuildingError,
+    BuildingCannotBeAddedToTheCityError,
 )
 from .geo_features import GeoFeaturesData, GeoFeatures
 from .resources import Resource, ResourceCollectionData, ResourceCollection
@@ -962,7 +963,7 @@ class _CityBuildingsGraph:
         
         Raises:
             UnknownBuildingError: If the building does not exist.
-            ValueError: If the building cannot be added (limit reached or unavailable).
+            BuildingCannotBeAddedToTheCityError: If the building cannot be added (limit reached or unavailable).
         """
         if building_id not in self.nodes:
             raise UnknownBuildingError(f"No building with ID = \"{building_id}\" found.")
@@ -988,7 +989,7 @@ class _CityBuildingsGraph:
             return False
         
         if not dfs(node = start):
-            raise ValueError(f"Building '{building_id}' is not reachable from village_hall.")
+            raise BuildingCannotBeAddedToTheCityError(f"Building \"{building_id}\" cannot be added.")
     
     def _propagate_replacements(self, node: _CityBuildingNode) -> None:
         """
