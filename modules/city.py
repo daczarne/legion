@@ -37,7 +37,7 @@ from rich.style import Style
 from rich.table import Table
 from rich.text import Text
 
-from .building import Building, BuildingsCount
+from .building import Building, BuildingsCount, _BUILDINGS
 from .display import DisplayConfiguration, DisplaySectionConfiguration, DEFAULT_SECTION_COLORS
 from .effects import EffectBonusesData, EffectBonuses
 from .exceptions import (
@@ -314,6 +314,7 @@ class City:
                 continue
             
             return building
+    
     
     #* Alternative city creator methods
     @classmethod
@@ -771,6 +772,13 @@ class City:
 @dataclass
 class _CityValidator:
     city: City
+    building_allowed_counts: BuildingsCount = field(
+        init = False,
+        default_factory = dict,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
     
     POSSIBLE_CITY_HALLS: ClassVar[set[str]] = {"village_hall", "town_hall", "city_hall", "fort"}
     
@@ -819,6 +827,137 @@ class _CityValidator:
                 f"{number_of_declared_buildings} provided, "
                 f"max of {max_number_of_buildings_in_city + 1} possible ({max_number_of_buildings_in_city} + hall)."
             )
+    
+    def _calculate_allowed_counts(self) -> BuildingsCount:
+        """
+        Determine the allowed_count for each building based on city state.
+        """
+        if self.city.is_fort:
+            allowed_counts: BuildingsCount = {building_id: 0 for building_id in _BUILDINGS}
+            allowed_counts["fort"] = 1
+            return allowed_counts
+        
+        basic_production_buildings: list[str] = [
+            "farm",
+            "large_farm",
+            "mine",
+            "large_mine",
+            "lumber_mill",
+            "large_lumber_mill",
+        ]
+        
+        buildings_that_require_town_hall_or_more: list[str] = [
+            "city_hall",
+            "bath_house",
+            "hospital",
+            "vineyard",
+            "training_ground",
+            "bordello",
+            "gladiator_school",
+            "medium_fort",
+            "large_fort",
+            "barracks",
+            "quartermaster",
+            "temple",
+            "basilica",
+            "imperial_residence",
+            "farmers_guild",
+            "carpenters_guild",
+            "miners_guild",
+        ]
+        
+        buildings_that_require_city_hall: list[str] = [
+            "large_fort",
+            "quartermaster",
+            "basilica",
+            "imperial_residence",
+            "farmers_guild",
+            "carpenters_guild",
+            "miners_guild",
+        ]
+        
+        allowed_counts: BuildingsCount = {building_id: 1 for building_id in _BUILDINGS}
+        
+        total_spots: int = _CityValidator.MAX_BUILDINGS_PER_CITY[self.city.hall.id]
+        
+        pre_occupied_spots: int = self.city.geo_features.lakes \
+            + self.city.geo_features.rock_outcrops \
+            + self.city.geo_features.mountains
+        
+        if self.city.has_supply_dump:
+            pre_occupied_spots += 1
+        
+        for building_id in _BUILDINGS:
+            
+            # Cities that are not forts, cannot build the fort
+            if building_id == "fort":
+                allowed_counts[building_id] = 0
+            
+            if building_id == "hunters_lodge":
+                
+                if self.city.hall not in ["village_hall", "town_hall"]:
+                    allowed_counts[building_id] = 0
+                
+                if not (
+                    self.city.resource_potentials.food > 0
+                    and self.city.resource_potentials.ore > 0
+                    and self.city.resource_potentials.wood > 0
+                ):
+                    allowed_counts[building_id] = 0
+                
+                allowed_counts[building_id] = total_spots - pre_occupied_spots
+            
+            # Supply dumps are available in only three cities. There's only one per city and they are either there from
+            # the start or they are not. They cannot be deleted.
+            if building_id == "supply_dump":
+                if not self.city.has_supply_dump:
+                    allowed_counts[building_id] = 0
+            
+            # We start by assuming that basic production buildings can build as many as there are building slots
+            # available in that city. This is determined by the hall minus the pre_occupied_spots.
+            if building_id in basic_production_buildings:
+                allowed_counts[building_id] = total_spots - pre_occupied_spots
+            
+            # Adjustments for geo features
+            if building_id == "fishing_village":
+                allowed_counts[building_id] = self.city.geo_features.lakes
+            
+            if building_id == "outcrop_mine":
+                allowed_counts[building_id] = self.city.geo_features.rock_outcrops
+            
+            if building_id == "mountain_mine":
+                allowed_counts[building_id] = self.city.geo_features.mountains
+            
+            if building_id in ["forest", "hidden_grove"]:
+                allowed_counts[building_id] = self.city.geo_features.forests
+            
+            # Adjustments for resource production potentials
+            if building_id in ["farm", "large_farm", "vineyard", "fishing_village", "farmers_guild", "stables"]:
+                if self.city.resource_potentials.food == 0:
+                    allowed_counts[building_id] = 0
+            
+            if building_id in ["mine", "large_mine", "outcrop_mine", "mountain_mine", "miners_guild", "blacksmith"]:
+                if self.city.resource_potentials.ore == 0:
+                    allowed_counts[building_id] = 0
+            
+            if building_id in ["lumber_mill", "large_lumber_mill", "carpenters_guild", "fletcher"]:
+                if self.city.resource_potentials.wood == 0:
+                    allowed_counts[building_id] = 0
+            
+            # Adjustments for hall level
+            if building_id in buildings_that_require_town_hall_or_more:
+                if self.city.hall.id in ["fort", "village_hall"]:
+                    allowed_counts[building_id] = 0
+            
+            if building_id in buildings_that_require_city_hall:
+                if self.city.hall.id in ["fort", "village_hall", "town_hall"]:
+                    allowed_counts[building_id] = 0
+        
+        return allowed_counts
+    
+    
+    def __post_init__(self) -> None:
+        self.building_allowed_counts = self._calculate_allowed_counts()
 
 
 # * ************ * #
