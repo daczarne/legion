@@ -646,13 +646,13 @@ class City:
         self.is_fort = self._is_fort()
         self._add_fort_to_buildings()
         
+        #* Hall
+        self.hall = self._get_hall()
+        
         #* Validate city
         validator: _CityValidator = _CityValidator(city = self)
         validator._validate_halls()
         validator._validate_number_of_buildings()
-        
-        #* Hall
-        self.hall = self._get_hall()
         
         #* Effect bonuses
         self.effects.city = self._get_city_effects()
@@ -892,11 +892,14 @@ class _CityValidator:
             # Cities that are not forts, cannot build the fort
             if building_id == "fort":
                 allowed_counts[building_id] = 0
+                continue
             
+            # Hunters' lodge are special buildings
             if building_id == "hunters_lodge":
                 
-                if self.city.hall not in ["village_hall", "town_hall"]:
+                if self.city.hall.id not in ["village_hall", "town_hall"]:
                     allowed_counts[building_id] = 0
+                    continue
                 
                 if not (
                     self.city.resource_potentials.food > 0
@@ -904,6 +907,7 @@ class _CityValidator:
                     and self.city.resource_potentials.wood > 0
                 ):
                     allowed_counts[building_id] = 0
+                    continue
                 
                 allowed_counts[building_id] = total_spots - pre_occupied_spots
             
@@ -912,6 +916,7 @@ class _CityValidator:
             if building_id == "supply_dump":
                 if not self.city.has_supply_dump:
                     allowed_counts[building_id] = 0
+                    continue
             
             # We start by assuming that basic production buildings can build as many as there are building slots
             # available in that city. This is determined by the hall minus the pre_occupied_spots.
