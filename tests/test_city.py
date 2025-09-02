@@ -313,6 +313,7 @@ class TestCity:
     def test_city(self, _city: City) -> None:
         assert _city.campaign == "Unification of Italy"
         assert _city.name == "Roma"
+        assert _city.hall.id == "city_hall"
         
         assert _city.effects.city.troop_training == 0
         assert _city.effects.city.population_growth == 0
@@ -351,7 +352,7 @@ class TestCity:
         assert isinstance(_city.get_building(id = "quartermaster"), Building)
         assert _city.get_building(id = "quartermaster").id == "quartermaster"
     
-    def test_get_building_raises_key_error(self, _city: City) -> None:
+    def test_get_building_raises_error(self, _city: City) -> None:
         with raises(expected_exception = KeyError):
             _city.get_building(id = "nonexistent_building")
     
@@ -360,9 +361,6 @@ class TestCity:
     
     def test_has_building_returns_false_for_nonexistent_building(self, _city: City) -> None:
         assert not _city.has_building(id = "nonexistent_building")
-    
-    def test_get_hall_returns_the_hall(self, _city: City) -> None:
-        assert _city.get_hall().id == "city_hall"
     
     def test_get_buildings_count_by_id(self, _city: City) -> None:
         counts: BuildingsCount = _city.get_buildings_count(by = "id")
@@ -396,7 +394,7 @@ class TestCity:
         
         assert counts == expected_result
     
-    def test_city_with_no_hall_raises_value_error(self) -> None:
+    def test_city_with_no_hall_raises_error(self) -> None:
         with raises(expected_exception = NoCityHallError, match = "City must include a hall."):
             city: City = City(
                 campaign = "Unification of Italy",
@@ -404,7 +402,7 @@ class TestCity:
                 buildings = [Building(id = "farm")],
             )
     
-    def test_city_with_multiple_halls_raises_value_error(self) -> None:
+    def test_city_with_multiple_halls_raises_error(self) -> None:
         with raises(expected_exception = TooManyHallsError, match = "Too many halls for this city"):
             city: City = City(
                 campaign = "Unification of Italy",
@@ -415,7 +413,7 @@ class TestCity:
                 ],
             )
     
-    def test_city_with_duplicated_halls_raises_value_error(self) -> None:
+    def test_city_with_duplicated_halls_raises_error(self) -> None:
         with raises(expected_exception = TooManyHallsError, match = "Too many halls for this city"):
             city: City = City(
                 campaign = "Unification of Italy",
@@ -426,7 +424,7 @@ class TestCity:
                 ],
             )
     
-    def test_village_with_excess_buildings_raises_value_error(self) -> None:
+    def test_village_with_excess_buildings_raises_error(self) -> None:
         with raises(expected_exception = TooManyBuildingsError, match = "Too many buildings"):
             city: City = City(
                 campaign = "Unification of Italy",
@@ -441,7 +439,7 @@ class TestCity:
                 ],
             )
     
-    def test_town_with_excess_buildings_raises_value_error(self) -> None:
+    def test_town_with_excess_buildings_raises_error(self) -> None:
         with raises(expected_exception = TooManyBuildingsError, match = "Too many buildings"):
             city: City = City(
                 campaign = "Unification of Italy",
@@ -458,7 +456,7 @@ class TestCity:
                 ],
             )
     
-    def test_city_with_excess_buildings_raises_value_error(self) -> None:
+    def test_city_with_excess_buildings_raises_error(self) -> None:
         with raises(expected_exception = TooManyBuildingsError, match = "Too many buildings"):
             city: City = City(
                 campaign = "Unification of Italy",
@@ -517,6 +515,7 @@ class TestCityScenarios:
         
         assert city.campaign == "Unification of Italy"
         assert city.name == "Roma"
+        assert city.hall.id == "city_hall"
         
         assert city.effects.city.troop_training == 0
         assert city.effects.city.population_growth == 0
@@ -563,6 +562,7 @@ class TestCityScenarios:
         
         assert city.campaign == "Unification of Italy"
         assert city.name == "Roma"
+        assert city.hall.id == "city_hall"
         
         assert city.resource_potentials.food == 125
         assert city.production.base.food == 261
@@ -593,6 +593,7 @@ class TestCityScenarios:
         
         assert city.campaign == "Unification of Italy"
         assert city.name == "Faesula"
+        assert city.hall.id == "city_hall"
         
         assert city.resource_potentials.food == 90
         assert city.geo_features.lakes == 1
@@ -624,6 +625,7 @@ class TestCityScenarios:
         
         assert city.campaign == "Unification of Italy"
         assert city.name == "Falerii"
+        assert city.hall.id == "city_hall"
         
         assert city.resource_potentials.food == 100
         assert city.resource_potentials.ore == 60
@@ -662,6 +664,7 @@ class TestCityScenarios:
         
         assert city.campaign == "Unification of Italy"
         assert city.name == "Caercini"
+        assert city.hall.id == "city_hall"
         
         assert city.resource_potentials.ore == 125
         assert city.geo_features.rock_outcrops == 1
@@ -693,6 +696,7 @@ class TestCityScenarios:
         
         assert city.campaign == "Unification of Italy"
         assert city.name == "Caudini"
+        assert city.hall.id == "city_hall"
         
         assert city.resource_potentials.ore == 80
         assert city.geo_features.rock_outcrops == 1
@@ -721,6 +725,7 @@ class TestCityScenarios:
         
         assert city.campaign == "Unification of Italy"
         assert city.name == "Reate"
+        assert city.hall.id == "city_hall"
         
         assert city.resource_potentials.ore == 150
         assert city.geo_features.mountains == 2
@@ -749,6 +754,7 @@ class TestCityScenarios:
         
         assert city.campaign == "Unification of Italy"
         assert city.name == "Hirpini"
+        assert city.hall.id == "city_hall"
         
         assert city.resource_potentials.ore == 125
         assert city.geo_features.mountains == 1
@@ -776,6 +782,7 @@ class TestCityScenarios:
         
         assert city.campaign == "Unification of Italy"
         assert city.name == "Pentri"
+        assert city.hall.id == "city_hall"
         
         assert city.resource_potentials.ore == 110
         assert city.production.base.ore == 234
@@ -802,6 +809,7 @@ class TestCityScenarios:
         
         assert city.campaign == "Unification of Italy"
         assert city.name == "Lingones"
+        assert city.hall.id == "city_hall"
         
         assert city.resource_potentials.wood == 150
         assert city.geo_features.forests == 1
@@ -823,7 +831,7 @@ class TestCityScenarios:
         )
         
         assert len(city.buildings) == 1
-        assert city.get_hall() == Building(id = "fort")
+        assert city.hall.id == "fort"
         
         assert city.resource_potentials.food == 0
         assert city.resource_potentials.ore == 0
@@ -858,7 +866,7 @@ class TestCityScenarios:
         
         assert city.focus is None
     
-    def test_fort_with_buildings(self) -> None:
+    def test_fort_with_buildings_raises_error(self) -> None:
         with raises(expected_exception = FortsCannotHaveBuildingsError, match = "Forts cannot have buildings"):
             city: City = City.from_buildings_count(
                 campaign = "Germania",

@@ -193,6 +193,12 @@ class City:
         compare = False,
         hash = False,
     )
+    hall: Building = field(
+        init = False,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
     
     effects: _CityEffectBonuses = field(
         init = False,
@@ -294,6 +300,20 @@ class City:
         
         return False
     
+    def _get_hall(self) -> Building: # type: ignore
+        """
+        Retrieve the hall building of the city.
+        
+        The hall is the central building of the city and must be one of "Village hall", "Town hall", or "City hall".
+        
+        Returns:
+            Building: the hall building of the city.
+        """
+        for building in self.buildings:
+            if building.id not in _CityValidator.POSSIBLE_CITY_HALLS:
+                continue
+            
+            return building
     
     #* Alternative city creator methods
     @classmethod
@@ -501,7 +521,7 @@ class City:
     
     #* Storage capacity
     def _calculate_city_storage(self) -> ResourceCollection:
-        return self.get_hall().storage_capacity
+        return self.hall.storage_capacity
     
     def _calculate_buildings_storage(self) -> ResourceCollection:
         buildings_storage: ResourceCollection = ResourceCollection()
@@ -630,6 +650,9 @@ class City:
         validator._validate_halls()
         validator._validate_number_of_buildings()
         
+        #* Hall
+        self.hall = self._get_hall()
+        
         #* Effect bonuses
         self.effects.city = self._get_city_effects()
         self.effects.buildings = self._calculate_building_effects()
@@ -693,21 +716,6 @@ class City:
                 return True
         
         return False
-    
-    def get_hall(self) -> Building: # type: ignore
-        """
-        Retrieve the hall building of the city.
-        
-        The hall is the central building of the city and must be one of "Village hall", "Town hall", or "City hall".
-        
-        Returns:
-            Building: the hall building of the city.
-        """
-        for building in self.buildings:
-            if building.id not in _CityValidator.POSSIBLE_CITY_HALLS:
-                continue
-            
-            return building
     
     def get_buildings_count(self, by: Literal["name", "id"]) -> BuildingsCount:
         """
@@ -797,7 +805,7 @@ class _CityValidator:
     
     def _validate_number_of_buildings(self) -> None:
         number_of_declared_buildings: int = len(self.city.buildings)
-        max_number_of_buildings_in_city: int = self.MAX_BUILDINGS_PER_CITY[self.city.get_hall().id]
+        max_number_of_buildings_in_city: int = self.MAX_BUILDINGS_PER_CITY[self.city._get_hall().id]
         
         if number_of_declared_buildings > max_number_of_buildings_in_city + 1:
             
