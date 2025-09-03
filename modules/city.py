@@ -47,6 +47,7 @@ from .exceptions import (
     TooManyBuildingsError,
     NoGarrisonFoundError,
     MoreThanOneHallTypeError,
+    CityNotFoundError,
 )
 from .geo_features import GeoFeaturesData, GeoFeatures
 from .resources import Resource, ResourceCollectionData, ResourceCollection
@@ -270,7 +271,9 @@ class City:
             ):
                 return ResourceCollection(**city["resource_potentials"])
         
-        return ResourceCollection()
+        raise CityNotFoundError(
+            f"No city found for campaing = \"{self.campaign}\" and \"{self.name}\""
+        )
     
     def _get_geo_features(self) -> GeoFeatures:
         """
@@ -283,7 +286,9 @@ class City:
             ):
                 return GeoFeatures(**city["geo_features"])
         
-        return GeoFeatures()
+        raise CityNotFoundError(
+            f"No city found for campaing = \"{self.campaign}\" and \"{self.name}\""
+        )
     
     def _is_fort(self) -> bool:
         """
@@ -374,7 +379,7 @@ class City:
             "large_lumber_mill",
         ]
         
-        buildings_that_require_town_hall_or_more: list[str] = [
+        buildings_that_require_town_hall: list[str] = [
             "city_hall",
             "bath_house",
             "hospital",
@@ -383,15 +388,8 @@ class City:
             "bordello",
             "gladiator_school",
             "medium_fort",
-            "large_fort",
             "barracks",
-            "quartermaster",
             "temple",
-            "basilica",
-            "imperial_residence",
-            "farmers_guild",
-            "carpenters_guild",
-            "miners_guild",
         ]
         
         buildings_that_require_city_hall: list[str] = [
@@ -478,7 +476,7 @@ class City:
                     allowed_counts[building_id] = 0
             
             # Adjustments for hall level
-            if building_id in buildings_that_require_town_hall_or_more:
+            if building_id in [*buildings_that_require_town_hall, *buildings_that_require_city_hall]:
                 if self._get_hall().id in ["fort", "village_hall"]:
                     allowed_counts[building_id] = 0
             
