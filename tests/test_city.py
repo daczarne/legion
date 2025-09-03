@@ -346,7 +346,7 @@ class TestCity:
         
         assert _city.focus is None
     
-    def test_non_existant_city_raises_error(self) -> None:
+    def test_non_existent_city_raises_error(self) -> None:
         with raises(expected_exception = CityNotFoundError):
             city: City = City(
                 campaign = "Conquer the World",
