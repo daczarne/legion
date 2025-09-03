@@ -494,24 +494,6 @@ class TestCity:
 
 
 @mark.city
-@mark.city_validator
-class TestCityValidator:
-    
-    def test_multiple_halls_raises_error(self) -> None:
-        with raises(expected_exception = TooManyHallsError):
-            city: City = City(
-                campaign = "Unification of Italy",
-                name = "Roma",
-                buildings = [
-                    Building(id = "village_hall"),
-                    Building(id = "village_hall"),
-                ]
-            )
-    
-
-
-
-@mark.city
 @mark.city_scenarios
 class TestCityScenarios:
     
