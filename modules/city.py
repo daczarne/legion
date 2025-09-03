@@ -207,12 +207,6 @@ class City:
         compare = False,
         hash = False,
     )
-    hall: Building = field(
-        init = False,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
     
     effects: _CityEffectBonuses = field(
         init = False,
@@ -713,7 +707,6 @@ class City:
         self._add_fort_to_buildings()
         
         self._validate_halls()
-        self.hall = self._get_hall()
         
         self.has_supply_dump = self._has_supply_dump()
         self._add_supply_dump_to_buildings()
