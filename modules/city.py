@@ -23,6 +23,7 @@ Internal objects (not part of the public API):
 - _CityEffectBonuses, _CityProduction, _CityStorage, _CityDefenses: helper dataclasses for modeling city internals.
 """
 
+import re
 import yaml
 
 from dataclasses import dataclass, field
@@ -166,8 +167,9 @@ class City:
             name: str,
             buildings: list[Building],
         ) -> None:
-        self.campaign: str = campaign
-        self.name: str = name
+        self._city_data: _CityData = self._get_city_data(campaign = campaign, name = name)
+        self.campaign: str = self._get_campaign()
+        self.name: str = self._get_city_name()
         
         self.resource_potentials: ResourceCollection = self._get_rss_potentials()
         self.geo_features: GeoFeatures = self._get_geo_features()
@@ -219,61 +221,32 @@ class City:
     
     
     #* Init and validation helpers
-    def _get_rss_potentials(self) -> ResourceCollection:
-        """
-        Finds the city supplied by the user in the directory of cities and returns its resource potentials.
-        """
+    def _get_city_data(self, campaign: str, name: str) -> _CityData:
         for city in CITIES:
             if (
-                city["campaign"] == self.campaign
-                and city["name"] == self.name
+                city["campaign"] == campaign
+                and city["name"] == name
             ):
-                return ResourceCollection(**city["resource_potentials"])
+                return city
         
         raise CityNotFoundError(
             f"No city found for campaing = \"{self.campaign}\" and name = \"{self.name}\""
         )
+    
+    def _get_campaign(self) -> str:
+        return self._city_data["campaign"]
+    
+    def _get_city_name(self) -> str:
+        return self._city_data["name"]
+    
+    def _get_rss_potentials(self) -> ResourceCollection:
+        return ResourceCollection(**self._city_data["resource_potentials"])
     
     def _get_geo_features(self) -> GeoFeatures:
-        """
-        Finds the city supplied by the user in the directory of cities and returns its geo-features.
-        """
-        for city in CITIES:
-            if (
-                city["campaign"] == self.campaign
-                and city["name"] == self.name
-            ):
-                return GeoFeatures(**city["geo_features"])
-        
-        raise CityNotFoundError(
-            f"No city found for campaing = \"{self.campaign}\" and name = \"{self.name}\""
-        )
+        return GeoFeatures(**self._city_data["geo_features"])
     
     def _is_fort(self) -> bool:
-        """
-        Checks if the city is a "Fort".
-        """
-        for city in CITIES:
-            if (
-                city["campaign"] == self.campaign
-                and city["name"] == self.name
-            ):
-                return city["is_fort"]
-        
-        return False
-    
-    def _has_supply_dump(self) -> bool:
-        """
-        Checks if the city has a Supply dump.
-        """
-        for city in CITIES:
-            if (
-                city["campaign"] == self.campaign
-                and city["name"] == self.name
-            ):
-                return city["has_supply_dump"]
-        
-        return False
+        return self._city_data["is_fort"]
     
     def _add_fort_to_buildings(self) -> None:
         if not self.is_fort:
@@ -283,6 +256,9 @@ class City:
             return
         
         self.buildings.append(Building(id = "fort"))
+    
+    def _has_supply_dump(self) -> bool:
+        return self._city_data["has_supply_dump"]
     
     def _add_supply_dump_to_buildings(self) -> None:
         if not self.has_supply_dump:
@@ -315,16 +291,8 @@ class City:
             raise TooManyHallsError(f"Too many halls for this city.")
     
     def _get_hall(self) -> Building:
-        """
-        Retrieve the hall building of the city.
-        
-        The hall is the central building of the city and must be one of "Village hall", "Town hall", or "City hall".
-        
-        Returns:
-            Building: the hall building of the city.
-        """
         for building in self.buildings:
-            if building.id not in self.PossibleCityHalls:
+            if building.id not in City.PossibleCityHalls:
                 continue
             
             return building
@@ -333,7 +301,7 @@ class City:
     
     def _validate_number_of_buildings(self) -> None:
         number_of_declared_buildings: int = len(self.buildings)
-        max_number_of_buildings_in_city: int = self.MaximumBuildingsPerCity[self.hall.id]
+        max_number_of_buildings_in_city: int = City.MaximumBuildingsPerCity[self.hall.id]
         
         if number_of_declared_buildings > max_number_of_buildings_in_city + 1:
             
@@ -351,19 +319,7 @@ class City:
     
     #* Effect bonuses
     def _get_city_effects(self) -> EffectBonuses:
-        """
-        Finds the city supplied by the user in the directory of cities and returns its effects.
-        """
-        for city in CITIES:
-            if (
-                city["campaign"] == self.campaign
-                and city["name"] == self.name
-            ):
-                return EffectBonuses(**city["effects"])
-        
-        raise CityNotFoundError(
-            f"No city found for campaing = \"{self.campaign}\" and name = \"{self.name}\""
-        )
+        return EffectBonuses(**self._city_data["effects"])
     
     def _calculate_building_effects(self) -> EffectBonuses:
         """
@@ -556,14 +512,7 @@ class City:
     
     #* City defenses
     def _get_garrison(self) -> str:
-        for city in CITIES:
-            if (
-                city["campaign"] == self.campaign
-                and city["name"] == self.name
-            ):
-                return city["garrison"]
-        
-        raise NoGarrisonFoundError(f"No garrison found for {self.campaign} - {self.name}")
+        return self._city_data["garrison"]
     
     def _calculate_garrison_size(self) -> int:
         if self.is_fort:
