@@ -48,6 +48,10 @@ class NoCityHallError(CityError):
     pass
 
 
+class MoreThanOneHallTypeError(CityError):
+    pass
+
+
 class TooManyHallsError(CityError):
     pass
 

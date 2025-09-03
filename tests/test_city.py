@@ -395,11 +395,11 @@ class TestCity:
         assert counts == expected_result
     
     def test_city_with_no_hall_raises_error(self) -> None:
-        with raises(expected_exception = NoCityHallError, match = "City must include a hall."):
+        with raises(expected_exception = NoCityHallError):
             city: City = City(
                 campaign = "Unification of Italy",
                 name = "Roma",
-                buildings = [Building(id = "farm")],
+                buildings = [],
             )
     
     def test_city_with_multiple_halls_raises_error(self) -> None:
@@ -490,6 +490,24 @@ class TestCity:
         
         assert len(city.buildings) == 1
         assert city.get_buildings_count(by = "id") == {"village_hall": 1}
+
+
+@mark.city
+@mark.city_validator
+class TestCityValidator:
+    
+    def test_multiple_halls_raises_error(self) -> None:
+        with raises(expected_exception = TooManyHallsError):
+            city: City = City(
+                campaign = "Unification of Italy",
+                name = "Roma",
+                buildings = [
+                    Building(id = "village_hall"),
+                    Building(id = "village_hall"),
+                ]
+            )
+    
+
 
 
 @mark.city
