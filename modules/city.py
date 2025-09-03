@@ -345,7 +345,7 @@ class City:
         if list(halls.values())[0] != 1:
             raise TooManyHallsError(f"Too many halls for this city.")
     
-    def _get_hall(self) -> Building: # type: ignore
+    def _get_hall(self) -> Building:
         """
         Retrieve the hall building of the city.
         
@@ -359,6 +359,8 @@ class City:
                 continue
             
             return building
+        
+        raise NoCityHallError(f"City must include a hall (Village, Town, or City).") 
     
     def _has_supply_dump(self) -> bool:
         """
