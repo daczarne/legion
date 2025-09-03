@@ -44,7 +44,15 @@ class CityError(LegionError):
     pass
 
 
+class CityNotFoundError(CityError):
+    pass
+
+
 class NoCityHallError(CityError):
+    pass
+
+
+class MoreThanOneHallTypeError(CityError):
     pass
 
 

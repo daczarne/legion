@@ -37,7 +37,7 @@ from rich.style import Style
 from rich.table import Table
 from rich.text import Text
 
-from .building import Building, BuildingsCount
+from .building import Building, BuildingsCount, _BUILDINGS
 from .display import DisplayConfiguration, DisplaySectionConfiguration, DEFAULT_SECTION_COLORS
 from .effects import EffectBonusesData, EffectBonuses
 from .exceptions import (
@@ -46,6 +46,8 @@ from .exceptions import (
     FortsCannotHaveBuildingsError,
     TooManyBuildingsError,
     NoGarrisonFoundError,
+    MoreThanOneHallTypeError,
+    CityNotFoundError,
 )
 from .geo_features import GeoFeaturesData, GeoFeatures
 from .resources import Resource, ResourceCollectionData, ResourceCollection
@@ -175,10 +177,22 @@ class City:
     campaign: str = field(init = True, default = "", repr = True, compare = True, hash = True)
     name: str = field(init = True, default = "", repr = True, compare = True, hash = True)
     buildings: list[Building] = field(init = True, default_factory = list, repr = False, compare = False, hash = False)
-    has_supply_dump: bool = field(init = False, default = False, repr = False, compare = False, hash = False)
-    is_fort: bool = field(init = False, default = False, repr = False, compare = False, hash = False)
     
     # Post init fields
+    has_supply_dump: bool = field(
+        init = False,
+        default = False,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
+    is_fort: bool = field(
+        init = False,
+        default = False,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
     resource_potentials: ResourceCollection = field(
         init = False,
         default_factory = ResourceCollection,
@@ -237,6 +251,16 @@ class City:
     )
     
     
+    POSSIBLE_CITY_HALLS: ClassVar[set[str]] = {"fort", "village_hall", "town_hall", "city_hall"}
+    
+    # The maximum number of buildings the city can have, not counting the hall itself.
+    MAX_BUILDINGS_PER_CITY: ClassVar[BuildingsCount] = {
+        "fort": 0,
+        "village_hall": 4,
+        "town_hall": 6,
+        "city_hall": 8,
+    }
+    
     # Class variables
     MAX_WORKERS: ClassVar[BuildingsCount] = {
         "fort": 0,
@@ -259,7 +283,9 @@ class City:
             ):
                 return ResourceCollection(**city["resource_potentials"])
         
-        return ResourceCollection()
+        raise CityNotFoundError(
+            f"No city found for campaing = \"{self.campaign}\" and \"{self.name}\""
+        )
     
     def _get_geo_features(self) -> GeoFeatures:
         """
@@ -272,20 +298,9 @@ class City:
             ):
                 return GeoFeatures(**city["geo_features"])
         
-        return GeoFeatures()
-    
-    def _has_supply_dump(self) -> bool:
-        """
-        Checks if the city has a Supply dump.
-        """
-        for city in CITIES:
-            if (
-                city["campaign"] == self.campaign
-                and city["name"] == self.name
-            ):
-                return city["has_supply_dump"]
-        
-        return False
+        raise CityNotFoundError(
+            f"No city found for campaing = \"{self.campaign}\" and \"{self.name}\""
+        )
     
     def _is_fort(self) -> bool:
         """
@@ -300,7 +315,37 @@ class City:
         
         return False
     
-    def _get_hall(self) -> Building: # type: ignore
+    def _add_fort_to_buildings(self) -> None:
+        if not self.is_fort:
+            return
+        
+        if self.has_building(id = "fort"):
+            return
+        
+        self.buildings.append(Building(id = "fort"))
+    
+    def _validate_halls(self) -> None:
+        halls: BuildingsCount = {}
+        
+        for building in self.buildings:
+            if building.id not in self.POSSIBLE_CITY_HALLS:
+                continue
+            
+            if building.id in halls:
+                halls[building.id] += 1
+            else:
+                halls[building.id] = 1
+        
+        if not halls:
+            raise NoCityHallError(f"City must include a hall (Village, Town, or City).")
+        
+        if len(halls) > 1:
+            raise MoreThanOneHallTypeError(f"Only one hall per city is allowed. Found {", ".join(halls.keys())}.")
+        
+        if list(halls.values())[0] != 1:
+            raise TooManyHallsError(f"Too many halls for this city.")
+    
+    def _get_hall(self) -> Building:
         """
         Retrieve the hall building of the city.
         
@@ -310,10 +355,43 @@ class City:
             Building: the hall building of the city.
         """
         for building in self.buildings:
-            if building.id not in _CityValidator.POSSIBLE_CITY_HALLS:
+            if building.id not in self.POSSIBLE_CITY_HALLS:
                 continue
             
             return building
+        
+        raise NoCityHallError(f"City must include a hall (Village, Town, or City).") 
+    
+    def _has_supply_dump(self) -> bool:
+        """
+        Checks if the city has a Supply dump.
+        """
+        for city in CITIES:
+            if (
+                city["campaign"] == self.campaign
+                and city["name"] == self.name
+            ):
+                return city["has_supply_dump"]
+        
+        return False
+    
+    def _validate_number_of_buildings(self) -> None:
+        number_of_declared_buildings: int = len(self.buildings)
+        max_number_of_buildings_in_city: int = self.MAX_BUILDINGS_PER_CITY[self._get_hall().id]
+        
+        if number_of_declared_buildings > max_number_of_buildings_in_city + 1:
+            
+            if self.is_fort:
+                raise FortsCannotHaveBuildingsError(
+                    f"Forts cannot have buildings."
+                )
+            
+            raise TooManyBuildingsError(
+                f"Too many buildings for this city: "
+                f"{number_of_declared_buildings} provided, "
+                f"max of {max_number_of_buildings_in_city + 1} possible ({max_number_of_buildings_in_city} + hall)."
+            )
+    
     
     #* Alternative city creator methods
     @classmethod
@@ -360,16 +438,6 @@ class City:
             return
         
         self.buildings.append(Building(id = "supply_dump"))
-    
-    def _add_fort_to_buildings(self) -> None:
-        if not self.is_fort:
-            return
-        
-        if self.has_building(id = "fort"):
-            return
-        
-        self.buildings.append(Building(id = "fort"))
-    
     
     #* Effect bonuses
     def _get_city_effects(self) -> EffectBonuses:
@@ -521,13 +589,13 @@ class City:
     
     #* Storage capacity
     def _calculate_city_storage(self) -> ResourceCollection:
-        return self.hall.storage_capacity
+        return self._get_hall().storage_capacity
     
     def _calculate_buildings_storage(self) -> ResourceCollection:
         buildings_storage: ResourceCollection = ResourceCollection()
         
         for building in self.buildings:
-            if building.id not in [*_CityValidator.POSSIBLE_CITY_HALLS, "warehouse", "supply_dump"]:
+            if building.id not in [*self.POSSIBLE_CITY_HALLS, "warehouse", "supply_dump"]:
                 buildings_storage.food += building.storage_capacity.food
                 buildings_storage.ore += building.storage_capacity.ore
                 buildings_storage.wood += building.storage_capacity.wood
@@ -636,22 +704,21 @@ class City:
     
     
     def __post_init__(self) -> None:
+        #* Fetch data
         self.resource_potentials = self._get_rss_potentials()
         self.geo_features = self._get_geo_features()
+        
+        #* Validate city
+        self.is_fort = self._is_fort()
+        self._add_fort_to_buildings()
+        
+        self._validate_halls()
+        self.hall = self._get_hall()
         
         self.has_supply_dump = self._has_supply_dump()
         self._add_supply_dump_to_buildings()
         
-        self.is_fort = self._is_fort()
-        self._add_fort_to_buildings()
-        
-        #* Validate city
-        validator: _CityValidator = _CityValidator(city = self)
-        validator._validate_halls()
-        validator._validate_number_of_buildings()
-        
-        #* Hall
-        self.hall = self._get_hall()
+        self._validate_number_of_buildings()
         
         #* Effect bonuses
         self.effects.city = self._get_city_effects()
@@ -762,63 +829,6 @@ class City:
         """
         displayer: _CityDisplay = self.build_city_displayer(configuration = configuration)
         displayer.display_city()
-
-
-# * ************** * #
-# * CITY VALIDATOR * #
-# * ************** * #
-
-@dataclass
-class _CityValidator:
-    city: City
-    
-    POSSIBLE_CITY_HALLS: ClassVar[set[str]] = {"village_hall", "town_hall", "city_hall", "fort"}
-    
-    # The maximum number of buildings the city can have, not counting the hall itself.
-    MAX_BUILDINGS_PER_CITY: ClassVar[BuildingsCount] = {
-        "fort": 0,
-        "village_hall": 4,
-        "town_hall": 6,
-        "city_hall": 8,
-    }
-    
-    def _validate_halls(self) -> None:
-        halls: BuildingsCount = {}
-        
-        for building in self.city.buildings:
-            if building.id not in self.POSSIBLE_CITY_HALLS:
-                continue
-            
-            if building.id in halls:
-                halls[building.id] += 1
-            else:
-                halls[building.id] = 1
-        
-        if not halls:
-            raise NoCityHallError(f"City must include a hall (Village, Town, or City).")
-        
-        if len(halls) > 1:
-            raise TooManyHallsError(f"Too many halls for this city.")
-        
-        if list(halls.values())[0] != 1:
-            raise TooManyHallsError(f"Too many halls for this city.")
-    
-    def _validate_number_of_buildings(self) -> None:
-        number_of_declared_buildings: int = len(self.city.buildings)
-        max_number_of_buildings_in_city: int = self.MAX_BUILDINGS_PER_CITY[self.city._get_hall().id]
-        
-        if number_of_declared_buildings > max_number_of_buildings_in_city + 1:
-            
-            if self.city.is_fort:
-                raise FortsCannotHaveBuildingsError(
-                    f"Forts cannot have buildings."
-                )
-            
-            raise TooManyBuildingsError(
-                f"Too many buildings for this city: "
-                f"{number_of_declared_buildings} provided, "
-                f"max of {max_number_of_buildings_in_city + 1} possible ({max_number_of_buildings_in_city} + hall)."
-            )
 
 
 # * ************ * #

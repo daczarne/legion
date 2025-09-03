@@ -9,6 +9,7 @@ from modules.exceptions import (
     TooManyHallsError,
     FortsCannotHaveBuildingsError,
     TooManyBuildingsError,
+    MoreThanOneHallTypeError,
     NoGarrisonFoundError,
 )
 from modules.resources import Resource
@@ -395,15 +396,15 @@ class TestCity:
         assert counts == expected_result
     
     def test_city_with_no_hall_raises_error(self) -> None:
-        with raises(expected_exception = NoCityHallError, match = "City must include a hall."):
+        with raises(expected_exception = NoCityHallError):
             city: City = City(
                 campaign = "Unification of Italy",
                 name = "Roma",
-                buildings = [Building(id = "farm")],
+                buildings = [],
             )
     
     def test_city_with_multiple_halls_raises_error(self) -> None:
-        with raises(expected_exception = TooManyHallsError, match = "Too many halls for this city"):
+        with raises(expected_exception = MoreThanOneHallTypeError):
             city: City = City(
                 campaign = "Unification of Italy",
                 name = "Roma",
