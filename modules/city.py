@@ -177,10 +177,22 @@ class City:
     campaign: str = field(init = True, default = "", repr = True, compare = True, hash = True)
     name: str = field(init = True, default = "", repr = True, compare = True, hash = True)
     buildings: list[Building] = field(init = True, default_factory = list, repr = False, compare = False, hash = False)
-    has_supply_dump: bool = field(init = False, default = False, repr = False, compare = False, hash = False)
-    is_fort: bool = field(init = False, default = False, repr = False, compare = False, hash = False)
     
     # Post init fields
+    has_supply_dump: bool = field(
+        init = False,
+        default = False,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
+    is_fort: bool = field(
+        init = False,
+        default = False,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
     resource_potentials: ResourceCollection = field(
         init = False,
         default_factory = ResourceCollection,
