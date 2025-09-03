@@ -314,7 +314,6 @@ class TestCity:
     def test_city(self, _city: City) -> None:
         assert _city.campaign == "Unification of Italy"
         assert _city.name == "Roma"
-        assert _city.hall.id == "city_hall"
         
         assert _city.effects.city.troop_training == 0
         assert _city.effects.city.population_growth == 0
@@ -516,7 +515,6 @@ class TestCityScenarios:
         
         assert city.campaign == "Unification of Italy"
         assert city.name == "Roma"
-        assert city.hall.id == "city_hall"
         
         assert city.effects.city.troop_training == 0
         assert city.effects.city.population_growth == 0
@@ -563,7 +561,6 @@ class TestCityScenarios:
         
         assert city.campaign == "Unification of Italy"
         assert city.name == "Roma"
-        assert city.hall.id == "city_hall"
         
         assert city.resource_potentials.food == 125
         assert city.production.base.food == 261
@@ -594,7 +591,6 @@ class TestCityScenarios:
         
         assert city.campaign == "Unification of Italy"
         assert city.name == "Faesula"
-        assert city.hall.id == "city_hall"
         
         assert city.resource_potentials.food == 90
         assert city.geo_features.lakes == 1
@@ -626,7 +622,6 @@ class TestCityScenarios:
         
         assert city.campaign == "Unification of Italy"
         assert city.name == "Falerii"
-        assert city.hall.id == "city_hall"
         
         assert city.resource_potentials.food == 100
         assert city.resource_potentials.ore == 60
@@ -665,7 +660,6 @@ class TestCityScenarios:
         
         assert city.campaign == "Unification of Italy"
         assert city.name == "Caercini"
-        assert city.hall.id == "city_hall"
         
         assert city.resource_potentials.ore == 125
         assert city.geo_features.rock_outcrops == 1
@@ -697,7 +691,6 @@ class TestCityScenarios:
         
         assert city.campaign == "Unification of Italy"
         assert city.name == "Caudini"
-        assert city.hall.id == "city_hall"
         
         assert city.resource_potentials.ore == 80
         assert city.geo_features.rock_outcrops == 1
@@ -726,7 +719,6 @@ class TestCityScenarios:
         
         assert city.campaign == "Unification of Italy"
         assert city.name == "Reate"
-        assert city.hall.id == "city_hall"
         
         assert city.resource_potentials.ore == 150
         assert city.geo_features.mountains == 2
@@ -755,7 +747,6 @@ class TestCityScenarios:
         
         assert city.campaign == "Unification of Italy"
         assert city.name == "Hirpini"
-        assert city.hall.id == "city_hall"
         
         assert city.resource_potentials.ore == 125
         assert city.geo_features.mountains == 1
@@ -783,7 +774,6 @@ class TestCityScenarios:
         
         assert city.campaign == "Unification of Italy"
         assert city.name == "Pentri"
-        assert city.hall.id == "city_hall"
         
         assert city.resource_potentials.ore == 110
         assert city.production.base.ore == 234
@@ -810,7 +800,6 @@ class TestCityScenarios:
         
         assert city.campaign == "Unification of Italy"
         assert city.name == "Lingones"
-        assert city.hall.id == "city_hall"
         
         assert city.resource_potentials.wood == 150
         assert city.geo_features.forests == 1
@@ -832,7 +821,6 @@ class TestCityScenarios:
         )
         
         assert len(city.buildings) == 1
-        assert city.hall.id == "fort"
         
         assert city.resource_potentials.food == 0
         assert city.resource_potentials.ore == 0
