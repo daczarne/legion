@@ -207,6 +207,15 @@ class City:
         self.storage.warehouse = self._calculate_warehouse_storage()
         self.storage.supply_dump = self._calculate_supply_dump_storage()
         self.storage.total = self._calculate_total_storage_capacity()
+        
+        #* City defenses
+        self.defenses: _CityDefenses = _CityDefenses()
+        self.defenses.garrison = self._get_garrison()
+        self.defenses.squadrons = self._calculate_garrison_size()
+        self.defenses.squadron_size = self._calculate_squadron_size()
+        
+        #* City focus
+        self.focus: Resource | None = self._find_city_focus()
     
     
     #* Init and validation helpers
@@ -406,6 +415,7 @@ class City:
         
         return total_effects
     
+    
     #* Production
     def _calculate_base_production(self) -> ResourceCollection:
         """
@@ -543,63 +553,8 @@ class City:
         
         return total_storage
     
-
     
-    defenses: _CityDefenses = field(
-        init = False,
-        default_factory = _CityDefenses,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    focus: Resource | None = field(
-        init = False,
-        default = None,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    
-    
-
-    
-    #* Alternative city creator methods
-    @classmethod
-    def from_buildings_count(
-        cls,
-        campaign: str,
-        name: str,
-        buildings: BuildingsCount,
-    ) -> "City":
-        """
-        Create a `City` instance from a count of buildings. The count must be a dictionary with building IDs as keys
-        and the quantity of each building type as values.
-        
-        This method expands the building counts into actual `Building` objects and initializes a new city with them.
-        This implies that you can pass 0-count buildings and they will automatically be ignored.
-        
-        Args:
-            campaign (str): the campaign identifier the city belongs to.
-            name (str): the name of the city.
-            buildings (BuildingsCount): a dictionary mapping building IDs to quantities.
-        
-        Returns:
-            City: a new `City` instance populated with the given buildings.
-        """
-        city_buildings: list[Building] = []
-        
-        for id, qty in buildings.items():
-            for _ in range(qty):
-                city_buildings.append(Building(id = id))
-        
-        return cls(
-            campaign = campaign,
-            name = name,
-            buildings = city_buildings,
-        )
-    
-    
-    #* Defenses
+    #* City defenses
     def _get_garrison(self) -> str:
         for city in CITIES:
             if (
@@ -647,7 +602,11 @@ class City:
     
     #* City focus
     def _find_city_focus(self) -> Resource | None:
-        highest_balance: int = max(self.production.balance.food, self.production.balance.ore, self.production.balance.wood)
+        highest_balance: int = max(
+            self.production.balance.food,
+            self.production.balance.ore,
+            self.production.balance.wood
+        )
         
         if highest_balance < 0:
             return None
@@ -660,20 +619,40 @@ class City:
         return Resource(value = rss_with_highest_balance[0])
     
     
-    def __post_init__(self) -> None:
+    #* Alternative city creator methods
+    @classmethod
+    def from_buildings_count(
+        cls,
+        campaign: str,
+        name: str,
+        buildings: BuildingsCount,
+    ) -> "City":
+        """
+        Create a `City` instance from a count of buildings. The count must be a dictionary with building IDs as keys
+        and the quantity of each building type as values.
         
+        This method expands the building counts into actual `Building` objects and initializes a new city with them.
+        This implies that you can pass 0-count buildings and they will automatically be ignored.
         
+        Args:
+            campaign (str): the campaign identifier the city belongs to.
+            name (str): the name of the city.
+            buildings (BuildingsCount): a dictionary mapping building IDs to quantities.
         
-        #* Storage
+        Returns:
+            City: a new `City` instance populated with the given buildings.
+        """
+        city_buildings: list[Building] = []
         
+        for id, qty in buildings.items():
+            for _ in range(qty):
+                city_buildings.append(Building(id = id))
         
-        #* Defenses
-        self.defenses.garrison = self._get_garrison()
-        self.defenses.squadrons = self._calculate_garrison_size()
-        self.defenses.squadron_size = self._calculate_squadron_size()
-        
-        #* Focus
-        self.focus = self._find_city_focus()
+        return cls(
+            campaign = campaign,
+            name = name,
+            buildings = city_buildings,
+        )
     
     
     def get_building(self, id: str) -> Building:
