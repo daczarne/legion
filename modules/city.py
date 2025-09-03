@@ -185,12 +185,31 @@ class City:
         
         self._validate_number_of_buildings()
         
+        #* Calculate effects
         self.effects: _CityEffectBonuses = _CityEffectBonuses()
         self.effects.city = self._get_city_effects()
         self.effects.buildings = self._calculate_building_effects()
         self.effects.workers = self._calculate_worker_effects()
         self.effects.total = self._calculate_total_effects()
+        
+        #* Calculate production
+        self.production: _CityProduction = _CityProduction()
+        self.production.base = self._calculate_base_production()
+        self.production.productivity_bonuses = self._calculate_productivity_bonuses()
+        self.production.total = self._calculate_total_production()
+        self.production.maintenance_costs = self._calculate_maintenance_costs()
+        self.production.balance = self._calculate_production_balance()
+        
+        #* Calculate storage capacity
+        self.storage: _CityStorage = _CityStorage()
+        self.storage.city = self._calculate_city_storage()
+        self.storage.buildings = self._calculate_buildings_storage()
+        self.storage.warehouse = self._calculate_warehouse_storage()
+        self.storage.supply_dump = self._calculate_supply_dump_storage()
+        self.storage.total = self._calculate_total_storage_capacity()
     
+    
+    #* Init and validation helpers
     def _get_rss_potentials(self) -> ResourceCollection:
         """
         Finds the city supplied by the user in the directory of cities and returns its resource potentials.
@@ -320,6 +339,7 @@ class City:
                 f"max of {max_number_of_buildings_in_city + 1} possible ({max_number_of_buildings_in_city} + hall)."
             )
     
+    
     #* Effect bonuses
     def _get_city_effects(self) -> EffectBonuses:
         """
@@ -385,76 +405,6 @@ class City:
         )
         
         return total_effects
-    
-
-    production: _CityProduction = field(
-        init = False,
-        default_factory = _CityProduction,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    storage: _CityStorage = field(
-        init = False,
-        default_factory = _CityStorage,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    defenses: _CityDefenses = field(
-        init = False,
-        default_factory = _CityDefenses,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    focus: Resource | None = field(
-        init = False,
-        default = None,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    
-    
-
-    
-    #* Alternative city creator methods
-    @classmethod
-    def from_buildings_count(
-        cls,
-        campaign: str,
-        name: str,
-        buildings: BuildingsCount,
-    ) -> "City":
-        """
-        Create a `City` instance from a count of buildings. The count must be a dictionary with building IDs as keys
-        and the quantity of each building type as values.
-        
-        This method expands the building counts into actual `Building` objects and initializes a new city with them.
-        This implies that you can pass 0-count buildings and they will automatically be ignored.
-        
-        Args:
-            campaign (str): the campaign identifier the city belongs to.
-            name (str): the name of the city.
-            buildings (BuildingsCount): a dictionary mapping building IDs to quantities.
-        
-        Returns:
-            City: a new `City` instance populated with the given buildings.
-        """
-        city_buildings: list[Building] = []
-        
-        for id, qty in buildings.items():
-            for _ in range(qty):
-                city_buildings.append(Building(id = id))
-        
-        return cls(
-            campaign = campaign,
-            name = name,
-            buildings = city_buildings,
-        )
-    
-    
     
     #* Production
     def _calculate_base_production(self) -> ResourceCollection:
@@ -541,13 +491,13 @@ class City:
     
     #* Storage capacity
     def _calculate_city_storage(self) -> ResourceCollection:
-        return self._get_hall().storage_capacity
+        return self.hall.storage_capacity
     
     def _calculate_buildings_storage(self) -> ResourceCollection:
         buildings_storage: ResourceCollection = ResourceCollection()
         
         for building in self.buildings:
-            if building.id not in [*self.PossibleCityHalls, "warehouse", "supply_dump"]:
+            if building.id not in [*City.PossibleCityHalls, "warehouse", "supply_dump"]:
                 buildings_storage.food += building.storage_capacity.food
                 buildings_storage.ore += building.storage_capacity.ore
                 buildings_storage.wood += building.storage_capacity.wood
@@ -561,7 +511,7 @@ class City:
         return ResourceCollection()
     
     def _calculate_supply_dump_storage(self) -> ResourceCollection:
-        if self.has_building(id = "supply_dump"):
+        if self.has_supply_dump:
             return self.get_building(id = "supply_dump").storage_capacity
         
         return ResourceCollection()
@@ -592,6 +542,61 @@ class City:
         )
         
         return total_storage
+    
+
+    
+    defenses: _CityDefenses = field(
+        init = False,
+        default_factory = _CityDefenses,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
+    focus: Resource | None = field(
+        init = False,
+        default = None,
+        repr = False,
+        compare = False,
+        hash = False,
+    )
+    
+    
+
+    
+    #* Alternative city creator methods
+    @classmethod
+    def from_buildings_count(
+        cls,
+        campaign: str,
+        name: str,
+        buildings: BuildingsCount,
+    ) -> "City":
+        """
+        Create a `City` instance from a count of buildings. The count must be a dictionary with building IDs as keys
+        and the quantity of each building type as values.
+        
+        This method expands the building counts into actual `Building` objects and initializes a new city with them.
+        This implies that you can pass 0-count buildings and they will automatically be ignored.
+        
+        Args:
+            campaign (str): the campaign identifier the city belongs to.
+            name (str): the name of the city.
+            buildings (BuildingsCount): a dictionary mapping building IDs to quantities.
+        
+        Returns:
+            City: a new `City` instance populated with the given buildings.
+        """
+        city_buildings: list[Building] = []
+        
+        for id, qty in buildings.items():
+            for _ in range(qty):
+                city_buildings.append(Building(id = id))
+        
+        return cls(
+            campaign = campaign,
+            name = name,
+            buildings = city_buildings,
+        )
     
     
     #* Defenses
@@ -657,19 +662,10 @@ class City:
     
     def __post_init__(self) -> None:
         
-        #* Production
-        self.production.base = self._calculate_base_production()
-        self.production.productivity_bonuses = self._calculate_productivity_bonuses()
-        self.production.total = self._calculate_total_production()
-        self.production.maintenance_costs = self._calculate_maintenance_costs()
-        self.production.balance = self._calculate_production_balance()
+        
         
         #* Storage
-        self.storage.city = self._calculate_city_storage()
-        self.storage.buildings = self._calculate_buildings_storage()
-        self.storage.warehouse = self._calculate_warehouse_storage()
-        self.storage.supply_dump = self._calculate_supply_dump_storage()
-        self.storage.total = self._calculate_total_storage_capacity()
+        
         
         #* Defenses
         self.defenses.garrison = self._get_garrison()
