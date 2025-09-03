@@ -406,7 +406,7 @@ class City:
         
         allowed_counts: BuildingsCount = {building_id: 1 for building_id in _BUILDINGS}
         
-        total_spots: int = self.MAX_BUILDINGS_PER_CITY[self.hall.id]
+        total_spots: int = self.MAX_BUILDINGS_PER_CITY[self._get_hall().id]
         
         pre_occupied_spots: int = self.geo_features.lakes \
             + self.geo_features.rock_outcrops \
@@ -425,7 +425,7 @@ class City:
             # Hunters' lodge are special buildings
             if building_id == "hunters_lodge":
                 
-                if self.hall.id not in ["village_hall", "town_hall"]:
+                if self._get_hall().id not in ["village_hall", "town_hall"]:
                     allowed_counts[building_id] = 0
                     continue
                 
@@ -479,18 +479,18 @@ class City:
             
             # Adjustments for hall level
             if building_id in buildings_that_require_town_hall_or_more:
-                if self.hall.id in ["fort", "village_hall"]:
+                if self._get_hall().id in ["fort", "village_hall"]:
                     allowed_counts[building_id] = 0
             
             if building_id in buildings_that_require_city_hall:
-                if self.hall.id in ["fort", "village_hall", "town_hall"]:
+                if self._get_hall().id in ["fort", "village_hall", "town_hall"]:
                     allowed_counts[building_id] = 0
         
         return allowed_counts
     
     def _validate_number_of_buildings(self) -> None:
         number_of_declared_buildings: int = len(self.buildings)
-        max_number_of_buildings_in_city: int = self.MAX_BUILDINGS_PER_CITY[self.hall.id]
+        max_number_of_buildings_in_city: int = self.MAX_BUILDINGS_PER_CITY[self._get_hall().id]
         
         if number_of_declared_buildings > max_number_of_buildings_in_city + 1:
             
@@ -702,7 +702,7 @@ class City:
     
     #* Storage capacity
     def _calculate_city_storage(self) -> ResourceCollection:
-        return self.hall.storage_capacity
+        return self._get_hall().storage_capacity
     
     def _calculate_buildings_storage(self) -> ResourceCollection:
         buildings_storage: ResourceCollection = ResourceCollection()
