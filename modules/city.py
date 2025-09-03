@@ -230,7 +230,7 @@ class City:
                 return city
         
         raise CityNotFoundError(
-            f"No city found for campaing = \"{self.campaign}\" and name = \"{self.name}\""
+            f"No city found for campaing = \"{campaign}\" and name = \"{name}\""
         )
     
     def _get_campaign(self) -> str:
