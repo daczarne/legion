@@ -123,7 +123,7 @@ class Building:
         is_upgradeable (bool): Whether the building can be upgraded.
         required_geo (GeoFeature | None): Required geographic feature, if any. For example, building a Mountain mine
             requires that the city where it is being built has a mountain.
-        required_rss (Resource | None): Required resource, if any. For example, building Farms requires that the city
+        required_rss list[Resource]: Required resource, if any. For example, building Farms requires that the city
             has production potential for food production.
         required_building (list[str]): List of possible prerequisite buildings (OR condition).
         replaces (str | None): Identifier of the building this one replaces.
