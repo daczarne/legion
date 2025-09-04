@@ -47,6 +47,8 @@ from .exceptions import (
     TooManyBuildingsError,
     MoreThanOneHallTypeError,
     CityNotFoundError,
+    MoreThanOneGuildTypeError,
+    TooManyGuildsError,
 )
 from .geo_features import GeoFeaturesData, GeoFeatures
 from .resources import Resource, ResourceCollectionData, ResourceCollection
@@ -168,8 +170,9 @@ class City:
         TooManyBuildingsError: If the number of buildings exceeds the limit for the city's hall.
     """
     
-    # Set of possible halls
-    POSSIBLE_CITY_HALLS: ClassVar[set[str]] = {"fort", "village_hall", "town_hall", "city_hall"}
+    # Set of possible halls and guilds
+    POSSIBLE_HALLS: ClassVar[set[str]] = {"fort", "village_hall", "town_hall", "city_hall"}
+    POSSIBLE_GUILDS: ClassVar[set[str]] = {"farmers_guild", "carpenters_guild", "miners_guild"}
     
     # The maximum number of buildings a city can have, not counting the hall itself.
     MAX_BUILDINGS: ClassVar[BuildingsCount] = {
@@ -214,7 +217,9 @@ class City:
         self._validate_halls()
         self.hall: Building = self._get_hall()
         
-        self._validate_number_of_buildings()
+        self._validate_forts_have_no_other_buildings()
+        self._validate_total_number_of_buildings()
+        self._validate_building_counts()
         
         #* Calculate effects
         self.effects: _CityEffectBonuses = _CityEffectBonuses()
@@ -334,7 +339,7 @@ class City:
         halls: BuildingsCount = {}
         
         for building in self.buildings:
-            if building.id not in City.POSSIBLE_CITY_HALLS:
+            if building.id not in City.POSSIBLE_HALLS:
                 continue
             
             if building.id in halls:
@@ -353,7 +358,7 @@ class City:
     
     def _get_hall(self) -> Building:
         for building in self.buildings:
-            if building.id not in City.POSSIBLE_CITY_HALLS:
+            if building.id not in City.POSSIBLE_HALLS:
                 continue
             
             return building
@@ -483,23 +488,26 @@ class City:
         
         return allowed_counts
     
-    def _validate_number_of_buildings(self) -> None:
+    def _validate_forts_have_no_other_buildings(self) -> None:
+        if self.is_fort:
+            if len(self.buildings) > 1:
+                raise FortsCannotHaveBuildingsError(
+                    f"Forts cannot have buildings."
+                )
+    
+    def _validate_total_number_of_buildings(self) -> None:
         number_of_declared_buildings: int = len(self.buildings)
         max_number_of_buildings_in_city: int = City.MAX_BUILDINGS[self.hall.id]
         
         if number_of_declared_buildings > max_number_of_buildings_in_city + 1:
-            
-            if self.is_fort:
-                raise FortsCannotHaveBuildingsError(
-                    f"Forts cannot have buildings."
-                )
             
             raise TooManyBuildingsError(
                 f"Too many buildings for this city: "
                 f"{number_of_declared_buildings} provided, "
                 f"max of {max_number_of_buildings_in_city + 1} possible ({max_number_of_buildings_in_city} + hall)."
             )
-        
+    
+    def _validate_building_counts(self) -> None:
         allowed_building_counts: BuildingsCount = self._calculate_allowed_building_counts()
         current_building_counts: BuildingsCount = self.get_buildings_count(by = "id")
         
@@ -509,6 +517,22 @@ class City:
                     f"Too many buildings of type \"{building_id}\". "
                     f"Allowed {allowed_building_counts[building_id]}, but found {current_count}."
                 )
+    
+    def _validate_guilds(self) -> None:
+        guilds: BuildingsCount = {}
+        
+        for building in self.buildings:
+            
+            if building.id in City.POSSIBLE_GUILDS:
+                guilds[building.id] += 1
+            else:
+                guilds[building.id] = 1
+        
+        if len(guilds) > 1:
+            raise MoreThanOneGuildTypeError(f"Only one guild per city is allowed. Found {", ".join(guilds.keys())}.")
+        
+        if list(guilds.values())[0] != 1:
+            raise TooManyGuildsError(f"Too many guilds for this city.")
     
     
     #* Effect bonuses
@@ -657,7 +681,7 @@ class City:
         buildings_storage: ResourceCollection = ResourceCollection()
         
         for building in self.buildings:
-            if building.id not in [*City.POSSIBLE_CITY_HALLS, "warehouse", "supply_dump"]:
+            if building.id not in [*City.POSSIBLE_HALLS, "warehouse", "supply_dump"]:
                 buildings_storage.food += building.storage_capacity.food
                 buildings_storage.ore += building.storage_capacity.ore
                 buildings_storage.wood += building.storage_capacity.wood

@@ -68,6 +68,14 @@ class TooManyBuildingsError(CityError):
     pass
 
 
+class MoreThanOneGuildTypeError(CityError):
+    pass
+
+
+class TooManyGuildsError(CityError):
+    pass
+
+
 # * ******* * #
 # * DISPLAY * #
 # * ******* * #
