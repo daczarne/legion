@@ -129,7 +129,7 @@ class Building:
         replaces (str | None): Identifier of the building this one replaces.
     """
     id: str = field(init = True, repr = True, compare = True, hash = True)
-    workers: int = field(default = 0, repr = False, compare = False, hash = False)
+    workers: int = field(init = True, default = 0, repr = False, compare = False, hash = False)
     
     name: str = field(init = False, repr = False, compare = False, hash = False)
     building_cost: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
