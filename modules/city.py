@@ -410,13 +410,17 @@ class City:
         
         for building_id in _BUILDINGS:
             
-            # Cities that are not forts, cannot build the fort
+            # Cities that are not forts, cannot build the fort, they have it from the start.
             if building_id == "fort":
                 allowed_counts[building_id] = 0
+                continue
             
+            # Hunters' lodges are special buildings. They require all rss to be present in the city, but can only
+            # be built in cities with town and village halls. Once the city hall is built, the city loses the availity
+            # to build hunters' lodges.
             if building_id == "hunters_lodge":
                 
-                if self.hall not in ["village_hall", "town_hall"]:
+                if self.hall.id not in ["village_hall", "town_hall"]:
                     allowed_counts[building_id] = 0
                     continue
                 
