@@ -263,6 +263,23 @@ class City:
     def __hash__(self) -> int:
         return hash((self.campaign, self.name))
     
+    def __bool__(self) -> bool:
+        """
+        Returns True if the city is in a valid state. A City object, once instantiated, is considered valid.
+        """
+        return True
+    
+    def __contains__(self, building_id: str) -> bool:
+        """
+        Checks if a building with a given ID is present in the city. Enables the `in` operator (e.g., `"fort" in city`).
+        """
+        for building in self.buildings:
+            if building.id == building_id:
+                return True
+        
+        return False
+    
+    
     #* Init and validation helpers
     def _get_city_data(self, campaign: str, name: str) -> _CityData:
         for city in CITIES:
