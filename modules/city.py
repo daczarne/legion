@@ -166,7 +166,6 @@ class City:
         TooManyHallsError: If the city contains multiple halls of the same type.
         FortsCannotHaveBuildingsError: If a "fort" is instantiated with buildings.
         TooManyBuildingsError: If the number of buildings exceeds the limit for the city.
-        MoreThanOneGuildTypeError: If the number of guilds exceeds 1.
     """
     
     # Set of possible halls and guilds.
