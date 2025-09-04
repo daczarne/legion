@@ -3,7 +3,7 @@ from pytest import mark, raises, fixture, FixtureRequest
 
 from modules.building import Building, BuildingsCount
 from modules.city import _CityData, City, _CityDisplay
-from modules.display import DEFAULT_SECTION_COLORS, DisplayConfiguration, DisplaySectionConfiguration
+from modules.display import DisplayConfiguration, DisplaySectionConfiguration, DEFAULT_SECTION_COLORS
 from modules.exceptions import (
     CityNotFoundError,
     NoCityHallError,
@@ -346,6 +346,27 @@ class TestCity:
         
         assert _city.focus is None
     
+    def test_city_initialization_from_buildings_count(self) -> None:
+        city: City = City.from_buildings_count(
+            campaign = "Unification of Italy",
+            name = "Roma",
+            buildings = {
+                "city_hall": 1,
+                "basilica": 1,
+                "farmers_guild": 1,
+                "vineyard": 1,
+                "large_farm": 5,
+            }
+        )
+        
+        assert city.campaign == "Unification of Italy"
+        assert city.name == "Roma"
+        
+        assert city.hall.id == "city_hall"
+        assert city.is_fort is False
+        assert city.has_supply_dump is False
+        assert len(city.buildings) == 9
+    
     def test_non_existent_city_raises_error(self) -> None:
         with raises(expected_exception = CityNotFoundError):
             city: City = City(
@@ -432,6 +453,14 @@ class TestCity:
                     Building(id = "village_hall"),
                 ],
             )
+
+
+@mark.city
+class TestCityAllowedBuildingCounts:
+    """
+    These tests are separated into a different class simply because of how many of them are needed to test this feature
+    thorughly.
+    """
     
     def test_village_with_excess_buildings_raises_error(self) -> None:
         with raises(expected_exception = TooManyBuildingsError, match = "Too many buildings"):
@@ -499,6 +528,797 @@ class TestCity:
         
         assert len(city.buildings) == 1
         assert city.get_buildings_count(by = "id") == {"village_hall": 1}
+    
+    @fixture
+    def _village_with_no_restrictions(self) -> City:
+        city: City = City(
+            campaign = "Conquest of Britain",
+            name = "Bomio",
+            buildings = [
+                Building(id = "village_hall"),
+            ],
+        )
+        return city
+    
+    @fixture
+    def _town_with_no_restrictions(self) -> City:
+        city: City = City(
+            campaign = "Conquest of Britain",
+            name = "Bomio",
+            buildings = [
+                Building(id = "town_hall"),
+            ],
+        )
+        return city
+    
+    @fixture
+    def _city_with_no_restrictions(self) -> City:
+        city: City = City(
+            campaign = "Conquest of Britain",
+            name = "Bomio",
+            buildings = [
+                Building(id = "city_hall"),
+            ],
+        )
+        return city
+    
+    @mark.parametrize(
+        argnames = ["city", "building", "expected_allowed_count"],
+        argvalues = [
+            ("_village_with_no_restrictions", "village_hall", 1),
+            ("_village_with_no_restrictions", "town_hall", 1),
+            ("_village_with_no_restrictions", "city_hall", 0),
+            ("_village_with_no_restrictions", "fort", 0),
+            ("_village_with_no_restrictions", "farm", 4),
+            ("_village_with_no_restrictions", "large_farm", 4),
+            ("_village_with_no_restrictions", "vineyard", 0),
+            ("_village_with_no_restrictions", "fishing_village", 0),
+            ("_village_with_no_restrictions", "farmers_guild", 0),
+            ("_village_with_no_restrictions", "mine", 4),
+            ("_village_with_no_restrictions", "large_mine", 4),
+            ("_village_with_no_restrictions", "outcrop_mine", 0),
+            ("_village_with_no_restrictions", "mountain_mine", 0),
+            ("_village_with_no_restrictions", "miners_guild", 0),
+            ("_village_with_no_restrictions", "lumber_mill", 4),
+            ("_village_with_no_restrictions", "large_lumber_mill", 4),
+            ("_village_with_no_restrictions", "forest", 0),
+            ("_village_with_no_restrictions", "carpenters_guild", 0),
+            ("_village_with_no_restrictions", "training_ground", 0),
+            ("_village_with_no_restrictions", "gladiator_school", 0),
+            ("_village_with_no_restrictions", "bordello", 0),
+            ("_village_with_no_restrictions", "stables", 1),
+            ("_village_with_no_restrictions", "blacksmith", 1),
+            ("_village_with_no_restrictions", "fletcher", 1),
+            ("_village_with_no_restrictions", "imperial_residence", 0),
+            ("_village_with_no_restrictions", "small_fort", 1),
+            ("_village_with_no_restrictions", "medium_fort", 0),
+            ("_village_with_no_restrictions", "large_fort", 0),
+            ("_village_with_no_restrictions", "barracks", 0),
+            ("_village_with_no_restrictions", "quartermaster", 0),
+            ("_village_with_no_restrictions", "watch_tower", 1),
+            ("_village_with_no_restrictions", "shrine", 1),
+            ("_village_with_no_restrictions", "temple", 0),
+            ("_village_with_no_restrictions", "basilica", 0),
+            ("_village_with_no_restrictions", "bath_house", 0),
+            ("_village_with_no_restrictions", "hospital", 0),
+            ("_village_with_no_restrictions", "hidden_grove", 0),
+            ("_village_with_no_restrictions", "herbalist", 1),
+            ("_village_with_no_restrictions", "warehouse", 1),
+            ("_village_with_no_restrictions", "small_market", 1),
+            ("_village_with_no_restrictions", "large_market", 1),
+            ("_village_with_no_restrictions", "hunters_lodge", 4),
+            ("_village_with_no_restrictions", "supply_dump", 0),
+            ("_town_with_no_restrictions", "village_hall", 1),
+            ("_town_with_no_restrictions", "town_hall", 1),
+            ("_town_with_no_restrictions", "city_hall", 1),
+            ("_town_with_no_restrictions", "fort", 0),
+            ("_town_with_no_restrictions", "farm", 6),
+            ("_town_with_no_restrictions", "large_farm", 6),
+            ("_town_with_no_restrictions", "vineyard", 1),
+            ("_town_with_no_restrictions", "fishing_village", 0),
+            ("_town_with_no_restrictions", "farmers_guild", 0),
+            ("_town_with_no_restrictions", "mine", 6),
+            ("_town_with_no_restrictions", "large_mine", 6),
+            ("_town_with_no_restrictions", "outcrop_mine", 0),
+            ("_town_with_no_restrictions", "mountain_mine", 0),
+            ("_town_with_no_restrictions", "miners_guild", 0),
+            ("_town_with_no_restrictions", "lumber_mill", 6),
+            ("_town_with_no_restrictions", "large_lumber_mill", 6),
+            ("_town_with_no_restrictions", "forest", 0),
+            ("_town_with_no_restrictions", "carpenters_guild", 0),
+            ("_town_with_no_restrictions", "training_ground", 1),
+            ("_town_with_no_restrictions", "gladiator_school", 1),
+            ("_town_with_no_restrictions", "bordello", 1),
+            ("_town_with_no_restrictions", "stables", 1),
+            ("_town_with_no_restrictions", "blacksmith", 1),
+            ("_town_with_no_restrictions", "fletcher", 1),
+            ("_town_with_no_restrictions", "imperial_residence", 0),
+            ("_town_with_no_restrictions", "small_fort", 1),
+            ("_town_with_no_restrictions", "medium_fort", 1),
+            ("_town_with_no_restrictions", "large_fort", 0),
+            ("_town_with_no_restrictions", "barracks", 1),
+            ("_town_with_no_restrictions", "quartermaster", 0),
+            ("_town_with_no_restrictions", "watch_tower", 1),
+            ("_town_with_no_restrictions", "shrine", 1),
+            ("_town_with_no_restrictions", "temple", 1),
+            ("_town_with_no_restrictions", "basilica", 0),
+            ("_town_with_no_restrictions", "bath_house", 1),
+            ("_town_with_no_restrictions", "hospital", 1),
+            ("_town_with_no_restrictions", "hidden_grove", 0),
+            ("_town_with_no_restrictions", "herbalist", 1),
+            ("_town_with_no_restrictions", "warehouse", 1),
+            ("_town_with_no_restrictions", "small_market", 1),
+            ("_town_with_no_restrictions", "large_market", 1),
+            ("_town_with_no_restrictions", "hunters_lodge", 6),
+            ("_town_with_no_restrictions", "supply_dump", 0),
+            ("_city_with_no_restrictions", "village_hall", 1),
+            ("_city_with_no_restrictions", "town_hall", 1),
+            ("_city_with_no_restrictions", "city_hall", 1),
+            ("_city_with_no_restrictions", "fort", 0),
+            ("_city_with_no_restrictions", "farm", 8),
+            ("_city_with_no_restrictions", "large_farm", 8),
+            ("_city_with_no_restrictions", "vineyard", 1),
+            ("_city_with_no_restrictions", "fishing_village", 0),
+            ("_city_with_no_restrictions", "farmers_guild", 1),
+            ("_city_with_no_restrictions", "mine", 8),
+            ("_city_with_no_restrictions", "large_mine", 8),
+            ("_city_with_no_restrictions", "outcrop_mine", 0),
+            ("_city_with_no_restrictions", "mountain_mine", 0),
+            ("_city_with_no_restrictions", "miners_guild", 1),
+            ("_city_with_no_restrictions", "lumber_mill", 8),
+            ("_city_with_no_restrictions", "large_lumber_mill", 8),
+            ("_city_with_no_restrictions", "forest", 0),
+            ("_city_with_no_restrictions", "carpenters_guild", 1),
+            ("_city_with_no_restrictions", "training_ground", 1),
+            ("_city_with_no_restrictions", "gladiator_school", 1),
+            ("_city_with_no_restrictions", "bordello", 1),
+            ("_city_with_no_restrictions", "stables", 1),
+            ("_city_with_no_restrictions", "blacksmith", 1),
+            ("_city_with_no_restrictions", "fletcher", 1),
+            ("_city_with_no_restrictions", "imperial_residence", 1),
+            ("_city_with_no_restrictions", "small_fort", 1),
+            ("_city_with_no_restrictions", "medium_fort", 1),
+            ("_city_with_no_restrictions", "large_fort", 1),
+            ("_city_with_no_restrictions", "barracks", 1),
+            ("_city_with_no_restrictions", "quartermaster", 1),
+            ("_city_with_no_restrictions", "watch_tower", 1),
+            ("_city_with_no_restrictions", "shrine", 1),
+            ("_city_with_no_restrictions", "temple", 1),
+            ("_city_with_no_restrictions", "basilica", 1),
+            ("_city_with_no_restrictions", "bath_house", 1),
+            ("_city_with_no_restrictions", "hospital", 1),
+            ("_city_with_no_restrictions", "hidden_grove", 0),
+            ("_city_with_no_restrictions", "herbalist", 1),
+            ("_city_with_no_restrictions", "warehouse", 1),
+            ("_city_with_no_restrictions", "small_market", 1),
+            ("_city_with_no_restrictions", "large_market", 1),
+            ("_city_with_no_restrictions", "hunters_lodge", 0),
+            ("_city_with_no_restrictions", "supply_dump", 0),
+        ],
+    )
+    def test_allowed_building_counts_no_restrictions(
+        self,
+        city: str,
+        building: str,
+        expected_allowed_count: int,
+        request: FixtureRequest,
+    ) -> None:
+        test_city: City = request.getfixturevalue(argname = city)
+        allowed_building_counts: BuildingsCount = test_city._calculate_allowed_building_counts()
+        assert allowed_building_counts[building] == expected_allowed_count
+    
+    @fixture
+    def _village_with_one_lake(self) -> City:
+        city: City = City(
+            campaign = "Conquest of Britain",
+            name = "Durobrivae",
+            buildings = [
+                Building(id = "village_hall"),
+            ],
+        )
+        return city
+    
+    @fixture
+    def _town_with_one_lake(self) -> City:
+        city: City = City(
+            campaign = "Conquest of Britain",
+            name = "Durobrivae",
+            buildings = [
+                Building(id = "town_hall"),
+            ],
+        )
+        return city
+    
+    @fixture
+    def _city_with_one_lake(self) -> City:
+        city: City = City(
+            campaign = "Conquest of Britain",
+            name = "Durobrivae",
+            buildings = [
+                Building(id = "city_hall"),
+            ],
+        )
+        return city
+    
+    @mark.parametrize(
+        argnames = ["city", "building", "expected_allowed_count"],
+        argvalues = [
+            ("_village_with_one_lake", "farm", 3),
+            ("_village_with_one_lake", "large_farm", 3),
+            ("_village_with_one_lake", "vineyard", 0),
+            ("_village_with_one_lake", "fishing_village", 1),
+            ("_village_with_one_lake", "farmers_guild", 0),
+            ("_village_with_one_lake", "mine", 3),
+            ("_village_with_one_lake", "large_mine", 3),
+            ("_village_with_one_lake", "outcrop_mine", 0),
+            ("_village_with_one_lake", "mountain_mine", 0),
+            ("_village_with_one_lake", "miners_guild", 0),
+            ("_village_with_one_lake", "lumber_mill", 3),
+            ("_village_with_one_lake", "large_lumber_mill", 3),
+            ("_village_with_one_lake", "forest", 0),
+            ("_village_with_one_lake", "carpenters_guild", 0),
+            ("_village_with_one_lake", "stables", 1),
+            ("_village_with_one_lake", "blacksmith", 1),
+            ("_village_with_one_lake", "fletcher", 1),
+            ("_village_with_one_lake", "hidden_grove", 0),
+            ("_village_with_one_lake", "hunters_lodge", 3),
+            ("_village_with_one_lake", "supply_dump", 0),
+            ("_town_with_one_lake", "farm", 5),
+            ("_town_with_one_lake", "large_farm", 5),
+            ("_town_with_one_lake", "vineyard", 1),
+            ("_town_with_one_lake", "fishing_village", 1),
+            ("_town_with_one_lake", "farmers_guild", 0),
+            ("_town_with_one_lake", "mine", 5),
+            ("_town_with_one_lake", "large_mine", 5),
+            ("_town_with_one_lake", "outcrop_mine", 0),
+            ("_town_with_one_lake", "mountain_mine", 0),
+            ("_town_with_one_lake", "miners_guild", 0),
+            ("_town_with_one_lake", "lumber_mill", 5),
+            ("_town_with_one_lake", "large_lumber_mill", 5),
+            ("_town_with_one_lake", "forest", 0),
+            ("_town_with_one_lake", "carpenters_guild", 0),
+            ("_town_with_one_lake", "stables", 1),
+            ("_town_with_one_lake", "blacksmith", 1),
+            ("_town_with_one_lake", "fletcher", 1),
+            ("_town_with_one_lake", "hidden_grove", 0),
+            ("_town_with_one_lake", "hunters_lodge", 5),
+            ("_town_with_one_lake", "supply_dump", 0),
+            ("_city_with_one_lake", "farm", 7),
+            ("_city_with_one_lake", "large_farm", 7),
+            ("_city_with_one_lake", "vineyard", 1),
+            ("_city_with_one_lake", "fishing_village", 1),
+            ("_city_with_one_lake", "farmers_guild", 1),
+            ("_city_with_one_lake", "mine", 7),
+            ("_city_with_one_lake", "large_mine", 7),
+            ("_city_with_one_lake", "outcrop_mine", 0),
+            ("_city_with_one_lake", "mountain_mine", 0),
+            ("_city_with_one_lake", "miners_guild", 1),
+            ("_city_with_one_lake", "lumber_mill", 7),
+            ("_city_with_one_lake", "large_lumber_mill", 7),
+            ("_city_with_one_lake", "forest", 0),
+            ("_city_with_one_lake", "carpenters_guild", 1),
+            ("_city_with_one_lake", "stables", 1),
+            ("_city_with_one_lake", "blacksmith", 1),
+            ("_city_with_one_lake", "fletcher", 1),
+            ("_city_with_one_lake", "hidden_grove", 0),
+            ("_city_with_one_lake", "hunters_lodge", 0),
+            ("_city_with_one_lake", "supply_dump", 0),
+        ],
+    )
+    def test_allowed_count_one_lake(
+        self,
+        city: str,
+        building: str,
+        expected_allowed_count: int,
+        request: FixtureRequest,
+    ) -> None:
+        test_city: City = request.getfixturevalue(argname = city)
+        allowed_building_counts: BuildingsCount = test_city._calculate_allowed_building_counts()
+        assert allowed_building_counts[building] == expected_allowed_count
+    
+    @fixture
+    def _village_with_one_lake_but_no_food_rss_and_one_mountain(self) -> City:
+        city: City = City(
+            campaign = "Pacifying the North",
+            name = "Olenacum",
+            buildings = [
+                Building(id = "village_hall"),
+            ],
+        )
+        return city
+    
+    @fixture
+    def _town_with_one_lake_but_no_food_rss_and_one_mountain(self) -> City:
+        city: City = City(
+            campaign = "Pacifying the North",
+            name = "Olenacum",
+            buildings = [
+                Building(id = "town_hall"),
+            ],
+        )
+        return city
+    
+    @fixture
+    def _city_with_one_lake_but_no_food_rss_and_one_mountain(self) -> City:
+        city: City = City(
+            campaign = "Pacifying the North",
+            name = "Olenacum",
+            buildings = [
+                Building(id = "city_hall"),
+            ],
+        )
+        return city
+    
+    @mark.parametrize(
+        argnames = ["city", "building", "expected_allowed_count"],
+        argvalues = [
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "farm", 0),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "large_farm", 0),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "vineyard", 0),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "fishing_village", 0),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "farmers_guild", 0),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "mine", 2),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "large_mine", 2),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "outcrop_mine", 0),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "mountain_mine", 1),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "miners_guild", 0),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "lumber_mill", 2),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "large_lumber_mill", 2),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "forest", 0),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "carpenters_guild", 0),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "stables", 0),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "blacksmith", 1),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "fletcher", 1),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "hidden_grove", 0),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "hunters_lodge", 0),
+            ("_village_with_one_lake_but_no_food_rss_and_one_mountain", "supply_dump", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "farm", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "large_farm", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "vineyard", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "fishing_village", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "farmers_guild", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "mine", 4),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "large_mine", 4),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "outcrop_mine", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "mountain_mine", 1),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "miners_guild", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "lumber_mill", 4),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "large_lumber_mill", 4),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "forest", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "carpenters_guild", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "stables", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "blacksmith", 1),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "fletcher", 1),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "hidden_grove", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "hunters_lodge", 0),
+            ("_town_with_one_lake_but_no_food_rss_and_one_mountain", "supply_dump", 0),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "farm", 0),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "large_farm", 0),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "vineyard", 0),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "fishing_village", 0),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "farmers_guild", 0),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "mine", 6),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "large_mine", 6),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "outcrop_mine", 0),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "mountain_mine", 1),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "miners_guild", 1),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "lumber_mill", 6),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "large_lumber_mill", 6),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "forest", 0),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "carpenters_guild", 1),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "stables", 0),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "blacksmith", 1),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "fletcher", 1),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "hidden_grove", 0),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "hunters_lodge", 0),
+            ("_city_with_one_lake_but_no_food_rss_and_one_mountain", "supply_dump", 0),
+        ],
+    )
+    def test_allowed_count_one_lake_but_no_food_rss_and_one_mountain(
+        self,
+        city: str,
+        building: str,
+        expected_allowed_count: int,
+        request: FixtureRequest,
+    ) -> None:
+        test_city: City = request.getfixturevalue(argname = city)
+        allowed_building_counts: BuildingsCount = test_city._calculate_allowed_building_counts()
+        assert allowed_building_counts[building] == expected_allowed_count
+    
+    @fixture
+    def _village_with_two_geo_features(self) -> City:
+        city: City = City(
+            campaign = "Unification of Italy",
+            name = "Hernici",
+            buildings = [
+                Building(id = "village_hall"),
+            ],
+        )
+        return city
+    
+    @fixture
+    def _town_with_two_geo_features(self) -> City:
+        city: City = City(
+            campaign = "Unification of Italy",
+            name = "Hernici",
+            buildings = [
+                Building(id = "town_hall"),
+            ],
+        )
+        return city
+    
+    @fixture
+    def _city_with_two_geo_features(self) -> City:
+        city: City = City(
+            campaign = "Unification of Italy",
+            name = "Hernici",
+            buildings = [
+                Building(id = "city_hall"),
+            ],
+        )
+        return city
+    
+    @mark.parametrize(
+        argnames = ["city", "building", "expected_allowed_count"],
+        argvalues = [
+            ("_village_with_two_geo_features", "farm", 2),
+            ("_village_with_two_geo_features", "large_farm", 2),
+            ("_village_with_two_geo_features", "vineyard", 0),
+            ("_village_with_two_geo_features", "fishing_village", 1),
+            ("_village_with_two_geo_features", "farmers_guild", 0),
+            ("_village_with_two_geo_features", "mine", 2),
+            ("_village_with_two_geo_features", "large_mine", 2),
+            ("_village_with_two_geo_features", "outcrop_mine", 1),
+            ("_village_with_two_geo_features", "mountain_mine", 0),
+            ("_village_with_two_geo_features", "miners_guild", 0),
+            ("_village_with_two_geo_features", "lumber_mill", 2),
+            ("_village_with_two_geo_features", "large_lumber_mill", 2),
+            ("_village_with_two_geo_features", "forest", 0),
+            ("_village_with_two_geo_features", "carpenters_guild", 0),
+            ("_village_with_two_geo_features", "stables", 1),
+            ("_village_with_two_geo_features", "blacksmith", 1),
+            ("_village_with_two_geo_features", "fletcher", 1),
+            ("_village_with_two_geo_features", "hidden_grove", 0),
+            ("_village_with_two_geo_features", "hunters_lodge", 2),
+            ("_village_with_two_geo_features", "supply_dump", 0),
+            ("_town_with_two_geo_features", "farm", 4),
+            ("_town_with_two_geo_features", "large_farm", 4),
+            ("_town_with_two_geo_features", "vineyard", 1),
+            ("_town_with_two_geo_features", "fishing_village", 1),
+            ("_town_with_two_geo_features", "farmers_guild", 0),
+            ("_town_with_two_geo_features", "mine", 4),
+            ("_town_with_two_geo_features", "large_mine", 4),
+            ("_town_with_two_geo_features", "outcrop_mine", 1),
+            ("_town_with_two_geo_features", "mountain_mine", 0),
+            ("_town_with_two_geo_features", "miners_guild", 0),
+            ("_town_with_two_geo_features", "lumber_mill", 4),
+            ("_town_with_two_geo_features", "large_lumber_mill", 4),
+            ("_town_with_two_geo_features", "forest", 0),
+            ("_town_with_two_geo_features", "carpenters_guild", 0),
+            ("_town_with_two_geo_features", "stables", 1),
+            ("_town_with_two_geo_features", "blacksmith", 1),
+            ("_town_with_two_geo_features", "fletcher", 1),
+            ("_town_with_two_geo_features", "hidden_grove", 0),
+            ("_town_with_two_geo_features", "hunters_lodge", 4),
+            ("_town_with_two_geo_features", "supply_dump", 0),
+            ("_city_with_two_geo_features", "farm", 6),
+            ("_city_with_two_geo_features", "large_farm", 6),
+            ("_city_with_two_geo_features", "vineyard", 1),
+            ("_city_with_two_geo_features", "fishing_village", 1),
+            ("_city_with_two_geo_features", "farmers_guild", 1),
+            ("_city_with_two_geo_features", "mine", 6),
+            ("_city_with_two_geo_features", "large_mine", 6),
+            ("_city_with_two_geo_features", "outcrop_mine", 1),
+            ("_city_with_two_geo_features", "mountain_mine", 0),
+            ("_city_with_two_geo_features", "miners_guild", 1),
+            ("_city_with_two_geo_features", "lumber_mill", 6),
+            ("_city_with_two_geo_features", "large_lumber_mill", 6),
+            ("_city_with_two_geo_features", "forest", 0),
+            ("_city_with_two_geo_features", "carpenters_guild", 1),
+            ("_city_with_two_geo_features", "stables", 1),
+            ("_city_with_two_geo_features", "blacksmith", 1),
+            ("_city_with_two_geo_features", "fletcher", 1),
+            ("_city_with_two_geo_features", "hidden_grove", 0),
+            ("_city_with_two_geo_features", "hunters_lodge", 0),
+            ("_city_with_two_geo_features", "supply_dump", 0),
+        ],
+    )
+    def test_allowed_count_two_geo_features(
+        self,
+        city: str,
+        building: str,
+        expected_allowed_count: int,
+        request: FixtureRequest,
+    ) -> None:
+        test_city: City = request.getfixturevalue(argname = city)
+        allowed_building_counts: BuildingsCount = test_city._calculate_allowed_building_counts()
+        assert allowed_building_counts[building] == expected_allowed_count
+    
+    @fixture
+    def _village_with_forest(self) -> City:
+        city: City = City(
+            campaign = "Unification of Italy",
+            name = "Latins",
+            buildings = [
+                Building(id = "village_hall"),
+            ],
+        )
+        return city
+    
+    @fixture
+    def _town_with_forest(self) -> City:
+        city: City = City(
+            campaign = "Unification of Italy",
+            name = "Latins",
+            buildings = [
+                Building(id = "town_hall"),
+            ],
+        )
+        return city
+    
+    @fixture
+    def _city_with_forest(self) -> City:
+        city: City = City(
+            campaign = "Unification of Italy",
+            name = "Latins",
+            buildings = [
+                Building(id = "city_hall"),
+            ],
+        )
+        return city
+    
+    @mark.parametrize(
+        argnames = ["city", "building", "expected_allowed_count"],
+        argvalues = [
+            ("_village_with_forest", "farm", 4),
+            ("_village_with_forest", "large_farm", 4),
+            ("_village_with_forest", "vineyard", 0),
+            ("_village_with_forest", "fishing_village", 0),
+            ("_village_with_forest", "farmers_guild", 0),
+            ("_village_with_forest", "mine", 0),
+            ("_village_with_forest", "large_mine", 0),
+            ("_village_with_forest", "outcrop_mine", 0),
+            ("_village_with_forest", "mountain_mine", 0),
+            ("_village_with_forest", "miners_guild", 0),
+            ("_village_with_forest", "lumber_mill", 4),
+            ("_village_with_forest", "large_lumber_mill", 4),
+            ("_village_with_forest", "forest", 1),
+            ("_village_with_forest", "carpenters_guild", 0),
+            ("_village_with_forest", "stables", 1),
+            ("_village_with_forest", "blacksmith", 0),
+            ("_village_with_forest", "fletcher", 1),
+            ("_village_with_forest", "hidden_grove", 1),
+            ("_village_with_forest", "hunters_lodge", 0),
+            ("_village_with_forest", "supply_dump", 0),
+            ("_town_with_forest", "farm", 6),
+            ("_town_with_forest", "large_farm", 6),
+            ("_town_with_forest", "vineyard", 1),
+            ("_town_with_forest", "fishing_village", 0),
+            ("_town_with_forest", "farmers_guild", 0),
+            ("_town_with_forest", "mine", 0),
+            ("_town_with_forest", "large_mine", 0),
+            ("_town_with_forest", "outcrop_mine", 0),
+            ("_town_with_forest", "mountain_mine", 0),
+            ("_town_with_forest", "miners_guild", 0),
+            ("_town_with_forest", "lumber_mill", 6),
+            ("_town_with_forest", "large_lumber_mill", 6),
+            ("_town_with_forest", "forest", 1),
+            ("_town_with_forest", "carpenters_guild", 0),
+            ("_town_with_forest", "stables", 1),
+            ("_town_with_forest", "blacksmith", 0),
+            ("_town_with_forest", "fletcher", 1),
+            ("_town_with_forest", "hidden_grove", 1),
+            ("_town_with_forest", "hunters_lodge", 0),
+            ("_town_with_forest", "supply_dump", 0),
+            ("_city_with_forest", "farm", 8),
+            ("_city_with_forest", "large_farm", 8),
+            ("_city_with_forest", "vineyard", 1),
+            ("_city_with_forest", "fishing_village", 0),
+            ("_city_with_forest", "farmers_guild", 1),
+            ("_city_with_forest", "mine", 0),
+            ("_city_with_forest", "large_mine", 0),
+            ("_city_with_forest", "outcrop_mine", 0),
+            ("_city_with_forest", "mountain_mine", 0),
+            ("_city_with_forest", "miners_guild", 0),
+            ("_city_with_forest", "lumber_mill", 8),
+            ("_city_with_forest", "large_lumber_mill", 8),
+            ("_city_with_forest", "forest", 1),
+            ("_city_with_forest", "carpenters_guild", 1),
+            ("_city_with_forest", "stables", 1),
+            ("_city_with_forest", "blacksmith", 0),
+            ("_city_with_forest", "fletcher", 1),
+            ("_city_with_forest", "hidden_grove", 1),
+            ("_city_with_forest", "hunters_lodge", 0),
+            ("_city_with_forest", "supply_dump", 0),
+        ],
+    )
+    def test_allowed_count_forest(
+        self,
+        city: str,
+        building: str,
+        expected_allowed_count: int,
+        request: FixtureRequest,
+    ) -> None:
+        test_city: City = request.getfixturevalue(argname = city)
+        allowed_building_counts: BuildingsCount = test_city._calculate_allowed_building_counts()
+        assert allowed_building_counts[building] == expected_allowed_count
+    
+    @fixture
+    def _village_with_supply_dump(self) -> City:
+        city: City = City(
+            campaign = "Conquest of Britain",
+            name = "Noviomagus",
+            buildings = [
+                Building(id = "village_hall"),
+            ],
+        )
+        return city
+    
+    @fixture
+    def _town_with_supply_dump(self) -> City:
+        city: City = City(
+            campaign = "Conquest of Britain",
+            name = "Noviomagus",
+            buildings = [
+                Building(id = "town_hall"),
+            ],
+        )
+        return city
+    
+    @fixture
+    def _city_with_supply_dump(self) -> City:
+        city: City = City(
+            campaign = "Conquest of Britain",
+            name = "Noviomagus",
+            buildings = [
+                Building(id = "city_hall"),
+            ],
+        )
+        return city
+    
+    @mark.parametrize(
+        argnames = ["city", "building", "expected_allowed_count"],
+        argvalues = [
+            ("_village_with_supply_dump", "farm", 3),
+            ("_village_with_supply_dump", "large_farm", 3),
+            ("_village_with_supply_dump", "vineyard", 0),
+            ("_village_with_supply_dump", "fishing_village", 0),
+            ("_village_with_supply_dump", "farmers_guild", 0),
+            ("_village_with_supply_dump", "mine", 0),
+            ("_village_with_supply_dump", "large_mine", 0),
+            ("_village_with_supply_dump", "outcrop_mine", 0),
+            ("_village_with_supply_dump", "mountain_mine", 0),
+            ("_village_with_supply_dump", "miners_guild", 0),
+            ("_village_with_supply_dump", "lumber_mill", 3),
+            ("_village_with_supply_dump", "large_lumber_mill", 3),
+            ("_village_with_supply_dump", "forest", 0),
+            ("_village_with_supply_dump", "carpenters_guild", 0),
+            ("_village_with_supply_dump", "stables", 1),
+            ("_village_with_supply_dump", "blacksmith", 0),
+            ("_village_with_supply_dump", "fletcher", 1),
+            ("_village_with_supply_dump", "hidden_grove", 0),
+            ("_village_with_supply_dump", "hunters_lodge", 0),
+            ("_village_with_supply_dump", "supply_dump", 1),
+            ("_town_with_supply_dump", "farm", 5),
+            ("_town_with_supply_dump", "large_farm", 5),
+            ("_town_with_supply_dump", "vineyard", 1),
+            ("_town_with_supply_dump", "fishing_village", 0),
+            ("_town_with_supply_dump", "farmers_guild", 0),
+            ("_town_with_supply_dump", "mine", 0),
+            ("_town_with_supply_dump", "large_mine", 0),
+            ("_town_with_supply_dump", "outcrop_mine", 0),
+            ("_town_with_supply_dump", "mountain_mine", 0),
+            ("_town_with_supply_dump", "miners_guild", 0),
+            ("_town_with_supply_dump", "lumber_mill", 5),
+            ("_town_with_supply_dump", "large_lumber_mill", 5),
+            ("_town_with_supply_dump", "forest", 0),
+            ("_town_with_supply_dump", "carpenters_guild", 0),
+            ("_town_with_supply_dump", "stables", 1),
+            ("_town_with_supply_dump", "blacksmith", 0),
+            ("_town_with_supply_dump", "fletcher", 1),
+            ("_town_with_supply_dump", "hidden_grove", 0),
+            ("_town_with_supply_dump", "hunters_lodge", 0),
+            ("_town_with_supply_dump", "supply_dump", 1),
+            ("_city_with_supply_dump", "farm", 7),
+            ("_city_with_supply_dump", "large_farm", 7),
+            ("_city_with_supply_dump", "vineyard", 1),
+            ("_city_with_supply_dump", "fishing_village", 0),
+            ("_city_with_supply_dump", "farmers_guild", 1),
+            ("_city_with_supply_dump", "mine", 0),
+            ("_city_with_supply_dump", "large_mine", 0),
+            ("_city_with_supply_dump", "outcrop_mine", 0),
+            ("_city_with_supply_dump", "mountain_mine", 0),
+            ("_city_with_supply_dump", "miners_guild", 0),
+            ("_city_with_supply_dump", "lumber_mill", 7),
+            ("_city_with_supply_dump", "large_lumber_mill", 7),
+            ("_city_with_supply_dump", "forest", 0),
+            ("_city_with_supply_dump", "carpenters_guild", 1),
+            ("_city_with_supply_dump", "stables", 1),
+            ("_city_with_supply_dump", "blacksmith", 0),
+            ("_city_with_supply_dump", "fletcher", 1),
+            ("_city_with_supply_dump", "hidden_grove", 0),
+            ("_city_with_supply_dump", "hunters_lodge", 0),
+            ("_city_with_supply_dump", "supply_dump", 1),
+        ],
+    )
+    def test_allowed_count_supply_dump(
+        self,
+        city: str,
+        building: str,
+        expected_allowed_count: int,
+        request: FixtureRequest,
+    ) -> None:
+        test_city: City = request.getfixturevalue(argname = city)
+        allowed_building_counts: BuildingsCount = test_city._calculate_allowed_building_counts()
+        assert allowed_building_counts[building] == expected_allowed_count
+    
+    @fixture
+    def _fort(self) -> City:
+        city: City = City(
+            campaign = "Germania",
+            name = "Vetera",
+            buildings = [],
+        )
+        return city
+    
+    @mark.parametrize(
+        argnames = ["city", "building", "expected_allowed_count"],
+        argvalues = [
+            ("_fort", "village_hall", 0),
+            ("_fort", "town_hall", 0),
+            ("_fort", "city_hall", 0),
+            ("_fort", "fort", 1),
+            ("_fort", "farm", 0),
+            ("_fort", "large_farm", 0),
+            ("_fort", "vineyard", 0),
+            ("_fort", "fishing_village", 0),
+            ("_fort", "farmers_guild", 0),
+            ("_fort", "mine", 0),
+            ("_fort", "large_mine", 0),
+            ("_fort", "outcrop_mine", 0),
+            ("_fort", "mountain_mine", 0),
+            ("_fort", "miners_guild", 0),
+            ("_fort", "lumber_mill", 0),
+            ("_fort", "large_lumber_mill", 0),
+            ("_fort", "forest", 0),
+            ("_fort", "carpenters_guild", 0),
+            ("_fort", "training_ground", 0),
+            ("_fort", "gladiator_school", 0),
+            ("_fort", "bordello", 0),
+            ("_fort", "stables", 0),
+            ("_fort", "blacksmith", 0),
+            ("_fort", "fletcher", 0),
+            ("_fort", "imperial_residence", 0),
+            ("_fort", "small_fort", 0),
+            ("_fort", "medium_fort", 0),
+            ("_fort", "large_fort", 0),
+            ("_fort", "barracks", 0),
+            ("_fort", "quartermaster", 0),
+            ("_fort", "watch_tower", 0),
+            ("_fort", "shrine", 0),
+            ("_fort", "temple", 0),
+            ("_fort", "basilica", 0),
+            ("_fort", "bath_house", 0),
+            ("_fort", "hospital", 0),
+            ("_fort", "hidden_grove", 0),
+            ("_fort", "herbalist", 0),
+            ("_fort", "warehouse", 0),
+            ("_fort", "small_market", 0),
+            ("_fort", "large_market", 0),
+            ("_fort", "hunters_lodge", 0),
+            ("_fort", "supply_dump", 0),
+        ],
+    )
+    def test_allowed_count_fort(
+        self,
+        city: str,
+        building: str,
+        expected_allowed_count: int,
+        request: FixtureRequest,
+    ) -> None:
+        test_city: City = request.getfixturevalue(argname = city)
+        allowed_building_counts: BuildingsCount = test_city._calculate_allowed_building_counts()
+        assert allowed_building_counts[building] == expected_allowed_count
 
 
 @mark.city
@@ -1015,6 +1835,59 @@ class TestCityScenarios:
         assert city.defenses.garrison == "Equites"
         assert city.defenses.squadrons == 4
         assert city.defenses.squadron_size == "Huge"
+
+
+@mark.city
+@mark.city_scenarios
+class TestImpossibleScenarios:
+    """
+    This class tests that city scenarios that are not possible raise errors. These tests are a bit redundant as they
+    are already covered by the "allowed counts" tests.
+    """
+    
+    def test_impossible_scenarios_raise_error(self) -> None:
+        with raises(expected_exception = TooManyBuildingsError):
+            # Roma has no iron ore so it cannot build mines. It also has no geo features for outcrop or mountain mines.
+            city: City = City(
+                campaign = "Unification of Italy",
+                name = "Roma",
+                buildings = [
+                    Building(id = "town_hall"),
+                    Building(id = "mine"),
+                ]
+            )
+        
+        with raises(expected_exception = TooManyBuildingsError):
+            city: City = City(
+                campaign = "Unification of Italy",
+                name = "Roma",
+                buildings = [
+                    Building(id = "town_hall"),
+                    Building(id = "outcrop_mine"),
+                ]
+            )
+        
+        with raises(expected_exception = TooManyBuildingsError):
+            # Roma has no iron ore so it cannot build hunters' lodges
+            city: City = City(
+                campaign = "Unification of Italy",
+                name = "Roma",
+                buildings = [
+                    Building(id = "village_hall"),
+                    Building(id = "hunters_lodge"),
+                ]
+            )
+        
+        with raises(expected_exception = TooManyBuildingsError):
+            # Town hall is required for building a vineyard
+            city: City = City(
+                campaign = "Unification of Italy",
+                name = "Roma",
+                buildings = [
+                    Building(id = "village_hall"),
+                    Building(id = "vineyard"),
+                ]
+            )
 
 
 @mark.city
