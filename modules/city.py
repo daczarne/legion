@@ -139,6 +139,34 @@ class _CityDefenses:
 
 
 class City:
+    """
+    Represents a city in the game, including its properties, buildings, and derived statistics.
+    
+    This class encapsulates all the data and logic related to a city, from its fundamental attributes like name and
+    campaign to complex derived statistics such as production, storage capacity, and military defenses. It serves as a
+    comprehensive model for a city, ensuring all its properties are correctly validated and calculated upon
+    instantiation.
+    
+    Class Variables:
+        POSSIBLE_CITY_HALLS (ClassVar[set[str]]): A set of building IDs that are recognized as city halls.
+        MAX_BUILDINGS (ClassVar[BuildingsCount]): A dictionary mapping each hall type to the maximum number of non-hall
+            buildings it can support.
+        MAX_WORKERS (ClassVar[BuildingsCount]): A dictionary mapping each hall type to the maximum number of workers it
+            can support.
+    
+    Args:
+        campaign (str): The identifier of the campaign the city belongs to.
+        name (str): The name of the city, which is used to look up its data from a central repository.
+        buildings (list[Building]): A list of `Building` objects that exist in the city.
+    
+    Raises:
+        CityNotFoundError: If no city data is found for the given campaign and name.
+        NoCityHallError: If the city does not include a valid hall ("village_hall", "town_hall", or "city_hall").
+        MoreThanOneHallTypeError: If the city contains more than one type of hall.
+        TooManyHallsError: If the city contains multiple halls of the same type.
+        FortsCannotHaveBuildingsError: If a "fort" is instantiated with buildings.
+        TooManyBuildingsError: If the number of buildings exceeds the limit for the city's hall.
+    """
     
     # Set of possible halls
     POSSIBLE_CITY_HALLS: ClassVar[set[str]] = {"fort", "village_hall", "town_hall", "city_hall"}
