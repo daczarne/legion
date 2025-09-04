@@ -220,6 +220,7 @@ class City:
         self._validate_forts_have_no_other_buildings()
         self._validate_total_number_of_buildings()
         self._validate_building_counts()
+        self._validate_guilds()
         
         #* Calculate effects
         self.effects: _CityEffectBonuses = _CityEffectBonuses()
@@ -522,8 +523,10 @@ class City:
         guilds: BuildingsCount = {}
         
         for building in self.buildings:
+            if building.id not in City.POSSIBLE_GUILDS:
+                continue
             
-            if building.id in City.POSSIBLE_GUILDS:
+            if building.id in guilds:
                 guilds[building.id] += 1
             else:
                 guilds[building.id] = 1
@@ -531,8 +534,9 @@ class City:
         if len(guilds) > 1:
             raise MoreThanOneGuildTypeError(f"Only one guild per city is allowed. Found {", ".join(guilds.keys())}.")
         
-        if list(guilds.values())[0] != 1:
-            raise TooManyGuildsError(f"Too many guilds for this city.")
+        if len(guilds) == 1:
+            if list(guilds.values())[0] != 1:
+                raise TooManyGuildsError(f"Too many guilds for this city.")
     
     
     #* Effect bonuses

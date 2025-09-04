@@ -11,6 +11,7 @@ from modules.exceptions import (
     TooManyHallsError,
     FortsCannotHaveBuildingsError,
     TooManyBuildingsError,
+    MoreThanOneGuildTypeError,
 )
 from modules.resources import Resource
 
@@ -1893,8 +1894,7 @@ class TestImpossibleScenarios:
             )
     
     def test_multiple_guilds_raises_errors(self) -> None:
-        with raises(expected_exception = TooManyBuildingsError):
-            # Town hall is required for building a vineyard
+        with raises(expected_exception = MoreThanOneGuildTypeError):
             city: City = City(
                 campaign = "Unification of Italy",
                 name = "Roma",
