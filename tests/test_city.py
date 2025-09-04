@@ -1845,7 +1845,7 @@ class TestImpossibleScenarios:
     are already covered by the "allowed counts" tests.
     """
     
-    def test_impossible_scenarios_raise_error(self) -> None:
+    def test_mine_with_no_ore_raises_error(self) -> None:
         with raises(expected_exception = TooManyBuildingsError):
             # Roma has no iron ore so it cannot build mines. It also has no geo features for outcrop or mountain mines.
             city: City = City(
@@ -1856,7 +1856,8 @@ class TestImpossibleScenarios:
                     Building(id = "mine"),
                 ]
             )
-        
+    
+    def test_outcrop_mine_with_no_geo_or_rss_raises_error(self) -> None:
         with raises(expected_exception = TooManyBuildingsError):
             city: City = City(
                 campaign = "Unification of Italy",
@@ -1866,7 +1867,8 @@ class TestImpossibleScenarios:
                     Building(id = "outcrop_mine"),
                 ]
             )
-        
+    
+    def test_hunters_lodge_with_no_rss_raises_error(self) -> None:
         with raises(expected_exception = TooManyBuildingsError):
             # Roma has no iron ore so it cannot build hunters' lodges
             city: City = City(
@@ -1877,7 +1879,8 @@ class TestImpossibleScenarios:
                     Building(id = "hunters_lodge"),
                 ]
             )
-        
+    
+    def test_vineyard_with_no_town_hall_raises_error(self) -> None:
         with raises(expected_exception = TooManyBuildingsError):
             # Town hall is required for building a vineyard
             city: City = City(
@@ -1886,6 +1889,19 @@ class TestImpossibleScenarios:
                 buildings = [
                     Building(id = "village_hall"),
                     Building(id = "vineyard"),
+                ]
+            )
+    
+    def test_multiple_guilds_raises_errors(self) -> None:
+        with raises(expected_exception = TooManyBuildingsError):
+            # Town hall is required for building a vineyard
+            city: City = City(
+                campaign = "Unification of Italy",
+                name = "Roma",
+                buildings = [
+                    Building(id = "city_hall"),
+                    Building(id = "farmers_guild"),
+                    Building(id = "carpenters_guild"),
                 ]
             )
 
