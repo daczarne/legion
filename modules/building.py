@@ -267,7 +267,7 @@ class Building:
     
     @staticmethod
     def _format_geo(text: str) -> str:
-        return f"[italic bold bright_cyan]Resource[/italic bold bright_cyan].{text}"
+        return f"[italic bold bright_cyan]GeoFeature[/italic bold bright_cyan].{text}"
     
     @staticmethod
     def _format_resource_collection(collection: ResourceCollection) -> str:
@@ -279,11 +279,11 @@ class Building:
         return text
     
     @staticmethod
-    def _format_effect_bonuses(effect_bonuses: EffectBonuses) -> str:
+    def _format_effect_bonuses(bonuses: EffectBonuses) -> str:
         text: str = f"[italic bold bright_cyan]EffectBonuses[/italic bold bright_cyan](" \
-            f"[italic dim]troop_training = [/italic dim]{effect_bonuses.troop_training}, " \
-            f"[italic dim]population_growth = [/italic dim]{effect_bonuses.population_growth}, " \
-            f"[italic dim]intelligence = [/italic dim]{effect_bonuses.intelligence}" \
+            f"[italic dim]troop_training = [/italic dim]{bonuses.troop_training}, " \
+            f"[italic dim]population_growth = [/italic dim]{bonuses.population_growth}, " \
+            f"[italic dim]intelligence = [/italic dim]{bonuses.intelligence}" \
             f")"
         return text
     
