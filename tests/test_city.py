@@ -1838,6 +1838,59 @@ class TestCityScenarios:
 
 
 @mark.city
+@mark.city_scenarios
+class TestImpossibleScenarios:
+    """
+    This class tests that city scenarios that are not possible raise errors. These tests are a bit redundant as they
+    are already covered by the "allowed counts" tests.
+    """
+    
+    def test_impossible_scenarios_raise_error(self) -> None:
+        with raises(expected_exception = TooManyBuildingsError):
+            # Roma has no iron ore so it cannot build mines. It also has no geo features for outcrop or mountain mines.
+            city: City = City(
+                campaign = "Unification of Italy",
+                name = "Roma",
+                buildings = [
+                    Building(id = "town_hall"),
+                    Building(id = "mine"),
+                ]
+            )
+        
+        with raises(expected_exception = TooManyBuildingsError):
+            city: City = City(
+                campaign = "Unification of Italy",
+                name = "Roma",
+                buildings = [
+                    Building(id = "town_hall"),
+                    Building(id = "outcrop_mine"),
+                ]
+            )
+        
+        with raises(expected_exception = TooManyBuildingsError):
+            # Roma has no iron ore so it cannot build hunters' lodges
+            city: City = City(
+                campaign = "Unification of Italy",
+                name = "Roma",
+                buildings = [
+                    Building(id = "village_hall"),
+                    Building(id = "hunters_lodge"),
+                ]
+            )
+        
+        with raises(expected_exception = TooManyBuildingsError):
+            # Town hall is required for building a vineyard
+            city: City = City(
+                campaign = "Unification of Italy",
+                name = "Roma",
+                buildings = [
+                    Building(id = "village_hall"),
+                    Building(id = "vineyard"),
+                ]
+            )
+
+
+@mark.city
 @mark.display
 @mark.city_display
 class TestCityDisplay:
