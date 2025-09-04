@@ -187,6 +187,8 @@ class City:
         "city_hall": 18,
     }
     
+    __match_args__: ClassVar[tuple[str, str]] = ("campaign", "name")
+    
     def __init__(
             self,
             campaign: str,
@@ -245,6 +247,21 @@ class City:
         #* City focus
         self.focus: Resource | None = self._find_city_focus()
     
+    
+    def __repr__(self) -> str:
+        return (f"City(campaign = \"{self.campaign}\", name = \"{self.name}\"")
+    
+    def __str__(self) -> str:
+        return f"{self.campaign} - {self.name}"
+    
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, City):
+            return NotImplemented
+        
+        return self.campaign == other.campaign and self.name == other.name
+    
+    def __hash__(self) -> int:
+        return hash((self.campaign, self.name))
     
     #* Init and validation helpers
     def _get_city_data(self, campaign: str, name: str) -> _CityData:
