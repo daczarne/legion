@@ -189,6 +189,7 @@ class City:
     
     __match_args__: ClassVar[tuple[str, str]] = ("campaign", "name")
     
+    
     def __init__(
             self,
             campaign: str,
