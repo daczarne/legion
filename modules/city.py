@@ -255,18 +255,6 @@ class City:
         self.focus: Resource | None = self._find_city_focus()
     
     
-    def __repr__(self) -> str:
-        return (f"City(campaign = \"{self.campaign}\", name = \"{self.name}\"")
-    
-    def __str__(self) -> str:
-        return f"{self.campaign} - {self.name}"
-    
-    def __eq__(self, other: object) -> bool:
-        if not isinstance(other, City):
-            return NotImplemented
-        
-        return self.campaign == other.campaign and self.name == other.name
-    
     def __hash__(self) -> int:
         return hash((self.campaign, self.name))
     
@@ -285,6 +273,18 @@ class City:
                 return True
         
         return False
+    
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, City):
+            return NotImplemented
+        
+        return self.campaign == other.campaign and self.name == other.name
+    
+    def __repr__(self) -> str:
+        return (f"City(campaign = \"{self.campaign}\", name = \"{self.name}\"")
+    
+    def __str__(self) -> str:
+        return f"{self.campaign} - {self.name}"
     
     
     #* Init and validation helpers
