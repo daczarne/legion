@@ -262,6 +262,10 @@ class Building:
             f"[italic dim]id = [/italic dim][yellow]\"{text}\"[/yellow])"
     
     @staticmethod
+    def _format_string(text: str) -> str:
+        return f"[yellow]{text}[/yellow]"
+    
+    @staticmethod
     def _format_rss(text: str) -> str:
         return f"[italic bold bright_cyan]Resource[/italic bold bright_cyan].{text}"
     
@@ -304,9 +308,7 @@ class Building:
         return text
     
     def _building_name(self) -> str:
-        text: str = f"[bold]Name:[/bold] " \
-            f"[yellow]{self.name}[/yellow]"
-        return text
+        return f"[bold]Name:[/bold] {Building._format_string(text = self.name)}"
     
     def _building_building_costs(self) -> str:
         return f"[bold]Building costs:[/bold] " \
