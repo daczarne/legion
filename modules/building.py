@@ -266,6 +266,10 @@ class Building:
         return f"[italic bold bright_cyan]Resource[/italic bold bright_cyan].{text}"
     
     @staticmethod
+    def _format_geo(text: str) -> str:
+        return f"[italic bold bright_cyan]Resource[/italic bold bright_cyan].{text}"
+    
+    @staticmethod
     def _format_resource_collection(collection: ResourceCollection) -> str:
         text: str = f"[italic bold bright_cyan]ResourceCollection[/italic bold bright_cyan](" \
             f"[italic dim]food = [/italic dim]{collection.food}, " \
@@ -351,7 +355,7 @@ class Building:
         text: str = f"[bold]Required geo. feature:[/bold] "
         
         if self.required_geo:
-            text += f"[italic bold bright_cyan]GeoFeature[/italic bold bright_cyan].{self.required_geo.name}"
+            text += f"{Building._format_geo(self.required_geo.name)}"
         else:
             text += Building._format_none()
         
