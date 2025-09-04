@@ -71,7 +71,7 @@ class _BuildingData(TypedDict):
     is_deletable: bool
     is_upgradeable: bool
     required_geo: str | None
-    required_rss: str | None
+    required_rss: list[str]
     required_building: list[str]
     replaces: str | None
 
@@ -144,7 +144,7 @@ class Building:
     is_deletable: bool = field(init = False, repr = False, compare = False, hash = False)
     is_upgradeable: bool = field(init = False, repr = False, compare = False, hash = False)
     required_geo: GeoFeature | None = field(init = False, default = None, repr = False, compare = False, hash = False)
-    required_rss: Resource | None = field(init = False, default = None, repr = False, compare = False, hash = False)
+    required_rss: list[Resource] = field(init = False, default_factory = list, repr = False, compare = False, hash = False)
     # Dependencies here need to be interpreted as an OR. Either of the listed buildings unblocks the building. For
     # example, a Stable requires either a Farm, or a Large Farm, or a Vineyard, or a Fishing Village. If the city has
     # any one for them it can build a Stable. Similarly, a Blacksmith requires either a Mine, or a Large Mine, or a
@@ -190,7 +190,7 @@ class Building:
         self.is_deletable = _BUILDINGS[self.id]["is_deletable"]
         self.is_upgradeable = _BUILDINGS[self.id]["is_upgradeable"]
         self.required_geo = GeoFeature(value = _BUILDINGS[self.id]["required_geo"]) if _BUILDINGS[self.id]["required_geo"] else None
-        self.required_rss = Resource(value = _BUILDINGS[self.id]["required_rss"]) if _BUILDINGS[self.id]["required_rss"] else None
+        self.required_rss = [Resource(value = rss) for rss in _BUILDINGS[self.id]["required_rss"]]
         self.required_building = self._unpack_required_buildings()
         self.replaces = _BUILDINGS[self.id]["replaces"]
         
@@ -260,6 +260,10 @@ class Building:
     def _format_building(text: str) -> str:
         return f"[italic bold bright_cyan]Building[/italic bold bright_cyan](" \
             f"[italic dim]id = [/italic dim][yellow]\"{text}\"[/yellow])"
+    
+    @staticmethod
+    def _format_rss(text: str) -> str:
+        return f"[italic bold bright_cyan]Resource[/italic bold bright_cyan].{text}"
     
     @staticmethod
     def _format_none() -> str:
@@ -374,10 +378,18 @@ class Building:
     def _building_required_rss(self) -> str:
         text: str = f"[bold]Required resource:[/bold] "
         
-        if self.required_rss:
-            text += f"[italic bold bright_cyan]Resource[/italic bold bright_cyan].{self.required_rss.name}"
-        else:
-            text += Building._format_none()
+        if len(self.required_rss) == 0:
+            return text + Building._format_none()
+        
+        lines: list[str] = []
+        
+        # for idx, group in enumerate(self.required_rss):
+        for idx, rss in enumerate(self.required_rss):
+            transformed: str = Building._format_rss(text = rss.name)
+            line: str = transformed if idx == 0 else f"[italic dim]AND[/italic dim] {transformed}"
+            lines.append(line)
+        
+        text += " ".join(lines)
         
         return text
     

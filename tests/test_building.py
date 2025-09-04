@@ -246,14 +246,12 @@ class TestBuildingsData:
         
         for building in _buildings:
             building_id: str = building["id"]
-            required_rss: str | None = building["required_rss"]
+            required_rss: list[str] = building["required_rss"]
             
-            if not (
-                required_rss in [r.value for r in Resource]
-                or required_rss is None
-            ):
-                error: tuple[str, str] = (building_id, required_rss)
-                _errors.append(error)
+            for rss in required_rss:
+                if rss not in [r.value for r in Resource]:
+                    error: tuple[str, str] = (building_id, rss)
+                    _errors.append(error)
         
         assert len(_errors) == 0, _errors
     
@@ -324,7 +322,7 @@ class TestBuilding:
         assert city_hall.is_deletable == False
         assert city_hall.is_upgradeable == False
         assert city_hall.required_geo is None
-        assert city_hall.required_rss is None
+        assert len(city_hall.required_rss) == 0
         assert city_hall.required_building == [("town_hall",)]
         assert city_hall.replaces == "town_hall"
         assert city_hall.workers == 0
@@ -339,7 +337,7 @@ class TestBuilding:
         assert mountain_mine.id == "mountain_mine"
         assert mountain_mine.name == "Mountain mine"
         assert mountain_mine.required_geo == GeoFeature.MOUNTAIN
-        assert mountain_mine.required_rss == Resource.ORE
+        assert mountain_mine.required_rss == [Resource.ORE]
         assert mountain_mine.max_workers == 1
     
     def test_building_workers_logics(self) -> None:
@@ -347,7 +345,7 @@ class TestBuilding:
         
         assert large_mine.id == "large_mine"
         assert large_mine.name == "Large mine"
-        assert large_mine.required_rss == Resource.ORE
+        assert large_mine.required_rss == [Resource.ORE]
         assert large_mine.max_workers == 3
         assert large_mine.workers == 0
         
@@ -387,10 +385,10 @@ class TestBuildingScenarios:
         farmers_guild: Building = Building(id = "farmers_guild")
         
         assert farmers_guild.required_building == [("city_hall", "large_farm")]
-        assert farmers_guild.required_rss == Resource.FOOD
+        assert farmers_guild.required_rss == [Resource.FOOD]
     
     def test_stables(self) -> None:
         stables: Building = Building(id = "stables")
         
         assert stables.required_building == [("farm", ), ("large_farm", ), ("vineyard", ), ("fishing_village", )]
-        assert stables.required_rss is None
+        assert len(stables.required_rss) == 0

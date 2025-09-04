@@ -37,7 +37,7 @@ buildings:
     is_deletable: false
     is_upgradeable: true
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building: []
     replaces: null
   - id: town_hall
@@ -75,7 +75,7 @@ buildings:
     is_deletable: false
     is_upgradeable: true
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - village_hall
     replaces: village_hall
@@ -114,7 +114,7 @@ buildings:
     is_deletable: false
     is_upgradeable: false
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - town_hall
     replaces: town_hall
@@ -153,7 +153,7 @@ buildings:
     is_deletable: false
     is_upgradeable: false
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building: []
     replaces: null
   # ******************* #
@@ -194,7 +194,8 @@ buildings:
     is_deletable: true
     is_upgradeable: true
     required_geo: null
-    required_rss: food
+    required_rss:
+      - food
     required_building:
       - village_hall
     replaces: null
@@ -233,7 +234,8 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: food
+    required_rss:
+      - food
     required_building:
       - farm
     replaces: farm
@@ -272,7 +274,8 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: food
+    required_rss:
+      - food
     required_building:
       - town_hall, farm
     replaces: farm
@@ -311,7 +314,8 @@ buildings:
     is_deletable: false
     is_upgradeable: false
     required_geo: lake
-    required_rss: food
+    required_rss:
+      - food
     required_building:
       - village_hall
     replaces: null
@@ -350,7 +354,8 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: food
+    required_rss:
+      - food
     required_building:
       - city_hall, large_farm
     replaces: null
@@ -392,7 +397,8 @@ buildings:
     is_deletable: true
     is_upgradeable: true
     required_geo: null
-    required_rss: ore
+    required_rss:
+      - ore
     required_building:
       - village_hall
     replaces: null
@@ -431,7 +437,8 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: ore
+    required_rss:
+      - ore
     required_building:
       - mine
     replaces: mine
@@ -470,7 +477,8 @@ buildings:
     is_deletable: false
     is_upgradeable: false
     required_geo: outcrop_rock
-    required_rss: ore
+    required_rss:
+      - ore
     required_building:
       - village_hall
     replaces: null
@@ -509,7 +517,8 @@ buildings:
     is_deletable: false
     is_upgradeable: false
     required_geo: mountain
-    required_rss: ore
+    required_rss:
+      - ore
     required_building:
       - village_hall
     replaces: null
@@ -548,7 +557,8 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: ore
+    required_rss:
+      - ore
     required_building:
       - city_hall, large_mine
     replaces: null
@@ -590,7 +600,8 @@ buildings:
     is_deletable: true
     is_upgradeable: true
     required_geo: null
-    required_rss: wood
+    required_rss:
+      - wood
     required_building:
       - village_hall
     replaces: null
@@ -629,7 +640,8 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: wood
+    required_rss:
+      - wood
     required_building:
       - lumber_mill
     replaces: lumber_mill
@@ -668,7 +680,8 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: forest
-    required_rss: wood
+    required_rss:
+      - wood
     required_building:
       - village_hall
     replaces: null
@@ -707,7 +720,8 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: wood
+    required_rss:
+      - wood
     required_building:
       - city_hall, large_lumber_mill
     replaces: null
@@ -749,7 +763,7 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - town_hall
     replaces: null
@@ -788,7 +802,7 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - training_ground
     replaces: null
@@ -827,7 +841,7 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - training_ground
     replaces: null
@@ -866,7 +880,7 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - farm
       - large_farm
@@ -908,7 +922,7 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - mine
       - large_mine
@@ -950,7 +964,7 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - lumber_mill
       - large_lumber_mill
@@ -990,7 +1004,7 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - city_hall
     replaces: null
@@ -1029,7 +1043,7 @@ buildings:
     is_deletable: true
     is_upgradeable: true
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - village_hall
     replaces: null
@@ -1068,7 +1082,7 @@ buildings:
     is_deletable: true
     is_upgradeable: true
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - town_hall, small_fort
     replaces: small_fort
@@ -1107,7 +1121,7 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - city_hall, medium_fort
     replaces: medium_fort
@@ -1146,7 +1160,7 @@ buildings:
     is_deletable: true
     is_upgradeable: true
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - town_hall, small_fort
     replaces: null
@@ -1185,7 +1199,7 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - city_hall, barracks
     replaces: barracks
@@ -1224,7 +1238,7 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - village_hall, small_fort
     replaces: null
@@ -1266,7 +1280,7 @@ buildings:
     is_deletable: true
     is_upgradeable: true
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - village_hall
     replaces: null
@@ -1305,7 +1319,7 @@ buildings:
     is_deletable: true
     is_upgradeable: true
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - town_hall, shrine
     replaces: shrine
@@ -1344,7 +1358,7 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - city_hall, temple
     replaces: temple
@@ -1383,7 +1397,7 @@ buildings:
     is_deletable: true
     is_upgradeable: true
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - town_hall
     replaces: null
@@ -1422,7 +1436,7 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - bath_house
     replaces: bath_house
@@ -1461,7 +1475,7 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: forest
-    required_rss: null
+    required_rss: []
     required_building:
       - town_hall, forest
     replaces: forest
@@ -1500,7 +1514,7 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - village_hall
     replaces: null
@@ -1539,7 +1553,7 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - village_hall
     replaces: null
@@ -1578,7 +1592,7 @@ buildings:
     is_deletable: true
     is_upgradeable: true
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - village_hall
     replaces: null
@@ -1617,7 +1631,7 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building:
       - small_market
     replaces: small_market
@@ -1659,7 +1673,10 @@ buildings:
     is_deletable: true
     is_upgradeable: false
     required_geo: null
-    required_rss: null
+    required_rss:
+      - food
+      - ore
+      - wood
     required_building:
       - village_hall
     replaces: null
@@ -1698,6 +1715,6 @@ buildings:
     is_deletable: false
     is_upgradeable: false
     required_geo: null
-    required_rss: null
+    required_rss: []
     required_building: []
     replaces: null
