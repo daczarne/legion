@@ -275,6 +275,15 @@ class Building:
         return text
     
     @staticmethod
+    def _format_effect_bonuses(effect_bonuses: EffectBonuses) -> str:
+        text: str = f"[italic bold bright_cyan]EffectBonuses[/italic bold bright_cyan](" \
+            f"[italic dim]troop_training = [/italic dim]{effect_bonuses.troop_training}, " \
+            f"[italic dim]population_growth = [/italic dim]{effect_bonuses.population_growth}, " \
+            f"[italic dim]intelligence = [/italic dim]{effect_bonuses.intelligence}" \
+            f")"
+        return text
+    
+    @staticmethod
     def _format_none() -> str:
         return f"[italic dim dark_magenta]None[/italic dim dark_magenta]"
     
@@ -308,22 +317,12 @@ class Building:
             f"{Building._format_resource_collection(collection = self.productivity_per_worker)}"
     
     def _building_effect_bonuses(self) -> str:
-        text: str = f"[bold]Effect bonuses:[/bold] " \
-            f"[italic bold bright_cyan]EffectBonuses[/italic bold bright_cyan](" \
-            f"[italic dim]troop_training = [/italic dim]{self.effect_bonuses.troop_training}, " \
-            f"[italic dim]population_growth = [/italic dim]{self.effect_bonuses.population_growth}, " \
-            f"[italic dim]intelligence = [/italic dim]{self.effect_bonuses.intelligence}" \
-            f")"
-        return text
+        return f"[bold]Effect bonuses:[/bold] " \
+            f"{Building._format_effect_bonuses(self.effect_bonuses)}"
     
     def _building_effect_bonuses_per_worker(self) -> str:
-        text: str = f"[bold]Effect bonuses per worker:[/bold] " \
-            f"[italic bold bright_cyan]EffectBonuses[/italic bold bright_cyan](" \
-            f"[italic dim]troop_training = [/italic dim]{self.effect_bonuses_per_worker.troop_training}, " \
-            f"[italic dim]population_growth = [/italic dim]{self.effect_bonuses_per_worker.population_growth}, " \
-            f"[italic dim]intelligence = [/italic dim]{self.effect_bonuses_per_worker.intelligence}" \
-            f")"
-        return text
+        return f"[bold]Effect bonuses per worker:[/bold] " \
+            f"{Building._format_effect_bonuses(self.effect_bonuses_per_worker)}"
     
     def _building_storage_capacity(self) -> str:
         return f"[bold]Storage capacity:[/bold] " \
@@ -332,6 +331,11 @@ class Building:
     def _building_max_workers(self) -> str:
         text: str = f"[bold]Max. workers:[/bold] " \
             f"[dark_magenta]{self.max_workers}[/dark_magenta]"
+        return text
+    
+    def _building_current_workers(self) -> str:
+        text: str = f"[bold]Current workers:[/bold] " \
+            f"[dark_magenta]{self.workers}[/dark_magenta]"
         return text
     
     def _building_is_buildable(self) -> str:
@@ -398,11 +402,6 @@ class Building:
     def _building_replaces(self) -> str:
         text: str = f"[bold]Replaces:[/bold] "
         return text + (Building._format_building(text = self.replaces) if self.replaces else Building._format_none())
-    
-    def _building_current_workers(self) -> str:
-        text: str = f"[bold]Current workers:[/bold] " \
-            f"[dark_magenta]{self.workers}[/dark_magenta]"
-        return text
     
     def _build_building_display(self) -> Panel:
         #* Heights
