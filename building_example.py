@@ -36,6 +36,11 @@ small_fort.display_building()
 
 print()
 
+hunters_lodge: Building = Building(id = "hunters_lodge")
+hunters_lodge.display_building()
+
+print()
+
 large_mine: Building = Building(id = "large_mine")
 large_mine.display_building()
 
