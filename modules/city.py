@@ -213,7 +213,9 @@ class City:
         self._validate_halls()
         self.hall: Building = self._get_hall()
         
-        self._validate_number_of_buildings()
+        self._validate_forts_have_no_other_buildings()
+        self._validate_total_number_of_buildings()
+        self._validate_building_counts()
         
         #* Calculate effects
         self.effects: _CityEffectBonuses = _CityEffectBonuses()
@@ -482,23 +484,26 @@ class City:
         
         return allowed_counts
     
-    def _validate_number_of_buildings(self) -> None:
+    def _validate_forts_have_no_other_buildings(self) -> None:
+        if self.is_fort:
+            if len(self.buildings) > 1:
+                raise FortsCannotHaveBuildingsError(
+                    f"Forts cannot have buildings."
+                )
+    
+    def _validate_total_number_of_buildings(self) -> None:
         number_of_declared_buildings: int = len(self.buildings)
         max_number_of_buildings_in_city: int = City.MAX_BUILDINGS[self.hall.id]
         
         if number_of_declared_buildings > max_number_of_buildings_in_city + 1:
-            
-            if self.is_fort:
-                raise FortsCannotHaveBuildingsError(
-                    f"Forts cannot have buildings."
-                )
             
             raise TooManyBuildingsError(
                 f"Too many buildings for this city: "
                 f"{number_of_declared_buildings} provided, "
                 f"max of {max_number_of_buildings_in_city + 1} possible ({max_number_of_buildings_in_city} + hall)."
             )
-        
+    
+    def _validate_building_counts(self) -> None:
         allowed_building_counts: BuildingsCount = self._calculate_allowed_building_counts()
         current_building_counts: BuildingsCount = self.get_buildings_count(by = "id")
         
