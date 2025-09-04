@@ -429,7 +429,7 @@ class City:
                     continue
                 
                 if self.hall.id == "city_hall":
-                    allowed_counts[building_id] = City.MAX_BUILDINGS["village_hall"] - pre_occupied_spots
+                    allowed_counts[building_id] = City.MAX_BUILDINGS["town_hall"] - pre_occupied_spots
                     continue
                 
                 allowed_counts[building_id] = total_spots - pre_occupied_spots
