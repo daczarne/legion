@@ -255,7 +255,6 @@ class Building:
         self.workers = qty
     
     
-    #* Display building
     @staticmethod
     def _format_building(text: str) -> str:
         return f"[italic bold bright_cyan]Building[/italic bold bright_cyan](" \
@@ -299,6 +298,8 @@ class Building:
     def _format_none() -> str:
         return f"[italic dim dark_magenta]None[/italic dim dark_magenta]"
     
+    
+    #* Display building
     def _building_information(self) -> Text:
         text: Text = Text(
             text = f" Building(id = \"{self.id}\") ",
