@@ -11,6 +11,7 @@ from modules.exceptions import (
     TooManyHallsError,
     FortsCannotHaveBuildingsError,
     TooManyBuildingsError,
+    MoreThanOneGuildTypeError,
 )
 from modules.resources import Resource
 
@@ -1889,6 +1890,18 @@ class TestImpossibleScenarios:
                 buildings = [
                     Building(id = "village_hall"),
                     Building(id = "vineyard"),
+                ]
+            )
+    
+    def test_multiple_guilds_raises_errors(self) -> None:
+        with raises(expected_exception = MoreThanOneGuildTypeError):
+            city: City = City(
+                campaign = "Unification of Italy",
+                name = "Roma",
+                buildings = [
+                    Building(id = "city_hall"),
+                    Building(id = "farmers_guild"),
+                    Building(id = "carpenters_guild"),
                 ]
             )
 
