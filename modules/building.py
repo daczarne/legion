@@ -125,7 +125,7 @@ class Building:
             requires that the city where it is being built has a mountain.
         required_rss list[Resource]: Required resource, if any. For example, building Farms requires that the city
             has production potential for food production.
-        required_building (list[str]): List of possible prerequisite buildings (OR condition).
+        required_building (list[str]): List of possible pre-requisite buildings (OR condition).
         replaces (str | None): Identifier of the building this one replaces.
     """
     id: str = field(init = True, repr = True, compare = True, hash = True)
