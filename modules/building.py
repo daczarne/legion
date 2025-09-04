@@ -266,6 +266,15 @@ class Building:
         return f"[italic bold bright_cyan]Resource[/italic bold bright_cyan].{text}"
     
     @staticmethod
+    def _format_resource_collection(collection: ResourceCollection) -> str:
+        text: str = f"[italic bold bright_cyan]ResourceCollection[/italic bold bright_cyan](" \
+            f"[italic dim]food = [/italic dim]{collection.food}, " \
+            f"[italic dim]ore = [/italic dim]{collection.ore}, " \
+            f"[italic dim]wood = [/italic dim]{collection.wood}" \
+            f")"
+        return text
+    
+    @staticmethod
     def _format_none() -> str:
         return f"[italic dim dark_magenta]None[/italic dim dark_magenta]"
     
@@ -283,40 +292,20 @@ class Building:
         return text
     
     def _building_building_costs(self) -> str:
-        text: str = f"[bold]Building costs:[/bold] " \
-            f"[italic bold bright_cyan]ResourceCollection[/italic bold bright_cyan](" \
-            f"[italic dim]food = [/italic dim]{self.building_cost.food}, " \
-            f"[italic dim]ore = [/italic dim]{self.building_cost.ore}, " \
-            f"[italic dim]wood = [/italic dim]{self.building_cost.wood}" \
-            f")"
-        return text
+        return f"[bold]Building costs:[/bold] " \
+            f"{Building._format_resource_collection(collection = self.building_cost)}"
     
     def _building_maintenance_costs(self) -> str:
-        text: str = f"[bold]Maintenance costs:[/bold] " \
-            f"[italic bold bright_cyan]ResourceCollection[/italic bold bright_cyan](" \
-            f"[italic dim]food = [/italic dim]{self.maintenance_cost.food}, " \
-            f"[italic dim]ore = [/italic dim]{self.maintenance_cost.ore}, " \
-            f"[italic dim]wood = [/italic dim]{self.maintenance_cost.wood}" \
-            f")"
-        return text
+        return f"[bold]Maintenance costs:[/bold] " \
+            f"{Building._format_resource_collection(collection = self.maintenance_cost)}"
     
     def _building_productivity_bonuses(self) -> str:
-        text: str = f"[bold]Productivity bonuses:[/bold] " \
-            f"[italic bold bright_cyan]ResourceCollection[/italic bold bright_cyan](" \
-            f"[italic dim]food = [/italic dim]{self.productivity_bonuses.food}, " \
-            f"[italic dim]ore = [/italic dim]{self.productivity_bonuses.ore}, " \
-            f"[italic dim]wood = [/italic dim]{self.productivity_bonuses.wood}" \
-            f")"
-        return text
+        return f"[bold]Productivity bonuses:[/bold] " \
+            f"{Building._format_resource_collection(collection = self.productivity_bonuses)}"
     
     def _building_productivity_per_worker(self) -> str:
-        text: str = f"[bold]Productivity per worker:[/bold] " \
-            f"[italic bold bright_cyan]ResourceCollection[/italic bold bright_cyan](" \
-            f"[italic dim]food = [/italic dim]{self.productivity_per_worker.food}, " \
-            f"[italic dim]ore = [/italic dim]{self.productivity_per_worker.ore}, " \
-            f"[italic dim]wood = [/italic dim]{self.productivity_per_worker.wood}" \
-            f")"
-        return text
+        return f"[bold]Productivity per worker:[/bold] " \
+            f"{Building._format_resource_collection(collection = self.productivity_per_worker)}"
     
     def _building_effect_bonuses(self) -> str:
         text: str = f"[bold]Effect bonuses:[/bold] " \
@@ -337,13 +326,8 @@ class Building:
         return text
     
     def _building_storage_capacity(self) -> str:
-        text: str = f"[bold]Storage capacity:[/bold] " \
-            f"[italic bold bright_cyan]ResourceCollection[/italic bold bright_cyan](" \
-            f"[italic dim]food = [/italic dim]{self.storage_capacity.food}, " \
-            f"[italic dim]ore = [/italic dim]{self.storage_capacity.ore}, " \
-            f"[italic dim]wood = [/italic dim]{self.storage_capacity.wood}" \
-            f")"
-        return text
+        return f"[bold]Storage capacity:[/bold] " \
+            f"{Building._format_resource_collection(collection = self.storage_capacity)}"
     
     def _building_max_workers(self) -> str:
         text: str = f"[bold]Max. workers:[/bold] " \
