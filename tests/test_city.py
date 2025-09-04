@@ -692,7 +692,7 @@ class TestCityAllowedBuildingCounts:
             ("_city_with_no_restrictions", "warehouse", 1),
             ("_city_with_no_restrictions", "small_market", 1),
             ("_city_with_no_restrictions", "large_market", 1),
-            ("_city_with_no_restrictions", "hunters_lodge", 0),
+            ("_city_with_no_restrictions", "hunters_lodge", 6),
             ("_city_with_no_restrictions", "supply_dump", 0),
         ],
     )
@@ -801,7 +801,7 @@ class TestCityAllowedBuildingCounts:
             ("_city_with_one_lake", "blacksmith", 1),
             ("_city_with_one_lake", "fletcher", 1),
             ("_city_with_one_lake", "hidden_grove", 0),
-            ("_city_with_one_lake", "hunters_lodge", 0),
+            ("_city_with_one_lake", "hunters_lodge", 5),
             ("_city_with_one_lake", "supply_dump", 0),
         ],
     )
@@ -1019,7 +1019,7 @@ class TestCityAllowedBuildingCounts:
             ("_city_with_two_geo_features", "blacksmith", 1),
             ("_city_with_two_geo_features", "fletcher", 1),
             ("_city_with_two_geo_features", "hidden_grove", 0),
-            ("_city_with_two_geo_features", "hunters_lodge", 0),
+            ("_city_with_two_geo_features", "hunters_lodge", 4),
             ("_city_with_two_geo_features", "supply_dump", 0),
         ],
     )

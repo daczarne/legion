@@ -420,16 +420,16 @@ class City:
             # to build hunters' lodges.
             if building_id == "hunters_lodge":
                 
-                if self.hall.id not in ["village_hall", "town_hall"]:
-                    allowed_counts[building_id] = 0
-                    continue
-                
                 if not (
                     self.resource_potentials.food > 0
                     and self.resource_potentials.ore > 0
                     and self.resource_potentials.wood > 0
                 ):
                     allowed_counts[building_id] = 0
+                    continue
+                
+                if self.hall.id == "city_hall":
+                    allowed_counts[building_id] = City.MAX_BUILDINGS["town_hall"] - pre_occupied_spots
                     continue
                 
                 allowed_counts[building_id] = total_spots - pre_occupied_spots
