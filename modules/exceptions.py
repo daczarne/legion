@@ -68,10 +68,6 @@ class TooManyBuildingsError(CityError):
     pass
 
 
-class NoGarrisonFoundError(CityError):
-    pass
-
-
 # * ******* * #
 # * DISPLAY * #
 # * ******* * #

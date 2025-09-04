@@ -37,7 +37,7 @@ from rich.style import Style
 from rich.table import Table
 from rich.text import Text
 
-from .building import Building, BuildingsCount, _BUILDINGS
+from .building import Building, BuildingsCount
 from .display import DisplayConfiguration, DisplaySectionConfiguration, DEFAULT_SECTION_COLORS
 from .effects import EffectBonusesData, EffectBonuses
 from .exceptions import (
@@ -45,7 +45,6 @@ from .exceptions import (
     TooManyHallsError,
     FortsCannotHaveBuildingsError,
     TooManyBuildingsError,
-    NoGarrisonFoundError,
     MoreThanOneHallTypeError,
     CityNotFoundError,
 )
@@ -139,123 +138,48 @@ class _CityDefenses:
     squadron_size: str = field(default = "Small")
 
 
-@dataclass(
-    match_args = False,
-    order = False,
-    kw_only = True,
-)
 class City:
     """
-    Represents a city within a campaign of the game.
+    Represents a city in the game, including its properties, buildings, and derived statistics.
     
-    A `City` is defined by its campaign, name, and a collection of buildings. The campaign and city name will be used
-    to look-up city characteristics like the resource potential of the city and its garrison. Based on the supplied
-    buildings, it will calculate the production of the city, the storage capacity, the defenses, etc.
+    This class encapsulates all the data and logic related to a city, from its fundamental attributes like name and
+    campaign to complex derived statistics such as production, storage capacity, and military defenses. It serves as a
+    comprehensive model for a city, ensuring all its properties are correctly validated and calculated upon
+    instantiation.
     
-    On initialization, the city validates its buildings to ensure consistency:
+    Class Variables:
+        POSSIBLE_CITY_HALLS (ClassVar[set[str]]): A set of building IDs that are recognized as city halls.
+        MAX_BUILDINGS (ClassVar[BuildingsCount]): A dictionary mapping each hall type to the maximum number of non-hall
+            buildings it can support.
+        MAX_WORKERS (ClassVar[BuildingsCount]): A dictionary mapping each hall type to the maximum number of workers it
+            can support.
     
-    - Exactly one hall must be present (Village, Town, or City hall).
-    - The number of buildings must not exceed the maximum allowed for the hall type.
-        - For Village: 4
-        - For Town: 6
-        - For City: 8
+    Args:
+        campaign (str): The identifier of the campaign the city belongs to.
+        name (str): The name of the city, which is used to look up its data from a central repository.
+        buildings (list[Building]): A list of `Building` objects that exist in the city.
     
-    Attributes:
-        campaign (str): The campaign identifier the city belongs to.
-        name (str): The name of the city.
-        buildings (list[Building]): A list of buildings present in the city.
-        
-        resource_potentials (ResourceCollection): The resource potentials of the city.
-        geo_features (GeoFeatures): Geographical features present in the city (lakes, mountains, etc).
-        has_supply_dump (bool): A boolean indicating whether the city has a Supply Dump (True), or not (False).
-        effects (CityEffectBonuses): Effect bonuses from the city, its buildings, and workers.
-        production (CityProduction): Production statistics for the city.
-        storage (CityStorage): Resource storage capacities of the city.
-        defenses (CityDefenses): Defense of the city (number of squads and their size).
-        focus (Resource | None): If a Resource, the highest producing resource of the city.
+    Raises:
+        CityNotFoundError: If no city data is found for the given campaign and name.
+        NoCityHallError: If the city does not include a valid hall ("village_hall", "town_hall", or "city_hall").
+        MoreThanOneHallTypeError: If the city contains more than one type of hall.
+        TooManyHallsError: If the city contains multiple halls of the same type.
+        FortsCannotHaveBuildingsError: If a "fort" is instantiated with buildings.
+        TooManyBuildingsError: If the number of buildings exceeds the limit for the city's hall.
     """
-    campaign: str = field(init = True, default = "", repr = True, compare = True, hash = True)
-    name: str = field(init = True, default = "", repr = True, compare = True, hash = True)
-    buildings: list[Building] = field(init = True, default_factory = list, repr = False, compare = False, hash = False)
     
-    # Post init fields
-    has_supply_dump: bool = field(
-        init = False,
-        default = False,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    is_fort: bool = field(
-        init = False,
-        default = False,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    resource_potentials: ResourceCollection = field(
-        init = False,
-        default_factory = ResourceCollection,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    geo_features: GeoFeatures = field(
-        init = False,
-        default_factory = GeoFeatures,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    
-    effects: _CityEffectBonuses = field(
-        init = False,
-        default_factory = _CityEffectBonuses,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    production: _CityProduction = field(
-        init = False,
-        default_factory = _CityProduction,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    storage: _CityStorage = field(
-        init = False,
-        default_factory = _CityStorage,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    defenses: _CityDefenses = field(
-        init = False,
-        default_factory = _CityDefenses,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    focus: Resource | None = field(
-        init = False,
-        default = None,
-        repr = False,
-        compare = False,
-        hash = False,
-    )
-    
-    
+    # Set of possible halls
     POSSIBLE_CITY_HALLS: ClassVar[set[str]] = {"fort", "village_hall", "town_hall", "city_hall"}
     
-    # The maximum number of buildings the city can have, not counting the hall itself.
-    MAX_BUILDINGS_PER_CITY: ClassVar[BuildingsCount] = {
+    # The maximum number of buildings a city can have, not counting the hall itself.
+    MAX_BUILDINGS: ClassVar[BuildingsCount] = {
         "fort": 0,
         "village_hall": 4,
         "town_hall": 6,
         "city_hall": 8,
     }
     
-    # Class variables
+    # The maximum number of workers a city can have.
     MAX_WORKERS: ClassVar[BuildingsCount] = {
         "fort": 0,
         "village_hall": 10,
@@ -263,51 +187,126 @@ class City:
         "city_hall": 18,
     }
     
-    __match_args__: ClassVar[tuple[str, ...]] = ("campaign", "name")
+    __match_args__: ClassVar[tuple[str, str]] = ("campaign", "name")
     
-    
-    def _get_rss_potentials(self) -> ResourceCollection:
-        """
-        Finds the city supplied by the user in the directory of cities and returns its resource potentials.
-        """
-        for city in CITIES:
-            if (
-                city["campaign"] == self.campaign
-                and city["name"] == self.name
-            ):
-                return ResourceCollection(**city["resource_potentials"])
+    def __init__(
+            self,
+            campaign: str,
+            name: str,
+            buildings: list[Building],
+        ) -> None:
+        self._city_data: _CityData = self._get_city_data(campaign = campaign, name = name)
+        self.campaign: str = self._get_campaign()
+        self.name: str = self._get_city_name()
         
-        raise CityNotFoundError(
-            f"No city found for campaing = \"{self.campaign}\" and \"{self.name}\""
-        )
-    
-    def _get_geo_features(self) -> GeoFeatures:
-        """
-        Finds the city supplied by the user in the directory of cities and returns its geo-features.
-        """
-        for city in CITIES:
-            if (
-                city["campaign"] == self.campaign
-                and city["name"] == self.name
-            ):
-                return GeoFeatures(**city["geo_features"])
+        self.resource_potentials: ResourceCollection = self._get_rss_potentials()
+        self.geo_features: GeoFeatures = self._get_geo_features()
         
-        raise CityNotFoundError(
-            f"No city found for campaing = \"{self.campaign}\" and \"{self.name}\""
-        )
+        self.buildings: list[Building] = buildings
+        
+        self.is_fort: bool = self._is_fort()
+        self._add_fort_to_buildings()
+        
+        self.has_supply_dump: bool = self._has_supply_dump()
+        self._add_supply_dump_to_buildings()
+        
+        self._validate_halls()
+        self.hall: Building = self._get_hall()
+        
+        self._validate_number_of_buildings()
+        
+        #* Calculate effects
+        self.effects: _CityEffectBonuses = _CityEffectBonuses()
+        self.effects.city = self._get_city_effects()
+        self.effects.buildings = self._calculate_building_effects()
+        self.effects.workers = self._calculate_worker_effects()
+        self.effects.total = self._calculate_total_effects()
+        
+        #* Calculate production
+        self.production: _CityProduction = _CityProduction()
+        self.production.base = self._calculate_base_production()
+        self.production.productivity_bonuses = self._calculate_productivity_bonuses()
+        self.production.total = self._calculate_total_production()
+        self.production.maintenance_costs = self._calculate_maintenance_costs()
+        self.production.balance = self._calculate_production_balance()
+        
+        #* Calculate storage capacity
+        self.storage: _CityStorage = _CityStorage()
+        self.storage.city = self._calculate_city_storage()
+        self.storage.buildings = self._calculate_buildings_storage()
+        self.storage.warehouse = self._calculate_warehouse_storage()
+        self.storage.supply_dump = self._calculate_supply_dump_storage()
+        self.storage.total = self._calculate_total_storage_capacity()
+        
+        #* City defenses
+        self.defenses: _CityDefenses = _CityDefenses()
+        self.defenses.garrison = self._get_garrison()
+        self.defenses.squadrons = self._calculate_garrison_size()
+        self.defenses.squadron_size = self._calculate_squadron_size()
+        
+        #* City focus
+        self.focus: Resource | None = self._find_city_focus()
     
-    def _is_fort(self) -> bool:
+    
+    def __repr__(self) -> str:
+        return (f"City(campaign = \"{self.campaign}\", name = \"{self.name}\"")
+    
+    def __str__(self) -> str:
+        return f"{self.campaign} - {self.name}"
+    
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, City):
+            return NotImplemented
+        
+        return self.campaign == other.campaign and self.name == other.name
+    
+    def __hash__(self) -> int:
+        return hash((self.campaign, self.name))
+    
+    def __bool__(self) -> bool:
         """
-        Checks if the city is a "Small Fort" city.
+        Returns True if the city is in a valid state. A City object, once instantiated, is considered valid.
         """
-        for city in CITIES:
-            if (
-                city["campaign"] == self.campaign
-                and city["name"] == self.name
-            ):
-                return city["is_fort"]
+        return True
+    
+    def __contains__(self, building_id: str) -> bool:
+        """
+        Checks if a building with a given ID is present in the city. Enables the `in` operator (e.g., `"fort" in city`).
+        """
+        for building in self.buildings:
+            if building.id == building_id:
+                return True
         
         return False
+    
+    
+    #* Init and validation helpers
+    def _get_city_data(self, campaign: str, name: str) -> _CityData:
+        for city in CITIES:
+            if (
+                city["campaign"] == campaign
+                and city["name"] == name
+            ):
+                return city
+        
+        raise CityNotFoundError(
+            f"No city found for campaing = \"{campaign}\" and name = \"{name}\""
+        )
+    
+    def _get_campaign(self) -> str:
+        return self._city_data["campaign"]
+    
+    def _get_city_name(self) -> str:
+        return self._city_data["name"]
+    
+    def _get_rss_potentials(self) -> ResourceCollection:
+        return ResourceCollection(**self._city_data["resource_potentials"])
+    
+    def _get_geo_features(self) -> GeoFeatures:
+        return GeoFeatures(**self._city_data["geo_features"])
+    
+    def _is_fort(self) -> bool:
+        return self._city_data["is_fort"]
     
     def _add_fort_to_buildings(self) -> None:
         if not self.is_fort:
@@ -318,11 +317,23 @@ class City:
         
         self.buildings.append(Building(id = "fort"))
     
+    def _has_supply_dump(self) -> bool:
+        return self._city_data["has_supply_dump"]
+    
+    def _add_supply_dump_to_buildings(self) -> None:
+        if not self.has_supply_dump:
+            return
+        
+        if self.has_building(id = "supply_dump"):
+            return
+        
+        self.buildings.append(Building(id = "supply_dump"))
+    
     def _validate_halls(self) -> None:
         halls: BuildingsCount = {}
         
         for building in self.buildings:
-            if building.id not in self.POSSIBLE_CITY_HALLS:
+            if building.id not in City.POSSIBLE_CITY_HALLS:
                 continue
             
             if building.id in halls:
@@ -340,38 +351,17 @@ class City:
             raise TooManyHallsError(f"Too many halls for this city.")
     
     def _get_hall(self) -> Building:
-        """
-        Retrieve the hall building of the city.
-        
-        The hall is the central building of the city and must be one of "Village hall", "Town hall", or "City hall".
-        
-        Returns:
-            Building: the hall building of the city.
-        """
         for building in self.buildings:
-            if building.id not in self.POSSIBLE_CITY_HALLS:
+            if building.id not in City.POSSIBLE_CITY_HALLS:
                 continue
             
             return building
         
-        raise NoCityHallError(f"City must include a hall (Village, Town, or City).") 
-    
-    def _has_supply_dump(self) -> bool:
-        """
-        Checks if the city has a Supply dump.
-        """
-        for city in CITIES:
-            if (
-                city["campaign"] == self.campaign
-                and city["name"] == self.name
-            ):
-                return city["has_supply_dump"]
-        
-        return False
+        raise NoCityHallError(f"City must include a hall (Village, Town, or City).")
     
     def _validate_number_of_buildings(self) -> None:
         number_of_declared_buildings: int = len(self.buildings)
-        max_number_of_buildings_in_city: int = self.MAX_BUILDINGS_PER_CITY[self._get_hall().id]
+        max_number_of_buildings_in_city: int = City.MAX_BUILDINGS[self.hall.id]
         
         if number_of_declared_buildings > max_number_of_buildings_in_city + 1:
             
@@ -387,65 +377,9 @@ class City:
             )
     
     
-    #* Alternative city creator methods
-    @classmethod
-    def from_buildings_count(
-        cls,
-        campaign: str,
-        name: str,
-        buildings: BuildingsCount,
-    ) -> "City":
-        """
-        Create a `City` instance from a count of buildings. The count must be a dictionary with building IDs as keys
-        and the quantity of each building type as values.
-        
-        This method expands the building counts into actual `Building` objects and initializes a new city with them.
-        This implies that you can pass 0-count buildings and they will automatically be ignored.
-        
-        Args:
-            campaign (str): the campaign identifier the city belongs to.
-            name (str): the name of the city.
-            buildings (BuildingsCount): a dictionary mapping building IDs to quantities.
-        
-        Returns:
-            City: a new `City` instance populated with the given buildings.
-        """
-        city_buildings: list[Building] = []
-        
-        for id, qty in buildings.items():
-            for _ in range(qty):
-                city_buildings.append(Building(id = id))
-        
-        return cls(
-            campaign = campaign,
-            name = name,
-            buildings = city_buildings,
-        )
-    
-    
-    #* Validate city buildings
-    def _add_supply_dump_to_buildings(self) -> None:
-        if not self.has_supply_dump:
-            return
-        
-        if self.has_building(id = "supply_dump"):
-            return
-        
-        self.buildings.append(Building(id = "supply_dump"))
-    
     #* Effect bonuses
     def _get_city_effects(self) -> EffectBonuses:
-        """
-        Finds the city supplied by the user in the directory of cities and returns its effects.
-        """
-        for city in CITIES:
-            if (
-                city["campaign"] == self.campaign
-                and city["name"] == self.name
-            ):
-                return EffectBonuses(**city["effects"])
-        
-        return EffectBonuses()
+        return EffectBonuses(**self._city_data["effects"])
     
     def _calculate_building_effects(self) -> EffectBonuses:
         """
@@ -583,13 +517,13 @@ class City:
     
     #* Storage capacity
     def _calculate_city_storage(self) -> ResourceCollection:
-        return self._get_hall().storage_capacity
+        return self.hall.storage_capacity
     
     def _calculate_buildings_storage(self) -> ResourceCollection:
         buildings_storage: ResourceCollection = ResourceCollection()
         
         for building in self.buildings:
-            if building.id not in [*self.POSSIBLE_CITY_HALLS, "warehouse", "supply_dump"]:
+            if building.id not in [*City.POSSIBLE_CITY_HALLS, "warehouse", "supply_dump"]:
                 buildings_storage.food += building.storage_capacity.food
                 buildings_storage.ore += building.storage_capacity.ore
                 buildings_storage.wood += building.storage_capacity.wood
@@ -603,7 +537,7 @@ class City:
         return ResourceCollection()
     
     def _calculate_supply_dump_storage(self) -> ResourceCollection:
-        if self.has_building(id = "supply_dump"):
+        if self.has_supply_dump:
             return self.get_building(id = "supply_dump").storage_capacity
         
         return ResourceCollection()
@@ -636,16 +570,9 @@ class City:
         return total_storage
     
     
-    #* Defenses
+    #* City defenses
     def _get_garrison(self) -> str:
-        for city in CITIES:
-            if (
-                city["campaign"] == self.campaign
-                and city["name"] == self.name
-            ):
-                return city["garrison"]
-        
-        raise NoGarrisonFoundError(f"No garrison found for {self.campaign} - {self.name}")
+        return self._city_data["garrison"]
     
     def _calculate_garrison_size(self) -> int:
         if self.is_fort:
@@ -684,7 +611,11 @@ class City:
     
     #* City focus
     def _find_city_focus(self) -> Resource | None:
-        highest_balance: int = max(self.production.balance.food, self.production.balance.ore, self.production.balance.wood)
+        highest_balance: int = max(
+            self.production.balance.food,
+            self.production.balance.ore,
+            self.production.balance.wood
+        )
         
         if highest_balance < 0:
             return None
@@ -697,49 +628,40 @@ class City:
         return Resource(value = rss_with_highest_balance[0])
     
     
-    def __post_init__(self) -> None:
-        #* Fetch data
-        self.resource_potentials = self._get_rss_potentials()
-        self.geo_features = self._get_geo_features()
+    #* Alternative city creator methods
+    @classmethod
+    def from_buildings_count(
+        cls,
+        campaign: str,
+        name: str,
+        buildings: BuildingsCount,
+    ) -> "City":
+        """
+        Create a `City` instance from a count of buildings. The count must be a dictionary with building IDs as keys
+        and the quantity of each building type as values.
         
-        #* Validate city
-        self.is_fort = self._is_fort()
-        self._add_fort_to_buildings()
+        This method expands the building counts into actual `Building` objects and initializes a new city with them.
+        This implies that you can pass 0-count buildings and they will automatically be ignored.
         
-        self._validate_halls()
+        Args:
+            campaign (str): the campaign identifier the city belongs to.
+            name (str): the name of the city.
+            buildings (BuildingsCount): a dictionary mapping building IDs to quantities.
         
-        self.has_supply_dump = self._has_supply_dump()
-        self._add_supply_dump_to_buildings()
+        Returns:
+            City: a new `City` instance populated with the given buildings.
+        """
+        city_buildings: list[Building] = []
         
-        self._validate_number_of_buildings()
+        for id, qty in buildings.items():
+            for _ in range(qty):
+                city_buildings.append(Building(id = id))
         
-        #* Effect bonuses
-        self.effects.city = self._get_city_effects()
-        self.effects.buildings = self._calculate_building_effects()
-        self.effects.workers = self._calculate_worker_effects()
-        self.effects.total = self._calculate_total_effects()
-        
-        #* Production
-        self.production.base = self._calculate_base_production()
-        self.production.productivity_bonuses = self._calculate_productivity_bonuses()
-        self.production.total = self._calculate_total_production()
-        self.production.maintenance_costs = self._calculate_maintenance_costs()
-        self.production.balance = self._calculate_production_balance()
-        
-        #* Storage
-        self.storage.city = self._calculate_city_storage()
-        self.storage.buildings = self._calculate_buildings_storage()
-        self.storage.warehouse = self._calculate_warehouse_storage()
-        self.storage.supply_dump = self._calculate_supply_dump_storage()
-        self.storage.total = self._calculate_total_storage_capacity()
-        
-        #* Defenses
-        self.defenses.garrison = self._get_garrison()
-        self.defenses.squadrons = self._calculate_garrison_size()
-        self.defenses.squadron_size = self._calculate_squadron_size()
-        
-        #* Focus
-        self.focus = self._find_city_focus()
+        return cls(
+            campaign = campaign,
+            name = name,
+            buildings = city_buildings,
+        )
     
     
     def get_building(self, id: str) -> Building:
