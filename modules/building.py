@@ -255,6 +255,7 @@ class Building:
         self.workers = qty
     
     
+    #* Formatters
     @staticmethod
     def _format_building(text: str) -> str:
         return f"[italic bold bright_cyan]Building[/italic bold bright_cyan](" \
