@@ -150,7 +150,8 @@ class City:
     instantiation.
     
     Class Variables:
-        POSSIBLE_CITY_HALLS (ClassVar[set[str]]): A set of building IDs that are recognized as city halls.
+        POSSIBLE_HALLS (ClassVar[set[str]]): A set of building IDs that are recognized as city halls.
+        POSSIBLE_GUILDS (ClassVar[set[str]]): A set of building IDs that are recognized as guilds.
         MAX_BUILDINGS (ClassVar[BuildingsCount]): A dictionary mapping each hall type to the maximum number of non-hall
             buildings it can support.
         MAX_WORKERS (ClassVar[BuildingsCount]): A dictionary mapping each hall type to the maximum number of workers it
@@ -170,7 +171,7 @@ class City:
         TooManyBuildingsError: If the number of buildings exceeds the limit for the city's hall.
     """
     
-    # Set of possible halls and guilds
+    # Set of possible halls and guilds.
     POSSIBLE_HALLS: ClassVar[set[str]] = {"fort", "village_hall", "town_hall", "city_hall"}
     POSSIBLE_GUILDS: ClassVar[set[str]] = {"farmers_guild", "carpenters_guild", "miners_guild"}
     
