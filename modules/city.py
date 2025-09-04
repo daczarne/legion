@@ -37,7 +37,7 @@ from rich.style import Style
 from rich.table import Table
 from rich.text import Text
 
-from .building import Building, BuildingsCount
+from .building import Building, BuildingsCount, _BUILDINGS
 from .display import DisplayConfiguration, DisplaySectionConfiguration, DEFAULT_SECTION_COLORS
 from .effects import EffectBonusesData, EffectBonuses
 from .exceptions import (
@@ -359,6 +359,125 @@ class City:
         
         raise NoCityHallError(f"City must include a hall (Village, Town, or City).")
     
+    def _calculate_allowed_building_counts(self) -> BuildingsCount:
+        if self.is_fort:
+            allowed_counts: BuildingsCount = {building_id: 0 for building_id in _BUILDINGS}
+            allowed_counts["fort"] = 1
+            return allowed_counts
+        
+        basic_production_buildings: list[str] = [
+            "farm",
+            "large_farm",
+            "mine",
+            "large_mine",
+            "lumber_mill",
+            "large_lumber_mill",
+        ]
+        
+        buildings_that_require_town_hall: list[str] = [
+            "city_hall",
+            "bath_house",
+            "hospital",
+            "vineyard",
+            "training_ground",
+            "bordello",
+            "gladiator_school",
+            "medium_fort",
+            "barracks",
+            "temple",
+        ]
+        
+        buildings_that_require_city_hall: list[str] = [
+            "large_fort",
+            "quartermaster",
+            "basilica",
+            "imperial_residence",
+            "farmers_guild",
+            "carpenters_guild",
+            "miners_guild",
+        ]
+        
+        allowed_counts: BuildingsCount = {building_id: 1 for building_id in _BUILDINGS}
+        
+        total_spots: int = City.MAX_BUILDINGS[self.hall.id]
+        
+        pre_occupied_spots: int = self.geo_features.lakes \
+            + self.geo_features.rock_outcrops \
+            + self.geo_features.mountains
+        
+        if self.has_supply_dump:
+            pre_occupied_spots += 1
+        
+        for building_id in _BUILDINGS:
+            
+            # Cities that are not forts, cannot build the fort
+            if building_id == "fort":
+                allowed_counts[building_id] = 0
+            
+            if building_id == "hunters_lodge":
+                
+                if self.hall not in ["village_hall", "town_hall"]:
+                    allowed_counts[building_id] = 0
+                    continue
+                
+                if not (
+                    self.resource_potentials.food > 0
+                    and self.resource_potentials.ore > 0
+                    and self.resource_potentials.wood > 0
+                ):
+                    allowed_counts[building_id] = 0
+                    continue
+                
+                allowed_counts[building_id] = total_spots - pre_occupied_spots
+            
+            # Supply dumps are available in only three cities. There's only one per city and they are either there from
+            # the start or they are not. They cannot be deleted.
+            if building_id == "supply_dump":
+                if not self.has_supply_dump:
+                    allowed_counts[building_id] = 0
+            
+            # We start by assuming that basic production buildings can build as many as there are building slots
+            # available in that city. This is determined by the hall minus the pre_occupied_spots.
+            if building_id in basic_production_buildings:
+                allowed_counts[building_id] = total_spots - pre_occupied_spots
+            
+            # Adjustments for geo features
+            if building_id == "fishing_village":
+                allowed_counts[building_id] = self.geo_features.lakes
+            
+            if building_id == "outcrop_mine":
+                allowed_counts[building_id] = self.geo_features.rock_outcrops
+            
+            if building_id == "mountain_mine":
+                allowed_counts[building_id] = self.geo_features.mountains
+            
+            if building_id in ["forest", "hidden_grove"]:
+                allowed_counts[building_id] = self.geo_features.forests
+            
+            # Adjustments for resource production potentials
+            if building_id in ["farm", "large_farm", "vineyard", "fishing_village", "farmers_guild", "stables"]:
+                if self.resource_potentials.food == 0:
+                    allowed_counts[building_id] = 0
+            
+            if building_id in ["mine", "large_mine", "outcrop_mine", "mountain_mine", "miners_guild", "blacksmith"]:
+                if self.resource_potentials.ore == 0:
+                    allowed_counts[building_id] = 0
+            
+            if building_id in ["lumber_mill", "large_lumber_mill", "carpenters_guild", "fletcher"]:
+                if self.resource_potentials.wood == 0:
+                    allowed_counts[building_id] = 0
+            
+            # Adjustments for hall level
+            if building_id in [*buildings_that_require_town_hall, *buildings_that_require_city_hall]:
+                if self.hall.id in ["fort", "village_hall"]:
+                    allowed_counts[building_id] = 0
+            
+            if building_id in buildings_that_require_city_hall:
+                if self.hall.id in ["fort", "village_hall", "town_hall"]:
+                    allowed_counts[building_id] = 0
+        
+        return allowed_counts
+    
     def _validate_number_of_buildings(self) -> None:
         number_of_declared_buildings: int = len(self.buildings)
         max_number_of_buildings_in_city: int = City.MAX_BUILDINGS[self.hall.id]
@@ -375,6 +494,16 @@ class City:
                 f"{number_of_declared_buildings} provided, "
                 f"max of {max_number_of_buildings_in_city + 1} possible ({max_number_of_buildings_in_city} + hall)."
             )
+        
+        allowed_building_counts: BuildingsCount = self._calculate_allowed_building_counts()
+        current_building_counts: BuildingsCount = self.get_buildings_count(by = "id")
+        
+        for building_id, current_count in current_building_counts.items():
+            if current_count > allowed_building_counts[building_id]:
+                raise TooManyBuildingsError(
+                    f"Too many buildings of type \"{building_id}\". "
+                    f"Allowed {allowed_building_counts[building_id]}, but found {current_count}."
+                )
     
     
     #* Effect bonuses
