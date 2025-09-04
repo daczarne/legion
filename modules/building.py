@@ -123,13 +123,13 @@ class Building:
         is_upgradeable (bool): Whether the building can be upgraded.
         required_geo (GeoFeature | None): Required geographic feature, if any. For example, building a Mountain mine
             requires that the city where it is being built has a mountain.
-        required_rss (Resource | None): Required resource, if any. For example, building Farms requires that the city
+        required_rss list[Resource]: Required resource, if any. For example, building Farms requires that the city
             has production potential for food production.
-        required_building (list[str]): List of possible prerequisite buildings (OR condition).
+        required_building (list[str]): List of possible pre-requisite buildings (OR condition).
         replaces (str | None): Identifier of the building this one replaces.
     """
     id: str = field(init = True, repr = True, compare = True, hash = True)
-    workers: int = field(default = 0, repr = False, compare = False, hash = False)
+    workers: int = field(init = True, default = 0, repr = False, compare = False, hash = False)
     
     name: str = field(init = False, repr = False, compare = False, hash = False)
     building_cost: ResourceCollection = field(init = False, repr = False, compare = False, hash = False)
@@ -255,20 +255,52 @@ class Building:
         self.workers = qty
     
     
-    #* Display building
+    #* Formatters
     @staticmethod
     def _format_building(text: str) -> str:
         return f"[italic bold bright_cyan]Building[/italic bold bright_cyan](" \
             f"[italic dim]id = [/italic dim][yellow]\"{text}\"[/yellow])"
     
     @staticmethod
+    def _format_string(text: str) -> str:
+        return f"[yellow]{text}[/yellow]"
+    
+    @staticmethod
     def _format_rss(text: str) -> str:
         return f"[italic bold bright_cyan]Resource[/italic bold bright_cyan].{text}"
+    
+    @staticmethod
+    def _format_geo(text: str) -> str:
+        return f"[italic bold bright_cyan]GeoFeature[/italic bold bright_cyan].{text}"
+    
+    @staticmethod
+    def _format_resource_collection(collection: ResourceCollection) -> str:
+        text: str = f"[italic bold bright_cyan]ResourceCollection[/italic bold bright_cyan](" \
+            f"[italic dim]food = [/italic dim]{collection.food}, " \
+            f"[italic dim]ore = [/italic dim]{collection.ore}, " \
+            f"[italic dim]wood = [/italic dim]{collection.wood}" \
+            f")"
+        return text
+    
+    @staticmethod
+    def _format_effect_bonuses(bonuses: EffectBonuses) -> str:
+        text: str = f"[italic bold bright_cyan]EffectBonuses[/italic bold bright_cyan](" \
+            f"[italic dim]troop_training = [/italic dim]{bonuses.troop_training}, " \
+            f"[italic dim]population_growth = [/italic dim]{bonuses.population_growth}, " \
+            f"[italic dim]intelligence = [/italic dim]{bonuses.intelligence}" \
+            f")"
+        return text
+    
+    @staticmethod
+    def _format_scalar(scalar: int | float | bool) -> str:
+        return f"[dark_magenta]{scalar}[/dark_magenta]"
     
     @staticmethod
     def _format_none() -> str:
         return f"[italic dim dark_magenta]None[/italic dim dark_magenta]"
     
+    
+    #* Display building
     def _building_information(self) -> Text:
         text: Text = Text(
             text = f" Building(id = \"{self.id}\") ",
@@ -278,98 +310,56 @@ class Building:
         return text
     
     def _building_name(self) -> str:
-        text: str = f"[bold]Name:[/bold] " \
-            f"[yellow]{self.name}[/yellow]"
-        return text
+        return f"[bold]Name:[/bold] {Building._format_string(text = self.name)}"
     
     def _building_building_costs(self) -> str:
-        text: str = f"[bold]Building costs:[/bold] " \
-            f"[italic bold bright_cyan]ResourceCollection[/italic bold bright_cyan](" \
-            f"[italic dim]food = [/italic dim]{self.building_cost.food}, " \
-            f"[italic dim]ore = [/italic dim]{self.building_cost.ore}, " \
-            f"[italic dim]wood = [/italic dim]{self.building_cost.wood}" \
-            f")"
-        return text
+        return f"[bold]Building costs:[/bold] " \
+            f"{Building._format_resource_collection(collection = self.building_cost)}"
     
     def _building_maintenance_costs(self) -> str:
-        text: str = f"[bold]Maintenance costs:[/bold] " \
-            f"[italic bold bright_cyan]ResourceCollection[/italic bold bright_cyan](" \
-            f"[italic dim]food = [/italic dim]{self.maintenance_cost.food}, " \
-            f"[italic dim]ore = [/italic dim]{self.maintenance_cost.ore}, " \
-            f"[italic dim]wood = [/italic dim]{self.maintenance_cost.wood}" \
-            f")"
-        return text
+        return f"[bold]Maintenance costs:[/bold] " \
+            f"{Building._format_resource_collection(collection = self.maintenance_cost)}"
     
     def _building_productivity_bonuses(self) -> str:
-        text: str = f"[bold]Productivity bonuses:[/bold] " \
-            f"[italic bold bright_cyan]ResourceCollection[/italic bold bright_cyan](" \
-            f"[italic dim]food = [/italic dim]{self.productivity_bonuses.food}, " \
-            f"[italic dim]ore = [/italic dim]{self.productivity_bonuses.ore}, " \
-            f"[italic dim]wood = [/italic dim]{self.productivity_bonuses.wood}" \
-            f")"
-        return text
+        return f"[bold]Productivity bonuses:[/bold] " \
+            f"{Building._format_resource_collection(collection = self.productivity_bonuses)}"
     
     def _building_productivity_per_worker(self) -> str:
-        text: str = f"[bold]Productivity per worker:[/bold] " \
-            f"[italic bold bright_cyan]ResourceCollection[/italic bold bright_cyan](" \
-            f"[italic dim]food = [/italic dim]{self.productivity_per_worker.food}, " \
-            f"[italic dim]ore = [/italic dim]{self.productivity_per_worker.ore}, " \
-            f"[italic dim]wood = [/italic dim]{self.productivity_per_worker.wood}" \
-            f")"
-        return text
+        return f"[bold]Productivity per worker:[/bold] " \
+            f"{Building._format_resource_collection(collection = self.productivity_per_worker)}"
     
     def _building_effect_bonuses(self) -> str:
-        text: str = f"[bold]Effect bonuses:[/bold] " \
-            f"[italic bold bright_cyan]EffectBonuses[/italic bold bright_cyan](" \
-            f"[italic dim]troop_training = [/italic dim]{self.effect_bonuses.troop_training}, " \
-            f"[italic dim]population_growth = [/italic dim]{self.effect_bonuses.population_growth}, " \
-            f"[italic dim]intelligence = [/italic dim]{self.effect_bonuses.intelligence}" \
-            f")"
-        return text
+        return f"[bold]Effect bonuses:[/bold] " \
+            f"{Building._format_effect_bonuses(self.effect_bonuses)}"
     
     def _building_effect_bonuses_per_worker(self) -> str:
-        text: str = f"[bold]Effect bonuses per worker:[/bold] " \
-            f"[italic bold bright_cyan]EffectBonuses[/italic bold bright_cyan](" \
-            f"[italic dim]troop_training = [/italic dim]{self.effect_bonuses_per_worker.troop_training}, " \
-            f"[italic dim]population_growth = [/italic dim]{self.effect_bonuses_per_worker.population_growth}, " \
-            f"[italic dim]intelligence = [/italic dim]{self.effect_bonuses_per_worker.intelligence}" \
-            f")"
-        return text
+        return f"[bold]Effect bonuses per worker:[/bold] " \
+            f"{Building._format_effect_bonuses(self.effect_bonuses_per_worker)}"
     
     def _building_storage_capacity(self) -> str:
-        text: str = f"[bold]Storage capacity:[/bold] " \
-            f"[italic bold bright_cyan]ResourceCollection[/italic bold bright_cyan](" \
-            f"[italic dim]food = [/italic dim]{self.storage_capacity.food}, " \
-            f"[italic dim]ore = [/italic dim]{self.storage_capacity.ore}, " \
-            f"[italic dim]wood = [/italic dim]{self.storage_capacity.wood}" \
-            f")"
-        return text
+        return f"[bold]Storage capacity:[/bold] " \
+            f"{Building._format_resource_collection(collection = self.storage_capacity)}"
     
     def _building_max_workers(self) -> str:
-        text: str = f"[bold]Max. workers:[/bold] " \
-            f"[dark_magenta]{self.max_workers}[/dark_magenta]"
-        return text
+        return f"[bold]Max. workers:[/bold] {Building._format_scalar(scalar = self.max_workers)}"
+    
+    def _building_current_workers(self) -> str:
+        return f"[bold]Current workers:[/bold] {Building._format_scalar(scalar = self.workers)}"
     
     def _building_is_buildable(self) -> str:
-        text: str = f"[bold]Is buildable:[/bold] " \
-            f"[dark_magenta]{self.is_buildable}[/dark_magenta]"
-        return text
+        return f"[bold]Is buildable:[/bold] {Building._format_scalar(scalar = self.is_buildable)}"
     
     def _building_is_deletable(self) -> str:
-        text: str = f"[bold]Is deletable:[/bold] " \
-            f"[dark_magenta]{self.is_deletable}[/dark_magenta]"
-        return text
+        return f"[bold]Is deletable:[/bold] {Building._format_scalar(scalar = self.is_deletable)}"
     
     def _building_is_upgradeable(self) -> str:
-        text: str = f"[bold]Is upgradeable:[/bold] " \
-            f"[dark_magenta]{self.is_upgradeable}[/dark_magenta]"
-        return text
+        return f"[bold]Is upgradeable:[/bold] {Building._format_scalar(scalar = self.is_upgradeable)}"
     
     def _building_required_geo(self) -> str:
         text: str = f"[bold]Required geo. feature:[/bold] "
         
         if self.required_geo:
-            text += f"[italic bold bright_cyan]GeoFeature[/italic bold bright_cyan].{self.required_geo.name}"
+            text += f"{Building._format_geo(self.required_geo.name)}"
         else:
             text += Building._format_none()
         
@@ -383,7 +373,6 @@ class Building:
         
         lines: list[str] = []
         
-        # for idx, group in enumerate(self.required_rss):
         for idx, rss in enumerate(self.required_rss):
             transformed: str = Building._format_rss(text = rss.name)
             line: str = transformed if idx == 0 else f"[italic dim]AND[/italic dim] {transformed}"
@@ -414,11 +403,6 @@ class Building:
     def _building_replaces(self) -> str:
         text: str = f"[bold]Replaces:[/bold] "
         return text + (Building._format_building(text = self.replaces) if self.replaces else Building._format_none())
-    
-    def _building_current_workers(self) -> str:
-        text: str = f"[bold]Current workers:[/bold] " \
-            f"[dark_magenta]{self.workers}[/dark_magenta]"
-        return text
     
     def _build_building_display(self) -> Panel:
         #* Heights
