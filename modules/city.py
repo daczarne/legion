@@ -23,7 +23,6 @@ Internal objects (not part of the public API):
 - _CityEffectBonuses, _CityProduction, _CityStorage, _CityDefenses: helper dataclasses for modeling city internals.
 """
 
-import re
 import yaml
 
 from dataclasses import dataclass, field
@@ -38,7 +37,7 @@ from rich.style import Style
 from rich.table import Table
 from rich.text import Text
 
-from .building import Building, BuildingsCount, _BUILDINGS
+from .building import Building, BuildingsCount
 from .display import DisplayConfiguration, DisplaySectionConfiguration, DEFAULT_SECTION_COLORS
 from .effects import EffectBonusesData, EffectBonuses
 from .exceptions import (
@@ -142,10 +141,10 @@ class _CityDefenses:
 class City:
     
     # Set of possible halls
-    PossibleCityHalls: set[str] = {"fort", "village_hall", "town_hall", "city_hall"}
+    POSSIBLE_CITY_HALLS: ClassVar[set[str]] = {"fort", "village_hall", "town_hall", "city_hall"}
     
     # The maximum number of buildings a city can have, not counting the hall itself.
-    MaximumBuildingsPerCity: BuildingsCount = {
+    MAX_BUILDINGS: ClassVar[BuildingsCount] = {
         "fort": 0,
         "village_hall": 4,
         "town_hall": 6,
@@ -153,7 +152,7 @@ class City:
     }
     
     # The maximum number of workers a city can have.
-    MaximumWorkers: BuildingsCount = {
+    MAX_WORKERS: ClassVar[BuildingsCount] = {
         "fort": 0,
         "village_hall": 10,
         "town_hall": 14,
@@ -272,7 +271,7 @@ class City:
         halls: BuildingsCount = {}
         
         for building in self.buildings:
-            if building.id not in City.PossibleCityHalls:
+            if building.id not in City.POSSIBLE_CITY_HALLS:
                 continue
             
             if building.id in halls:
@@ -291,7 +290,7 @@ class City:
     
     def _get_hall(self) -> Building:
         for building in self.buildings:
-            if building.id not in City.PossibleCityHalls:
+            if building.id not in City.POSSIBLE_CITY_HALLS:
                 continue
             
             return building
@@ -300,7 +299,7 @@ class City:
     
     def _validate_number_of_buildings(self) -> None:
         number_of_declared_buildings: int = len(self.buildings)
-        max_number_of_buildings_in_city: int = City.MaximumBuildingsPerCity[self.hall.id]
+        max_number_of_buildings_in_city: int = City.MAX_BUILDINGS[self.hall.id]
         
         if number_of_declared_buildings > max_number_of_buildings_in_city + 1:
             
@@ -462,7 +461,7 @@ class City:
         buildings_storage: ResourceCollection = ResourceCollection()
         
         for building in self.buildings:
-            if building.id not in [*City.PossibleCityHalls, "warehouse", "supply_dump"]:
+            if building.id not in [*City.POSSIBLE_CITY_HALLS, "warehouse", "supply_dump"]:
                 buildings_storage.food += building.storage_capacity.food
                 buildings_storage.ore += building.storage_capacity.ore
                 buildings_storage.wood += building.storage_capacity.wood
