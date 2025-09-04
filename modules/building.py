@@ -284,6 +284,10 @@ class Building:
         return text
     
     @staticmethod
+    def _format_scalar(scalar: int | float | bool) -> str:
+        return f"[dark_magenta]{scalar}[/dark_magenta]"
+    
+    @staticmethod
     def _format_none() -> str:
         return f"[italic dim dark_magenta]None[/italic dim dark_magenta]"
     
@@ -329,29 +333,19 @@ class Building:
             f"{Building._format_resource_collection(collection = self.storage_capacity)}"
     
     def _building_max_workers(self) -> str:
-        text: str = f"[bold]Max. workers:[/bold] " \
-            f"[dark_magenta]{self.max_workers}[/dark_magenta]"
-        return text
+        return f"[bold]Max. workers:[/bold] {Building._format_scalar(scalar = self.max_workers)}"
     
     def _building_current_workers(self) -> str:
-        text: str = f"[bold]Current workers:[/bold] " \
-            f"[dark_magenta]{self.workers}[/dark_magenta]"
-        return text
+        return f"[bold]Current workers:[/bold] {Building._format_scalar(scalar = self.workers)}"
     
     def _building_is_buildable(self) -> str:
-        text: str = f"[bold]Is buildable:[/bold] " \
-            f"[dark_magenta]{self.is_buildable}[/dark_magenta]"
-        return text
+        return f"[bold]Is buildable:[/bold] {Building._format_scalar(scalar = self.is_buildable)}"
     
     def _building_is_deletable(self) -> str:
-        text: str = f"[bold]Is deletable:[/bold] " \
-            f"[dark_magenta]{self.is_deletable}[/dark_magenta]"
-        return text
+        return f"[bold]Is deletable:[/bold] {Building._format_scalar(scalar = self.is_deletable)}"
     
     def _building_is_upgradeable(self) -> str:
-        text: str = f"[bold]Is upgradeable:[/bold] " \
-            f"[dark_magenta]{self.is_upgradeable}[/dark_magenta]"
-        return text
+        return f"[bold]Is upgradeable:[/bold] {Building._format_scalar(scalar = self.is_upgradeable)}"
     
     def _building_required_geo(self) -> str:
         text: str = f"[bold]Required geo. feature:[/bold] "
@@ -371,7 +365,6 @@ class Building:
         
         lines: list[str] = []
         
-        # for idx, group in enumerate(self.required_rss):
         for idx, rss in enumerate(self.required_rss):
             transformed: str = Building._format_rss(text = rss.name)
             line: str = transformed if idx == 0 else f"[italic dim]AND[/italic dim] {transformed}"
