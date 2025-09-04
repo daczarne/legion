@@ -148,7 +148,7 @@ class City:
     instantiation.
     
     Class Variables:
-        POSSIBLE_CITY_HALLS (ClassVar[set[str]]): A set of building IDs that are recognized as city halls.
+        POSSIBLE_HALLS (ClassVar[set[str]]): A set of building IDs that are recognized as city halls.
         MAX_BUILDINGS (ClassVar[BuildingsCount]): A dictionary mapping each hall type to the maximum number of non-hall
             buildings it can support.
         MAX_WORKERS (ClassVar[BuildingsCount]): A dictionary mapping each hall type to the maximum number of workers it
@@ -165,11 +165,12 @@ class City:
         MoreThanOneHallTypeError: If the city contains more than one type of hall.
         TooManyHallsError: If the city contains multiple halls of the same type.
         FortsCannotHaveBuildingsError: If a "fort" is instantiated with buildings.
-        TooManyBuildingsError: If the number of buildings exceeds the limit for the city's hall.
+        TooManyBuildingsError: If the number of buildings exceeds the limit for the city.
+        MoreThanOneGuildTypeError: If the number of guilds exceeds 1.
     """
     
-    # Set of possible halls
-    POSSIBLE_CITY_HALLS: ClassVar[set[str]] = {"fort", "village_hall", "town_hall", "city_hall"}
+    # Set of possible halls and guilds.
+    POSSIBLE_HALLS: ClassVar[set[str]] = {"fort", "village_hall", "town_hall", "city_hall"}
     
     # The maximum number of buildings a city can have, not counting the hall itself.
     MAX_BUILDINGS: ClassVar[BuildingsCount] = {
@@ -188,6 +189,7 @@ class City:
     }
     
     __match_args__: ClassVar[tuple[str, str]] = ("campaign", "name")
+    
     
     def __init__(
             self,
@@ -250,11 +252,18 @@ class City:
         self.focus: Resource | None = self._find_city_focus()
     
     
-    def __repr__(self) -> str:
-        return (f"City(campaign = \"{self.campaign}\", name = \"{self.name}\"")
+    def __hash__(self) -> int:
+        return hash((self.campaign, self.name))
     
-    def __str__(self) -> str:
-        return f"{self.campaign} - {self.name}"
+    def __bool__(self) -> bool:
+        return True
+    
+    def __contains__(self, building_id: str) -> bool:
+        for building in self.buildings:
+            if building.id == building_id:
+                return True
+        
+        return False
     
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, City):
@@ -262,24 +271,11 @@ class City:
         
         return self.campaign == other.campaign and self.name == other.name
     
-    def __hash__(self) -> int:
-        return hash((self.campaign, self.name))
+    def __repr__(self) -> str:
+        return (f"City(campaign = \"{self.campaign}\", name = \"{self.name}\"")
     
-    def __bool__(self) -> bool:
-        """
-        Returns True if the city is in a valid state. A City object, once instantiated, is considered valid.
-        """
-        return True
-    
-    def __contains__(self, building_id: str) -> bool:
-        """
-        Checks if a building with a given ID is present in the city. Enables the `in` operator (e.g., `"fort" in city`).
-        """
-        for building in self.buildings:
-            if building.id == building_id:
-                return True
-        
-        return False
+    def __str__(self) -> str:
+        return f"{self.campaign} - {self.name}"
     
     
     #* Init and validation helpers
@@ -335,7 +331,7 @@ class City:
         halls: BuildingsCount = {}
         
         for building in self.buildings:
-            if building.id not in City.POSSIBLE_CITY_HALLS:
+            if building.id not in City.POSSIBLE_HALLS:
                 continue
             
             if building.id in halls:
@@ -354,7 +350,7 @@ class City:
     
     def _get_hall(self) -> Building:
         for building in self.buildings:
-            if building.id not in City.POSSIBLE_CITY_HALLS:
+            if building.id not in City.POSSIBLE_HALLS:
                 continue
             
             return building
@@ -661,7 +657,7 @@ class City:
         buildings_storage: ResourceCollection = ResourceCollection()
         
         for building in self.buildings:
-            if building.id not in [*City.POSSIBLE_CITY_HALLS, "warehouse", "supply_dump"]:
+            if building.id not in [*City.POSSIBLE_HALLS, "warehouse", "supply_dump"]:
                 buildings_storage.food += building.storage_capacity.food
                 buildings_storage.ore += building.storage_capacity.ore
                 buildings_storage.wood += building.storage_capacity.wood
