@@ -342,7 +342,7 @@ class TestBuilding:
         assert city_hall.required_geo is None
         assert len(city_hall.required_rss) == 0
         assert city_hall.required_hall == "town_hall"
-        assert city_hall.required_building == []
+        assert city_hall.required_building == ["town_hall"]
         assert city_hall.replaces == "town_hall"
         assert city_hall.workers == 0
     
