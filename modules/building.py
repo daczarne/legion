@@ -393,10 +393,10 @@ class Building:
         
         lines: list[str] = []
         
-        for idx, group in enumerate(self.required_building):
-            prefix: str = "" if idx == 0 else "               [italic dim]OR:[/italic dim] "
-            transformed: list[str] = [Building._format_building(text = element) for element in group]
-            line: str = prefix + " [italic dim]AND[/italic dim] ".join(transformed)
+        for index, building in enumerate(self.required_building):
+            formatted: str = Building._format_building(text = building)
+            conjunction: str = "" if index == 0 else "                [italic dim]OR[/italic dim] "
+            line: str = conjunction + formatted
             lines.append(line)
         
         text += "\n".join(lines)

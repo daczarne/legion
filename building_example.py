@@ -21,6 +21,16 @@ stables.display_building()
 
 print()
 
+blacksmith: Building = Building(id = "blacksmith")
+blacksmith.display_building()
+
+print()
+
+fletcher: Building = Building(id = "fletcher")
+fletcher.display_building()
+
+print()
+
 carpenters_guild: Building = Building(id = "carpenters_guild")
 carpenters_guild.display_building()
 

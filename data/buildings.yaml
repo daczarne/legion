@@ -78,7 +78,8 @@ buildings:
     required_geo: null
     required_rss: []
     required_hall: village_hall
-    required_building: []
+    required_building:
+      - village_hall
     replaces: village_hall
   - id: city_hall
     name: City hall
@@ -117,7 +118,8 @@ buildings:
     required_geo: null
     required_rss: []
     required_hall: town_hall
-    required_building: []
+    required_building:
+      - town_hall
     replaces: town_hall
   - id: fort
     name: Fort
