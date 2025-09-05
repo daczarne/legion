@@ -602,9 +602,9 @@ class City:
         worker_effects: EffectBonuses = EffectBonuses()
         
         for building in self.buildings:
-            worker_effects.troop_training += building.effect_bonuses_per_worker.troop_training * building.max_workers
-            worker_effects.population_growth += building.effect_bonuses_per_worker.population_growth * building.max_workers
-            worker_effects.intelligence += building.effect_bonuses_per_worker.intelligence * building.max_workers
+            worker_effects.troop_training += building.effect_bonuses_per_worker.troop_training * building.workers
+            worker_effects.population_growth += building.effect_bonuses_per_worker.population_growth * building.workers
+            worker_effects.intelligence += building.effect_bonuses_per_worker.intelligence * building.workers
         
         return worker_effects
     
@@ -648,7 +648,6 @@ class City:
         for building in self.buildings:
             
             productivity_per_worker: ResourceCollection = building.productivity_per_worker
-            max_workers: int = building.max_workers
             
             # Production per worker
             prod_per_worker_food: int = int(floor(productivity_per_worker.food * self.resource_potentials.food / 100.0))
@@ -656,9 +655,9 @@ class City:
             prod_per_worker_wood: int = int(floor(productivity_per_worker.wood * self.resource_potentials.wood / 100.0))
             
             # Base production
-            base_production_food: int = prod_per_worker_food * max_workers
-            base_production_ore: int = prod_per_worker_ore * max_workers
-            base_production_wood: int = prod_per_worker_wood * max_workers
+            base_production_food: int = prod_per_worker_food * building.workers
+            base_production_ore: int = prod_per_worker_ore * building.workers
+            base_production_wood: int = prod_per_worker_wood * building.workers
             
             base_production.food += base_production_food
             base_production.ore += base_production_ore

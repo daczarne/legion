@@ -27,7 +27,7 @@ city: City = City.from_buildings_count(
     buildings = food_producer,
 )
 
-# city.display_city()
+city.display_city()
 
 user_selected_strategy: str = "production"
 
