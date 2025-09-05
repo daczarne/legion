@@ -74,6 +74,7 @@ class _BuildingData(TypedDict):
     required_rss: list[str]
     required_hall: str | None
     required_building: list[str]
+    blocked_by_building: list[str]
     replaces: str | None
 
 with open(file = "./data/buildings.yaml", mode = "r") as file:
@@ -152,6 +153,7 @@ class Building:
     # has any one of them it can build a Stable. Similarly, a Blacksmith requires either a Mine, or a Large Mine, or a
     # Mountain Mine, or an Outcrop Mine. If a building has no dependencies the list will be empty.
     required_building: list[str] = field(init = False, default_factory = list, repr = False, compare = False, hash = False)
+    blocked_by_building: list[str] = field(init = False, default_factory = list, repr = False, compare = False, hash = False)
     replaces: str | None = field(init = False, default = None, repr = False, compare = False, hash = False)
     
     
@@ -186,6 +188,7 @@ class Building:
         self.required_rss = [Resource(value = rss) for rss in _BUILDINGS[self.id]["required_rss"]]
         self.required_hall = _BUILDINGS[self.id]["required_hall"]
         self.required_building = _BUILDINGS[self.id]["required_building"]
+        self.blocked_by_building = _BUILDINGS[self.id]["blocked_by_building"]
         self.replaces = _BUILDINGS[self.id]["replaces"]
         
         self._validate_initial_number_of_workers()
@@ -403,6 +406,24 @@ class Building:
         
         return text
     
+    def _building_blocked_by_building(self) -> str:
+        text: str = f"[bold]Blocked by building:[/bold] "
+        
+        if len(self.blocked_by_building) == 0:
+            return text + Building._format_none()
+        
+        lines: list[str] = []
+        
+        for index, building in enumerate(self.blocked_by_building):
+            formatted: str = Building._format_building(text = building)
+            conjunction: str = "" if index == 0 else " [italic dim]OR[/italic dim] "
+            line: str = conjunction + formatted
+            lines.append(line)
+        
+        text += "".join(lines)
+        
+        return text
+    
     def _building_replaces(self) -> str:
         text: str = f"[bold]Replaces:[/bold] "
         return text + (Building._format_building(text = self.replaces) if self.replaces else Building._format_none())
@@ -413,7 +434,7 @@ class Building:
         title_height: int = 2
         
         required_building_height: int = max(len(self.required_building), 1)
-        number_of_other_properties_to_print: int = 17
+        number_of_other_properties_to_print: int = 18
         main_height: int = number_of_other_properties_to_print + required_building_height
         
         total_height: int = title_height + main_height
@@ -544,6 +565,12 @@ class Building:
                 visible = True,
             ),
             Layout(
+                name = "blocked_by_building",
+                size = 1,
+                ratio = 0,
+                visible = True,
+            ),
+            Layout(
                 name = "replaces",
                 size = 1,
                 ratio = 0,
@@ -617,6 +644,10 @@ class Building:
         
         layout["required_building"].update(
             renderable = Align(renderable = self._building_required_building(), align = "left")
+        )
+        
+        layout["blocked_by_building"].update(
+            renderable = Align(renderable = self._building_blocked_by_building(), align = "left")
         )
         
         layout["replaces"].update(
