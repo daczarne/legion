@@ -224,6 +224,11 @@ class City:
         self._validate_building_counts()
         self._validate_guilds()
         
+        #* Staff buildings
+        self.available_workers: int = City.MAX_WORKERS[self.hall.id]
+        self.assigned_workers: int = 0
+        self._staff_buildings()
+        
         #* Calculate effects
         self.effects: _CityEffectBonuses = _CityEffectBonuses()
         self.effects.city = self._get_city_effects()
@@ -256,6 +261,44 @@ class City:
         #* City focus
         self.focus: Resource | None = self._find_city_focus()
     
+    
+    def _staff_buildings(self) -> None:
+        production_buildings: list[str] = [
+            "farm",
+            "large_farm",
+            "vineyard",
+            "fishing_village",
+            "mine",
+            "large_mine",
+            "outcrop_mine",
+            "mountain_mine",
+            "lumber_mill",
+            "large_lumber_mill",
+            "hunters_lodge",
+        ]
+        
+        production_buildings_in_city: list[Building] = [
+            building for building in self.buildings if building.id in production_buildings
+        ]
+        non_production_buildings_in_city: list[Building] = [
+            building for building in self.buildings if building.id not in production_buildings
+        ]
+        
+        for building in production_buildings_in_city:
+            while (
+                self.assigned_workers < self.available_workers
+                and building.workers < building.max_workers
+            ):
+                building.add_workers(qty = 1)
+                self.assigned_workers += 1
+        
+        for building in non_production_buildings_in_city:
+            while (
+                self.assigned_workers < self.available_workers
+                and building.workers < building.max_workers
+            ):
+                building.add_workers(qty = 1)
+                self.assigned_workers += 1
     
     def __hash__(self) -> int:
         return hash((self.campaign, self.name))
