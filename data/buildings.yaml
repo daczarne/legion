@@ -38,6 +38,7 @@ buildings:
     is_upgradeable: true
     required_geo: null
     required_rss: []
+    required_hall: null
     required_building: []
     replaces: null
   - id: town_hall
@@ -76,8 +77,8 @@ buildings:
     is_upgradeable: true
     required_geo: null
     required_rss: []
-    required_building:
-      - village_hall
+    required_hall: village_hall
+    required_building: []
     replaces: village_hall
   - id: city_hall
     name: City hall
@@ -115,8 +116,8 @@ buildings:
     is_upgradeable: false
     required_geo: null
     required_rss: []
-    required_building:
-      - town_hall
+    required_hall: town_hall
+    required_building: []
     replaces: town_hall
   - id: fort
     name: Small Fort
@@ -154,6 +155,7 @@ buildings:
     is_upgradeable: false
     required_geo: null
     required_rss: []
+    required_hall: null
     required_building: []
     replaces: null
   # ******************* #
@@ -196,8 +198,8 @@ buildings:
     required_geo: null
     required_rss:
       - food
-    required_building:
-      - village_hall
+    required_hall: village_hall
+    required_building: []
     replaces: null
   - id: large_farm
     name: Large farm
@@ -236,6 +238,7 @@ buildings:
     required_geo: null
     required_rss:
       - food
+    required_hall: village_hall
     required_building:
       - farm
     replaces: farm
@@ -276,8 +279,9 @@ buildings:
     required_geo: null
     required_rss:
       - food
+    required_hall: town_hall
     required_building:
-      - town_hall, farm
+      - farm
     replaces: farm
   - id: fishing_village
     name: Fishing village
@@ -316,8 +320,8 @@ buildings:
     required_geo: lake
     required_rss:
       - food
-    required_building:
-      - village_hall
+    required_hall: village_hall
+    required_building: []
     replaces: null
   - id: farmers_guild
     name: Farmers' guild
@@ -356,8 +360,9 @@ buildings:
     required_geo: null
     required_rss:
       - food
+    required_hall: city_hall
     required_building:
-      - city_hall, large_farm
+      - large_farm
     replaces: null
   # ****************** #
   # * Ore production * #
@@ -399,8 +404,8 @@ buildings:
     required_geo: null
     required_rss:
       - ore
-    required_building:
-      - village_hall
+    required_hall: village_hall
+    required_building: []
     replaces: null
   - id: large_mine
     name: Large mine
@@ -439,6 +444,7 @@ buildings:
     required_geo: null
     required_rss:
       - ore
+    required_hall: village_hall
     required_building:
       - mine
     replaces: mine
@@ -479,8 +485,8 @@ buildings:
     required_geo: outcrop_rock
     required_rss:
       - ore
-    required_building:
-      - village_hall
+    required_hall: village_hall
+    required_building: []
     replaces: null
   - id: mountain_mine
     name: Mountain mine
@@ -519,8 +525,8 @@ buildings:
     required_geo: mountain
     required_rss:
       - ore
-    required_building:
-      - village_hall
+    required_hall: village_hall
+    required_building: []
     replaces: null
   - id: miners_guild
     name: Miners' guild
@@ -559,8 +565,9 @@ buildings:
     required_geo: null
     required_rss:
       - ore
+    required_hall: city_hall
     required_building:
-      - city_hall, large_mine
+      - large_mine
     replaces: null
   # ******************* #
   # * Wood production * #
@@ -602,8 +609,8 @@ buildings:
     required_geo: null
     required_rss:
       - wood
-    required_building:
-      - village_hall
+    required_hall: village_hall
+    required_building: []
     replaces: null
   - id: large_lumber_mill
     name: Large lumber mill
@@ -642,6 +649,7 @@ buildings:
     required_geo: null
     required_rss:
       - wood
+    required_hall: village_hall
     required_building:
       - lumber_mill
     replaces: lumber_mill
@@ -682,8 +690,8 @@ buildings:
     required_geo: forest
     required_rss:
       - wood
-    required_building:
-      - village_hall
+    required_hall: village_hall
+    required_building: []
     replaces: null
   - id: carpenters_guild
     name: Carpenters' guild
@@ -722,8 +730,9 @@ buildings:
     required_geo: null
     required_rss:
       - wood
+    required_hall: city_hall
     required_building:
-      - city_hall, large_lumber_mill
+      - large_lumber_mill
     replaces: null
   # ************ #
   # * Military * #
@@ -764,8 +773,8 @@ buildings:
     is_upgradeable: false
     required_geo: null
     required_rss: []
-    required_building:
-      - town_hall
+    required_hall: town_hall
+    required_building: []
     replaces: null
   - id: gladiator_school
     name: Gladiator school
@@ -803,6 +812,7 @@ buildings:
     is_upgradeable: false
     required_geo: null
     required_rss: []
+    required_hall: town_hall
     required_building:
       - training_ground
     replaces: null
@@ -842,6 +852,7 @@ buildings:
     is_upgradeable: false
     required_geo: null
     required_rss: []
+    required_hall: town_hall
     required_building:
       - training_ground
     replaces: null
@@ -881,6 +892,7 @@ buildings:
     is_upgradeable: false
     required_geo: null
     required_rss: []
+    required_hall: village_hall
     required_building:
       - farm
       - large_farm
@@ -923,6 +935,7 @@ buildings:
     is_upgradeable: false
     required_geo: null
     required_rss: []
+    required_hall: village_hall
     required_building:
       - mine
       - large_mine
@@ -965,6 +978,7 @@ buildings:
     is_upgradeable: false
     required_geo: null
     required_rss: []
+    required_hall: village_hall
     required_building:
       - lumber_mill
       - large_lumber_mill
@@ -1005,8 +1019,8 @@ buildings:
     is_upgradeable: false
     required_geo: null
     required_rss: []
-    required_building:
-      - city_hall
+    required_hall: city_hall
+    required_building: []
     replaces: null
   - id: small_fort
     name: Small fort
@@ -1044,8 +1058,8 @@ buildings:
     is_upgradeable: true
     required_geo: null
     required_rss: []
-    required_building:
-      - village_hall
+    required_hall: village_hall
+    required_building: []
     replaces: null
   - id: medium_fort
     name: Medium fort
@@ -1083,8 +1097,9 @@ buildings:
     is_upgradeable: true
     required_geo: null
     required_rss: []
+    required_hall: town_hall
     required_building:
-      - town_hall, small_fort
+      - small_fort
     replaces: small_fort
   - id: large_fort
     name: Large fort
@@ -1122,8 +1137,9 @@ buildings:
     is_upgradeable: false
     required_geo: null
     required_rss: []
+    required_hall: city_hall
     required_building:
-      - city_hall, medium_fort
+      - medium_fort
     replaces: medium_fort
   - id: barracks
     name: Barracks
@@ -1161,8 +1177,9 @@ buildings:
     is_upgradeable: true
     required_geo: null
     required_rss: []
+    required_hall: town_hall
     required_building:
-      - town_hall, small_fort
+      - small_fort
     replaces: null
   - id: quartermaster
     name: Quartermaster
@@ -1200,8 +1217,9 @@ buildings:
     is_upgradeable: false
     required_geo: null
     required_rss: []
+    required_hall: city_hall
     required_building:
-      - city_hall, barracks
+      - barracks
     replaces: barracks
   - id: watch_tower
     name: Watch tower
@@ -1239,8 +1257,9 @@ buildings:
     is_upgradeable: false
     required_geo: null
     required_rss: []
+    required_hall: village_hall
     required_building:
-      - village_hall, small_fort
+      - small_fort
     replaces: null
   # *********** #
   # * Support * #
@@ -1281,8 +1300,8 @@ buildings:
     is_upgradeable: true
     required_geo: null
     required_rss: []
-    required_building:
-      - village_hall
+    required_hall: village_hall
+    required_building: []
     replaces: null
   - id: temple
     name: Temple
@@ -1320,8 +1339,9 @@ buildings:
     is_upgradeable: true
     required_geo: null
     required_rss: []
+    required_hall: town_hall
     required_building:
-      - town_hall, shrine
+      - shrine
     replaces: shrine
   - id: basilica
     name: Basilica
@@ -1359,8 +1379,9 @@ buildings:
     is_upgradeable: false
     required_geo: null
     required_rss: []
+    required_hall: city_hall
     required_building:
-      - city_hall, temple
+      - temple
     replaces: temple
   - id: bath_house
     name: Bath house
@@ -1398,8 +1419,8 @@ buildings:
     is_upgradeable: true
     required_geo: null
     required_rss: []
-    required_building:
-      - town_hall
+    required_hall: town_hall
+    required_building: []
     replaces: null
   - id: hospital
     name: Hospital
@@ -1437,6 +1458,7 @@ buildings:
     is_upgradeable: false
     required_geo: null
     required_rss: []
+    required_hall: town_hall
     required_building:
       - bath_house
     replaces: bath_house
@@ -1476,8 +1498,9 @@ buildings:
     is_upgradeable: false
     required_geo: forest
     required_rss: []
+    required_hall: village_hall
     required_building:
-      - town_hall, forest
+      - forest
     replaces: forest
   - id: herbalist
     name: Herbalist
@@ -1515,8 +1538,8 @@ buildings:
     is_upgradeable: false
     required_geo: null
     required_rss: []
-    required_building:
-      - village_hall
+    required_hall: village_hall
+    required_building: []
     replaces: null
   - id: warehouse
     name: Warehouse
@@ -1554,8 +1577,8 @@ buildings:
     is_upgradeable: false
     required_geo: null
     required_rss: []
-    required_building:
-      - village_hall
+    required_hall: village_hall
+    required_building: []
     replaces: null
   - id: small_market
     name: Small market
@@ -1593,8 +1616,8 @@ buildings:
     is_upgradeable: true
     required_geo: null
     required_rss: []
-    required_building:
-      - village_hall
+    required_hall: village_hall
+    required_building: []
     replaces: null
   - id: large_market
     name: Large market
@@ -1632,6 +1655,7 @@ buildings:
     is_upgradeable: false
     required_geo: null
     required_rss: []
+    required_hall: village_hall
     required_building:
       - small_market
     replaces: small_market
@@ -1677,8 +1701,8 @@ buildings:
       - food
       - ore
       - wood
-    required_building:
-      - village_hall
+    required_hall: village_hall
+    required_building: []
     replaces: null
   - id: supply_dump
     name: Supply dump
@@ -1716,5 +1740,6 @@ buildings:
     is_upgradeable: false
     required_geo: null
     required_rss: []
+    required_hall: village_hall
     required_building: []
     replaces: null
