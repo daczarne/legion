@@ -286,10 +286,9 @@ class TestBuildingsData:
             required_building: list[str] = building["required_building"]
             
             for requirement in required_building:
-                for building in tuple(requirement.split(sep = ", ")):
-                    if building not in all_building_ids:
-                        error: tuple[str, str] = (building_id, building)
-                        _errors.append(error)
+                if requirement not in all_building_ids:
+                    error: tuple[str, str] = (building_id, requirement)
+                    _errors.append(error)
         
         assert len(_errors) == 0, _errors
     
@@ -305,10 +304,9 @@ class TestBuildingsData:
             blocked_by_building: list[str] = building["blocked_by_building"]
             
             for blocker in blocked_by_building:
-                for building in tuple(blocker.split(sep = ", ")):
-                    if building not in all_building_ids:
-                        error: tuple[str, str] = (building_id, building)
-                        _errors.append(error)
+                if blocker not in all_building_ids:
+                    error: tuple[str, str] = (building_id, blocker)
+                    _errors.append(error)
         
         assert len(_errors) == 0, _errors
     
