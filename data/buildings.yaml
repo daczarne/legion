@@ -120,7 +120,7 @@ buildings:
     required_building: []
     replaces: town_hall
   - id: fort
-    name: Small Fort
+    name: Fort
     building_cost:
       food: 0
       ore: 0
