@@ -1553,6 +1553,47 @@ class TestWorkersDistribution:
         assert city.production.maintenance_costs.food == 14
         assert city.production.balance.food == 683
     
+    def test_effects_only_strategy(self) -> None:
+        city: City = City.from_buildings_count(
+            campaign = "Unification of Italy",
+            name = "Populonia",
+            buildings = {
+                "city_hall": 1,
+                "basilica": 1,
+                "farmers_guild": 1,
+                "vineyard": 1,
+                "large_farm": 5,
+            },
+            staffing_strategy = "effects_only",
+        )
+        
+        assert city.available_workers == 18
+        assert city.assigned_workers == 1
+        assert city.get_building(id = "basilica").workers == 1
+        food_producers: list[int] = [building.workers for building in city.buildings if building.id in ["large_farm", "vineyard"]]
+        assert sum(food_producers) == 0
+        
+        assert city.effects.city.troop_training == 0
+        assert city.effects.buildings.troop_training == 0
+        assert city.effects.workers.troop_training == 0
+        assert city.effects.total.troop_training == 0
+        
+        assert city.effects.city.population_growth == 0
+        assert city.effects.buildings.population_growth == 0
+        assert city.effects.workers.population_growth == 50
+        assert city.effects.total.population_growth == 50
+        
+        assert city.effects.city.intelligence == 0
+        assert city.effects.buildings.intelligence == 0
+        assert city.effects.workers.intelligence == 0
+        assert city.effects.total.intelligence == 0
+        
+        assert city.production.base.food == 0
+        assert city.production.productivity_bonuses.food == 135
+        assert city.production.total.food == 0
+        assert city.production.maintenance_costs.food == 14
+        assert city.production.balance.food == -14
+    
     def test_unknown_staffing_strategy_raises_error(self) -> None:
         with raises(expected_exception = UnknownBuildingStaffingStrategyError):
             city: City = City(
