@@ -72,7 +72,9 @@ class _BuildingData(TypedDict):
     is_upgradeable: bool
     required_geo: str | None
     required_rss: list[str]
+    required_hall: str | None
     required_building: list[str]
+    blocked_by_building: list[str]
     replaces: str | None
 
 with open(file = "./data/buildings.yaml", mode = "r") as file:
@@ -145,11 +147,13 @@ class Building:
     is_upgradeable: bool = field(init = False, repr = False, compare = False, hash = False)
     required_geo: GeoFeature | None = field(init = False, default = None, repr = False, compare = False, hash = False)
     required_rss: list[Resource] = field(init = False, default_factory = list, repr = False, compare = False, hash = False)
-    # Dependencies here need to be interpreted as an OR. Either of the listed buildings unblocks the building. For
-    # example, a Stable requires either a Farm, or a Large Farm, or a Vineyard, or a Fishing Village. If the city has
-    # any one for them it can build a Stable. Similarly, a Blacksmith requires either a Mine, or a Large Mine, or a
+    required_hall: str | None = field(init = False, default = None, repr = False, compare = False, hash = False)
+    # Dependencies here need to be interpreted as an OR condition. Either of the listed buildings unblocks the building.
+    # For example, a Stable requires either a Farm, or a Large Farm, or a Vineyard, or a Fishing Village. If the city
+    # has any one of them it can build a Stable. Similarly, a Blacksmith requires either a Mine, or a Large Mine, or a
     # Mountain Mine, or an Outcrop Mine. If a building has no dependencies the list will be empty.
-    required_building: list[tuple[str, ...]] = field(init = False, default_factory = list, repr = False, compare = False, hash = False)
+    required_building: list[str] = field(init = False, default_factory = list, repr = False, compare = False, hash = False)
+    blocked_by_building: list[str] = field(init = False, default_factory = list, repr = False, compare = False, hash = False)
     replaces: str | None = field(init = False, default = None, repr = False, compare = False, hash = False)
     
     
@@ -163,15 +167,6 @@ class Building:
     def _validate_initial_number_of_workers(self) -> None:
         if self.workers > self.max_workers:
             raise TooManyWorkersError(f"Too many workers. Max is {self.max_workers} for {self.name}.")
-    
-    def _unpack_required_buildings(self) -> list[tuple[str, ...]]:
-        required_buildings_list_of_strings: list[str] = _BUILDINGS[self.id]["required_building"]
-        required_buildings: list[tuple[str, ...]] = []
-        
-        for requirement in required_buildings_list_of_strings:
-            required_buildings.append(tuple(requirement.split(sep = ", ")))
-        
-        return required_buildings
     
     
     def __post_init__(self) -> None:
@@ -191,7 +186,9 @@ class Building:
         self.is_upgradeable = _BUILDINGS[self.id]["is_upgradeable"]
         self.required_geo = GeoFeature(value = _BUILDINGS[self.id]["required_geo"]) if _BUILDINGS[self.id]["required_geo"] else None
         self.required_rss = [Resource(value = rss) for rss in _BUILDINGS[self.id]["required_rss"]]
-        self.required_building = self._unpack_required_buildings()
+        self.required_hall = _BUILDINGS[self.id]["required_hall"]
+        self.required_building = _BUILDINGS[self.id]["required_building"]
+        self.blocked_by_building = _BUILDINGS[self.id]["blocked_by_building"]
         self.replaces = _BUILDINGS[self.id]["replaces"]
         
         self._validate_initial_number_of_workers()
@@ -382,6 +379,15 @@ class Building:
         
         return text
     
+    def _building_required_hall(self) -> str:
+        text: str = f"[bold]Required hall:[/bold] "
+        
+        if self.required_hall:
+            text += f"{Building._format_building(text = self.required_hall)}"
+        else:
+            text += Building._format_none()
+        return text
+    
     def _building_required_building(self) -> str:
         text: str = f"[bold]Required building:[/bold] "
         
@@ -390,13 +396,31 @@ class Building:
         
         lines: list[str] = []
         
-        for idx, group in enumerate(self.required_building):
-            prefix: str = "" if idx == 0 else "               [italic dim]OR:[/italic dim] "
-            transformed: list[str] = [Building._format_building(text = element) for element in group]
-            line: str = prefix + " [italic dim]AND[/italic dim] ".join(transformed)
+        for index, building in enumerate(self.required_building):
+            formatted: str = Building._format_building(text = building)
+            conjunction: str = "" if index == 0 else "                [italic dim]OR[/italic dim] "
+            line: str = conjunction + formatted
             lines.append(line)
         
         text += "\n".join(lines)
+        
+        return text
+    
+    def _building_blocked_by_building(self) -> str:
+        text: str = f"[bold]Blocked by building:[/bold] "
+        
+        if len(self.blocked_by_building) == 0:
+            return text + Building._format_none()
+        
+        lines: list[str] = []
+        
+        for index, building in enumerate(self.blocked_by_building):
+            formatted: str = Building._format_building(text = building)
+            conjunction: str = "" if index == 0 else " [italic dim]OR[/italic dim] "
+            line: str = conjunction + formatted
+            lines.append(line)
+        
+        text += "".join(lines)
         
         return text
     
@@ -410,7 +434,7 @@ class Building:
         title_height: int = 2
         
         required_building_height: int = max(len(self.required_building), 1)
-        number_of_other_properties_to_print: int = 16
+        number_of_other_properties_to_print: int = 18
         main_height: int = number_of_other_properties_to_print + required_building_height
         
         total_height: int = title_height + main_height
@@ -529,8 +553,20 @@ class Building:
                 visible = True,
             ),
             Layout(
+                name = "required_hall",
+                size = 1,
+                ratio = 0,
+                visible = True,
+            ),
+            Layout(
                 name = "required_building",
                 size = required_building_height,
+                ratio = 0,
+                visible = True,
+            ),
+            Layout(
+                name = "blocked_by_building",
+                size = 1,
                 ratio = 0,
                 visible = True,
             ),
@@ -602,8 +638,16 @@ class Building:
             renderable = Align(renderable = self._building_required_rss(), align = "left")
         )
         
+        layout["required_hall"].update(
+            renderable = Align(renderable = self._building_required_hall(), align = "left")
+        )
+        
         layout["required_building"].update(
             renderable = Align(renderable = self._building_required_building(), align = "left")
+        )
+        
+        layout["blocked_by_building"].update(
+            renderable = Align(renderable = self._building_blocked_by_building(), align = "left")
         )
         
         layout["replaces"].update(
