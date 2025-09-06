@@ -4,8 +4,8 @@ from collections.abc import Generator
 from pytest import fixture
 from typing import Literal
 
-from modules.building import _BuildingData, BuildingsCount
-from modules.city import _CityData
+from modules.building import _BuildingData, BuildingsCount, Building
+from modules.city import _CityData, City
 
 
 @fixture(scope = "function")
@@ -40,7 +40,7 @@ def _buildings() -> Generator[list[_BuildingData]]:
 
 @fixture(scope = "function")
 def _roman_military_buildings() -> Generator[BuildingsCount]:
-    military: BuildingsCount = {
+    city_buildings: BuildingsCount = {
         "city_hall": 1,
         "basilica": 1,
         "hospital": 1,
@@ -51,40 +51,100 @@ def _roman_military_buildings() -> Generator[BuildingsCount]:
         "quartermaster": 1,
         "large_fort": 1,
     }
-    yield military
+    yield city_buildings
+
+
+@fixture(scope = "function")
+def _roman_military_city(_roman_military_buildings: BuildingsCount) -> Generator[City]:
+    city: City = City.from_buildings_count(
+        campaign = "Unification of Italy",
+        name = "Roma",
+        buildings = _roman_military_buildings,
+    )
+    yield city
 
 
 @fixture(scope = "function")
 def _roman_food_producer_with_warehouse_buildings() -> Generator[BuildingsCount]:
-    military: BuildingsCount = {
+    city_buildings: BuildingsCount = {
         "city_hall": 1,
         "basilica": 1,
         "warehouse": 1,
         "farmers_guild": 1,
-        "large_farm": 4,
         "vineyard": 1,
+        "large_farm": 4,
     }
-    yield military
+    yield city_buildings
+
+
+@fixture(scope = "function")
+def _roman_food_producer_buildings() -> Generator[BuildingsCount]:
+    city_buildings: BuildingsCount = {
+        "city_hall": 1,
+        "basilica": 1,
+        "farmers_guild": 1,
+        "vineyard": 1,
+        "large_farm": 5,
+    }
+    yield city_buildings
+
+
+@fixture(scope = "function")
+def _roman_food_producer_city(_roman_food_producer_buildings: BuildingsCount) -> Generator[City]:
+    city: City = City.from_buildings_count(
+        campaign = "Unification of Italy",
+        name = "Roma",
+        buildings = _roman_food_producer_buildings,
+    )
+    yield city
+
+
+@fixture(scope = "function")
+def _roman_food_producer_with_fishing_village_city() -> Generator[City]:
+    city: City = City.from_buildings_count(
+        campaign = "Unification of Italy",
+        name = "Faesula",
+        buildings = {
+            "city_hall": 1,
+            "basilica": 1,
+            "farmers_guild": 1,
+            "fishing_village": 1,
+            "vineyard": 1,
+            "large_farm": 4,
+        },
+    )
+    yield city
 
 
 @fixture(scope = "function")
 def _roman_ore_producer_buildings() -> Generator[BuildingsCount]:
-    military: BuildingsCount = {
+    city_buildings: BuildingsCount = {
         "city_hall": 1,
         "basilica": 1,
         "miners_guild": 1,
         "large_mine": 6,
     }
-    yield military
+    yield city_buildings
 
 
 @fixture(scope = "function")
 def _roman_wood_producer_with_warehouse_buildings() -> Generator[BuildingsCount]:
-    military: BuildingsCount = {
+    city_buildings: BuildingsCount = {
         "city_hall": 1,
         "basilica": 1,
         "warehouse": 1,
         "carpenters_guild": 1,
         "large_lumber_mill": 5,
     }
-    yield military
+    yield city_buildings
+
+
+@fixture(scope = "function")
+def _roman_wood_producer_buildings() -> Generator[BuildingsCount]:
+    city_buildings: BuildingsCount = {
+        "city_hall": 1,
+        "basilica": 1,
+        "carpenters_guild": 1,
+        "large_lumber_mill": 6,
+    }
+    yield city_buildings

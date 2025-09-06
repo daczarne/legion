@@ -26,6 +26,7 @@ class TestCitiesData:
             _errors: list,
             _cities: list[_CityData],
         ) -> None:
+        
         expected_keys: list[str] = [
             "name",
             "campaign",
@@ -61,9 +62,7 @@ class TestCitiesData:
             _errors: list[str],
             _cities: list[_CityData],
         ) -> None:
-        """
-        Tests that every `campaign + name` is unique.
-        """
+        
         city_names: list[str] = []
         
         for city in _cities:
@@ -83,9 +82,7 @@ class TestCitiesData:
             _errors: list[tuple[str, str]],
             _cities: list[_CityData],
         ) -> None:
-        """
-        Test that all `campaign` values are of the expected values.
-        """
+        
         expected_values: list[str] = [
             "Unification of Italy",
             "Conquest of Britain",
@@ -109,6 +106,7 @@ class TestCitiesData:
             _errors: list,
             _cities: list[_CityData],
         ) -> None:
+        
         expected_keys: list[str] = [
             "food",
             "ore",
@@ -139,9 +137,7 @@ class TestCitiesData:
             _errors: list[dict[str, str]],
             _cities: list[_CityData],
         ) -> None:
-        """
-        Validate `resource_potentials`.
-        """
+        
         for city in _cities:
             city_name: str = city.get("name")
             campaign: str = city.get("campaign")
@@ -170,6 +166,7 @@ class TestCitiesData:
             _errors: list,
             _cities: list[_CityData],
         ) -> None:
+        
         expected_keys: list[str] = [
             "lakes",
             "rock_outcrops",
@@ -201,9 +198,6 @@ class TestCitiesData:
             _errors: list[dict[str, str]],
             _cities: list[_CityData],
         ) -> None:
-        """
-        Validate `geo_features`.
-        """
         
         for city in _cities:
             city_name: str = city.get("name")
@@ -233,6 +227,7 @@ class TestCitiesData:
             _errors: list,
             _cities: list[_CityData],
         ) -> None:
+        
         expected_keys: list[str] = [
             "troop_training",
             "population_growth",
@@ -263,9 +258,6 @@ class TestCitiesData:
             _errors: list[dict[str, str]],
             _cities: list[_CityData],
         ) -> None:
-        """
-        Validates `effects`
-        """
         
         for city in _cities:
             city_name: str = city.get("name")
@@ -294,71 +286,46 @@ class TestCitiesData:
 @mark.city
 class TestCity:
     
-    @fixture
-    def _city(self) -> City:
-        sample_city: City = City(
-            campaign = "Unification of Italy",
-            name = "Roma",
-            buildings = [
-                Building(id = "city_hall"),
-                Building(id = "basilica"),
-                Building(id = "hospital"),
-                Building(id = "training_ground"),
-                Building(id = "gladiator_school"),
-                Building(id = "stables"),
-                Building(id = "bordello"),
-                Building(id = "quartermaster"),
-                Building(id = "large_fort"),
-            ]
-        )
-        return sample_city
+    def test_city_initialization(self, _roman_military_city: City) -> None:
+        assert _roman_military_city.campaign == "Unification of Italy"
+        assert _roman_military_city.name == "Roma"
+        assert _roman_military_city.hall.id == "city_hall"
+        
+        assert _roman_military_city.effects.city.troop_training == 0
+        assert _roman_military_city.effects.city.population_growth == 0
+        assert _roman_military_city.effects.city.intelligence == 0
+        
+        assert _roman_military_city.effects.buildings.troop_training == 30
+        assert _roman_military_city.effects.buildings.population_growth == 100
+        assert _roman_military_city.effects.buildings.intelligence == 10
+        
+        assert _roman_military_city.effects.workers.troop_training == 5
+        assert _roman_military_city.effects.workers.population_growth == 170
+        assert _roman_military_city.effects.workers.intelligence == 0
+        
+        assert _roman_military_city.effects.total.troop_training == 35
+        assert _roman_military_city.effects.total.population_growth == 270
+        assert _roman_military_city.effects.total.intelligence == 10
+        
+        assert _roman_military_city.production.maintenance_costs.food == 62
+        assert _roman_military_city.production.maintenance_costs.ore == 24
+        assert _roman_military_city.production.maintenance_costs.wood == 45
+        
+        assert _roman_military_city.production.balance.food == -62
+        assert _roman_military_city.production.balance.ore == -24
+        assert _roman_military_city.production.balance.wood == -45
+        
+        assert _roman_military_city.defenses.garrison == "Legion"
+        assert _roman_military_city.defenses.squadrons == 4
+        assert _roman_military_city.defenses.squadron_size == "Huge"
+        
+        assert _roman_military_city.focus is None
     
-    def test_city_initialization(self, _city: City) -> None:
-        assert _city.campaign == "Unification of Italy"
-        assert _city.name == "Roma"
-        assert _city.hall.id == "city_hall"
-        
-        assert _city.effects.city.troop_training == 0
-        assert _city.effects.city.population_growth == 0
-        assert _city.effects.city.intelligence == 0
-        
-        assert _city.effects.buildings.troop_training == 30
-        assert _city.effects.buildings.population_growth == 100
-        assert _city.effects.buildings.intelligence == 10
-        
-        assert _city.effects.workers.troop_training == 5
-        assert _city.effects.workers.population_growth == 170
-        assert _city.effects.workers.intelligence == 0
-        
-        assert _city.effects.total.troop_training == 35
-        assert _city.effects.total.population_growth == 270
-        assert _city.effects.total.intelligence == 10
-        
-        assert _city.production.maintenance_costs.food == 62
-        assert _city.production.maintenance_costs.ore == 24
-        assert _city.production.maintenance_costs.wood == 45
-        
-        assert _city.production.balance.food == -62
-        assert _city.production.balance.ore == -24
-        assert _city.production.balance.wood == -45
-        
-        assert _city.defenses.garrison == "Legion"
-        assert _city.defenses.squadrons == 4
-        assert _city.defenses.squadron_size == "Huge"
-        
-        assert _city.focus is None
-    
-    def test_city_initialization_from_buildings_count(self) -> None:
+    def test_city_initialization_from_buildings_count(self, _roman_food_producer_buildings: BuildingsCount) -> None:
         city: City = City.from_buildings_count(
             campaign = "Unification of Italy",
             name = "Roma",
-            buildings = {
-                "city_hall": 1,
-                "basilica": 1,
-                "farmers_guild": 1,
-                "vineyard": 1,
-                "large_farm": 5,
-            }
+            buildings = _roman_food_producer_buildings,
         )
         
         assert city.campaign == "Unification of Italy"
@@ -377,41 +344,35 @@ class TestCity:
                 buildings = [],
             )
     
-    def test_get_building(self, _city: City) -> None:
-        assert isinstance(_city.get_building(id = "city_hall"), Building)
-        assert _city.get_building(id = "city_hall").id == "city_hall"
+    def test_get_building(self, _roman_military_city: City) -> None:
+        assert isinstance(_roman_military_city.get_building(id = "city_hall"), Building)
+        assert _roman_military_city.get_building(id = "city_hall").id == "city_hall"
         
-        assert isinstance(_city.get_building(id = "quartermaster"), Building)
-        assert _city.get_building(id = "quartermaster").id == "quartermaster"
+        assert isinstance(_roman_military_city.get_building(id = "quartermaster"), Building)
+        assert _roman_military_city.get_building(id = "quartermaster").id == "quartermaster"
     
-    def test_get_building_raises_error(self, _city: City) -> None:
+    def test_get_building_raises_error(self, _roman_military_city: City) -> None:
         with raises(expected_exception = KeyError):
-            _city.get_building(id = "nonexistent_building")
+            _roman_military_city.get_building(id = "nonexistent_building")
     
-    def test_has_building_returns_true_for_existing_building(self, _city: City) -> None:
-        assert _city.has_building(id = "stables")
+    def test_has_building_returns_true_for_existing_building(self, _roman_military_city: City) -> None:
+        assert _roman_military_city.has_building(id = "stables")
     
-    def test_has_building_returns_false_for_nonexistent_building(self, _city: City) -> None:
-        assert not _city.has_building(id = "nonexistent_building")
+    def test_has_building_returns_false_for_nonexistent_building(self, _roman_military_city: City) -> None:
+        assert not _roman_military_city.has_building(id = "nonexistent_building")
     
-    def test_get_buildings_count_by_id(self, _city: City) -> None:
-        counts: BuildingsCount = _city.get_buildings_count(by = "id")
-        expected_result: BuildingsCount = {
-            "city_hall": 1,
-            "basilica": 1,
-            "hospital": 1,
-            "training_ground": 1,
-            "gladiator_school": 1,
-            "stables": 1,
-            "bordello": 1,
-            "quartermaster": 1,
-            "large_fort": 1,
-        }
+    def test_get_buildings_count_by_id(
+            self,
+            _roman_military_city: City,
+            _roman_military_buildings: BuildingsCount,
+        ) -> None:
+        counts: BuildingsCount = _roman_military_city.get_buildings_count(by = "id")
+        expected_result: BuildingsCount = _roman_military_buildings
         
         assert counts == expected_result
     
-    def test_get_buildings_count_by_name(self, _city: City) -> None:
-        counts: BuildingsCount = _city.get_buildings_count(by = "name")
+    def test_get_buildings_count_by_name(self, _roman_military_city: City) -> None:
+        counts: BuildingsCount = _roman_military_city.get_buildings_count(by = "name")
         expected_result: BuildingsCount = {
             "City hall": 1,
             "Basilica": 1,
@@ -1326,21 +1287,11 @@ class TestCityAllowedBuildingCounts:
 @mark.city
 class TestWorkersDistribution:
     
-    def test_workers_distribution_roman_military(self) -> None:
+    def test_workers_distribution_roman_military(self, _roman_military_buildings: BuildingsCount) -> None:
         city: City = City.from_buildings_count(
             campaign = "Unification of Italy",
             name = "Roma",
-            buildings = {
-                "city_hall": 1,
-                "basilica": 1,
-                "hospital": 1,
-                "training_ground": 1,
-                "gladiator_school": 1,
-                "stables": 1,
-                "bordello": 1,
-                "quartermaster": 1,
-                "large_fort": 1,
-            },
+            buildings = _roman_military_buildings,
             staffing_strategy = "effects_first",
         )
         
@@ -1365,17 +1316,11 @@ class TestWorkersDistribution:
         assert city.effects.workers.intelligence == 0
         assert city.effects.total.intelligence == 10
     
-    def test_workers_distribution_roman_food_producer(self) -> None:
+    def test_workers_distribution_roman_food_producer(self, _roman_food_producer_buildings: BuildingsCount) -> None:
         city: City = City.from_buildings_count(
             campaign = "Unification of Italy",
             name = "Populonia",
-            buildings = {
-                "city_hall": 1,
-                "basilica": 1,
-                "farmers_guild": 1,
-                "vineyard": 1,
-                "large_farm": 5,
-            },
+            buildings = _roman_food_producer_buildings,
             staffing_strategy = "production_first",
         )
         
@@ -1398,16 +1343,11 @@ class TestWorkersDistribution:
         assert city.effects.workers.intelligence == 0
         assert city.effects.total.intelligence == 0
     
-    def test_workers_distribution_roman_ore_producer(self) -> None:
+    def test_workers_distribution_roman_ore_producer(self, _roman_ore_producer_buildings: BuildingsCount) -> None:
         city: City = City.from_buildings_count(
             campaign = "Germania",
             name = "Varini",
-            buildings = {
-                "city_hall": 1,
-                "basilica": 1,
-                "miners_guild": 1,
-                "large_mine": 6,
-            },
+            buildings = _roman_ore_producer_buildings,
             staffing_strategy = "production_first",
         )
         
@@ -1430,16 +1370,11 @@ class TestWorkersDistribution:
         assert city.effects.workers.intelligence == 0
         assert city.effects.total.intelligence == 0
     
-    def test_workers_distribution_roman_wood_producer(self) -> None:
+    def test_workers_distribution_roman_wood_producer(self, _roman_wood_producer_buildings: BuildingsCount) -> None:
         city: City = City.from_buildings_count(
             campaign = "Pacifying the North",
             name = "Corda",
-            buildings = {
-                "city_hall": 1,
-                "basilica": 1,
-                "carpenters_guild": 1,
-                "large_lumber_mill": 6,
-            },
+            buildings = _roman_wood_producer_buildings,
             staffing_strategy = "production_first",
         )
         
@@ -1462,21 +1397,11 @@ class TestWorkersDistribution:
         assert city.effects.workers.intelligence == 0
         assert city.effects.total.intelligence == 0
     
-    def test_production_first_strategy(self) -> None:
+    def test_production_first_strategy(self, _roman_military_buildings: BuildingsCount) -> None:
         city: City = City.from_buildings_count(
             campaign = "Unification of Italy",
             name = "Roma",
-            buildings = {
-                "city_hall": 1,
-                "basilica": 1,
-                "hospital": 1,
-                "training_ground": 1,
-                "gladiator_school": 1,
-                "stables": 1,
-                "bordello": 1,
-                "quartermaster": 1,
-                "large_fort": 1,
-            },
+            buildings = _roman_military_buildings,
             staffing_strategy = "production_first",
         )
         
@@ -1487,21 +1412,11 @@ class TestWorkersDistribution:
         assert city.available_workers == 18
         assert city.assigned_workers == 5
     
-    def test_production_only_strategy(self) -> None:
+    def test_production_only_strategy(self, _roman_military_buildings: BuildingsCount) -> None:
         city: City = City.from_buildings_count(
             campaign = "Unification of Italy",
             name = "Roma",
-            buildings = {
-                "city_hall": 1,
-                "basilica": 1,
-                "hospital": 1,
-                "training_ground": 1,
-                "gladiator_school": 1,
-                "stables": 1,
-                "bordello": 1,
-                "quartermaster": 1,
-                "large_fort": 1,
-            },
+            buildings = _roman_military_buildings,
             staffing_strategy = "production_only",
         )
         
@@ -1512,17 +1427,11 @@ class TestWorkersDistribution:
         assert city.available_workers == 18
         assert city.assigned_workers == 0
     
-    def test_effects_first_strategy(self) -> None:
+    def test_effects_first_strategy(self, _roman_food_producer_buildings: BuildingsCount) -> None:
         city: City = City.from_buildings_count(
             campaign = "Unification of Italy",
             name = "Populonia",
-            buildings = {
-                "city_hall": 1,
-                "basilica": 1,
-                "farmers_guild": 1,
-                "vineyard": 1,
-                "large_farm": 5,
-            },
+            buildings = _roman_food_producer_buildings,
             staffing_strategy = "effects_first",
         )
         
@@ -1553,17 +1462,11 @@ class TestWorkersDistribution:
         assert city.production.maintenance_costs.food == 14
         assert city.production.balance.food == 691
     
-    def test_effects_only_strategy(self) -> None:
+    def test_effects_only_strategy(self, _roman_food_producer_buildings: BuildingsCount) -> None:
         city: City = City.from_buildings_count(
             campaign = "Unification of Italy",
             name = "Populonia",
-            buildings = {
-                "city_hall": 1,
-                "basilica": 1,
-                "farmers_guild": 1,
-                "vineyard": 1,
-                "large_farm": 5,
-            },
+            buildings = _roman_food_producer_buildings,
             staffing_strategy = "effects_only",
         )
         
@@ -1610,131 +1513,94 @@ class TestWorkersDistribution:
 @mark.city_scenarios
 class TestCityScenarios:
     
-    def test_city_roman_military(self) -> None:
-        city: City = City.from_buildings_count(
-            campaign = "Unification of Italy",
-            name = "Roma",
-            buildings = {
-                "city_hall": 1,
-                "basilica": 1,
-                "hospital": 1,
-                "training_ground": 1,
-                "gladiator_school": 1,
-                "stables": 1,
-                "bordello": 1,
-                "quartermaster": 1,
-                "large_fort": 1,
-            },
-        )
+    def test_roman_military_city(self, _roman_military_city: City) -> None:
+        assert _roman_military_city.campaign == "Unification of Italy"
+        assert _roman_military_city.name == "Roma"
         
-        assert city.campaign == "Unification of Italy"
-        assert city.name == "Roma"
+        assert _roman_military_city.hall.id == "city_hall"
+        assert _roman_military_city.is_fort is False
+        assert _roman_military_city.has_supply_dump is False
         
-        assert city.hall.id == "city_hall"
-        assert city.is_fort is False
-        assert city.has_supply_dump is False
+        assert _roman_military_city.effects.city.troop_training == 0
+        assert _roman_military_city.effects.city.population_growth == 0
+        assert _roman_military_city.effects.city.intelligence == 0
         
-        assert city.effects.city.troop_training == 0
-        assert city.effects.city.population_growth == 0
-        assert city.effects.city.intelligence == 0
+        assert _roman_military_city.effects.buildings.troop_training == 30
+        assert _roman_military_city.effects.buildings.population_growth == 100
+        assert _roman_military_city.effects.buildings.intelligence == 10
         
-        assert city.effects.buildings.troop_training == 30
-        assert city.effects.buildings.population_growth == 100
-        assert city.effects.buildings.intelligence == 10
+        assert _roman_military_city.effects.workers.troop_training == 5
+        assert _roman_military_city.effects.workers.population_growth == 170
+        assert _roman_military_city.effects.workers.intelligence == 0
         
-        assert city.effects.workers.troop_training == 5
-        assert city.effects.workers.population_growth == 170
-        assert city.effects.workers.intelligence == 0
+        assert _roman_military_city.effects.total.troop_training == 35
+        assert _roman_military_city.effects.total.population_growth == 270
+        assert _roman_military_city.effects.total.intelligence == 10
         
-        assert city.effects.total.troop_training == 35
-        assert city.effects.total.population_growth == 270
-        assert city.effects.total.intelligence == 10
+        assert _roman_military_city.production.maintenance_costs.food == 62
+        assert _roman_military_city.production.maintenance_costs.ore == 24
+        assert _roman_military_city.production.maintenance_costs.wood == 45
         
-        assert city.production.maintenance_costs.food == 62
-        assert city.production.maintenance_costs.ore == 24
-        assert city.production.maintenance_costs.wood == 45
+        assert _roman_military_city.production.balance.food == -62
+        assert _roman_military_city.production.balance.ore == -24
+        assert _roman_military_city.production.balance.wood == -45
         
-        assert city.production.balance.food == -62
-        assert city.production.balance.ore == -24
-        assert city.production.balance.wood == -45
+        assert _roman_military_city.defenses.garrison == "Legion"
+        assert _roman_military_city.defenses.squadrons == 4
+        assert _roman_military_city.defenses.squadron_size == "Huge"
         
-        assert city.defenses.garrison == "Legion"
-        assert city.defenses.squadrons == 4
-        assert city.defenses.squadron_size == "Huge"
-        
-        assert city.focus is None
+        assert _roman_military_city.focus is None
     
-    def test_city_roman_food(self) -> None:
-        city: City = City.from_buildings_count(
-            campaign = "Unification of Italy",
-            name = "Roma",
-            buildings = {
-                "city_hall": 1,
-                "basilica": 1,
-                "farmers_guild": 1,
-                "large_farm": 5,
-                "vineyard": 1,
-            },
-        )
+    def test_roman_food_producer_city(self, _roman_food_producer_city: City) -> None:
+        assert _roman_food_producer_city.campaign == "Unification of Italy"
+        assert _roman_food_producer_city.name == "Roma"
         
-        assert city.campaign == "Unification of Italy"
-        assert city.name == "Roma"
+        assert _roman_food_producer_city.hall.id == "city_hall"
+        assert _roman_food_producer_city.is_fort is False
+        assert _roman_food_producer_city.has_supply_dump is False
         
-        assert city.hall.id == "city_hall"
-        assert city.is_fort is False
-        assert city.has_supply_dump is False
+        assert _roman_food_producer_city.resource_potentials.food == 125
+        assert _roman_food_producer_city.production.base.food == 261
+        assert _roman_food_producer_city.production.productivity_bonuses.food == 135
+        assert _roman_food_producer_city.production.total.food == 613
+        assert _roman_food_producer_city.production.maintenance_costs.food == 14
+        assert _roman_food_producer_city.production.balance.food == 599
         
-        assert city.resource_potentials.food == 125
-        assert city.production.base.food == 261
-        assert city.production.productivity_bonuses.food == 135
-        assert city.production.total.food == 613
-        assert city.production.maintenance_costs.food == 14
-        assert city.production.balance.food == 599
+        assert _roman_food_producer_city.storage.city.food == 100
+        assert _roman_food_producer_city.storage.buildings.food == 450
+        assert _roman_food_producer_city.storage.warehouse.food == 0
+        assert _roman_food_producer_city.storage.supply_dump.food == 0
+        assert _roman_food_producer_city.storage.total.food == 550
         
-        assert city.storage.city.food == 100
-        assert city.storage.buildings.food == 450
-        assert city.storage.warehouse.food == 0
-        assert city.storage.supply_dump.food == 0
-        assert city.storage.total.food == 550
-        
-        assert city.focus == Resource.FOOD
+        assert _roman_food_producer_city.focus == Resource.FOOD
     
-    def test_city_roman_fishing_village(self) -> None:
-        city: City = City.from_buildings_count(
-            campaign = "Unification of Italy",
-            name = "Faesula",
-            buildings = {
-                "city_hall": 1,
-                "basilica": 1,
-                "farmers_guild": 1,
-                "large_farm": 4,
-                "vineyard": 1,
-                "fishing_village": 1,
-            },
-        )
+    def test_roman_fishing_village_city(
+            self,
+            _roman_food_producer_with_fishing_village_city: City,
+        ) -> None:
         
-        assert city.campaign == "Unification of Italy"
-        assert city.name == "Faesula"
+        assert _roman_food_producer_with_fishing_village_city.campaign == "Unification of Italy"
+        assert _roman_food_producer_with_fishing_village_city.name == "Faesula"
         
-        assert city.hall.id == "city_hall"
-        assert city.is_fort is False
-        assert city.has_supply_dump is False
+        assert _roman_food_producer_with_fishing_village_city.hall.id == "city_hall"
+        assert _roman_food_producer_with_fishing_village_city.is_fort is False
+        assert _roman_food_producer_with_fishing_village_city.has_supply_dump is False
         
-        assert city.resource_potentials.food == 90
-        assert city.geo_features.lakes == 1
-        assert city.production.base.food == 171
-        assert city.production.productivity_bonuses.food == 135
-        assert city.production.total.food == 401
-        assert city.production.maintenance_costs.food == 14
-        assert city.production.balance.food == 387
-        assert city.storage.city.food == 100
-        assert city.storage.buildings.food == 425
-        assert city.storage.warehouse.food == 0
-        assert city.storage.supply_dump.food == 0
-        assert city.storage.total.food == 525
-        assert city.focus == Resource.FOOD
+        assert _roman_food_producer_with_fishing_village_city.resource_potentials.food == 90
+        assert _roman_food_producer_with_fishing_village_city.geo_features.lakes == 1
+        assert _roman_food_producer_with_fishing_village_city.production.base.food == 171
+        assert _roman_food_producer_with_fishing_village_city.production.productivity_bonuses.food == 135
+        assert _roman_food_producer_with_fishing_village_city.production.total.food == 401
+        assert _roman_food_producer_with_fishing_village_city.production.maintenance_costs.food == 14
+        assert _roman_food_producer_with_fishing_village_city.production.balance.food == 387
+        assert _roman_food_producer_with_fishing_village_city.storage.city.food == 100
+        assert _roman_food_producer_with_fishing_village_city.storage.buildings.food == 425
+        assert _roman_food_producer_with_fishing_village_city.storage.warehouse.food == 0
+        assert _roman_food_producer_with_fishing_village_city.storage.supply_dump.food == 0
+        assert _roman_food_producer_with_fishing_village_city.storage.total.food == 525
+        assert _roman_food_producer_with_fishing_village_city.focus == Resource.FOOD
     
-    def test_city_roman_fishing_village_and_outcrop_mine(self) -> None:
+    def test_roman_fishing_village_and_outcrop_mine_city(self) -> None:
         city: City = City.from_buildings_count(
             campaign = "Unification of Italy",
             name = "Falerii",
