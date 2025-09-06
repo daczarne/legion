@@ -1339,7 +1339,8 @@ class TestWorkersDistribution:
                 "bordello": 1,
                 "quartermaster": 1,
                 "large_fort": 1,
-            }
+            },
+            staffing_strategy = "effects_first",
         )
         
         assert city.available_workers == 18
@@ -1373,7 +1374,8 @@ class TestWorkersDistribution:
                 "farmers_guild": 1,
                 "vineyard": 1,
                 "large_farm": 5,
-            }
+            },
+            staffing_strategy = "production_first",
         )
         
         assert city.available_workers == 18
@@ -1404,7 +1406,8 @@ class TestWorkersDistribution:
                 "basilica": 1,
                 "miners_guild": 1,
                 "large_mine": 6,
-            }
+            },
+            staffing_strategy = "production_first",
         )
         
         assert city.available_workers == 18
@@ -1435,7 +1438,8 @@ class TestWorkersDistribution:
                 "basilica": 1,
                 "carpenters_guild": 1,
                 "large_lumber_mill": 6,
-            }
+            },
+            staffing_strategy = "production_first",
         )
         
         assert city.available_workers == 18

@@ -25,9 +25,11 @@ city: City = City.from_buildings_count(
     campaign = "Unification of Italy",
     name = "Populonia",
     buildings = food_producer,
+    staffing_strategy = "production_first",
 )
 
 city.display_city()
+
 
 user_selected_strategy: str = "production"
 

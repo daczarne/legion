@@ -49,6 +49,7 @@ from .exceptions import (
     CityNotFoundError,
     MoreThanOneGuildTypeError,
     TooManyGuildsError,
+    UnknownBuildingStaffingStrategyError,
 )
 from .geo_features import GeoFeaturesData, GeoFeatures
 from .resources import Resource, ResourceCollectionData, ResourceCollection
@@ -200,6 +201,7 @@ class City:
             campaign: str,
             name: str,
             buildings: list[Building],
+            staffing_strategy: str = "production_first",
         ) -> None:
         self._city_data: _CityData = self._get_city_data(campaign = campaign, name = name)
         self.campaign: str = self._get_campaign()
@@ -209,6 +211,7 @@ class City:
         self.geo_features: GeoFeatures = self._get_geo_features()
         
         self.buildings: list[Building] = buildings
+        self.staffing_strategy: str = staffing_strategy
         
         self.is_fort: bool = self._is_fort()
         self._add_fort_to_buildings()
@@ -227,7 +230,7 @@ class City:
         #* Staff buildings
         self.available_workers: int = City.MAX_WORKERS[self.hall.id]
         self.assigned_workers: int = 0
-        self._staff_buildings()
+        self._staff_buildings(staffing_strategy = self.staffing_strategy)
         
         #* Calculate effects
         self.effects: _CityEffectBonuses = _CityEffectBonuses()
@@ -261,44 +264,6 @@ class City:
         #* City focus
         self.focus: Resource | None = self._find_city_focus()
     
-    
-    def _staff_buildings(self) -> None:
-        production_buildings: list[str] = [
-            "farm",
-            "large_farm",
-            "vineyard",
-            "fishing_village",
-            "mine",
-            "large_mine",
-            "outcrop_mine",
-            "mountain_mine",
-            "lumber_mill",
-            "large_lumber_mill",
-            "hunters_lodge",
-        ]
-        
-        production_buildings_in_city: list[Building] = [
-            building for building in self.buildings if building.id in production_buildings
-        ]
-        non_production_buildings_in_city: list[Building] = [
-            building for building in self.buildings if building.id not in production_buildings
-        ]
-        
-        for building in production_buildings_in_city:
-            while (
-                self.assigned_workers < self.available_workers
-                and building.workers < building.max_workers
-            ):
-                building.add_workers(qty = 1)
-                self.assigned_workers += 1
-        
-        for building in non_production_buildings_in_city:
-            while (
-                self.assigned_workers < self.available_workers
-                and building.workers < building.max_workers
-            ):
-                building.add_workers(qty = 1)
-                self.assigned_workers += 1
     
     def __hash__(self) -> int:
         return hash((self.campaign, self.name))
@@ -577,6 +542,65 @@ class City:
             if list(guilds.values())[0] != 1:
                 raise TooManyGuildsError(f"Too many guilds for this city.")
     
+    def _staff_building(self, building: Building) -> None:
+        while (
+            self.assigned_workers < self.available_workers
+            and building.workers < building.max_workers
+        ):
+            building.add_workers(qty = 1)
+            self.assigned_workers += 1
+    
+    def _staff_buildings(self, staffing_strategy: str) -> None:
+        allowed_building_staffing_strategies: list[str] = [
+            "production_first",
+            "production_only",
+            "effects_first",
+            "effects_only"
+        ]
+        
+        if staffing_strategy not in allowed_building_staffing_strategies:
+            raise UnknownBuildingStaffingStrategyError(
+                f"Unknown building staffing strategy. " \
+                f"Allowed strategies: {" ".join(allowed_building_staffing_strategies)}."
+            )
+        
+        production_buildings: list[str] = [
+            "farm",
+            "large_farm",
+            "vineyard",
+            "fishing_village",
+            "mine",
+            "large_mine",
+            "outcrop_mine",
+            "mountain_mine",
+            "lumber_mill",
+            "large_lumber_mill",
+            "hunters_lodge",
+        ]
+        
+        production_buildings_in_city: list[Building] = [
+            building for building in self.buildings if building.id in production_buildings
+        ]
+        non_production_buildings_in_city: list[Building] = [
+            building for building in self.buildings if building.id not in production_buildings
+        ]
+        
+        if staffing_strategy in ["production_first", "production_only"]:
+            for building in production_buildings_in_city:
+                self._staff_building(building = building)
+            
+            if staffing_strategy == "production_first":
+                for building in non_production_buildings_in_city:
+                    self._staff_building(building = building)
+        
+        if staffing_strategy in ["effects_first", "effects_only"]:
+            for building in non_production_buildings_in_city:
+                self._staff_building(building = building)
+            
+            if staffing_strategy == "effects_first":
+                for building in production_buildings_in_city:
+                    self._staff_building(building = building)
+    
     
     #* Effect bonuses
     def _get_city_effects(self) -> EffectBonuses:
@@ -835,6 +859,7 @@ class City:
         campaign: str,
         name: str,
         buildings: BuildingsCount,
+        staffing_strategy: str = "production_first",
     ) -> "City":
         """
         Create a `City` instance from a count of buildings. The count must be a dictionary with building IDs as keys
@@ -861,6 +886,7 @@ class City:
             campaign = campaign,
             name = name,
             buildings = city_buildings,
+            staffing_strategy = staffing_strategy,
         )
     
     
