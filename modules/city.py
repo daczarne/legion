@@ -564,18 +564,22 @@ class City:
                 f"Allowed strategies: {" ".join(allowed_building_staffing_strategies)}."
             )
         
+        # Production buildings sorted by productivity levels. The prod. level of each building is determined by the
+        # total sum of all produced rss. For most buildings, this is equal to the product of the one rss it produces
+        # times the number of workers. The only exception is the HL which produces all 3 rss. Worker productivity is
+        # calculated based on 100 prod. pot.
         production_buildings: list[str] = [
-            "farm",
-            "large_farm",
-            "vineyard",
-            "fishing_village",
-            "mine",
-            "large_mine",
-            "outcrop_mine",
-            "mountain_mine",
-            "lumber_mill",
-            "large_lumber_mill",
-            "hunters_lodge",
+            "large_farm", # 12 * 3 = 36
+            "large_mine", # 12 * 3 = 36
+            "large_lumber_mill", # 12 * 3 = 36
+            "vineyard", # 10 * 3 = 30
+            "fishing_village", # 9 * 3 = 27
+            "outcrop_mine", # 13 * 2 = 26
+            "farm", # 7 * 3 = 21
+            "mine", # 7 * 3 = 21
+            "lumber_mill", # 7 * 3 = 21
+            "mountain_mine", # 20 * 1 = 20
+            "hunters_lodge", # (2 * 3) * 3 = 18
         ]
         
         production_buildings_in_city: list[Building] = [
