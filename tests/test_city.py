@@ -12,6 +12,7 @@ from modules.exceptions import (
     FortsCannotHaveBuildingsError,
     TooManyBuildingsError,
     MoreThanOneGuildTypeError,
+    UnknownBuildingStaffingStrategyError,
 )
 from modules.resources import Resource
 
@@ -1551,7 +1552,17 @@ class TestWorkersDistribution:
         assert city.production.total.food == 697
         assert city.production.maintenance_costs.food == 14
         assert city.production.balance.food == 683
-
+    
+    def test_unknown_staffing_strategy_raises_error(self) -> None:
+        with raises(expected_exception = UnknownBuildingStaffingStrategyError):
+            city: City = City(
+                campaign = "Unification of Italy",
+                name = "Roma",
+                buildings = [
+                    Building(id = "city_hall"),
+                ],
+                staffing_strategy = "military_first",
+            )
 
 
 @mark.city
