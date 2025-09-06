@@ -903,26 +903,26 @@ class City:
         Retrieve a building from the city by its ID. In case the city has more than one it will return the first one.
         
         Args:
-            id (str): the building ID to search for.
+            id (str): The building ID to search for.
         
         Returns:
-            Building: the first building in the city with the given ID.
+            Building: The first building in the city with the given ID.
         
         Raises:
-            KeyError: if no building with the given ID exists in the city.
+            KeyError: If no building with the given ID exists in the city.
         """
         for building in self.buildings:
             if building.id == id:
                 return building
         
-        raise KeyError(f"No building with ID={id} found in {self.name}.")
+        raise KeyError(f"No building with ID = \"{id}\" found in {self.name}.")
     
     def has_building(self, id: str) -> bool:
         """
         Check whether the city contains a building with the specified ID.
         
         Args:
-            id (str): the building ID to search for.
+            id (str): The building ID to search for.
         
         Returns:
             bool: True if the building is present, False otherwise.
@@ -938,10 +938,10 @@ class City:
         Count the number of buildings in the city grouped by ID or name.
         
         Args:
-            by (Literal["name", "id"]): whether to group counts by building name or ID.
+            by (Literal["name", "id"]): Whether to group counts by building name or ID.
         
         Returns:
-            BuildingsCount: a dictionary mapping either building IDs or names to their respective counts.
+            BuildingsCount: A dictionary mapping either building IDs or names to their respective counts.
         """
         from collections import Counter
         
@@ -992,6 +992,7 @@ class _CityDisplay:
     customizing which sections are shown, their heights, and colors.
     
     Sections displayed:
+    
         - City information (campaign and name)
         - Buildings list
         - Effect bonuses (city, buildings, workers, total)
