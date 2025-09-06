@@ -1528,8 +1528,8 @@ class TestWorkersDistribution:
         assert city.available_workers == 18
         assert city.assigned_workers == 18
         assert city.get_building(id = "basilica").workers == 1
-        
-        sum([building.workers for building in city.buildings if building.id in ["large_farm", "vineyard"]])
+        food_producers: list[int] = [building.workers for building in city.buildings if building.id in ["large_farm", "vineyard"]]
+        assert sum(food_producers) == 17
         
         assert city.effects.city.troop_training == 0
         assert city.effects.buildings.troop_training == 0
