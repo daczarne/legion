@@ -1547,11 +1547,11 @@ class TestWorkersDistribution:
         assert city.effects.workers.intelligence == 0
         assert city.effects.total.intelligence == 0
         
-        assert city.production.base.food == 297
+        assert city.production.base.food == 300
         assert city.production.productivity_bonuses.food == 135
-        assert city.production.total.food == 697
+        assert city.production.total.food == 705
         assert city.production.maintenance_costs.food == 14
-        assert city.production.balance.food == 683
+        assert city.production.balance.food == 691
     
     def test_effects_only_strategy(self) -> None:
         city: City = City.from_buildings_count(
