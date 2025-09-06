@@ -4,7 +4,7 @@ from collections.abc import Generator
 from pytest import fixture
 from typing import Literal
 
-from modules.building import _BuildingData
+from modules.building import _BuildingData, BuildingsCount
 from modules.city import _CityData
 
 
@@ -36,3 +36,55 @@ def _buildings() -> Generator[list[_BuildingData]]:
         buildings_data: dict[Literal["buildings"], list[_BuildingData]] = yaml.safe_load(stream = file)
     
     yield buildings_data["buildings"]
+
+
+@fixture(scope = "function")
+def _roman_military_buildings() -> Generator[BuildingsCount]:
+    military: BuildingsCount = {
+        "city_hall": 1,
+        "basilica": 1,
+        "hospital": 1,
+        "training_ground": 1,
+        "gladiator_school": 1,
+        "stables": 1,
+        "bordello": 1,
+        "quartermaster": 1,
+        "large_fort": 1,
+    }
+    yield military
+
+
+@fixture(scope = "function")
+def _roman_food_producer_with_warehouse_buildings() -> Generator[BuildingsCount]:
+    military: BuildingsCount = {
+        "city_hall": 1,
+        "basilica": 1,
+        "warehouse": 1,
+        "farmers_guild": 1,
+        "large_farm": 4,
+        "vineyard": 1,
+    }
+    yield military
+
+
+@fixture(scope = "function")
+def _roman_ore_producer_buildings() -> Generator[BuildingsCount]:
+    military: BuildingsCount = {
+        "city_hall": 1,
+        "basilica": 1,
+        "miners_guild": 1,
+        "large_mine": 6,
+    }
+    yield military
+
+
+@fixture(scope = "function")
+def _roman_wood_producer_with_warehouse_buildings() -> Generator[BuildingsCount]:
+    military: BuildingsCount = {
+        "city_hall": 1,
+        "basilica": 1,
+        "warehouse": 1,
+        "carpenters_guild": 1,
+        "large_lumber_mill": 5,
+    }
+    yield military
