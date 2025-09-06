@@ -536,7 +536,9 @@ class City:
                 guilds[building.id] = 1
         
         if len(guilds) > 1:
-            raise MoreThanOneGuildTypeError(f"Only one guild per city is allowed. Found {", ".join(guilds.keys())}.")
+            raise MoreThanOneGuildTypeError(
+                f"Only one guild per city is allowed. Found {", ".join(guilds.keys())}."
+            )
         
         if len(guilds) == 1:
             if list(guilds.values())[0] != 1:
