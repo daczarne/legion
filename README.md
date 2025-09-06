@@ -1,6 +1,20 @@
-# Legion
-
-This project is a collection of classes that help you organize your kingdom in Legion.
+<!-- markdownlint-disable MD041-->
+<!-- markdownlint-disable MD033-->
+<br>
+<h1 align="center">
+  <a href="https://www6.slitherine.com/game/legion-gold">
+    <img src="img/legion_2002_cover.jpg" alt="Legion" width="200">
+  </a>
+</h1>
+<h4 align="center">A collection of classes that help you organize your kingdom in Legion</h4>
+<p align="center">
+  <a href="#the-building-class">Buildings</a> •
+  <a href="#the-city-class">Cities</a> •
+  <a href="#the-scenario-class">Scenarios</a> •
+  <a href="#the-displayconfiguration-class">Display configuration</a> •
+  <a href="#the-kingdom-class">Kingdom</a>
+</p>
+<!-- markdownlint-enable MD033-->
 
 ## The `Building` class
 
