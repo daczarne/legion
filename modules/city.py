@@ -211,7 +211,6 @@ class City:
         self.geo_features: GeoFeatures = self._get_geo_features()
         
         self.buildings: list[Building] = buildings
-        self.staffing_strategy: str = staffing_strategy
         
         self.is_fort: bool = self._is_fort()
         self._add_fort_to_buildings()
@@ -228,6 +227,7 @@ class City:
         self._validate_guilds()
         
         #* Staff buildings
+        self.staffing_strategy: str = staffing_strategy
         self.available_workers: int = City.MAX_WORKERS[self.hall.id]
         self.assigned_workers: int = 0
         self._staff_buildings(staffing_strategy = self.staffing_strategy)
@@ -992,7 +992,7 @@ class _CityDisplay:
     customizing which sections are shown, their heights, and colors.
     
     Sections displayed:
-    
+
         - City information (campaign and name)
         - Buildings list
         - Effect bonuses (city, buildings, workers, total)
