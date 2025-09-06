@@ -12,7 +12,7 @@
   <a href="#the-city-class">Cities</a> •
   <a href="#the-scenario-class">Scenarios</a> •
   <a href="#the-displayconfiguration-class">Display configuration</a> •
-  <a href="#the-kingdom-class">Kingdom</a> •
+  <a href="#the-kingdom-class">Kingdom</a>
 </p>
 <!-- markdownlint-enable MD033-->
 
