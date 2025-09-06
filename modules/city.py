@@ -227,10 +227,11 @@ class City:
         self._validate_guilds()
         
         #* Staff buildings
+        self._validate_staffing_strategy(staffing_strategy = staffing_strategy)
         self.staffing_strategy: str = staffing_strategy
         self.available_workers: int = City.MAX_WORKERS[self.hall.id]
         self.assigned_workers: int = 0
-        self._staff_buildings(staffing_strategy = self.staffing_strategy)
+        self._staff_buildings()
         
         #* Calculate effects
         self.effects: _CityEffectBonuses = _CityEffectBonuses()
@@ -544,15 +545,7 @@ class City:
             if list(guilds.values())[0] != 1:
                 raise TooManyGuildsError(f"Too many guilds for this city.")
     
-    def _staff_building(self, building: Building) -> None:
-        while (
-            self.assigned_workers < self.available_workers
-            and building.workers < building.max_workers
-        ):
-            building.add_workers(qty = 1)
-            self.assigned_workers += 1
-    
-    def _staff_buildings(self, staffing_strategy: str) -> None:
+    def _validate_staffing_strategy(self, staffing_strategy: str) -> None:
         allowed_building_staffing_strategies: list[str] = [
             "production_first",
             "production_only",
@@ -565,7 +558,16 @@ class City:
                 f"Unknown building staffing strategy. " \
                 f"Allowed strategies: {" ".join(allowed_building_staffing_strategies)}."
             )
-        
+    
+    def _staff_building(self, building: Building) -> None:
+        while (
+            self.assigned_workers < self.available_workers
+            and building.workers < building.max_workers
+        ):
+            building.add_workers(qty = 1)
+            self.assigned_workers += 1
+    
+    def _staff_buildings(self) -> None:
         # Production buildings sorted by productivity levels. The prod. level of each building is determined by the
         # total sum of all produced rss. For most buildings, this is equal to the product of the one rss it produces
         # times the number of workers. The only exception is the HL which produces all 3 rss. Worker productivity is
@@ -593,19 +595,19 @@ class City:
             building for building in self.buildings if building.id not in production_buildings
         ]
         
-        if staffing_strategy in ["production_first", "production_only"]:
+        if self.staffing_strategy in ["production_first", "production_only"]:
             for building in production_buildings_in_city:
                 self._staff_building(building = building)
             
-            if staffing_strategy == "production_first":
+            if self.staffing_strategy == "production_first":
                 for building in non_production_buildings_in_city:
                     self._staff_building(building = building)
         
-        if staffing_strategy in ["effects_first", "effects_only"]:
+        if self.staffing_strategy in ["effects_first", "effects_only"]:
             for building in non_production_buildings_in_city:
                 self._staff_building(building = building)
             
-            if staffing_strategy == "effects_first":
+            if self.staffing_strategy == "effects_first":
                 for building in production_buildings_in_city:
                     self._staff_building(building = building)
     
