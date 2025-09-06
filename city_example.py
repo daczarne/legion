@@ -1,5 +1,5 @@
 from modules.city import City
-from modules.building import BuildingsCount, Building
+from modules.building import BuildingsCount
 
 military: BuildingsCount = {
     "city_hall": 1,
@@ -13,11 +13,21 @@ military: BuildingsCount = {
     "large_fort": 1,
 }
 
+city: City = City.from_buildings_count(
+    campaign = "Unification of Italy",
+    name = "Populonia",
+    buildings = military,
+    staffing_strategy = "production_first",
+)
+
+city.display_city()
+print()
+
 food_producer: BuildingsCount = {
     "city_hall": 1,
     "basilica": 1,
-    "farmers_guild": 0,
-    "large_farm": 6,
+    "farmers_guild": 1,
+    "large_farm": 5,
     "vineyard": 1,
 }
 
@@ -29,10 +39,3 @@ city: City = City.from_buildings_count(
 )
 
 city.display_city()
-
-
-for building in city.buildings:
-    print(f"{building.name} - Workers: {building.workers} of {building.max_workers}")
-
-print("-" * 40)
-print(f"Total workers: {city.assigned_workers} of {city.available_workers}")
