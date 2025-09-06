@@ -555,7 +555,7 @@ class City:
             "production_first",
             "production_only",
             "effects_first",
-            "effects_only"
+            "effects_only",
         ]
         
         if staffing_strategy not in allowed_building_staffing_strategies:

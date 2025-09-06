@@ -1460,6 +1460,98 @@ class TestWorkersDistribution:
         assert city.effects.buildings.intelligence == 0
         assert city.effects.workers.intelligence == 0
         assert city.effects.total.intelligence == 0
+    
+    def test_production_first_strategy(self) -> None:
+        city: City = City.from_buildings_count(
+            campaign = "Unification of Italy",
+            name = "Roma",
+            buildings = {
+                "city_hall": 1,
+                "basilica": 1,
+                "hospital": 1,
+                "training_ground": 1,
+                "gladiator_school": 1,
+                "stables": 1,
+                "bordello": 1,
+                "quartermaster": 1,
+                "large_fort": 1,
+            },
+            staffing_strategy = "production_first",
+        )
+        
+        assert city.get_building(id = "basilica").workers == 1
+        assert city.get_building(id = "hospital").workers == 3
+        assert city.get_building(id = "training_ground").workers == 1
+        
+        assert city.available_workers == 18
+        assert city.assigned_workers == 5
+    
+    def test_production_only_strategy(self) -> None:
+        city: City = City.from_buildings_count(
+            campaign = "Unification of Italy",
+            name = "Roma",
+            buildings = {
+                "city_hall": 1,
+                "basilica": 1,
+                "hospital": 1,
+                "training_ground": 1,
+                "gladiator_school": 1,
+                "stables": 1,
+                "bordello": 1,
+                "quartermaster": 1,
+                "large_fort": 1,
+            },
+            staffing_strategy = "production_only",
+        )
+        
+        assert city.get_building(id = "basilica").workers == 0
+        assert city.get_building(id = "hospital").workers == 0
+        assert city.get_building(id = "training_ground").workers == 0
+        
+        assert city.available_workers == 18
+        assert city.assigned_workers == 0
+    
+    def test_effects_first_strategy(self) -> None:
+        city: City = City.from_buildings_count(
+            campaign = "Unification of Italy",
+            name = "Populonia",
+            buildings = {
+                "city_hall": 1,
+                "basilica": 1,
+                "farmers_guild": 1,
+                "vineyard": 1,
+                "large_farm": 5,
+            },
+            staffing_strategy = "effects_first",
+        )
+        
+        assert city.available_workers == 18
+        assert city.assigned_workers == 18
+        assert city.get_building(id = "basilica").workers == 1
+        
+        sum([building.workers for building in city.buildings if building.id in ["large_farm", "vineyard"]])
+        
+        assert city.effects.city.troop_training == 0
+        assert city.effects.buildings.troop_training == 0
+        assert city.effects.workers.troop_training == 0
+        assert city.effects.total.troop_training == 0
+        
+        assert city.effects.city.population_growth == 0
+        assert city.effects.buildings.population_growth == 0
+        assert city.effects.workers.population_growth == 50
+        assert city.effects.total.population_growth == 50
+        
+        assert city.effects.city.intelligence == 0
+        assert city.effects.buildings.intelligence == 0
+        assert city.effects.workers.intelligence == 0
+        assert city.effects.total.intelligence == 0
+        
+        assert city.production.base.food == 297
+        assert city.production.productivity_bonuses.food == 135
+        assert city.production.total.food == 697
+        assert city.production.maintenance_costs.food == 14
+        assert city.production.balance.food == 683
+
 
 
 @mark.city
