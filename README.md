@@ -16,8 +16,6 @@
 </p>
 <!-- markdownlint-enable MD033-->
 
-This project is a collection of classes that help you organize your kingdom in Legion.
-
 ## The `Building` class
 
 The `Building` class is used to represent an instance of a building. Cities can be created from lists of buildings or
