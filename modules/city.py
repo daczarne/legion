@@ -49,6 +49,7 @@ from .exceptions import (
     CityNotFoundError,
     MoreThanOneGuildTypeError,
     TooManyGuildsError,
+    UnknownBuildingStaffingStrategyError,
 )
 from .geo_features import GeoFeaturesData, GeoFeatures
 from .resources import Resource, ResourceCollectionData, ResourceCollection
@@ -200,6 +201,7 @@ class City:
             campaign: str,
             name: str,
             buildings: list[Building],
+            staffing_strategy: str = "production_first",
         ) -> None:
         self._city_data: _CityData = self._get_city_data(campaign = campaign, name = name)
         self.campaign: str = self._get_campaign()
@@ -223,6 +225,13 @@ class City:
         self._validate_total_number_of_buildings()
         self._validate_building_counts()
         self._validate_guilds()
+        
+        #* Staff buildings
+        self._validate_staffing_strategy(staffing_strategy = staffing_strategy)
+        self.staffing_strategy: str = staffing_strategy
+        self.available_workers: int = City.MAX_WORKERS[self.hall.id]
+        self.assigned_workers: int = 0
+        self._staff_buildings()
         
         #* Calculate effects
         self.effects: _CityEffectBonuses = _CityEffectBonuses()
@@ -528,11 +537,79 @@ class City:
                 guilds[building.id] = 1
         
         if len(guilds) > 1:
-            raise MoreThanOneGuildTypeError(f"Only one guild per city is allowed. Found {", ".join(guilds.keys())}.")
+            raise MoreThanOneGuildTypeError(
+                f"Only one guild per city is allowed. Found {", ".join(guilds.keys())}."
+            )
         
         if len(guilds) == 1:
             if list(guilds.values())[0] != 1:
                 raise TooManyGuildsError(f"Too many guilds for this city.")
+    
+    def _validate_staffing_strategy(self, staffing_strategy: str) -> None:
+        allowed_building_staffing_strategies: list[str] = [
+            "production_first",
+            "production_only",
+            "effects_first",
+            "effects_only",
+        ]
+        
+        if staffing_strategy not in allowed_building_staffing_strategies:
+            raise UnknownBuildingStaffingStrategyError(
+                f"Unknown building staffing strategy. " \
+                f"Allowed strategies: {" ".join(allowed_building_staffing_strategies)}."
+            )
+    
+    def _staff_building(self, building: Building) -> None:
+        while (
+            self.assigned_workers < self.available_workers
+            and building.workers < building.max_workers
+        ):
+            building.add_workers(qty = 1)
+            self.assigned_workers += 1
+    
+    def _staff_buildings(self) -> None:
+        # Production buildings sorted by productivity levels. The prod. level of each building is determined by the
+        # total sum of all produced rss. For most buildings, this is equal to the product of the one rss it produces
+        # times the number of workers. The only exception is the HL which produces all 3 rss. Worker productivity is
+        # calculated based on 100 prod. pot.
+        production_buildings: dict[str, int] = {
+            "large_farm": 36, # 12 * 3 = 36
+            "large_mine": 36, # 12 * 3 = 36
+            "large_lumber_mill": 36, # 12 * 3 = 36
+            "vineyard": 30, # 10 * 3 = 30
+            "fishing_village": 27, # 9 * 3 = 27
+            "outcrop_mine": 26, # 13 * 2 = 26
+            "farm": 21, # 7 * 3 = 21
+            "mine": 21, # 7 * 3 = 21
+            "lumber_mill": 21, # 7 * 3 = 21
+            "mountain_mine": 20, # 20 * 1 = 20
+            "hunters_lodge": 18, # (2 * 3) * 3 = 18
+        }
+        
+        production_buildings_in_city: list[Building] = sorted(
+            [building for building in self.buildings if building.id in production_buildings],
+            key = lambda building: production_buildings[building.id],
+            reverse = True,
+        )
+        non_production_buildings_in_city: list[Building] = [
+            building for building in self.buildings if building.id not in production_buildings
+        ]
+        
+        if self.staffing_strategy in ["production_first", "production_only"]:
+            for building in production_buildings_in_city:
+                self._staff_building(building = building)
+            
+            if self.staffing_strategy == "production_first":
+                for building in non_production_buildings_in_city:
+                    self._staff_building(building = building)
+        
+        if self.staffing_strategy in ["effects_first", "effects_only"]:
+            for building in non_production_buildings_in_city:
+                self._staff_building(building = building)
+            
+            if self.staffing_strategy == "effects_first":
+                for building in production_buildings_in_city:
+                    self._staff_building(building = building)
     
     
     #* Effect bonuses
@@ -559,9 +636,9 @@ class City:
         worker_effects: EffectBonuses = EffectBonuses()
         
         for building in self.buildings:
-            worker_effects.troop_training += building.effect_bonuses_per_worker.troop_training * building.max_workers
-            worker_effects.population_growth += building.effect_bonuses_per_worker.population_growth * building.max_workers
-            worker_effects.intelligence += building.effect_bonuses_per_worker.intelligence * building.max_workers
+            worker_effects.troop_training += building.effect_bonuses_per_worker.troop_training * building.workers
+            worker_effects.population_growth += building.effect_bonuses_per_worker.population_growth * building.workers
+            worker_effects.intelligence += building.effect_bonuses_per_worker.intelligence * building.workers
         
         return worker_effects
     
@@ -605,7 +682,6 @@ class City:
         for building in self.buildings:
             
             productivity_per_worker: ResourceCollection = building.productivity_per_worker
-            max_workers: int = building.max_workers
             
             # Production per worker
             prod_per_worker_food: int = int(floor(productivity_per_worker.food * self.resource_potentials.food / 100.0))
@@ -613,9 +689,9 @@ class City:
             prod_per_worker_wood: int = int(floor(productivity_per_worker.wood * self.resource_potentials.wood / 100.0))
             
             # Base production
-            base_production_food: int = prod_per_worker_food * max_workers
-            base_production_ore: int = prod_per_worker_ore * max_workers
-            base_production_wood: int = prod_per_worker_wood * max_workers
+            base_production_food: int = prod_per_worker_food * building.workers
+            base_production_ore: int = prod_per_worker_ore * building.workers
+            base_production_wood: int = prod_per_worker_wood * building.workers
             
             base_production.food += base_production_food
             base_production.ore += base_production_ore
@@ -793,6 +869,7 @@ class City:
         campaign: str,
         name: str,
         buildings: BuildingsCount,
+        staffing_strategy: str = "production_first",
     ) -> "City":
         """
         Create a `City` instance from a count of buildings. The count must be a dictionary with building IDs as keys
@@ -819,6 +896,7 @@ class City:
             campaign = campaign,
             name = name,
             buildings = city_buildings,
+            staffing_strategy = staffing_strategy,
         )
     
     
@@ -827,26 +905,26 @@ class City:
         Retrieve a building from the city by its ID. In case the city has more than one it will return the first one.
         
         Args:
-            id (str): the building ID to search for.
+            id (str): The building ID to search for.
         
         Returns:
-            Building: the first building in the city with the given ID.
+            Building: The first building in the city with the given ID.
         
         Raises:
-            KeyError: if no building with the given ID exists in the city.
+            KeyError: If no building with the given ID exists in the city.
         """
         for building in self.buildings:
             if building.id == id:
                 return building
         
-        raise KeyError(f"No building with ID={id} found in {self.name}.")
+        raise KeyError(f"No building with ID = \"{id}\" found in {self.name}.")
     
     def has_building(self, id: str) -> bool:
         """
         Check whether the city contains a building with the specified ID.
         
         Args:
-            id (str): the building ID to search for.
+            id (str): The building ID to search for.
         
         Returns:
             bool: True if the building is present, False otherwise.
@@ -862,10 +940,10 @@ class City:
         Count the number of buildings in the city grouped by ID or name.
         
         Args:
-            by (Literal["name", "id"]): whether to group counts by building name or ID.
+            by (Literal["name", "id"]): Whether to group counts by building name or ID.
         
         Returns:
-            BuildingsCount: a dictionary mapping either building IDs or names to their respective counts.
+            BuildingsCount: A dictionary mapping either building IDs or names to their respective counts.
         """
         from collections import Counter
         
@@ -916,6 +994,7 @@ class _CityDisplay:
     customizing which sections are shown, their heights, and colors.
     
     Sections displayed:
+
         - City information (campaign and name)
         - Buildings list
         - Effect bonuses (city, buildings, workers, total)

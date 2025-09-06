@@ -10,7 +10,6 @@ dictionaries of building counts.
 ```python
 from modules.building import Building
 
-
 city_hall: Building = Building(id = "city_hall")
 city_hall.display_building()
 ```
@@ -29,22 +28,21 @@ This class will raise the following exceptions:
 
 - `InsufficientNumberOfWorkersError`: if you try to remove more workers than the building currently has.
 - `NegativeNumberOfWorkersError`: if you try to add, remove, or set a negative number of workers.
-- `TooManyWorkersError`: if you try to add to many workers to a building or set the total number of workers to a value
+- `TooManyWorkersError`: if you try to add too many workers to a building or set the total number of workers to a value
   greater than the maximum number of workers the build can have.
 - `UnknownBuildingError`: if an unknown building ID is passed to the initalizer.
 
 ## The `City` class
 
-The `City` class is the backbone of it all. Given a city (identified by campaign and city name) and the configuration
-of buildings that you'd like to build in it, it calculates the information about the city (its effects, production,
-storage, and defenses).
+The `City` class is the backbone of it all. Given a city (identified by campaign and city name), the configuration of
+buildings that you'd like to build in it, and a staffing strategy, it calculates the information about the city (its
+effects, production, storage, and defenses).
 
 The `City` objects can be constructed by passing lists of `Building` objects, or a dictionary of building counts. This
 last one is the most offtenly used approach.
 
 ```python
 from modules.city import City
-
 
 city: City = City.from_buildings_count(
     campaign = "Unification of Italy",
@@ -61,7 +59,7 @@ city: City = City.from_buildings_count(
 city.display_city()
 ```
 
-![full city](img/city_1.png)
+![full city](img/city.png)
 
 You can pass a `DisplayConfiguration` dictionary to the `display_city()` method to control how the city is displayed.
 For example, you could want the Defenses section to be omitted and the Production section to be shown in yellow.
@@ -76,22 +74,46 @@ display_configuration: DisplayConfiguration = {
     },
 }
 
-
 city.display_city(display_configuration)
 ```
 
-![partial city](img/city_2.png)
+### Staffing strategies
+
+Apart from the decision of which buildings to build, you must also decide how you are going to distribute the workers
+in your city. You can chose from four different staffing-strategies:
+
+- `production_first`: will staff the production buildings first.
+- `production_only`: will only staff the production buildings. Effects-buildings will not receive workers, even if
+  there are more workers available.
+- `effects_first`: will staff the effects-buildings first.
+- `effects_only`: will only staff the effects buildings. Production buildings will not receive workers, even if there
+  are more workers available.
+
+For the purpose of staffing, buildings are classified between *"production"* and *"effects"*. Production buildings are
+those for which adding workers increases their resource output (farms, mines, lumber mills, etc). Effects-buildings are
+those for which adding workers increases the effect bonuses (troop training, population growth, intelligence).
 
 ### Exceptions
 
 This class will raise the following exceptions:
 
 - `NoCityHallError`: if no hall is included in the city buildings.
-- `TooManyHallsError`: if more than one hall is included in the city buildings.
+- `MoreThanOneHallTypeError`: if more than one hall types are passed to the class (e.g. "town_hall", and "city_hall").
+- `TooManyHallsError`: if more than one hall (of the same type) is included in the city buildings.
 - `FortsCannotHaveBuildingsError`: if you try to add buildings to a Fort (Germania campaign).
-- `TooManyBuildingsError`: if you try to include more buildings in a city than what its hall can support.
-- `NoGarrisonFoundError`: if no garrison is found. This usually means that there was no city found. Check the spelling
-  of the city's name or the name of the campaign.
+- `TooManyBuildingsError`: if you try to include more buildings in a city than allowed.
+- `MoreThanOneGuildTypeError`: if you try to add more than one guild building to a city.
+- `UnknownBuildingStaffingStrategyError`: if you pass an unknown value to the `staffing_strategy` argument.
+
+The number of buildings that a city can build (both total number and the qty of given buildings) are calculated based
+on multiple factors. These includes the hall (fort, village, town, or city), but also the geographical features of the
+city (lakes, mountains, etc), the resource potentials, and other limiting-mechanism impossed by the game.
+
+Building-configurations are considered valid if they can happen in the game, not based on whether they follow building
+requirement rules. For example, building a Fletcher requires the presence of a Lumber Mill or Large Lumber Mill. But
+the final configuration of a city can have a Fletcher and not have any mills. This can happen either because the
+Fletcher was there after conquering the city but the mills got destroyed, or because you built the mill, built the
+Fletcher, destroyed the mill and built something else in its spot.
 
 ## The `Scenario` class
 
@@ -102,7 +124,6 @@ altogether. You can create a comparison by passing a list of `City` objects to t
 
 ```python
 from modules.scenario import Scenario
-
 
 scenario: Scenario = Scenario.from_list(
     data = [
@@ -134,7 +155,7 @@ scenario: Scenario = Scenario.from_list(
 scenario.display_scenario()
 ```
 
-![scenario 1](img/scenario_1.png)
+![scenario 1](img/scenario.png)
 
 You can pass a `DisplayConfiguration` object to control how the cities are displayed. The configuration supplied will
 be used for all cities in the `Scenario`.
@@ -154,8 +175,6 @@ scenario: Scenario = Scenario.from_list(
     },
 )
 ```
-
-![scenario 2](img/scenario_2.png)
 
 ## The `DisplayConfiguration` class
 
@@ -188,7 +207,6 @@ dictionaries same as with the `Scenario` class.
 ```python
 from modules.kingdom import Kingdom
 
-
 kingdom: Kingdom = Kingdom.from_list(
     data = [
         {
@@ -219,11 +237,11 @@ kingdom: Kingdom = Kingdom.from_list(
 kingdom.display_kingdom()
 ```
 
-![kingdome overview](img/kingdom_1.png)
+![kingdome overview](img/kingdom.png)
 
 You can pass a list to the `sort_order` argument and it will change how the cities are sorted. By default, food
-producers will show first, followed by ore producers, wood producers, and, lastly, cities that don't specialize in any
-resource.
+producers will be shown first, followed by ore producers, wood producers, and lastly, cities that don't specialize in
+any resource.
 
 The list can be partial. If you just want to specify that "ore" producers should go first
 

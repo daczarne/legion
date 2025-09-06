@@ -76,6 +76,10 @@ class TooManyGuildsError(CityError):
     pass
 
 
+class UnknownBuildingStaffingStrategyError(CityError):
+    pass
+
+
 # * ******* * #
 # * DISPLAY * #
 # * ******* * #
