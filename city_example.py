@@ -16,8 +16,8 @@ military: BuildingsCount = {
 food_producer: BuildingsCount = {
     "city_hall": 1,
     "basilica": 1,
-    "farmers_guild": 1,
-    "large_farm": 5,
+    "farmers_guild": 0,
+    "large_farm": 6,
     "vineyard": 1,
 }
 
@@ -25,17 +25,10 @@ city: City = City.from_buildings_count(
     campaign = "Unification of Italy",
     name = "Populonia",
     buildings = food_producer,
-    staffing_strategy = "effects_first",
+    staffing_strategy = "production_first",
 )
 
 city.display_city()
-
-
-user_selected_strategy: str = "production"
-
-#################################
-#################################
-#################################
 
 
 for building in city.buildings:

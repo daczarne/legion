@@ -568,23 +568,25 @@ class City:
         # total sum of all produced rss. For most buildings, this is equal to the product of the one rss it produces
         # times the number of workers. The only exception is the HL which produces all 3 rss. Worker productivity is
         # calculated based on 100 prod. pot.
-        production_buildings: list[str] = [
-            "large_farm", # 12 * 3 = 36
-            "large_mine", # 12 * 3 = 36
-            "large_lumber_mill", # 12 * 3 = 36
-            "vineyard", # 10 * 3 = 30
-            "fishing_village", # 9 * 3 = 27
-            "outcrop_mine", # 13 * 2 = 26
-            "farm", # 7 * 3 = 21
-            "mine", # 7 * 3 = 21
-            "lumber_mill", # 7 * 3 = 21
-            "mountain_mine", # 20 * 1 = 20
-            "hunters_lodge", # (2 * 3) * 3 = 18
-        ]
+        production_buildings: dict[str, int] = {
+            "large_farm": 36, # 12 * 3 = 36
+            "large_mine": 36, # 12 * 3 = 36
+            "large_lumber_mill": 36, # 12 * 3 = 36
+            "vineyard": 30, # 10 * 3 = 30
+            "fishing_village": 27, # 9 * 3 = 27
+            "outcrop_mine": 26, # 13 * 2 = 26
+            "farm": 21, # 7 * 3 = 21
+            "mine": 21, # 7 * 3 = 21
+            "lumber_mill": 21, # 7 * 3 = 21
+            "mountain_mine": 20, # 20 * 1 = 20
+            "hunters_lodge": 18, # (2 * 3) * 3 = 18
+        }
         
-        production_buildings_in_city: list[Building] = [
-            building for building in self.buildings if building.id in production_buildings
-        ]
+        production_buildings_in_city: list[Building] = sorted(
+            [building for building in self.buildings if building.id in production_buildings],
+            key = lambda building: production_buildings[building.id],
+            reverse = True,
+        )
         non_production_buildings_in_city: list[Building] = [
             building for building in self.buildings if building.id not in production_buildings
         ]
