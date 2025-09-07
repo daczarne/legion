@@ -328,7 +328,7 @@ class TestKingdom:
         assert kingdom.kingdom_total_storage.ore == 14880
         assert kingdom.kingdom_total_storage.wood == 9525
     
-    def test_cities_from_different_campaigns_raise_error(self, _roman_military_buildings: BuildingsCount) -> None:
+    def test_cities_from_different_campaigns_raises_error(self, _roman_military_buildings: BuildingsCount) -> None:
         with raises(expected_exception = CitiesFromMultipleCampaignsError):
             kingdom: Kingdom = Kingdom.from_list(
                 data = [
@@ -345,7 +345,7 @@ class TestKingdom:
                 ],
             )
     
-    def test_duplicated_cities_raise_error(
+    def test_duplicated_cities_raises_error(
             self,
             _roman_military_buildings: BuildingsCount,
             _roman_food_producer_with_warehouse_buildings: BuildingsCount,
