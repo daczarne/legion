@@ -1,5 +1,6 @@
-from modules.city import City
 from modules.building import BuildingsCount
+from modules.city import City
+
 
 military: BuildingsCount = {
     "city_hall": 1,

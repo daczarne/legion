@@ -1,11 +1,11 @@
-import yaml
-
 from collections.abc import Generator
-from pytest import fixture
 from typing import Literal
 
-from modules.building import _BuildingData, BuildingsCount, Building
-from modules.city import _CityData, City
+import yaml
+from pytest import fixture
+
+from modules.building import BuildingsCount, _BuildingData
+from modules.city import City, _CityData
 
 
 @fixture(scope = "function")
