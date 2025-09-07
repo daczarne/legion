@@ -6,6 +6,7 @@
         "editorconfig.editorconfig",
         "esbenp.prettier-vscode",
         "mhutchie.git-graph",
+        "ms-python.isort",
         "ms-python.python",
         "ms-python.vscode-pylance",
         "njpwerner.autodocstring",

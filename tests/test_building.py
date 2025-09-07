@@ -1,6 +1,7 @@
 from collections import Counter
-from pytest import mark, raises
 from typing import Any
+
+from pytest import mark, raises
 
 from modules.building import Building
 from modules.effects import EffectBonuses

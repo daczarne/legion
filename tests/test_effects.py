@@ -1,7 +1,8 @@
 from collections import Counter
 from dataclasses import fields
-from pytest import mark, raises
 from typing import Literal
+
+from pytest import mark, raises
 
 from modules.effects import EffectBonuses
 

@@ -13,13 +13,8 @@ from rich.align import Align
 from rich.console import Console
 from rich.layout import Layout
 
-from .city import CityDict, City
-from .display import (
-    DisplayConfiguration,
-    DisplaySection,
-    DisplaySectionConfiguration,
-    DEFAULT_SECTION_COLORS,
-)
+from .city import City, CityDict
+from .display import DEFAULT_SECTION_COLORS, DisplayConfiguration, DisplaySection, DisplaySectionConfiguration
 
 
 __all__: list[str] = ["Scenario"]

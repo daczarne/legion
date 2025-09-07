@@ -25,9 +25,9 @@ from rich.style import Style
 from rich.table import Table
 from rich.text import Text
 
-from .city import City, CityDict, CITIES
-from .exceptions import DuplicatedCityError, CitiesFromMultipleCampaignsError
-from .resources import ResourceCollection, Resource
+from .city import CITIES, City, CityDict
+from .exceptions import CitiesFromMultipleCampaignsError, DuplicatedCityError
+from .resources import Resource, ResourceCollection
 
 
 __all__: list[str] = ["Kingdom"]

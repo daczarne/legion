@@ -1,17 +1,18 @@
 from collections import Counter
-from pytest import mark, raises, fixture, FixtureRequest
+
+from pytest import FixtureRequest, fixture, mark, raises
 
 from modules.building import Building, BuildingsCount
-from modules.city import _CityData, City, _CityDisplay
-from modules.display import DisplayConfiguration, DisplaySectionConfiguration, DEFAULT_SECTION_COLORS
+from modules.city import City, _CityData, _CityDisplay
+from modules.display import DEFAULT_SECTION_COLORS, DisplayConfiguration, DisplaySectionConfiguration
 from modules.exceptions import (
     CityNotFoundError,
-    NoCityHallError,
-    MoreThanOneHallTypeError,
-    TooManyHallsError,
     FortsCannotHaveBuildingsError,
-    TooManyBuildingsError,
     MoreThanOneGuildTypeError,
+    MoreThanOneHallTypeError,
+    NoCityHallError,
+    TooManyBuildingsError,
+    TooManyHallsError,
     UnknownBuildingStaffingStrategyError,
 )
 from modules.resources import Resource

@@ -2,7 +2,7 @@ from pytest import mark, raises
 
 from modules.building import BuildingsCount
 from modules.city import City
-from modules.exceptions import DuplicatedCityError, CitiesFromMultipleCampaignsError
+from modules.exceptions import CitiesFromMultipleCampaignsError, DuplicatedCityError
 from modules.kingdom import Kingdom
 
 
@@ -16,8 +16,8 @@ class TestKingdom:
                     campaign = "Unification of Italy",
                     name = "Roma",
                     buildings = {"village_hall": 1},
-                )
-            ]
+                ),
+            ],
         )
         
         assert kingdom.campaign == "Unification of Italy"
