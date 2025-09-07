@@ -51,10 +51,10 @@ class Scenario:
     
     @classmethod
     def from_list(
-        cls,
-        data: list[CityDict],
-        configuration: DisplayConfiguration | None = None,
-    ) -> "Scenario":
+            cls,
+            data: list[CityDict],
+            configuration: DisplayConfiguration | None = None,
+        ) -> "Scenario":
         """
         Create a Scenario instance from a list of city dictionaries.
         
@@ -92,7 +92,7 @@ class Scenario:
         
         return default_configuration
     
-    def _calculate_default_section_height(self, section) -> int:
+    def _calculate_default_section_height(self, section: str) -> int:
         match section:
             case "city":
                 return 2
