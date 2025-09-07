@@ -34,8 +34,6 @@ from .exceptions import (
 )
 from .geo_features import GeoFeature
 from .resources import Resource, ResourceCollection, ResourceCollectionData
-
-
 __all__: list[str] = ["BuildingsCount", "Building"]
 
 
