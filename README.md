@@ -34,7 +34,7 @@ By default, buildings are created with zero assigned workers. Use the `add_worke
 `set_workers()` methods to control the number of workers assigned to a building instance. Assigning more workers than
 a building can have, or removing more workers than a building has assigned to it will raise errors.
 
-See more examples in `./examples/building.py`.
+See more examples in `./examples/building.py` (run them with `python -m examples.building`).
 
 ### Exceptions
 
@@ -91,7 +91,7 @@ display_configuration: DisplayConfiguration = {
 city.display_city(display_configuration)
 ```
 
-See more examples in `./examples/city.py`.
+See more examples in `./examples/city.py` (run them with `python -m examples.city`).
 
 ### Staffing strategies
 
@@ -192,7 +192,7 @@ scenario: Scenario = Scenario.from_list(
 )
 ```
 
-See more examples in `./examples/scenario.py`.
+See more examples in `./examples/scenario.py` (run them with `python -m examples.scenario`).
 
 ## The `DisplayConfiguration` class
 
@@ -270,7 +270,7 @@ sort_order = ["ore"]
 is sufficient. The class will sort the cities by ore, followed by food, wood, and no-focus. In short, the list moves
 the order that you supplied to the front and keeps the rest in the default sorting order.
 
-See more examples in `./examples/kingdom.py`.
+See more examples in `./examples/kingdom.py` (run them with `python -m examples.kingdom`).
 
 ### Exceptions
 
