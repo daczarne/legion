@@ -68,6 +68,9 @@ jobs:
         with:
           config: .markdownlint.yaml
           globs: .
+      - name: Run isort 🧪
+        id: run_isort
+        run: isort --check-only --diff --verbose --color --sp .isort.cfg .
 
   spell-check:
     name: Spell check
