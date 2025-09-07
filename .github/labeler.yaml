@@ -75,11 +75,12 @@ tests:
 tools:
   - changed-files:
       - any-glob-to-any-file:
-          - .cspell/**
           - .cspell.json
+          - .cspell/**
           - .editorconfig
           - .gitattributes
           - .gitignore
+          - .isort.cfg
           - .markdownlint-cli2.yaml
           - .markdownlint.yaml
           - .yamllint.yaml
