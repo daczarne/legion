@@ -865,12 +865,12 @@ class City:
     #* Alternative city creator methods
     @classmethod
     def from_buildings_count(
-        cls,
-        campaign: str,
-        name: str,
-        buildings: BuildingsCount,
-        staffing_strategy: str = "production_first",
-    ) -> "City":
+            cls,
+            campaign: str,
+            name: str,
+            buildings: BuildingsCount,
+            staffing_strategy: str = "production_first",
+        ) -> "City":
         """
         Create a `City` instance from a count of buildings. The count must be a dictionary with building IDs as keys
         and the quantity of each building type as values.
@@ -994,7 +994,7 @@ class _CityDisplay:
     customizing which sections are shown, their heights, and colors.
     
     Sections displayed:
-
+        
         - City information (campaign and name)
         - Buildings list
         - Effect bonuses (city, buildings, workers, total)
