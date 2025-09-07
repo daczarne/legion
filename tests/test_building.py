@@ -2,6 +2,7 @@ from collections import Counter
 from pytest import mark, raises
 from typing import Any
 
+
 from modules.building import Building
 from modules.effects import EffectBonuses
 from modules.exceptions import (
