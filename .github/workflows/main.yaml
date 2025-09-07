@@ -132,9 +132,6 @@ jobs:
         id: setup_environment
         run: |
           pip install pipenv
-          if [ -n "$VIRTUAL_ENV" ]; then
-            deactivate
-          fi
           pipenv install --system --dev
           pip list
       - name: Run examples 🧪
