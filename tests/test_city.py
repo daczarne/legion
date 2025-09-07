@@ -1551,7 +1551,7 @@ class TestCityScenarios:
         
         assert _roman_military_city.focus is None
     
-    def test_roman_food_producer_city(self, _roman_food_producer_city: City) -> None:
+    def test_roman_food_producing_city(self, _roman_food_producer_city: City) -> None:
         assert _roman_food_producer_city.campaign == "Unification of Italy"
         assert _roman_food_producer_city.name == "Roma"
         
@@ -1728,7 +1728,7 @@ class TestCityScenarios:
         assert _roman_city_with_mountain_mine.storage.total.ore == 505
         assert _roman_city_with_mountain_mine.focus == Resource.ORE
     
-    def test_city_roman_ore(
+    def test_roman_ore_producing_city(
             self,
             _roman_ore_producer_city: City,
         ) -> None:
@@ -1750,82 +1750,68 @@ class TestCityScenarios:
         assert _roman_ore_producer_city.storage.total.ore == 550
         assert _roman_ore_producer_city.focus == Resource.ORE
     
-    def test_city_roman_wood(self) -> None:
-        city: City = City.from_buildings_count(
-            campaign = "Unification of Italy",
-            name = "Lingones",
-            buildings = {
-                "city_hall": 1,
-                "basilica": 1,
-                "carpenters_guild": 1,
-                "large_lumber_mill": 6,
-            },
-        )
+    def test_roman_wood_producing_city(
+            self,
+            _roman_wood_producer_city: City,
+        ) -> None:
+        assert _roman_wood_producer_city.campaign == "Unification of Italy"
+        assert _roman_wood_producer_city.name == "Lingones"
         
-        assert city.campaign == "Unification of Italy"
-        assert city.name == "Lingones"
+        assert _roman_wood_producer_city.hall.id == "city_hall"
+        assert _roman_wood_producer_city.is_fort is False
+        assert _roman_wood_producer_city.has_supply_dump is False
         
-        assert city.hall.id == "city_hall"
-        assert city.is_fort is False
-        assert city.has_supply_dump is False
-        
-        assert city.resource_potentials.wood == 150
-        assert city.geo_features.forests == 1
-        assert city.production.base.wood == 324
-        assert city.production.productivity_bonuses.wood == 125
-        assert city.production.total.wood == 729
-        assert city.production.maintenance_costs.wood == 14
-        assert city.production.balance.wood == 715
-        assert city.storage.city.wood == 100
-        assert city.storage.buildings.wood == 450
-        assert city.storage.total.wood == 550
-        assert city.focus == Resource.WOOD
+        assert _roman_wood_producer_city.resource_potentials.wood == 150
+        assert _roman_wood_producer_city.geo_features.forests == 1
+        assert _roman_wood_producer_city.production.base.wood == 324
+        assert _roman_wood_producer_city.production.productivity_bonuses.wood == 125
+        assert _roman_wood_producer_city.production.total.wood == 729
+        assert _roman_wood_producer_city.production.maintenance_costs.wood == 14
+        assert _roman_wood_producer_city.production.balance.wood == 715
+        assert _roman_wood_producer_city.storage.city.wood == 100
+        assert _roman_wood_producer_city.storage.buildings.wood == 450
+        assert _roman_wood_producer_city.storage.total.wood == 550
+        assert _roman_wood_producer_city.focus == Resource.WOOD
     
-    def test_fort(self) -> None:
-        city: City = City.from_buildings_count(
-            campaign = "Germania",
-            name = "Vetera",
-            buildings = {},
-        )
+    def test_roman_fort(self, _roman_fort: City) -> None:
+        assert len(_roman_fort.buildings) == 1
         
-        assert len(city.buildings) == 1
+        assert _roman_fort.hall.id == "fort"
+        assert _roman_fort.is_fort is True
+        assert _roman_fort.has_supply_dump is False
         
-        assert city.hall.id == "fort"
-        assert city.is_fort is True
-        assert city.has_supply_dump is False
+        assert _roman_fort.resource_potentials.food == 0
+        assert _roman_fort.resource_potentials.ore == 0
+        assert _roman_fort.resource_potentials.wood == 0
         
-        assert city.resource_potentials.food == 0
-        assert city.resource_potentials.ore == 0
-        assert city.resource_potentials.wood == 0
+        assert _roman_fort.geo_features.lakes == 0
+        assert _roman_fort.geo_features.rock_outcrops == 0
+        assert _roman_fort.geo_features.mountains == 0
+        assert _roman_fort.geo_features.forests == 0
         
-        assert city.geo_features.lakes == 0
-        assert city.geo_features.rock_outcrops == 0
-        assert city.geo_features.mountains == 0
-        assert city.geo_features.forests == 0
+        assert _roman_fort.production.total.food == 0
+        assert _roman_fort.production.total.ore == 0
+        assert _roman_fort.production.total.wood == 0
         
-        assert city.production.total.food == 0
-        assert city.production.total.ore == 0
-        assert city.production.total.wood == 0
+        assert _roman_fort.effects.city.troop_training == 20
+        assert _roman_fort.effects.city.population_growth == 0
+        assert _roman_fort.effects.city.intelligence == 30
+        assert _roman_fort.effects.total.troop_training == 20
+        assert _roman_fort.effects.total.population_growth == 0
+        assert _roman_fort.effects.total.intelligence == 30
         
-        assert city.effects.city.troop_training == 20
-        assert city.effects.city.population_growth == 0
-        assert city.effects.city.intelligence == 30
-        assert city.effects.total.troop_training == 20
-        assert city.effects.total.population_growth == 0
-        assert city.effects.total.intelligence == 30
+        assert _roman_fort.storage.city.food == 150
+        assert _roman_fort.storage.city.ore == 150
+        assert _roman_fort.storage.city.wood == 150
+        assert _roman_fort.storage.total.food == 150
+        assert _roman_fort.storage.total.ore == 150
+        assert _roman_fort.storage.total.wood == 150
         
-        assert city.storage.city.food == 150
-        assert city.storage.city.ore == 150
-        assert city.storage.city.wood == 150
-        assert city.storage.total.food == 150
-        assert city.storage.total.ore == 150
-        assert city.storage.total.wood == 150
+        assert _roman_fort.defenses.garrison == "Legion"
+        assert _roman_fort.defenses.squadrons == 3
+        assert _roman_fort.defenses.squadron_size == "Medium"
         
-        assert city.defenses.garrison == "Legion"
-        assert city.defenses.squadrons == 3
-        assert city.defenses.squadron_size == "Medium"
-        
-        assert city.focus is None
+        assert _roman_fort.focus is None
     
     def test_fort_with_buildings_raises_error(self) -> None:
         with raises(expected_exception = FortsCannotHaveBuildingsError, match = "Forts cannot have buildings"):
@@ -1837,7 +1823,7 @@ class TestCityScenarios:
                 },
             )
     
-    def test_city_roman_food_with_supply_dump_declared(self) -> None:
+    def test_roman_city_with_supply_dump_added(self) -> None:
         city: City = City.from_buildings_count(
             campaign = "Conquest of Britain",
             name = "Anderitum",
@@ -1871,29 +1857,19 @@ class TestCityScenarios:
         assert city.has_supply_dump is True
         assert city.focus == Resource.FOOD
     
-    def test_city_roman_food_with_supply_dump_added(self) -> None:
-        city: City = City.from_buildings_count(
-            campaign = "Germania",
-            name = "Rogomagnum",
-            buildings = {
-                "city_hall": 1,
-                "basilica": 1,
-                "supply_dump": 1,
-                "farmers_guild": 1,
-                "vineyard": 1,
-                "large_farm": 4,
-            },
-        )
+    def test_roman_city_with_supply_dump_declared(
+            self,
+            _roman_city_with_supply_dump: City,
+        ) -> None:
+        assert _roman_city_with_supply_dump.campaign == "Germania"
+        assert _roman_city_with_supply_dump.name == "Rogomagnum"
         
-        assert city.campaign == "Germania"
-        assert city.name == "Rogomagnum"
-        
-        assert city.hall.id == "city_hall"
-        assert city.is_fort is False
-        assert city.has_supply_dump is True
-        assert city.has_building(id = "supply_dump")
+        assert _roman_city_with_supply_dump.hall.id == "city_hall"
+        assert _roman_city_with_supply_dump.is_fort is False
+        assert _roman_city_with_supply_dump.has_supply_dump is True
+        assert _roman_city_with_supply_dump.has_building(id = "supply_dump")
     
-    def test_city_roman_military_with_supply_dump(self) -> None:
+    def test_roman_military_city_with_supply_dump(self) -> None:
         city: City = City.from_buildings_count(
             campaign = "Germania",
             name = "Rogomagnum",

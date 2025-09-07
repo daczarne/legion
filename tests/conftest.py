@@ -144,6 +144,16 @@ def _roman_wood_producer_buildings() -> Generator[BuildingsCount]:
 
 
 @fixture(scope = "function")
+def _roman_wood_producer_city(_roman_wood_producer_buildings: BuildingsCount) -> Generator[City]:
+    city: City = City.from_buildings_count(
+        campaign = "Unification of Italy",
+        name = "Lingones",
+        buildings = _roman_wood_producer_buildings,
+    )
+    yield city
+
+
+@fixture(scope = "function")
 def _roman_city_with_fishing_village() -> Generator[City]:
     city: City = City.from_buildings_count(
         campaign = "Unification of Italy",
@@ -238,6 +248,33 @@ def _roman_city_with_mountain_mine() -> Generator[City]:
             "miners_guild": 1,
             "mountain_mine": 1,
             "large_mine": 5,
+        },
+    )
+    yield city
+
+
+@fixture(scope = "function")
+def _roman_fort() -> Generator[City]:
+    city: City = City.from_buildings_count(
+        campaign = "Germania",
+        name = "Vetera",
+        buildings = {},
+    )
+    yield city
+
+
+@fixture(scope = "function")
+def _roman_city_with_supply_dump() -> Generator[City]:
+    city: City = City.from_buildings_count(
+        campaign = "Germania",
+        name = "Rogomagnum",
+        buildings = {
+            "city_hall": 1,
+            "basilica": 1,
+            "supply_dump": 1,
+            "farmers_guild": 1,
+            "vineyard": 1,
+            "large_farm": 4,
         },
     )
     yield city
