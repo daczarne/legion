@@ -1985,61 +1985,23 @@ class TestImpossibleScenarios:
 @mark.city_display
 class TestCityDisplay:
     
-    @fixture
-    def _military_city(self) -> City:
-        sample_city: City = City(
-            campaign = "Unification of Italy",
-            name = "Roma",
-            buildings = [
-                Building(id = "city_hall"),
-                Building(id = "basilica"),
-                Building(id = "hospital"),
-                Building(id = "training_ground"),
-                Building(id = "gladiator_school"),
-                Building(id = "stables"),
-                Building(id = "bordello"),
-                Building(id = "quartermaster"),
-                Building(id = "large_fort"),
-            ]
-        )
-        return sample_city
-    
-    @fixture
-    def _production_city(self) -> City:
-        sample_city: City = City(
-            campaign = "Unification of Italy",
-            name = "Roma",
-            buildings = [
-                Building(id = "city_hall"),
-                Building(id = "basilica"),
-                Building(id = "farmers_guild"),
-                Building(id = "vineyard"),
-                Building(id = "large_farm"),
-                Building(id = "large_farm"),
-                Building(id = "large_farm"),
-                Building(id = "large_farm"),
-                Building(id = "large_farm"),
-            ]
-        )
-        return sample_city
-    
     @mark.parametrize(
         argnames = ["city", "section", "expected_height"],
         argvalues = [
-            ("_military_city", "city", 2),
-            ("_production_city", "city", 2),
-            ("_military_city", "buildings", 11),
-            ("_production_city", "buildings", 7),
-            ("_military_city", "effects", 8),
-            ("_production_city", "effects", 8),
-            ("_military_city", "production", 8),
-            ("_production_city", "production", 8),
-            ("_military_city", "storage", 8),
-            ("_production_city", "storage", 8),
-            ("_military_city", "defenses", 6),
-            ("_production_city", "defenses", 6),
-            ("_military_city", "unknown", 0),
-            ("_production_city", "unknown", 0),
+            ("_roman_military_city", "city", 2),
+            ("_roman_food_producer_city", "city", 2),
+            ("_roman_military_city", "buildings", 11),
+            ("_roman_food_producer_city", "buildings", 7),
+            ("_roman_military_city", "effects", 8),
+            ("_roman_food_producer_city", "effects", 8),
+            ("_roman_military_city", "production", 8),
+            ("_roman_food_producer_city", "production", 8),
+            ("_roman_military_city", "storage", 8),
+            ("_roman_food_producer_city", "storage", 8),
+            ("_roman_military_city", "defenses", 6),
+            ("_roman_food_producer_city", "defenses", 6),
+            ("_roman_military_city", "unknown", 0),
+            ("_roman_food_producer_city", "unknown", 0),
         ],
     )
     def test_calculate_default_section_height(
@@ -2052,7 +2014,13 @@ class TestCityDisplay:
         city_display = _CityDisplay(city = request.getfixturevalue(argname = city))
         assert city_display._calculate_default_section_height(section = section) == expected_height
     
-    @mark.parametrize(argnames = "city", argvalues = ["_military_city", "_production_city"])
+    @mark.parametrize(
+        argnames = "city",
+        argvalues = [
+            "_roman_military_city",
+            "_roman_food_producer_city",
+        ],
+    )
     def test_build_default_configuration(
         self,
         city: str,
@@ -2076,7 +2044,13 @@ class TestCityDisplay:
             default_color: str = DEFAULT_SECTION_COLORS.get(section, "white")
             assert config[section]["color"] == default_color
     
-    @mark.parametrize(argnames = "city", argvalues = ["_military_city", "_production_city"])
+    @mark.parametrize(
+        argnames = "city",
+        argvalues = [
+            "_roman_military_city",
+            "_roman_food_producer_city",
+        ],
+    )
     def test_build_configuration_merges_user_config(
         self,
         city: str,

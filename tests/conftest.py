@@ -208,14 +208,13 @@ def _roman_city_with_outcrop_and_mountain_mine() -> Generator[City]:
 def _roman_city_with_outcrop_mine() -> Generator[City]:
     city: City = City.from_buildings_count(
         campaign = "Unification of Italy",
-        name = "Caercini",
+        name = "Caudini",
         buildings = {
             "city_hall": 1,
             "basilica": 1,
             "miners_guild": 1,
             "outcrop_mine": 1,
-            "mountain_mine": 1,
-            "large_mine": 4,
+            "large_mine": 5,
         },
     )
     yield city
