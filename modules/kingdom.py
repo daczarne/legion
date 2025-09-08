@@ -46,7 +46,7 @@ class Kingdom:
     
     Attributes:
         cities (list[City]): List of `City` instances belonging to the kingdom.
-        sort_order (list[str | None] | None): Pptional resource sort order for cities. Defaults to `["food", "ore",
+        sort_order (list[str | None] | None): Optional resource sort order for cities. Defaults to `["food", "ore",
             "wood", None]`). If not provided, a default order is used. Accept partial orders, e.g. `["ore"]` means
             "show ore first". For all resources not specified in the list the default will be used.
         campaign (str): The campaign name shared by all cities in the kingdom. Automatically set during initialization.
@@ -68,6 +68,10 @@ class Kingdom:
             Creates a `Kingdom` from a list of city dictionaries.
         display_kingdom_results():
             Prints a formatted representation of the kingdom, including campaign info, production, and storage tables.
+        has_city(name):
+            Check for the existance of a city in the kingdom.
+        get_city(name):
+            Retrieves a city by name.
     
     Raises:
         DuplicatedCityError: If there are duplicated city names
@@ -230,7 +234,35 @@ class Kingdom:
         self.kingdom_total_storage = self._calculate_total_storage()
     
     
+    def has_city(self, name: str) -> bool:
+        """
+        Checks whether a given city is part of the Kingdom.
+        
+        Args:
+            name (str): The name of the city.
+        
+        Returns:
+            bool: True if the city belongs to the kingdom, otherwise False.
+        """
+        for city in self.cities:
+            if city.name == name:
+                return True
+        
+        return False
+    
     def get_city(self, name: str) -> City:
+        """
+        Get a city by name.
+        
+        Args:
+            name (str): The name of the city.
+        
+        Raises:
+            KeyError: If the city does not belong to the kingdom.
+        
+        Returns:
+            City: The City object representing the city in question.
+        """
         for city in self.cities:
             if city.name == name:
                 return city

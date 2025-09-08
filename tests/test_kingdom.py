@@ -366,6 +366,35 @@ class TestKingdom:
                 ],
             )
     
+    def test_has_city(self) -> None:
+        kingdom: Kingdom = Kingdom(
+            cities = [
+                City.from_buildings_count(
+                    campaign = "Unification of Italy",
+                    name = "Roma",
+                    buildings = {"village_hall": 1},
+                ),
+            ],
+        )
+        
+        assert kingdom.has_city(name = "Roma") is True
+        assert kingdom.has_city(name = "Athens") is False
+    
+    def test_get_city(self) -> None:
+        kingdom: Kingdom = Kingdom(
+            cities = [
+                City.from_buildings_count(
+                    campaign = "Unification of Italy",
+                    name = "Roma",
+                    buildings = {"village_hall": 1},
+                ),
+            ],
+        )
+        
+        assert kingdom.get_city(name = "Roma").name == "Roma"
+        with raises(expected_exception = KeyError):
+            kingdom.get_city(name = "Athens")
+    
     def test_calculate_indentations(self) -> None:
         # Toy scenarios
         assert Kingdom._calculate_indentations(cell_value = 1, width = 1) == 0
