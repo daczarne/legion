@@ -1,6 +1,20 @@
-# Legion
-
-This project is a collection of classes that help you organize your kingdom in Legion.
+<!-- markdownlint-disable MD041-->
+<!-- markdownlint-disable MD033-->
+<br>
+<h1 align="center">
+  <a href="https://www6.slitherine.com/game/legion-gold">
+    <img src="img/legion_2002_cover.jpg" alt="Legion" width="200">
+  </a>
+</h1>
+<h4 align="center">A collection of classes that help you organize your kingdom in Legion</h4>
+<p align="center">
+  <a href="#the-building-class">Buildings</a> •
+  <a href="#the-city-class">Cities</a> •
+  <a href="#the-scenario-class">Scenarios</a> •
+  <a href="#the-displayconfiguration-class">Display configuration</a> •
+  <a href="#the-kingdom-class">Kingdom</a>
+</p>
+<!-- markdownlint-enable MD033-->
 
 ## The `Building` class
 
@@ -20,7 +34,7 @@ By default, buildings are created with zero assigned workers. Use the `add_worke
 `set_workers()` methods to control the number of workers assigned to a building instance. Assigning more workers than
 a building can have, or removing more workers than a building has assigned to it will raise errors.
 
-See more examples in `./building_example.py`.
+See more examples in `./examples/building.py` (run them with `python -m examples.building`).
 
 ### Exceptions
 
@@ -76,6 +90,8 @@ display_configuration: DisplayConfiguration = {
 
 city.display_city(display_configuration)
 ```
+
+See more examples in `./examples/city.py` (run them with `python -m examples.city`).
 
 ### Staffing strategies
 
@@ -176,6 +192,8 @@ scenario: Scenario = Scenario.from_list(
 )
 ```
 
+See more examples in `./examples/scenario.py` (run them with `python -m examples.scenario`).
+
 ## The `DisplayConfiguration` class
 
 This helper class is used to help you create valid configurations. The different sections of the output that can be
@@ -251,6 +269,8 @@ sort_order = ["ore"]
 
 is sufficient. The class will sort the cities by ore, followed by food, wood, and no-focus. In short, the list moves
 the order that you supplied to the front and keeps the rest in the default sorting order.
+
+See more examples in `./examples/kingdom.py` (run them with `python -m examples.kingdom`).
 
 ### Exceptions
 

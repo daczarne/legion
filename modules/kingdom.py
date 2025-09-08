@@ -25,9 +25,9 @@ from rich.style import Style
 from rich.table import Table
 from rich.text import Text
 
-from .city import City, CityDict, CITIES
-from .exceptions import DuplicatedCityError, CitiesFromMultipleCampaignsError
-from .resources import ResourceCollection, Resource
+from .city import CITIES, City, CityDict
+from .exceptions import CitiesFromMultipleCampaignsError, DuplicatedCityError
+from .resources import Resource, ResourceCollection
 
 
 __all__: list[str] = ["Kingdom"]
@@ -56,7 +56,7 @@ class Kingdom:
             kingdom.
         kingdom_total_storage (ResourceCollection): Aggregated total storage capacity across the player's kingdom,
             including the base storage.
-        
+    
     Class Attributes:
         BASE_KINGDOM_STORAGE (int): Fixed storage amount (per resource) granted to the player, independent of any
             cities or buildings.
@@ -88,10 +88,7 @@ class Kingdom:
     BASE_KINGDOM_STORAGE: ClassVar[int] = 300
     
     @staticmethod
-    def sort_cities_by_focus(
-            cities: list[City],
-            order: list[str | None],
-        ) -> list[City]:
+    def sort_cities_by_focus(cities: list[City], order: list[str | None]) -> list[City]:
         """
         Sort cities by their primary resource focus in a specified order.
         
@@ -128,10 +125,7 @@ class Kingdom:
         
         return sorted(cities, key = lambda city: (normalized_order.index(city.focus), city.name))
     
-    def _sort_cities_by_focus_inplace(
-        self,
-        order: list[str | None] | None = None,
-    ) -> None:
+    def _sort_cities_by_focus_inplace(self, order: list[str | None] | None = None) -> None:
         """
         Replace self.cities with the sorted list according to the provided order.
         """
@@ -143,10 +137,10 @@ class Kingdom:
     
     @classmethod
     def from_list(
-        cls,
-        data: list[CityDict],
-        sort_order: list[str | None] | None = None,
-    ) -> "Kingdom":
+            cls,
+            data: list[CityDict],
+            sort_order: list[str | None] | None = None,
+        ) -> "Kingdom":
         """
         Create a `Kingdom` instance from a list of raw city data dictionaries.
         
@@ -238,10 +232,7 @@ class Kingdom:
     
     #* Kingdom display
     @staticmethod
-    def _calculate_indentations(
-            cell_value: int,
-            width: int,
-        ) -> int:
+    def _calculate_indentations(cell_value: int, width: int) -> int:
         CHARS_PER_THOUSAND_SEPARATOR: int = 3
         
         digits_in_number: int = len(str(cell_value))
@@ -262,7 +253,10 @@ class Kingdom:
         return city_information
     
     def _build_campaign_table(self) -> Table:
-        percentage_conquered: float = round(number = len(self.cities) / self.number_of_cities_in_campaign * 100, ndigits = 2)
+        percentage_conquered: float = round(
+            number = len(self.cities) / self.number_of_cities_in_campaign * 100,
+            ndigits = 2
+        )
         
         table_style: Style = Style(color = "cyan")
         table: Table = Table(

@@ -1,7 +1,8 @@
 from collections import Counter
 from dataclasses import fields
-from pytest import mark, raises
 from typing import Literal
+
+from pytest import mark, raises
 
 from modules.effects import EffectBonuses
 
@@ -79,7 +80,7 @@ class TestEffectBonuses:
         
         assert effects.get(key = key) == expected
     
-    def test_get_invalid_key_raises_keyerror(self) -> None:
+    def test_get_invalid_key_raises_error(self) -> None:
         effects: EffectBonuses = EffectBonuses(
             troop_training = 10,
             population_growth = 20,

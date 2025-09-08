@@ -23,11 +23,10 @@ Internal objects (not part of the public API):
 - _CityEffectBonuses, _CityProduction, _CityStorage, _CityDefenses: helper dataclasses for modeling city internals.
 """
 
-import yaml
-
 from dataclasses import dataclass, field
 from typing import ClassVar, Literal, TypedDict
 
+import yaml
 from rich import box
 from rich.align import Align
 from rich.console import Console
@@ -37,22 +36,22 @@ from rich.style import Style
 from rich.table import Table
 from rich.text import Text
 
-from .building import Building, BuildingsCount, _BUILDINGS
-from .display import DisplayConfiguration, DisplaySectionConfiguration, DEFAULT_SECTION_COLORS
-from .effects import EffectBonusesData, EffectBonuses
+from .building import _BUILDINGS, Building, BuildingsCount
+from .display import DEFAULT_SECTION_COLORS, DisplayConfiguration, DisplaySectionConfiguration
+from .effects import EffectBonuses, EffectBonusesData
 from .exceptions import (
-    NoCityHallError,
-    TooManyHallsError,
-    FortsCannotHaveBuildingsError,
-    TooManyBuildingsError,
-    MoreThanOneHallTypeError,
     CityNotFoundError,
+    FortsCannotHaveBuildingsError,
     MoreThanOneGuildTypeError,
+    MoreThanOneHallTypeError,
+    NoCityHallError,
+    TooManyBuildingsError,
     TooManyGuildsError,
+    TooManyHallsError,
     UnknownBuildingStaffingStrategyError,
 )
-from .geo_features import GeoFeaturesData, GeoFeatures
-from .resources import Resource, ResourceCollectionData, ResourceCollection
+from .geo_features import GeoFeatures, GeoFeaturesData
+from .resources import Resource, ResourceCollection, ResourceCollectionData
 
 
 __all__: list[str] = ["City"]
@@ -865,12 +864,12 @@ class City:
     #* Alternative city creator methods
     @classmethod
     def from_buildings_count(
-        cls,
-        campaign: str,
-        name: str,
-        buildings: BuildingsCount,
-        staffing_strategy: str = "production_first",
-    ) -> "City":
+            cls,
+            campaign: str,
+            name: str,
+            buildings: BuildingsCount,
+            staffing_strategy: str = "production_first",
+        ) -> "City":
         """
         Create a `City` instance from a count of buildings. The count must be a dictionary with building IDs as keys
         and the quantity of each building type as values.
@@ -994,7 +993,7 @@ class _CityDisplay:
     customizing which sections are shown, their heights, and colors.
     
     Sections displayed:
-
+        
         - City information (campaign and name)
         - Buildings list
         - Effect bonuses (city, buildings, workers, total)

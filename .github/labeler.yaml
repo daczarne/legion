@@ -1,8 +1,8 @@
 building:
   - changed-files:
       - any-glob-to-any-file:
-          - building_example.py
           - data/buildings.yaml
+          - examples/building.py
           - modules/building.py
           - tests/test_building.py
 campaign:
@@ -13,8 +13,8 @@ city:
   - changed-files:
       - any-glob-to-any-file:
           - .cspell/cities.txt
-          - city_example.py
           - data/cities.yaml
+          - examples/city.py
           - modules/city.py
           - tests/test_city.py
 display:
@@ -41,10 +41,7 @@ env:
 examples:
   - changed-files:
       - any-glob-to-any-file:
-          - building_example.py
-          - city_example.py
-          - kingdom_example.py
-          - scenario_example.py
+          - examples/**
 exceptions:
   - changed-files:
       - any-glob-to-any-file:
@@ -57,7 +54,7 @@ geo_features:
 kingdom:
   - changed-files:
       - any-glob-to-any-file:
-          - kingdom_example.py
+          - examples/kingdom.py
           - modules/kingdom.py
           - tests/test_kingdom.py
 resources:
@@ -68,8 +65,8 @@ resources:
 scenario:
   - changed-files:
       - any-glob-to-any-file:
+          - examples/scenario.py
           - modules/scenario.py
-          - scenario_example.py
 tests:
   - changed-files:
       - any-glob-to-any-file:
@@ -78,11 +75,12 @@ tests:
 tools:
   - changed-files:
       - any-glob-to-any-file:
-          - .cspell/**
           - .cspell.json
+          - .cspell/**
           - .editorconfig
           - .gitattributes
           - .gitignore
+          - .isort.cfg
           - .markdownlint-cli2.yaml
           - .markdownlint.yaml
           - .yamllint.yaml

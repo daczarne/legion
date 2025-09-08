@@ -15,18 +15,17 @@ Internal objects (not part of the public API):
 - _BuildingData (TypedDict): Helper for type annotations when reading building data from YAML/JSON files.
 """
 
-import yaml
-
 from dataclasses import dataclass, field
 from typing import ClassVar, Literal, TypeAlias, TypedDict
 
+import yaml
 from rich.align import Align
 from rich.console import Console
 from rich.layout import Layout
 from rich.panel import Panel
 from rich.text import Text
 
-from .effects import EffectBonusesData, EffectBonuses
+from .effects import EffectBonuses, EffectBonusesData
 from .exceptions import (
     InsufficientNumberOfWorkersError,
     NegativeNumberOfWorkersError,
@@ -34,7 +33,7 @@ from .exceptions import (
     UnknownBuildingError,
 )
 from .geo_features import GeoFeature
-from .resources import Resource, ResourceCollectionData, ResourceCollection
+from .resources import Resource, ResourceCollection, ResourceCollectionData
 
 
 __all__: list[str] = ["BuildingsCount", "Building"]

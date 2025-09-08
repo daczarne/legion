@@ -13,13 +13,8 @@ from rich.align import Align
 from rich.console import Console
 from rich.layout import Layout
 
-from .city import CityDict, City
-from .display import (
-    DisplayConfiguration,
-    DisplaySection,
-    DisplaySectionConfiguration,
-    DEFAULT_SECTION_COLORS,
-)
+from .city import City, CityDict
+from .display import DEFAULT_SECTION_COLORS, DisplayConfiguration, DisplaySection, DisplaySectionConfiguration
 
 
 __all__: list[str] = ["Scenario"]
@@ -51,10 +46,10 @@ class Scenario:
     
     @classmethod
     def from_list(
-        cls,
-        data: list[CityDict],
-        configuration: DisplayConfiguration | None = None,
-    ) -> "Scenario":
+            cls,
+            data: list[CityDict],
+            configuration: DisplayConfiguration | None = None,
+        ) -> "Scenario":
         """
         Create a Scenario instance from a list of city dictionaries.
         
@@ -92,7 +87,7 @@ class Scenario:
         
         return default_configuration
     
-    def _calculate_default_section_height(self, section) -> int:
+    def _calculate_default_section_height(self, section: str) -> int:
         match section:
             case "city":
                 return 2

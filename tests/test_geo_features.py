@@ -1,7 +1,8 @@
 from collections import Counter
 from dataclasses import fields
-from pytest import mark, raises
 from typing import Literal
+
+from pytest import mark, raises
 
 from modules.geo_features import GeoFeatures
 
@@ -87,7 +88,7 @@ class TestGeoFeatures:
         
         assert geo_features.get(key = key) == expected
     
-    def test_get_invalid_key_raises_keyerror(self) -> None:
+    def test_get_invalid_key_raises_error(self) -> None:
         geo_features: GeoFeatures = GeoFeatures(
             lakes = 3,
             rock_outcrops = 1,
