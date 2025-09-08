@@ -247,6 +247,18 @@ class Kingdom:
         return False
     
     def get_city(self, name: str) -> City:
+        """
+        Get a city by name.
+        
+        Args:
+            name (str): The name of the city.
+        
+        Raises:
+            KeyError: If the city does not belong to the kingdom.
+        
+        Returns:
+            City: The City object representing the city in question.
+        """
         for city in self.cities:
             if city.name == name:
                 return city
