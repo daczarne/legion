@@ -230,6 +230,22 @@ class Kingdom:
         self.kingdom_total_storage = self._calculate_total_storage()
     
     
+    def has_city(self, name: str) -> bool:
+        """
+        Checks whether a given city is part of the Kingdom.
+        
+        Args:
+            name (str): The name of the city.
+        
+        Returns:
+            bool: True if the city belongs to the kingdom, otherwise False.
+        """
+        for city in self.cities:
+            if city.name == name:
+                return True
+        
+        return False
+    
     def get_city(self, name: str) -> City:
         for city in self.cities:
             if city.name == name:
