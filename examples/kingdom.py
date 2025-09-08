@@ -68,7 +68,7 @@ kingdom: Kingdom = Kingdom.from_list(
         {
             "campaign": campaign,
             "name": "Durovern",
-            "buildings": wood_producer,
+            "buildings": ore_producer,
         },
         {
             "campaign": campaign,
@@ -76,10 +76,9 @@ kingdom: Kingdom = Kingdom.from_list(
             "buildings": {
                 "city_hall": 1,
                 "basilica": 1,
-                "farmers_guild": 1,
+                "miners_guild": 1,
                 "fishing_village": 1,
-                "vineyard": 1,
-                "large_farm": 4,
+                "large_mine": 5,
             },
         },
         {
@@ -100,7 +99,7 @@ kingdom: Kingdom = Kingdom.from_list(
         {
             "campaign": campaign,
             "name": "Sorviodun",
-            "buildings": food_producer,
+            "buildings": wood_producer,
         },
         {
             "campaign": campaign,
@@ -197,7 +196,7 @@ kingdom: Kingdom = Kingdom.from_list(
         {
             "campaign": campaign,
             "name": "Ixia",
-            "buildings": food_producer,
+            "buildings": wood_producer,
         },
         {
             "campaign": campaign,
@@ -236,6 +235,16 @@ kingdom: Kingdom = Kingdom.from_list(
                 "mountain_mine": 1,
                 "large_mine": 5,
             },
+        },
+        {
+            "campaign": campaign,
+            "name": "Letoceton",
+            "buildings": military,
+        },
+        {
+            "campaign": campaign,
+            "name": "Virocon",
+            "buildings": ore_producer,
         },
     ],
 )
