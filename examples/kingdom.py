@@ -189,6 +189,54 @@ kingdom: Kingdom = Kingdom.from_list(
             "name": "Camulodun",
             "buildings": food_producer,
         },
+        {
+            "campaign": campaign,
+            "name": "Durobrivae II",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Ixia",
+            "buildings": food_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Aricon",
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "miners_guild": 1,
+                "outcrop_mine": 1,
+                "fishing_village": 1,
+                "large_mine": 4,
+            },
+        },
+        {
+            "campaign": campaign,
+            "name": "Branodun",
+            "buildings": food_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Melin",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Bomio",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Moridun",
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "miners_guild": 1,
+                "mountain_mine": 1,
+                "large_mine": 5,
+            },
+        },
     ],
 )
 
