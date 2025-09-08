@@ -230,6 +230,14 @@ class Kingdom:
         self.kingdom_total_storage = self._calculate_total_storage()
     
     
+    def get_city(self, name: str) -> City:
+        for city in self.cities:
+            if city.name == name:
+                return city
+        
+        raise KeyError(f"{name} not found.")
+    
+    
     #* Kingdom display
     @staticmethod
     def _calculate_indentations(cell_value: int, width: int) -> int:
