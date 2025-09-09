@@ -7,8 +7,8 @@ food_producer: BuildingsCount = {
     "basilica": 1,
     "warehouse": 1,
     "farmers_guild": 1,
-    "large_farm": 4,
     "vineyard": 1,
+    "large_farm": 4,
 }
 
 ore_producer: BuildingsCount = {
@@ -47,8 +47,8 @@ kingdom: Kingdom = Kingdom.from_list(
             "name": "Anderitum",
             "buildings": {
                 "city_hall": 1,
-                "supply_dump": 1,
                 "basilica": 1,
+                "supply_dump": 1,
                 "miners_guild": 1,
                 "large_mine": 5,
             },
@@ -58,8 +58,8 @@ kingdom: Kingdom = Kingdom.from_list(
             "name": "Noviomagus",
             "buildings": {
                 "city_hall": 1,
-                "supply_dump": 1,
                 "basilica": 1,
+                "supply_dump": 1,
                 "farmers_guild": 1,
                 "vineyard": 1,
                 "large_farm": 4,
@@ -99,7 +99,7 @@ kingdom: Kingdom = Kingdom.from_list(
         {
             "campaign": campaign,
             "name": "Sorviodun",
-            "buildings": wood_producer,
+            "buildings": food_producer,
         },
         {
             "campaign": campaign,
