@@ -273,6 +273,11 @@ kingdom: Kingdom = Kingdom.from_list(
                 "large_mine": 5,
             },
         },
+        {
+            "campaign": campaign,
+            "name": "Gangan",
+            "buildings": wood_producer,
+        },
     ],
 )
 
