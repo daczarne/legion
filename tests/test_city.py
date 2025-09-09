@@ -8,6 +8,7 @@ from modules.display import DEFAULT_SECTION_COLORS, DisplayConfiguration, Displa
 from modules.exceptions import (
     CityNotFoundError,
     FortsCannotHaveBuildingsError,
+    InvalidBuidlingConfigurationError,
     MoreThanOneGuildTypeError,
     MoreThanOneHallTypeError,
     NoCityHallError,
@@ -1283,6 +1284,20 @@ class TestCityAllowedBuildingCounts:
         test_city: City = request.getfixturevalue(argname = city)
         allowed_building_counts: BuildingsCount = test_city._calculate_allowed_building_counts()
         assert allowed_building_counts[building] == expected_allowed_count
+    
+    def test_geo_buildings_validation(self) -> None:
+        with raises(expected_exception = InvalidBuidlingConfigurationError):
+            city: City = City.from_buildings_count(
+                campaign = "Conquest of Britain",
+                name = "Moridun",
+                buildings = {
+                    "city_hall": 1,
+                    "basilica": 1,
+                    "miners_guild": 1,
+                    "large_mine": 6,
+                },
+                staffing_strategy = "production_first",
+            )
 
 
 @mark.city
