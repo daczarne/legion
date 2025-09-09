@@ -1285,11 +1285,25 @@ class TestCityAllowedBuildingCounts:
         allowed_building_counts: BuildingsCount = test_city._calculate_allowed_building_counts()
         assert allowed_building_counts[building] == expected_allowed_count
     
-    def test_geo_buildings_validation(self) -> None:
+    def test_geo_feature_blocks_empty_spot(self) -> None:
         with raises(expected_exception = InvalidBuidlingConfigurationError):
             city: City = City.from_buildings_count(
                 campaign = "Conquest of Britain",
                 name = "Moridun",
+                buildings = {
+                    "city_hall": 1,
+                    "basilica": 1,
+                    "miners_guild": 1,
+                    "large_mine": 6,
+                },
+                staffing_strategy = "production_first",
+            )
+    
+    def test_supply_dump_blocks_empty_spot(self) -> None:
+        with raises(expected_exception = TooManyBuildingsError):
+            city: City = City.from_buildings_count(
+                campaign = "Conquest of Britain",
+                name = "Anderitum",
                 buildings = {
                     "city_hall": 1,
                     "basilica": 1,
