@@ -124,7 +124,13 @@ kingdom: Kingdom = Kingdom.from_list(
         {
             "campaign": campaign,
             "name": "Isca",
-            "buildings": ore_producer,
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "miners_guild": 1,
+                "outcrop_mine": 1,
+                "large_mine": 5,
+            },
         },
         {
             "campaign": campaign,
@@ -291,7 +297,13 @@ kingdom: Kingdom = Kingdom.from_list(
         {
             "campaign": campaign,
             "name": "Canovion",
-            "buildings": ore_producer,
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "miners_guild": 1,
+                "outcrop_mine": 1,
+                "large_mine": 5,
+            },
         },
     ],
 )
