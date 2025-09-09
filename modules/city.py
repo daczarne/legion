@@ -42,6 +42,7 @@ from .effects import EffectBonuses, EffectBonusesData
 from .exceptions import (
     CityNotFoundError,
     FortsCannotHaveBuildingsError,
+    InvalidBuidlingConfigurationError,
     MoreThanOneGuildTypeError,
     MoreThanOneHallTypeError,
     NoCityHallError,
@@ -224,6 +225,7 @@ class City:
         self._validate_total_number_of_buildings()
         self._validate_building_counts()
         self._validate_guilds()
+        self._validate_empty_building_spots()
         
         #* Staff buildings
         self._validate_staffing_strategy(staffing_strategy = staffing_strategy)
@@ -543,6 +545,35 @@ class City:
         if len(guilds) == 1:
             if list(guilds.values())[0] != 1:
                 raise TooManyGuildsError(f"Too many guilds for this city.")
+    
+    def _validate_empty_building_spots(self) -> None:
+        # Throughout this method the concept of an "empty building spot" reflects more of an actual or potential
+        # characteristic of a building spot. A more appropriate name would probably be "empty or emptyable building
+        # spot" but I will keep it as "empty" for simplicity and brevity.
+        
+        qty_buildings_that_require_empty_spot: int = 0
+        
+        for building in self.buildings:
+            if all([
+                # Non-buildable buildings cannot be built. The city either starts with them, or it will never have them.
+                # The only non-buildable "building" that is deletable is the forest. But those validations are already
+                # considered elsewhere.
+                building.is_buildable,
+                # Buildings that require geo features can only be built in geo-feature spots.
+                building.required_geo is None,
+                # The hall has its own dedicated "building" spot.
+                building.id != self.hall.id,
+            ]):
+                qty_buildings_that_require_empty_spot += 1
+        
+        supply_dump_spot: int = 1 if self.has_supply_dump else 0
+        qty_geo_building_spots: int = self.geo_features.lakes + self.geo_features.rock_outcrops + self.geo_features.mountains
+        qty_empty_building_spots: int = City.MAX_BUILDINGS[self.hall.id] - supply_dump_spot - qty_geo_building_spots
+        
+        if qty_buildings_that_require_empty_spot > qty_empty_building_spots:
+            raise InvalidBuidlingConfigurationError(
+                f"Building configuration is not possible for {self.name}. "
+            )
     
     def _validate_staffing_strategy(self, staffing_strategy: str) -> None:
         allowed_building_staffing_strategies: list[str] = [
