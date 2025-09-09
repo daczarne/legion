@@ -282,7 +282,7 @@ kingdom: Kingdom = Kingdom.from_list(
         {
             "campaign": campaign,
             "name": "Gangan",
-            "buildings": wood_producer,
+            "buildings": ore_producer,
         },
         {
             "campaign": campaign,
@@ -304,6 +304,11 @@ kingdom: Kingdom = Kingdom.from_list(
                 "outcrop_mine": 1,
                 "large_mine": 5,
             },
+        },
+        {
+            "campaign": campaign,
+            "name": "Setantia",
+            "buildings": ore_producer,
         },
     ],
 )
