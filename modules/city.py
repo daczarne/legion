@@ -42,6 +42,7 @@ from .effects import EffectBonuses, EffectBonusesData
 from .exceptions import (
     CityNotFoundError,
     FortsCannotHaveBuildingsError,
+    InvalidBuidlingConfigurationError,
     MoreThanOneGuildTypeError,
     MoreThanOneHallTypeError,
     NoCityHallError,
@@ -224,6 +225,7 @@ class City:
         self._validate_total_number_of_buildings()
         self._validate_building_counts()
         self._validate_guilds()
+        self._validate_non_geo_building_spots()
         
         #* Staff buildings
         self._validate_staffing_strategy(staffing_strategy = staffing_strategy)
@@ -543,6 +545,19 @@ class City:
         if len(guilds) == 1:
             if list(guilds.values())[0] != 1:
                 raise TooManyGuildsError(f"Too many guilds for this city.")
+    
+    def _validate_non_geo_building_spots(self) -> None:
+        non_geo_buildings: list[Building] = [building for building in self.buildings if building.required_geo is None]
+        qty_none_geo_buildings: int = len(non_geo_buildings)
+        
+        qty_geo_building_spots: int = self.geo_features.lakes + self.geo_features.rock_outcrops + self.geo_features.mountains
+        halL_spot: int = 1
+        qty_non_geo_building_spots: int = City.MAX_BUILDINGS[self.hall.id] - qty_geo_building_spots + halL_spot
+        
+        if qty_none_geo_buildings > qty_non_geo_building_spots:
+            raise InvalidBuidlingConfigurationError(
+                f"Building configuration is not possible for {self.name}. "
+            )
     
     def _validate_staffing_strategy(self, staffing_strategy: str) -> None:
         allowed_building_staffing_strategies: list[str] = [
