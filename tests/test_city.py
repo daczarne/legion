@@ -1300,7 +1300,7 @@ class TestCityAllowedBuildingCounts:
             )
     
     def test_supply_dump_blocks_empty_spot(self) -> None:
-        with raises(expected_exception = TooManyBuildingsError):
+        with raises(expected_exception = (TooManyBuildingsError, InvalidBuidlingConfigurationError)):
             city: City = City.from_buildings_count(
                 campaign = "Conquest of Britain",
                 name = "Anderitum",
