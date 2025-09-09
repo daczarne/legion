@@ -552,7 +552,8 @@ class City:
         
         qty_geo_building_spots: int = self.geo_features.lakes + self.geo_features.rock_outcrops + self.geo_features.mountains
         halL_spot: int = 1
-        qty_non_geo_building_spots: int = City.MAX_BUILDINGS[self.hall.id] - qty_geo_building_spots + halL_spot
+        supply_dump_spot: int = 1 if self.has_supply_dump else 0
+        qty_non_geo_building_spots: int = City.MAX_BUILDINGS[self.hall.id] - qty_geo_building_spots + halL_spot - supply_dump_spot
         
         if qty_none_geo_buildings > qty_non_geo_building_spots:
             raise InvalidBuidlingConfigurationError(
