@@ -262,6 +262,17 @@ kingdom: Kingdom = Kingdom.from_list(
             "name": "Ratae",
             "buildings": food_producer,
         },
+        {
+            "campaign": campaign,
+            "name": "Blaenau",
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "miners_guild": 1,
+                "mountain_mine": 1,
+                "large_mine": 5,
+            },
+        },
     ],
 )
 
