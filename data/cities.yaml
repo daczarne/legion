@@ -2942,7 +2942,7 @@ cities:
     is_fort: false
     garrison: Celtic Cavalry
   # B
-  - name: Baraka
+  - name: Brakara
     campaign: Hispania
     resource_potentials:
       food: 70
