@@ -173,17 +173,19 @@ class City:
             The staffing of production-buildings always happens sorting buildings by productivity (descending). This
             means that production-buildings will be staffed in the following order:
             
-            1. "large_farm"
-            2. "large_mine"
-            3. "large_lumber_mill"
-            4. "vineyard"
-            5. "fishing_village"
-            6. "outcrop_mine"
-            7. "farm"
-            8. "mine"
-            9. "lumber_mill"
-            10. "mountain_mine"
-            11. "hunters_lodge"
+            1. "large_farm" (3 workers)
+            2. "large_mine" (3 workers)
+            3. "large_lumber_mill" (3 workers)
+            4. "vineyard" (3 workers)
+            5. "fishing_village" (3 workers)
+            6. "outcrop_mine" (2 workers)
+            7. "farm" (3 workers)
+            8. "mine" (3 workers)
+            9. "lumber_mill" (3 workers)
+            10. "mountain_mine" (1 worker)
+            11. "hunters_lodge" (3 workers)
+            
+            In all cases, assignment of workers will stop once there are no more workers available in the city.
     
     Raises:
         CityNotFoundError: If no city data is found for the given campaign and name.
@@ -192,7 +194,9 @@ class City:
         TooManyHallsError: If the city contains multiple halls of the same type.
         FortsCannotHaveBuildingsError: If a "fort" is instantiated with buildings.
         TooManyBuildingsError: If the number of buildings exceeds the limit for the city.
-        MoreThanOneGuildTypeError: If the number of guilds exceeds 1.
+        MoreThanOneGuildTypeError: If the city contains more than one guild type.
+        TooManyGuildsError: If the city contains multiple guilds of the same type.
+        UnknownBuildingStaffingStrategyError: If an unknown staffing strategy is passed.
     """
     
     # Set of possible halls and guilds.
