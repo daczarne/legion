@@ -91,13 +91,7 @@ kingdom: Kingdom = Kingdom.from_list(
         {
             "campaign": campaign,
             "name": "Ilerda",
-            "buildings": {
-                "city_hall": 1,
-                "basilica": 1,
-                "miners_guild": 1,
-                "mountain_mine": 1,
-                "large_mine": 5,
-            },
+            "buildings": ore_producer_with_mountain_mine,
         },
         {
             "campaign": campaign,
@@ -112,13 +106,7 @@ kingdom: Kingdom = Kingdom.from_list(
         {
             "campaign": campaign,
             "name": "Vokata",
-            "buildings": {
-                "city_hall": 1,
-                "basilica": 1,
-                "farmers_guild": 1,
-                "vineyard": 1,
-                "large_farm": 5,
-            },
+            "buildings": food_producer,
         },
         {
             "campaign": campaign,
@@ -146,13 +134,7 @@ kingdom: Kingdom = Kingdom.from_list(
         {
             "campaign": campaign,
             "name": "Oiasson",
-            "buildings": {
-                "city_hall": 1,
-                "basilica": 1,
-                "miners_guild": 1,
-                "outcrop_mine": 1,
-                "large_mine": 5,
-            },
+            "buildings": ore_producer_with_outcrop_mine,
         },
         {
             "campaign": campaign,
@@ -162,13 +144,7 @@ kingdom: Kingdom = Kingdom.from_list(
         {
             "campaign": campaign,
             "name": "Diobriga",
-            "buildings": {
-                "city_hall": 1,
-                "basilica": 1,
-                "miners_guild": 1,
-                "mountain_mine": 1,
-                "large_mine": 5,
-            },
+            "buildings": ore_producer_with_mountain_mine,
         },
         {
             "campaign": campaign,
