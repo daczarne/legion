@@ -909,12 +909,14 @@ class City:
         This implies that you can pass 0-count buildings and they will automatically be ignored.
         
         Args:
-            campaign (str): the campaign identifier the city belongs to.
-            name (str): the name of the city.
-            buildings (BuildingsCount): a dictionary mapping building IDs to quantities.
+            campaign (str): The campaign identifier the city belongs to.
+            name (str): The name of the city.
+            buildings (BuildingsCount): A dictionary mapping building IDs to quantities.
+            staffing_strategy (str): The name of the staffing strategy to be used. Possible values are 
+                "production_first", "production_only", "effects_first", "effects_only". Defaults to "production_first".
         
         Returns:
-            City: a new `City` instance populated with the given buildings.
+            City: a new `City` instance populated with the given buildings and the given workers' distribution.
         """
         city_buildings: list[Building] = []
         
