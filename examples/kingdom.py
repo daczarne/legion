@@ -106,12 +106,12 @@ kingdom: Kingdom = Kingdom.from_list(
         {
             "campaign": campaign,
             "name": "Vokata",
-            "buildings": food_producer,
+            "buildings": food_producer_with_warehouse,
         },
         {
             "campaign": campaign,
             "name": "Tarbelles",
-            "buildings": military,
+            "buildings": ore_producer,
         },
         {
             "campaign": campaign,
@@ -121,15 +121,7 @@ kingdom: Kingdom = Kingdom.from_list(
         {
             "campaign": campaign,
             "name": "Torbelia",
-            "buildings": {
-                "city_hall": 1,
-                "basilica": 1,
-                "large_fort": 1,
-                "quartermaster": 1,
-                "miners_guild": 1,
-                "outcrop_mine": 1,
-                "large_mine": 3,
-            },
+            "buildings": ore_producer_with_outcrop_mine,
         },
         {
             "campaign": campaign,
@@ -149,7 +141,7 @@ kingdom: Kingdom = Kingdom.from_list(
         {
             "campaign": campaign,
             "name": "Kontrebia",
-            "buildings": food_producer,
+            "buildings": food_producer_with_warehouse,
         },
         {
             "campaign": campaign,
