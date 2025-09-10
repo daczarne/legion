@@ -223,6 +223,11 @@ kingdom: Kingdom = Kingdom.from_list(
             "name": "Karanikon",
             "buildings": ore_producer,
         },
+        {
+            "campaign": campaign,
+            "name": "Brigantion",
+            "buildings": food_producer_with_warehouse,
+        },
     ],
 )
 
