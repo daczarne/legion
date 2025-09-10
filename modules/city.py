@@ -162,6 +162,8 @@ class City:
         campaign (str): The identifier of the campaign the city belongs to.
         name (str): The name of the city, which is used to look up its data from a central repository.
         buildings (list[Building]): A list of `Building` objects that exist in the city.
+        staffing_strategy (str): The name of the staffing strategy to be used. Possible values are
+            "production_first", "production_only", "effects_first", "effects_only". Defaults to "production_first".
     
     Raises:
         CityNotFoundError: If no city data is found for the given campaign and name.
@@ -908,11 +910,13 @@ class City:
         This method expands the building counts into actual `Building` objects and initializes a new city with them.
         This implies that you can pass 0-count buildings and they will automatically be ignored.
         
+        You can not specify the number of workers for each building if you use this method for creating cities.
+        
         Args:
             campaign (str): The campaign identifier the city belongs to.
             name (str): The name of the city.
             buildings (BuildingsCount): A dictionary mapping building IDs to quantities.
-            staffing_strategy (str): The name of the staffing strategy to be used. Possible values are 
+            staffing_strategy (str): The name of the staffing strategy to be used. Possible values are
                 "production_first", "production_only", "effects_first", "effects_only". Defaults to "production_first".
         
         Returns:
