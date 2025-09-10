@@ -208,6 +208,11 @@ kingdom: Kingdom = Kingdom.from_list(
             "name": "Argentiola",
             "buildings": ore_producer_with_mountain_mine,
         },
+        {
+            "campaign": campaign,
+            "name": "Asturika",
+            "buildings": ore_producer,
+        },
     ],
 )
 
