@@ -162,6 +162,30 @@ class City:
         campaign (str): The identifier of the campaign the city belongs to.
         name (str): The name of the city, which is used to look up its data from a central repository.
         buildings (list[Building]): A list of `Building` objects that exist in the city.
+        staffing_strategy (str): The name of the staffing strategy to be used. Defaults to "production_first". Possible
+            values are:
+            
+            - "production_first" will first assign workers production-buildings and then effects-buildings.
+            - "production_only" will only assign workers to production-buildings.
+            - "effects_first" will first assign workers effects-buildings and then production-buildings.
+            - "effects_only" will only assign workers to effects-buildings.
+            
+            The staffing of production-buildings always happens sorting buildings by productivity (descending). This
+            means that production-buildings will be staffed in the following order:
+            
+            1. "large_farm" (3 workers)
+            2. "large_mine" (3 workers)
+            3. "large_lumber_mill" (3 workers)
+            4. "vineyard" (3 workers)
+            5. "fishing_village" (3 workers)
+            6. "outcrop_mine" (2 workers)
+            7. "farm" (3 workers)
+            8. "mine" (3 workers)
+            9. "lumber_mill" (3 workers)
+            10. "mountain_mine" (1 worker)
+            11. "hunters_lodge" (3 workers)
+            
+            In all cases, assignment of workers will stop once there are no more workers available in the city.
     
     Raises:
         CityNotFoundError: If no city data is found for the given campaign and name.
@@ -170,7 +194,9 @@ class City:
         TooManyHallsError: If the city contains multiple halls of the same type.
         FortsCannotHaveBuildingsError: If a "fort" is instantiated with buildings.
         TooManyBuildingsError: If the number of buildings exceeds the limit for the city.
-        MoreThanOneGuildTypeError: If the number of guilds exceeds 1.
+        MoreThanOneGuildTypeError: If the city contains more than one guild type.
+        TooManyGuildsError: If the city contains multiple guilds of the same type.
+        UnknownBuildingStaffingStrategyError: If an unknown staffing strategy is passed.
     """
     
     # Set of possible halls and guilds.
@@ -908,11 +934,13 @@ class City:
         This method expands the building counts into actual `Building` objects and initializes a new city with them.
         This implies that you can pass 0-count buildings and they will automatically be ignored.
         
+        You can not specify the number of workers for each building if you use this method for creating cities.
+        
         Args:
             campaign (str): The campaign identifier the city belongs to.
             name (str): The name of the city.
             buildings (BuildingsCount): A dictionary mapping building IDs to quantities.
-            staffing_strategy (str): The name of the staffing strategy to be used. Possible values are 
+            staffing_strategy (str): The name of the staffing strategy to be used. Possible values are
                 "production_first", "production_only", "effects_first", "effects_only". Defaults to "production_first".
         
         Returns:
