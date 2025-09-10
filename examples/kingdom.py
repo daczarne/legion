@@ -198,6 +198,16 @@ kingdom: Kingdom = Kingdom.from_list(
             "name": "Toleton",
             "buildings": food_producer_with_warehouse,
         },
+        {
+            "campaign": campaign,
+            "name": "Arbokala",
+            "buildings": wood_producer_with_warehouse,
+        },
+        {
+            "campaign": campaign,
+            "name": "Argentiola",
+            "buildings": ore_producer_with_mountain_mine,
+        },
     ],
 )
 
