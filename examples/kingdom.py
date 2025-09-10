@@ -233,6 +233,16 @@ kingdom: Kingdom = Kingdom.from_list(
             "name": "Bergidon",
             "buildings": wood_producer_with_warehouse,
         },
+        {
+            "campaign": campaign,
+            "name": "Kaliabriga",
+            "buildings": ore_producer_with_outcrop_mine,
+        },
+        {
+            "campaign": campaign,
+            "name": "Brakara",
+            "buildings": wood_producer_with_warehouse,
+        },
     ],
 )
 
