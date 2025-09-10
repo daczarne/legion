@@ -162,8 +162,28 @@ class City:
         campaign (str): The identifier of the campaign the city belongs to.
         name (str): The name of the city, which is used to look up its data from a central repository.
         buildings (list[Building]): A list of `Building` objects that exist in the city.
-        staffing_strategy (str): The name of the staffing strategy to be used. Possible values are
-            "production_first", "production_only", "effects_first", "effects_only". Defaults to "production_first".
+        staffing_strategy (str): The name of the staffing strategy to be used. Defaults to "production_first". Possible
+            values are:
+            
+            - "production_first" will first assign workers production-buildings and then effects-buildings.
+            - "production_only" will only assign workers to production-buildings.
+            - "effects_first" will first assign workers effects-buildings and then production-buildings.
+            - "effects_only" will only assign workers to effects-buildings.
+            
+            The staffing of production-buildings always happens sorting buildings by productivity (descending). This
+            means that production-buildings will be staffed in the following order:
+            
+            1. "large_farm"
+            2. "large_mine"
+            3. "large_lumber_mill"
+            4. "vineyard"
+            5. "fishing_village"
+            6. "outcrop_mine"
+            7. "farm"
+            8. "mine"
+            9. "lumber_mill"
+            10. "mountain_mine"
+            11. "hunters_lodge"
     
     Raises:
         CityNotFoundError: If no city data is found for the given campaign and name.
