@@ -2942,7 +2942,7 @@ cities:
     is_fort: false
     garrison: Celtic Cavalry
   # B
-  - name: Baraka
+  - name: Brakara
     campaign: Hispania
     resource_potentials:
       food: 70
@@ -3873,7 +3873,7 @@ cities:
     has_supply_dump: false
     is_fort: false
     garrison: Archers
-  - name: Torbella
+  - name: Torbelia
     campaign: Hispania
     resource_potentials:
       food: 70
