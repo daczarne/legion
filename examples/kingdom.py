@@ -263,6 +263,47 @@ kingdom: Kingdom = Kingdom.from_list(
             "name": "Arsa",
             "buildings": food_producer_with_warehouse,
         },
+        {
+            "campaign": campaign,
+            "name": "Salika",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Igaiditania",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Turmogon",
+            "buildings": {
+                "city_hall": 1,
+                "basilica": 1,
+                "miners_guild": 1,
+                "fishing_village": 1,
+                "large_mine": 5,
+            },
+        },
+        {
+            "campaign": campaign,
+            "name": "Ammaia",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Skallabis",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Libora",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Ebora",
+            "buildings": wood_producer_with_warehouse,
+        },
     ],
 )
 
