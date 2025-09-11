@@ -329,6 +329,16 @@ kingdom: Kingdom = Kingdom.from_list(
             "name": "Nertobriga",
             "buildings": military,
         },
+        {
+            "campaign": campaign,
+            "name": "Helike",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Ilorki",
+            "buildings": ore_producer_with_mountain_mine,
+        },
     ],
 )
 
