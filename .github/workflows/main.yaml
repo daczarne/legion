@@ -32,7 +32,7 @@ jobs:
     steps:
       - name: PR labeler 🏷
         id: pr_labeler
-        uses: actions/labeler@v5
+        uses: actions/labeler@634933edcd8ababfe52f92936142cc22ac488b1b # v6.0.1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           configuration-path: .github/labeler.yaml
@@ -51,10 +51,10 @@ jobs:
     steps:
       - name: Checkout 🛎️
         id: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - name: Setup Python 🐍
         id: setup_python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6.0.0
         with:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Setup pipenv 🌴
@@ -67,7 +67,7 @@ jobs:
         run: yamllint -c .yamllint.yaml .
       - name: Run Markdown lint 🧪
         id: run_markdown_lint
-        uses: DavidAnson/markdownlint-cli2-action@v20
+        uses: DavidAnson/markdownlint-cli2-action@992badcdf24e3b8eb7e87ff9287fe931bcb00c6e # v20.0.0
         with:
           config: .markdownlint.yaml
           globs: .
@@ -82,10 +82,10 @@ jobs:
     steps:
       - name: Checkout 🛎️
         id: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - name: Run CSpell
         id: run_spell_checking
-        uses: streetsidesoftware/cspell-action@v7
+        uses: streetsidesoftware/cspell-action@dcd03dc3e8a59ec2e360d0c62db517baa0b4bb6d # v7.2.0
         with:
           root: .
           check_dot_files: true
@@ -103,14 +103,13 @@ jobs:
       - lint
       - spell-check
     permissions: {}
-    if: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }}
     steps:
       - name: Checkout 🛎️
         id: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - name: Setup Python 🐍
         id: setup_python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6.0.0
         with:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Setup pipenv 🌴
@@ -132,10 +131,10 @@ jobs:
     steps:
       - name: Checkout 🛎️
         id: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - name: Setup Python 🐍
         id: setup_python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6.0.0
         with:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Setup environment 🌴
