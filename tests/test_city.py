@@ -1,3 +1,4 @@
+from ast import Assign
 from collections import Counter
 
 from pytest import FixtureRequest, fixture, mark, raises
@@ -1591,6 +1592,31 @@ class TestWorkersDistribution:
             assert building.workers == 0
         
         assert city.assigned_workers == 0
+    
+    def test_pre_assigned_workers_are_accounted_for(self) -> None:
+        city: City = City(
+            campaign = "Unification of Italy",
+            name = "Roma",
+            buildings = [
+                Building(id = "city_hall", workers = 0),
+                Building(id = "basilica", workers = 1),
+                Building(id = "vineyard", workers = 3),
+                Building(id = "large_farm", workers = 3),
+                Building(id = "large_farm", workers = 0),
+                Building(id = "large_farm", workers = 0),
+                Building(id = "large_farm", workers = 0),
+                Building(id = "large_farm", workers = 0),
+                Building(id = "large_farm", workers = 0),
+            ],
+            staffing_strategy = "production_first",
+        )
+        
+        assert city.assigned_workers == 18
+        assert city.production.base.food == 246
+        assert city.production.productivity_bonuses.food == 85
+        assert city.production.total.food == 455
+        assert city.production.maintenance_costs.food == 4
+        assert city.production.balance.food == 451
     
     def test_unknown_staffing_strategy_raises_error(self) -> None:
         with raises(expected_exception = UnknownBuildingStaffingStrategyError):
