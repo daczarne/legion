@@ -165,6 +165,9 @@ class City:
         staffing_strategy (str): The name of the staffing strategy to be used. Defaults to "production_first". Possible
             values are:
             
+            - "zero" will set the assigned workers for all buildings to zero.
+            - "none" will not assign any additional workers to any buildings. This is relevant when creating cities by
+                passing collections of buildings that already assign workers to buildings.
             - "production_first" will first assign workers production-buildings and then effects-buildings.
             - "production_only" will only assign workers to production-buildings.
             - "effects_first" will first assign workers effects-buildings and then production-buildings.
@@ -603,6 +606,8 @@ class City:
     
     def _validate_staffing_strategy(self, staffing_strategy: str) -> None:
         allowed_building_staffing_strategies: list[str] = [
+            "zero",
+            "none",
             "production_first",
             "production_only",
             "effects_first",
@@ -624,6 +629,14 @@ class City:
             self.assigned_workers += 1
     
     def _staff_buildings(self) -> None:
+        if self.staffing_strategy == "none":
+            return
+        
+        if self.staffing_strategy == "zero":
+            for building in self.buildings:
+                building.set_workers(qty = 0)
+            return
+        
         # Production buildings sorted by productivity levels. The prod. level of each building is determined by the
         # total sum of all produced rss. For most buildings, this is equal to the product of the one rss it produces
         # times the number of workers. The only exception is the HL which produces all 3 rss. Worker productivity is
