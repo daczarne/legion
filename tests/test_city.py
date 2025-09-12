@@ -1,4 +1,3 @@
-from ast import Assign
 from collections import Counter
 
 from pytest import FixtureRequest, fixture, mark, raises
