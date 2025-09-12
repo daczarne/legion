@@ -643,6 +643,7 @@ class City:
         if self.staffing_strategy == "zero":
             for building in self.buildings:
                 building.set_workers(qty = 0)
+            self.assigned_workers = 0
             return
         
         # Production buildings sorted by productivity levels. The prod. level of each building is determined by the
