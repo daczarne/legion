@@ -1537,6 +1537,8 @@ class TestWorkersDistribution:
         
         for building in city.buildings:
             assert building.workers == 0
+        
+        assert city.assigned_workers == 0
     
     def test_none_strategy_with_pre_assigned_workers(self) -> None:
         city: City = City(
@@ -1552,6 +1554,7 @@ class TestWorkersDistribution:
             staffing_strategy = "none",
         )
         
+        assert city.assigned_workers == 4
         assert city.get_building(id = "basilica").workers == 0
         assert city.get_building(id = "watch_tower").workers == 1
         assert city.get_building(id = "hospital").workers == 2
@@ -1567,6 +1570,8 @@ class TestWorkersDistribution:
         
         for building in city.buildings:
             assert building.workers == 0
+        
+        assert city.assigned_workers == 0
     
     def test_zero_strategy_with_pre_assigned_workers(self) -> None:
         city: City = City(
@@ -1584,6 +1589,8 @@ class TestWorkersDistribution:
         
         for building in city.buildings:
             assert building.workers == 0
+        
+        assert city.assigned_workers == 0
     
     def test_unknown_staffing_strategy_raises_error(self) -> None:
         with raises(expected_exception = UnknownBuildingStaffingStrategyError):

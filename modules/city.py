@@ -260,7 +260,7 @@ class City:
         self._validate_staffing_strategy(staffing_strategy = staffing_strategy)
         self.staffing_strategy: str = staffing_strategy
         self.available_workers: int = City.MAX_WORKERS[self.hall.id]
-        self.assigned_workers: int = 0
+        self.assigned_workers: int = self._calculate_pre_assigned_workers()
         self._staff_buildings()
         
         #* Calculate effects
@@ -619,6 +619,14 @@ class City:
                 f"Unknown building staffing strategy. " \
                 f"Allowed strategies: {" ".join(allowed_building_staffing_strategies)}."
             )
+    
+    def _calculate_pre_assigned_workers(self) -> int:
+        assigned_workers: int = 0
+        
+        for building in self.buildings:
+            assigned_workers += building.workers
+        
+        return assigned_workers
     
     def _staff_building(self, building: Building) -> None:
         while (
