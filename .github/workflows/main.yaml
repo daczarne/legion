@@ -17,7 +17,7 @@ on:
     tags:
       - "**/**"
 
-permissions: read-all
+permissions: {}
 
 jobs:
   label-pr:
@@ -47,6 +47,8 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout 🛎️
         id: checkout
