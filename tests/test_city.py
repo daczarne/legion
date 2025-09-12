@@ -1614,6 +1614,24 @@ class TestWorkersDistribution:
         assert city.get_building(id = "basilica").workers == 1
         assert city.get_building(id = "vineyard").workers == 3
         
+        # These values can only be correct if the distribution of workers is:
+        #   City hall - 0 of 0
+        #   Basilica - 1 of 1
+        #   Vineyard - 3 of 3
+        #   Large farm - 3 of 3
+        #   Large farm - 3 of 3
+        #   Large farm - 3 of 3
+        #   Large farm - 3 of 3
+        #   Large farm - 2 of 3
+        #   Large farm - 0 of 3
+        #   ---------------------
+        #   Available workers: 18
+        #   Assigned workers: 18
+        assert city.effects.city.population_growth == 0
+        assert city.effects.buildings.population_growth == 0
+        assert city.effects.workers.population_growth == 50
+        assert city.effects.total.population_growth == 50
+        
         assert city.production.base.food == 246
         assert city.production.productivity_bonuses.food == 85
         assert city.production.total.food == 455
