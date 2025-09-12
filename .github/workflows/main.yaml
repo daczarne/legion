@@ -47,7 +47,6 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    permissions: {}
     steps:
       - name: Checkout 🛎️
         id: checkout
