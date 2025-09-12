@@ -151,19 +151,19 @@ class City:
     instantiation.
     
     Class Variables:
-        POSSIBLE_HALLS (ClassVar[set[str]]): A set of building IDs that are recognized as city halls.
-        POSSIBLE_GUILDS (ClassVar[set[str]]): A set of building IDs that are recognized as guilds.
-        MAX_BUILDINGS (ClassVar[BuildingsCount]): A dictionary mapping each hall type to the maximum number of non-hall
-            buildings it can support.
-        MAX_WORKERS (ClassVar[BuildingsCount]): A dictionary mapping each hall type to the maximum number of workers it
-            can support.
+        - POSSIBLE_HALLS (ClassVar[set[str]]): A set of building IDs that are recognized as city halls.
+        - POSSIBLE_GUILDS (ClassVar[set[str]]): A set of building IDs that are recognized as guilds.
+        - MAX_BUILDINGS (ClassVar[BuildingsCount]): A dictionary mapping each hall type to the maximum number of
+        non-hall buildings it can support.
+        - MAX_WORKERS (ClassVar[BuildingsCount]): A dictionary mapping each hall type to the maximum number of workers
+        it can support.
     
     Args:
         campaign (str): The identifier of the campaign the city belongs to.
         name (str): The name of the city, which is used to look up its data from a central repository.
         buildings (list[Building]): A list of `Building` objects that exist in the city.
         staffing_strategy (str): The name of the staffing strategy to be used. Defaults to "production_first". The
-            strategy determines how workers that have not being assigned at creation time will be assigned. This is not
+            strategy determines how workers that have not been assigned at creation time will be assigned. This is not
             relevant when creating cities with `from_buildings_count()` method as all buildings are created with zero
             workers. But if the city is created based on a list of buildings, the worker assignments introduced at
             creation time will always be respected. The only exception to this rule is the `zero` strategy, which will
@@ -174,9 +174,9 @@ class City:
             - "zero" will set the assigned workers for all buildings to zero.
             - "none" will not assign any additional workers to any buildings. This is relevant when creating cities by
                 passing collections of buildings that already assign workers to buildings.
-            - "production_first" will first assign workers production-buildings and then effects-buildings.
+            - "production_first" will first assign workers to production-buildings and to then effects-buildings.
             - "production_only" will only assign workers to production-buildings.
-            - "effects_first" will first assign workers effects-buildings and then production-buildings.
+            - "effects_first" will first assign workers to effects-buildings and then to production-buildings.
             - "effects_only" will only assign workers to effects-buildings.
             
             The staffing of production-buildings always happens sorting buildings by productivity (descending). This
