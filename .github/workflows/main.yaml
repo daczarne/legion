@@ -162,6 +162,7 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
     needs:
+      - label-pr
       - lint
       - spell-check
       - unit-tests
