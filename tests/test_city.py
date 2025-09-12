@@ -1537,6 +1537,8 @@ class TestWorkersDistribution:
         
         for building in city.buildings:
             assert building.workers == 0
+        
+        assert city.assigned_workers == 0
     
     def test_none_strategy_with_pre_assigned_workers(self) -> None:
         city: City = City(
@@ -1552,6 +1554,7 @@ class TestWorkersDistribution:
             staffing_strategy = "none",
         )
         
+        assert city.assigned_workers == 4
         assert city.get_building(id = "basilica").workers == 0
         assert city.get_building(id = "watch_tower").workers == 1
         assert city.get_building(id = "hospital").workers == 2
@@ -1567,6 +1570,8 @@ class TestWorkersDistribution:
         
         for building in city.buildings:
             assert building.workers == 0
+        
+        assert city.assigned_workers == 0
     
     def test_zero_strategy_with_pre_assigned_workers(self) -> None:
         city: City = City(
@@ -1584,6 +1589,54 @@ class TestWorkersDistribution:
         
         for building in city.buildings:
             assert building.workers == 0
+        
+        assert city.assigned_workers == 0
+    
+    def test_pre_assigned_workers_are_accounted_for(self) -> None:
+        city: City = City(
+            campaign = "Unification of Italy",
+            name = "Roma",
+            buildings = [
+                Building(id = "city_hall", workers = 0),
+                Building(id = "basilica", workers = 1),
+                Building(id = "vineyard", workers = 3),
+                Building(id = "large_farm", workers = 3),
+                Building(id = "large_farm", workers = 0),
+                Building(id = "large_farm", workers = 0),
+                Building(id = "large_farm", workers = 0),
+                Building(id = "large_farm", workers = 0),
+                Building(id = "large_farm", workers = 0),
+            ],
+            staffing_strategy = "production_first",
+        )
+        
+        assert city.assigned_workers == 18
+        assert city.get_building(id = "basilica").workers == 1
+        assert city.get_building(id = "vineyard").workers == 3
+        
+        # These values can only be correct if the distribution of workers is:
+        #   City hall - 0 of 0
+        #   Basilica - 1 of 1
+        #   Vineyard - 3 of 3
+        #   Large farm - 3 of 3
+        #   Large farm - 3 of 3
+        #   Large farm - 3 of 3
+        #   Large farm - 3 of 3
+        #   Large farm - 2 of 3
+        #   Large farm - 0 of 3
+        #   ---------------------
+        #   Available workers: 18
+        #   Assigned workers: 18
+        assert city.effects.city.population_growth == 0
+        assert city.effects.buildings.population_growth == 0
+        assert city.effects.workers.population_growth == 50
+        assert city.effects.total.population_growth == 50
+        
+        assert city.production.base.food == 246
+        assert city.production.productivity_bonuses.food == 85
+        assert city.production.total.food == 455
+        assert city.production.maintenance_costs.food == 4
+        assert city.production.balance.food == 451
     
     def test_unknown_staffing_strategy_raises_error(self) -> None:
         with raises(expected_exception = UnknownBuildingStaffingStrategyError):
