@@ -1527,6 +1527,64 @@ class TestWorkersDistribution:
         assert city.production.maintenance_costs.food == 14
         assert city.production.balance.food == -14
     
+    def test_none_strategy_with_no_pre_assigned_workers(self, _roman_food_producer_buildings: BuildingsCount) -> None:
+        city: City = City.from_buildings_count(
+            campaign = "Unification of Italy",
+            name = "Populonia",
+            buildings = _roman_food_producer_buildings,
+            staffing_strategy = "none",
+        )
+        
+        for building in city.buildings:
+            assert building.workers == 0
+    
+    def test_none_strategy_with_pre_assigned_workers(self) -> None:
+        city: City = City(
+            campaign = "Unification of Italy",
+            name = "Populonia",
+            buildings = [
+                Building(id = "city_hall"),
+                Building(id = "basilica", workers = 0),
+                Building(id = "watch_tower", workers = 1),
+                Building(id = "hospital", workers = 2),
+                Building(id = "training_ground", workers = 1),
+            ],
+            staffing_strategy = "none",
+        )
+        
+        assert city.get_building(id = "basilica").workers == 0
+        assert city.get_building(id = "watch_tower").workers == 1
+        assert city.get_building(id = "hospital").workers == 2
+        assert city.get_building(id = "training_ground").workers == 1
+    
+    def test_zero_strategy_with_no_pre_assigned_workers(self, _roman_food_producer_buildings: BuildingsCount) -> None:
+        city: City = City.from_buildings_count(
+            campaign = "Unification of Italy",
+            name = "Populonia",
+            buildings = _roman_food_producer_buildings,
+            staffing_strategy = "zero",
+        )
+        
+        for building in city.buildings:
+            assert building.workers == 0
+    
+    def test_zero_strategy_with_pre_assigned_workers(self) -> None:
+        city: City = City(
+            campaign = "Unification of Italy",
+            name = "Populonia",
+            buildings = [
+                Building(id = "city_hall"),
+                Building(id = "basilica", workers = 0),
+                Building(id = "watch_tower", workers = 1),
+                Building(id = "hospital", workers = 2),
+                Building(id = "training_ground", workers = 1),
+            ],
+            staffing_strategy = "zero",
+        )
+        
+        for building in city.buildings:
+            assert building.workers == 0
+    
     def test_unknown_staffing_strategy_raises_error(self) -> None:
         with raises(expected_exception = UnknownBuildingStaffingStrategyError):
             city: City = City(
