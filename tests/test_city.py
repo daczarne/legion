@@ -1612,6 +1612,9 @@ class TestWorkersDistribution:
         )
         
         assert city.assigned_workers == 18
+        assert city.get_building(id = "basilica").workers == 1
+        assert city.get_building(id = "vineyard").workers == 3
+        
         assert city.production.base.food == 246
         assert city.production.productivity_bonuses.food == 85
         assert city.production.total.food == 455
