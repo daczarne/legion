@@ -162,8 +162,14 @@ class City:
         campaign (str): The identifier of the campaign the city belongs to.
         name (str): The name of the city, which is used to look up its data from a central repository.
         buildings (list[Building]): A list of `Building` objects that exist in the city.
-        staffing_strategy (str): The name of the staffing strategy to be used. Defaults to "production_first". Possible
-            values are:
+        staffing_strategy (str): The name of the staffing strategy to be used. Defaults to "production_first". The
+            strategy determines how workers that have not being assigned at creation time will be assigned. This is not
+            relevant when creating cities with `from_buildings_count()` method as all buildings are created with zero
+            workers. But if the city is created based on a list of buildings, the worker assignments introduced at
+            creation time will always be respected. The only exception to this rule is the `zero` strategy, which will
+            set the assigned workers of all buildings to zero.
+            
+            Possible values are:
             
             - "zero" will set the assigned workers for all buildings to zero.
             - "none" will not assign any additional workers to any buildings. This is relevant when creating cities by
