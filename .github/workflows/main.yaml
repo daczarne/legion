@@ -79,7 +79,8 @@ jobs:
   spell-check:
     name: Spell check
     runs-on: ubuntu-latest
-    permissions: {}
+    permissions:
+      contents: read
     steps:
       - name: Checkout 🛎️
         id: checkout
