@@ -6,5 +6,5 @@
         "**/__pycache__": true,
         "**/.pytest_cache": true,
     },
-    "yaml.maxItemsComputed": 5500,
+    "yaml.maxItemsComputed": 6000,
 }
