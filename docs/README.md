@@ -1,6 +1,6 @@
 # Setting up the local environment
 
-This guide explains how to setup the basic local environment.
+This guide explains how to setup the local environment.
 
 ## Creating a new environment with Pipenv
 
@@ -82,7 +82,7 @@ This tool uses two configuration files:
 
 - `.markdownlint.yaml` defines the rules that Md files need to follow.
 - `.markdownlint-cli2.yaml` controls the behavior of the CLI tool. This configuration already ignors Md files created
-  inside some untraced folders like `pycache`.
+  inside some untracked folders like `pycache`.
 
 **Reference documents**:
 
