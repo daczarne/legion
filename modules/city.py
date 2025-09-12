@@ -260,7 +260,7 @@ class City:
         self._validate_staffing_strategy(staffing_strategy = staffing_strategy)
         self.staffing_strategy: str = staffing_strategy
         self.available_workers: int = City.MAX_WORKERS[self.hall.id]
-        self.assigned_workers: int = self._calculate_pre_assigned_workers()
+        self.assigned_workers: int = self._updated_assigned_workers()
         self._staff_buildings()
         
         #* Calculate effects
@@ -620,13 +620,8 @@ class City:
                 f"Allowed strategies: {" ".join(allowed_building_staffing_strategies)}."
             )
     
-    def _calculate_pre_assigned_workers(self) -> int:
-        assigned_workers: int = 0
-        
-        for building in self.buildings:
-            assigned_workers += building.workers
-        
-        return assigned_workers
+    def _updated_assigned_workers(self) -> int:
+        return sum([building.workers for building in self.buildings])
     
     def _staff_building(self, building: Building) -> None:
         while (
@@ -643,7 +638,9 @@ class City:
         if self.staffing_strategy == "zero":
             for building in self.buildings:
                 building.set_workers(qty = 0)
-            self.assigned_workers = 0
+            
+            self.assigned_workers = self._updated_assigned_workers()
+            
             return
         
         # Production buildings sorted by productivity levels. The prod. level of each building is determined by the
