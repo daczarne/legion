@@ -40,9 +40,12 @@ jobs:
           dot: true
       - name: Show labels 👀
         id: show_labels
+        env:
+          ALL_LABELS: ${{ steps.pr_labeler.outputs.all-labels }}
+          NEW_LABELS: ${{ steps.pr_labeler.outputs.new-labels }}
         run: |
-          echo "ALL_LABELS:" ${{ steps.pr_labeler.outputs.all-labels }}
-          echo "NEW_LABELS:" ${{ steps.pr_labeler.outputs.new-labels }}
+          echo "ALL_LABELS: ${{ env.ALL_LABELS }}"
+          echo "NEW_LABELS: ${{ env.NEW_LABELS }}"
 
   lint:
     name: Lint
