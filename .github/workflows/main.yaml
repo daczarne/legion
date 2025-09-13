@@ -153,12 +153,16 @@ jobs:
           pipenv install --system --dev
           pip list
       - name: Run examples 🧪
+        id: run_examples
         run: |
-          for f in examples/*.py; do
-            module="examples.$(basename "$f" .py)"
-            echo "==> Running $module..."
-            python -m "$module"
-          done
+          echo "==> Running building examples"
+          python -m examples.building
+          echo "==> Running city examples"
+          python -m examples.city
+          echo "==> Running scenario examples"
+          python -m examples.scenario
+          echo "==> Running kingdom examples"
+          python -m examples.kingdom
 
   alls-green:
     name: Ensure all checks have passed
