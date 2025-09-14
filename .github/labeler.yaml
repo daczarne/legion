@@ -36,8 +36,9 @@ effects:
 env:
   - changed-files:
       - any-glob-to-any-file:
-          - Pipfile
-          - Pipfile.lock
+          - .python-version
+          - pyproject.toml
+          - uv.lock
 examples:
   - changed-files:
       - any-glob-to-any-file:
@@ -76,13 +77,13 @@ tools:
   - changed-files:
       - any-glob-to-any-file:
           - .cspell.json
-          - .cspell/**
           - .editorconfig
           - .gitattributes
           - .gitignore
-          - .isort.cfg
+          - .gitmodules
           - .markdownlint-cli2.yaml
           - .markdownlint.yaml
+          - .yamlignore
           - .yamllint.yaml
 troops:
   - changed-files:

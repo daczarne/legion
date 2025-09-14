@@ -56,28 +56,28 @@ jobs:
       - name: Checkout 🛎️
         id: checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - name: Install uv 🌴
+        uses: astral-sh/setup-uv@557e51de59eb14aaaba2ed9621916900a91d50c6 # v6.6.1
+        with:
+          version: 0.8.17
       - name: Setup Python 🐍
         id: setup_python
-        uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6.0.0
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-      - name: Setup pipenv 🌴
-        id: setup_pipenv
-        run: |
-          pip install pipenv
-          pipenv install --system --dev
-      - name: Run YAML lint 🧪
-        id: run_yaml_lint
+        run: uv python install
+      - name: Setup environment 🌴
+        id: setup_environment
+        run: uv sync --locked --all-extras --dev
+      - name: Lint YAML files 🧪
+        id: lint_yaml_files
         run: yamllint -c .yamllint.yaml .
-      - name: Run Markdown lint 🧪
-        id: run_markdown_lint
+      - name: Lint Markdown files 🧪
+        id: lint_markdown_files
         uses: DavidAnson/markdownlint-cli2-action@992badcdf24e3b8eb7e87ff9287fe931bcb00c6e # v20.0.0
         with:
           config: .markdownlint.yaml
           globs: .
       - name: Run isort 🧪
         id: run_isort
-        run: isort --check-only --diff --verbose --color --sp .isort.cfg .
+        run: uv run isort --diff --check-only --verbose --color --sp pyproject.toml .
 
   spell-check:
     name: Spell check
@@ -88,7 +88,7 @@ jobs:
       - name: Checkout 🛎️
         id: checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-      - name: Run CSpell
+      - name: Run spell checking 🧪
         id: run_spell_checking
         uses: streetsidesoftware/cspell-action@dcd03dc3e8a59ec2e360d0c62db517baa0b4bb6d # v7.2.0
         with:
@@ -112,20 +112,19 @@ jobs:
       - name: Checkout 🛎️
         id: checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - name: Install uv 🌴
+        uses: astral-sh/setup-uv@557e51de59eb14aaaba2ed9621916900a91d50c6 # v6.6.1
+        with:
+          version: 0.8.17
       - name: Setup Python 🐍
         id: setup_python
-        uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6.0.0
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-      - name: Setup pipenv 🌴
-        id: setup_pipenv
-        run: |
-          pip install pipenv
-          pipenv install --system --dev
+        run: uv python install
+      - name: Setup environment 🌴
+        id: setup_environment
+        run: uv sync --locked --all-extras --dev
       - name: Run unit tests 🧪
         id: run_unit_tests
-        run: |
-          pipenv run pytest
+        run: uv run pytest -v
 
   run-examples:
     name: Run examples
@@ -139,28 +138,27 @@ jobs:
       - name: Checkout 🛎️
         id: checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - name: Install uv 🌴
+        uses: astral-sh/setup-uv@557e51de59eb14aaaba2ed9621916900a91d50c6 # v6.6.1
+        with:
+          version: 0.8.17
       - name: Setup Python 🐍
         id: setup_python
-        uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6.0.0
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
+        run: uv python install
       - name: Setup environment 🌴
         id: setup_environment
-        run: |
-          pip install pipenv
-          pipenv install --system --dev
-          pip list
+        run: uv sync --locked --all-extras --dev
       - name: Run examples 🧪
         id: run_examples
         run: |
           echo "==> Running building examples"
-          python -m examples.building
+          uv run python -m examples.building
           echo "==> Running city examples"
-          python -m examples.city
+          uv run python -m examples.city
           echo "==> Running scenario examples"
-          python -m examples.scenario
+          uv run python -m examples.scenario
           echo "==> Running kingdom examples"
-          python -m examples.kingdom
+          uv run python -m examples.kingdom
 
   alls-green:
     name: Ensure all checks have passed

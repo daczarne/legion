@@ -18,7 +18,7 @@ And the following dev libraries:
 To create a new environment using the `uv.lock` run the following commands:
 
 ```shell
-uv sync
+uv sync --locked --all-extras --dev
 ```
 
 ## Set the correct interpreter
