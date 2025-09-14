@@ -4,11 +4,11 @@
     "ignorePaths": [
         ".gitattributes",
         ".gitignore",
+        ".venv/**",
         "**/__pycache__/**",
         "**/.git/**",
         "**/*.pyc",
-        "Pipfile.lock",
-        "Pipfile",
+        "uv.lock",
     ],
     "dictionaryDefinitions": [
         {

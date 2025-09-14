@@ -15,3 +15,28 @@ dev = [
     "pytest==8.3.3",
     "yamllint==1.32",
 ]
+
+[tool.isort]
+line_length = 120
+indent = 4
+lines_after_imports = 2
+lines_between_sections = 1
+ensure_newline_before_comments = false
+honor_noqa = false
+
+multi_line_output = 3
+include_trailing_comma = true
+use_parentheses = true
+force_grid_wrap = 0
+combine_as_imports = false
+combine_star = false
+from_first = false
+length_sort = false
+reverse_sort = false
+order_by_type = true
+case_sensitive = false
+
+default_section = "THIRDPARTY"
+known_future_library = "future"
+
+skip_glob = []

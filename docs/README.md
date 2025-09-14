@@ -2,49 +2,24 @@
 
 This guide explains how to setup the local environment.
 
-## Creating a new environment with Pipenv
+## Creating a new environment with `uv`
 
-To create a new environment using the `Pipfile.lock` run the following commands:
+The environment includes the following libraries:
 
-```shell
-pipenv --python 3.13
-```
+- [`PyYAML`][pyyaml-repo]
+- [`rich`][rich-repo]
 
-```shell
-pipenv shell
-```
+And the following dev libraries:
 
-```shell
-pipenv sync
-```
+- [`isort`][isort-repo]
+- [`YAMLlint`][yamllint-repo]
+- [`pytest`][pytest-repo]
 
-```shell
-pipenv sync --dev
-```
-
-You can verify that the environment was correctly created by running:
+To create a new environment using the `uv.lock` run the following commands:
 
 ```shell
-$ python --version
-Python 3.13.3
+uv sync
 ```
-
-```shell
-$ pipenv graph
-pytest==8.3.3
-├── iniconfig
-├── packaging
-└── pluggy
-rich==14.1.0
-├── markdown-it-py
-│   └── mdurl
-└── Pygments
-yamllint==1.32.0
-├── pathspec
-└── PyYAML
-```
-
-> The output of the `pipenv graph` command might look slightly different in the future.
 
 ## Set the correct interpreter
 
@@ -53,7 +28,7 @@ Once the environment has been setup, make sure to update the path to the correct
 
 ```json
 {
-    "python.defaultInterpreterPath": "~/.local/share/virtualenvs/<venv_name>/bin/python",
+    "python.defaultInterpreterPath": ".venv/bin/python",
 }
 ```
 
@@ -86,9 +61,9 @@ This tool uses two configuration files:
 
 **Reference documents**:
 
-- [Markdown lint][1]
-- [Markdown lint CLI][2]
-- [Markdown lint action][3]
+- [Markdown lint][markdown-lint-repo]
+- [Markdown lint CLI][markdown-lint-cli-repo]
+- [Markdown lint action][markdown-lint-action-repo]
 
 ## Running CSpell locally
 
@@ -100,11 +75,24 @@ cspell lint --config ".cspell.json" --dot .
 
 **Reference documents**:
 
-- [CSpell][4]
-- [CSpell CLI][5]
+- [CSpell][cspell-repo]
+- [CSpell CLI][cspell-cli-repo]
 
-[1]: https://github.com/DavidAnson/markdownlint
-[2]: https://github.com/DavidAnson/markdownlint-cli2
-[3]: https://github.com/DavidAnson/markdownlint-cli2-action
-[4]: https://github.com/streetsidesoftware/cspell/tree/main
-[5]: https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell
+## Running isort locally
+
+To run isort locally use:
+
+```shell
+uv run isort --check-only --verbose --color --sp pyproject.toml .
+```
+
+[cspell-cli-repo]: https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell
+[cspell-repo]: https://github.com/streetsidesoftware/cspell/tree/main
+[markdown-lint-action-repo]: https://github.com/DavidAnson/markdownlint-cli2-action
+[markdown-lint-cli-repo]: https://github.com/DavidAnson/markdownlint-cli2
+[markdown-lint-repo]: https://github.com/DavidAnson/markdownlint
+[pytest-repo]: https://github.com/pytest-dev/pytest
+[pyyaml-repo]: https://github.com/yaml/pyyaml
+[yamllint-repo]: https://github.com/adrienverge/yamllint
+[rich-repo]: https://github.com/Textualize/rich
+[isort-repo]: https://github.com/PyCQA/isort
