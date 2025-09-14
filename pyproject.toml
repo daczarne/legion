@@ -1,0 +1,17 @@
+[project]
+name = "legion"
+version = "0.1.0"
+description = "Legion"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pyyaml==6.0.2",
+    "rich==14.1.0",
+]
+
+[dependency-groups]
+dev = [
+    "isort[colors]==6.0.1",
+    "pytest==8.3.3",
+    "yamllint==1.32",
+]

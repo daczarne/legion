@@ -1,8 +1,11 @@
 extends: default
 
+ignore-from-file: .yamlignore
+
 yaml-files:
   - "*.yaml"
   - "*.yml"
+  - .yamllint.yaml
 
 rules:
 
