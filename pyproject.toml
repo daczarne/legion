@@ -137,7 +137,7 @@ select = [
     "LOG", # Rules for loggers.
     "G", # Rules for logger messages.
     # "INP001", #! I disagree with this rule of `__init__.py` files.
-    "PIE790", # Checks for unnecessary `pass` statements and ellipsis (...) literals in functions, classes, and other blocks.
+    # "PIE790", #! Enabling this rule violates the zen-of-Python: be explicit!
     "PIE794", # Checks for duplicate field definitions in classes.
     "PIE796", # Checks for enums that contain duplicate values.
     "PIE800", # Checks for unnecessary dictionary unpacking operators (`**`).
