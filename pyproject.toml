@@ -337,7 +337,7 @@ select = [
     "E275", # Checks for missing whitespace after keywords. #> Requires preview rules to be enabled.
     "E301", # Checks for missing blank lines between methods of a class. #> Requires preview rules to be enabled.
     "E302", # Checks for missing blank lines between top level functions and classes. #> Requires preview rules to be enabled.
-    "E303", # Checks for extraneous blank lines. #~ I'm sceptical of this rule.
+    # "E303", #! I disagree with this rule.
     "E304", # Checks for extraneous blank line(s) after function decorators. #> Requires preview rules to be enabled.
     "E305", # Checks for missing blank lines after the end of function or class. #> Requires preview rules to be enabled.
     "E306", # Checks for 1 blank line between nested function or class definitions. #> Requires preview rules to be enabled.
