@@ -375,7 +375,7 @@ select = [
     "D101", # Checks for undocumented public class definitions.
     "D102", # Checks for undocumented public method definitions.
     "D103", # Checks for undocumented public function definitions.
-    "D104", # Checks for undocumented public package definitions.
+    # "D104", #! Disagree with this rule because most "packages" are just an empty `__init__.py` file.
     # "D105", #! Disagree with this rule because dunder methods are standardized methods.
     "D106", # Checks for undocumented public class definitions, for nested classes.
     # "D107", #! Disagree with this rule because dunder methods are standardized methods.
