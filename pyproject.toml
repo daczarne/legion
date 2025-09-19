@@ -376,9 +376,9 @@ select = [
     "D102", # Checks for undocumented public method definitions.
     "D103", # Checks for undocumented public function definitions.
     "D104", # Checks for undocumented public package definitions.
-    "D105", # Checks for undocumented magic method definitions.
+    # "D105", #! Disagree with this rule because dunder methods are standardized methods.
     "D106", # Checks for undocumented public class definitions, for nested classes.
-    "D107", # Checks for public `__init__` method definitions that are missing docstrings.
+    # "D107", #! Disagree with this rule because dunder methods are standardized methods.
     # "D200", # Checks for single-line docstrings that are broken across multiple lines. #! Disagree with this rule.
     "D201", # Checks for docstrings on functions that are separated by one or more blank lines from the function definition.
     # "D202", # Checks for docstrings on functions that are separated by one or more blank lines from the function body. #! Disagree with this rule.
