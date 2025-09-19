@@ -177,7 +177,7 @@ select = [
     "Q000", # Checks for inline strings that use single quotes.
     "Q001", # Checks for multiline strings that use single quotes.
     "Q002", # Checks for docstrings that use single quotes.
-    "Q003", # Checks for strings that include escaped quotes, and suggests changing the quote style to avoid the need to escape them.
+    # "Q003", #! Rule does not maintain double quotes as outer ones.
     "Q004", # Checks for strings that include unnecessarily escaped quotes.
     # "RSE102", #! Rule has known issues and it is not very good.
     "RET501", # Checks for the presence of a `return None` statement when `None` is the only possible return value.
