@@ -276,7 +276,7 @@ select = [
     "FLY002", # Checks for `str.join` calls that can be replaced with f-strings.
     "I001", # De-duplicates, groups, and sorts imports based on the provided `isort` settings.
     "I002", # Adds any required imports to the top of the file. See `tool.ruff.lint.isort.required-imports`.
-    "C901", # Checks for functions with a high McCabe complexity.
+    # "C901",  #! Disabling because this rule is too subjective and has zero context awareness.
     # "NPY", # Checks for `numpy`. #~ I need to investigate more.
     # "PD", # Checks for `pandas`. #~ I need to investigate more.
     "N801", # Checks for class names that do not follow the `CamelCase` convention.
