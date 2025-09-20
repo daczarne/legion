@@ -164,7 +164,7 @@ class TestCitiesData:
                     }
                     _errors.append(error)
                 
-                if not potential >= 0: # type: ignore[reportOperatorIssue]
+                if not potential >= 0: # pyright: ignore[reportOperatorIssue]
                     error: dict[str, str] = {
                         "city": city_name,
                         "campaign": campaign,
@@ -225,7 +225,7 @@ class TestCitiesData:
                     }
                     _errors.append(error)
                 
-                if not qty >= 0: # type: ignore[reportOperatorIssue]
+                if not qty >= 0: # pyright: ignore[reportOperatorIssue]
                     error: dict[str, str] = {
                         "city": city_name,
                         "campaign": campaign,
@@ -285,7 +285,7 @@ class TestCitiesData:
                     }
                     _errors.append(error)
                 
-                if not size >= 0: # type: ignore[reportOperatorIssue]
+                if not size >= 0: # pyright: ignore[reportOperatorIssue]
                     error: dict[str, str] = {
                         "city": city_name,
                         "campaign": campaign,
