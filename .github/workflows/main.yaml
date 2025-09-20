@@ -77,7 +77,7 @@ jobs:
           globs: .
       - name: Lint Python files 🧪
         id: lint_python_files
-        run: uv run ruff check .
+        run: uv run ruff check --preview .
 
   spell-check:
     name: Spell check
