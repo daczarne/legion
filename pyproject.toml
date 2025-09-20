@@ -744,6 +744,13 @@ future-annotations = true
     "SLF001",
     "PLR6301",
 ]
+"examples/*" = [
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D106",
+]
 
 
 [tool.ruff.lint.flake8-bugbear]
