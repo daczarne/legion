@@ -161,7 +161,7 @@ jobs:
           uv run python -m examples.kingdom
 
   alls-green:
-    name: Ensure all checks have passed
+    name: All checks passed
     if: always()
     runs-on: ubuntu-latest
     needs:
