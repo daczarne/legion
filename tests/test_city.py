@@ -1,10 +1,11 @@
+from __future__ import annotations
+
 from collections import Counter
+from typing import TYPE_CHECKING
 
-from pytest import FixtureRequest, fixture, mark, raises
-
-from modules.building import Building, BuildingsCount
-from modules.city import City, _CityData, _CityDisplay
-from modules.display import DEFAULT_SECTION_COLORS, DisplayConfiguration, DisplaySectionConfiguration
+from modules.building import Building
+from modules.city import City, _CityDisplay
+from modules.display import DEFAULT_SECTION_COLORS
 from modules.exceptions import (
     CityNotFoundError,
     FortsCannotHaveBuildingsError,
@@ -17,6 +18,16 @@ from modules.exceptions import (
     UnknownBuildingStaffingStrategyError,
 )
 from modules.resources import Resource
+
+from pytest import fixture, mark, raises
+
+
+if TYPE_CHECKING:
+    from modules.building import BuildingsCount
+    from modules.city import _CityData
+    from modules.display import DisplayConfiguration, DisplaySectionConfiguration
+    
+    from pytest import FixtureRequest
 
 
 @mark.city
@@ -45,7 +56,7 @@ class TestCitiesData:
             campaign: str = city.get("campaign")
             keys_found: list[str] = list(city.keys())
             
-            if not Counter(keys_found) == Counter(expected_keys):
+            if Counter(keys_found) != Counter(expected_keys):
                 missing_keys: list[str] = list(set(Counter(expected_keys)) - set(Counter(keys_found)))
                 extra_keys: list[str] = list(set(Counter(keys_found)) - set(Counter(expected_keys)))
                 
@@ -120,7 +131,7 @@ class TestCitiesData:
             campaign: str = city.get("campaign")
             keys_found: list[str] = list(city["resource_potentials"].keys())
             
-            if not Counter(keys_found) == Counter(expected_keys):
+            if Counter(keys_found) != Counter(expected_keys):
                 missing_keys: list[str] = list(set(Counter(expected_keys)) - set(Counter(keys_found)))
                 extra_keys: list[str] = list(set(Counter(keys_found)) - set(Counter(expected_keys)))
                 
@@ -153,7 +164,7 @@ class TestCitiesData:
                     }
                     _errors.append(error)
                 
-                if not 0 <= potential: # type: ignore[reportOperatorIssue]
+                if not potential >= 0: # pyright: ignore[reportOperatorIssue]
                     error: dict[str, str] = {
                         "city": city_name,
                         "campaign": campaign,
@@ -181,7 +192,7 @@ class TestCitiesData:
             campaign: str = city.get("campaign")
             keys_found: list[str] = list(city["geo_features"].keys())
             
-            if not Counter(keys_found) == Counter(expected_keys):
+            if Counter(keys_found) != Counter(expected_keys):
                 missing_keys: list[str] = list(set(Counter(expected_keys)) - set(Counter(keys_found)))
                 extra_keys: list[str] = list(set(Counter(keys_found)) - set(Counter(expected_keys)))
                 
@@ -214,7 +225,7 @@ class TestCitiesData:
                     }
                     _errors.append(error)
                 
-                if not 0 <= qty: # type: ignore[reportOperatorIssue]
+                if not qty >= 0: # pyright: ignore[reportOperatorIssue]
                     error: dict[str, str] = {
                         "city": city_name,
                         "campaign": campaign,
@@ -241,7 +252,7 @@ class TestCitiesData:
             campaign: str = city.get("campaign")
             keys_found: list[str] = list(city["effects"].keys())
             
-            if not Counter(keys_found) == Counter(expected_keys):
+            if Counter(keys_found) != Counter(expected_keys):
                 missing_keys: list[str] = list(set(Counter(expected_keys)) - set(Counter(keys_found)))
                 extra_keys: list[str] = list(set(Counter(keys_found)) - set(Counter(expected_keys)))
                 
@@ -274,7 +285,7 @@ class TestCitiesData:
                     }
                     _errors.append(error)
                 
-                if not 0 <= size: # type: ignore[reportOperatorIssue]
+                if not size >= 0: # pyright: ignore[reportOperatorIssue]
                     error: dict[str, str] = {
                         "city": city_name,
                         "campaign": campaign,
@@ -347,21 +358,21 @@ class TestCity:
             )
     
     def test_get_building(self, _roman_military_city: City) -> None:
-        assert isinstance(_roman_military_city.get_building(id = "city_hall"), Building)
-        assert _roman_military_city.get_building(id = "city_hall").id == "city_hall"
+        assert isinstance(_roman_military_city.get_building(building_id = "city_hall"), Building)
+        assert _roman_military_city.get_building(building_id = "city_hall").id == "city_hall"
         
-        assert isinstance(_roman_military_city.get_building(id = "quartermaster"), Building)
-        assert _roman_military_city.get_building(id = "quartermaster").id == "quartermaster"
+        assert isinstance(_roman_military_city.get_building(building_id = "quartermaster"), Building)
+        assert _roman_military_city.get_building(building_id = "quartermaster").id == "quartermaster"
     
     def test_get_building_raises_error(self, _roman_military_city: City) -> None:
         with raises(expected_exception = KeyError):
-            _roman_military_city.get_building(id = "nonexistent_building")
+            _roman_military_city.get_building(building_id = "nonexistent_building")
     
     def test_has_building_returns_true_for_existing_building(self, _roman_military_city: City) -> None:
-        assert _roman_military_city.has_building(id = "stables")
+        assert _roman_military_city.has_building(building_id = "stables")
     
     def test_has_building_returns_false_for_nonexistent_building(self, _roman_military_city: City) -> None:
-        assert not _roman_military_city.has_building(id = "nonexistent_building")
+        assert not _roman_military_city.has_building(building_id = "nonexistent_building")
     
     def test_get_buildings_count_by_id(
             self,
@@ -488,7 +499,7 @@ class TestCityAllowedBuildingCounts:
                 "mine": 0,
                 "lumber_mill": 0,
                 "farm": 0,
-            }
+            },
         )
         
         assert len(city.buildings) == 1
@@ -1327,9 +1338,9 @@ class TestWorkersDistribution:
         
         assert city.available_workers == 18
         assert city.assigned_workers == 5
-        assert city.get_building(id = "basilica").workers == 1
-        assert city.get_building(id = "hospital").workers == 3
-        assert city.get_building(id = "training_ground").workers == 1
+        assert city.get_building(building_id = "basilica").workers == 1
+        assert city.get_building(building_id = "hospital").workers == 3
+        assert city.get_building(building_id = "training_ground").workers == 1
         
         assert city.effects.city.troop_training == 0
         assert city.effects.buildings.troop_training == 30
@@ -1356,7 +1367,7 @@ class TestWorkersDistribution:
         
         assert city.available_workers == 18
         assert city.assigned_workers == 18
-        assert city.get_building(id = "basilica").workers == 0
+        assert city.get_building(building_id = "basilica").workers == 0
         
         assert city.effects.city.troop_training == 0
         assert city.effects.buildings.troop_training == 0
@@ -1383,7 +1394,7 @@ class TestWorkersDistribution:
         
         assert city.available_workers == 18
         assert city.assigned_workers == 18
-        assert city.get_building(id = "basilica").workers == 0
+        assert city.get_building(building_id = "basilica").workers == 0
         
         assert city.effects.city.troop_training == 25
         assert city.effects.buildings.troop_training == 0
@@ -1410,7 +1421,7 @@ class TestWorkersDistribution:
         
         assert city.available_workers == 18
         assert city.assigned_workers == 18
-        assert city.get_building(id = "basilica").workers == 0
+        assert city.get_building(building_id = "basilica").workers == 0
         
         assert city.effects.city.troop_training == 10
         assert city.effects.buildings.troop_training == 0
@@ -1435,9 +1446,9 @@ class TestWorkersDistribution:
             staffing_strategy = "production_first",
         )
         
-        assert city.get_building(id = "basilica").workers == 1
-        assert city.get_building(id = "hospital").workers == 3
-        assert city.get_building(id = "training_ground").workers == 1
+        assert city.get_building(building_id = "basilica").workers == 1
+        assert city.get_building(building_id = "hospital").workers == 3
+        assert city.get_building(building_id = "training_ground").workers == 1
         
         assert city.available_workers == 18
         assert city.assigned_workers == 5
@@ -1450,9 +1461,9 @@ class TestWorkersDistribution:
             staffing_strategy = "production_only",
         )
         
-        assert city.get_building(id = "basilica").workers == 0
-        assert city.get_building(id = "hospital").workers == 0
-        assert city.get_building(id = "training_ground").workers == 0
+        assert city.get_building(building_id = "basilica").workers == 0
+        assert city.get_building(building_id = "hospital").workers == 0
+        assert city.get_building(building_id = "training_ground").workers == 0
         
         assert city.available_workers == 18
         assert city.assigned_workers == 0
@@ -1467,8 +1478,10 @@ class TestWorkersDistribution:
         
         assert city.available_workers == 18
         assert city.assigned_workers == 18
-        assert city.get_building(id = "basilica").workers == 1
-        food_producers: list[int] = [building.workers for building in city.buildings if building.id in ["large_farm", "vineyard"]]
+        assert city.get_building(building_id = "basilica").workers == 1
+        food_producers: list[int] = [
+            building.workers for building in city.buildings if building.id in {"large_farm", "vineyard"}
+        ]
         assert sum(food_producers) == 17
         
         assert city.effects.city.troop_training == 0
@@ -1502,8 +1515,10 @@ class TestWorkersDistribution:
         
         assert city.available_workers == 18
         assert city.assigned_workers == 1
-        assert city.get_building(id = "basilica").workers == 1
-        food_producers: list[int] = [building.workers for building in city.buildings if building.id in ["large_farm", "vineyard"]]
+        assert city.get_building(building_id = "basilica").workers == 1
+        food_producers: list[int] = [
+            building.workers for building in city.buildings if building.id in {"large_farm", "vineyard"}
+        ]
         assert sum(food_producers) == 0
         
         assert city.effects.city.troop_training == 0
@@ -1526,6 +1541,117 @@ class TestWorkersDistribution:
         assert city.production.total.food == 0
         assert city.production.maintenance_costs.food == 14
         assert city.production.balance.food == -14
+    
+    def test_none_strategy_with_no_pre_assigned_workers(self, _roman_food_producer_buildings: BuildingsCount) -> None:
+        city: City = City.from_buildings_count(
+            campaign = "Unification of Italy",
+            name = "Populonia",
+            buildings = _roman_food_producer_buildings,
+            staffing_strategy = "none",
+        )
+        
+        for building in city.buildings:
+            assert building.workers == 0
+        
+        assert city.assigned_workers == 0
+    
+    def test_none_strategy_with_pre_assigned_workers(self) -> None:
+        city: City = City(
+            campaign = "Unification of Italy",
+            name = "Populonia",
+            buildings = [
+                Building(id = "city_hall"),
+                Building(id = "basilica", workers = 0),
+                Building(id = "watch_tower", workers = 1),
+                Building(id = "hospital", workers = 2),
+                Building(id = "training_ground", workers = 1),
+            ],
+            staffing_strategy = "none",
+        )
+        
+        assert city.assigned_workers == 4
+        assert city.get_building(building_id = "basilica").workers == 0
+        assert city.get_building(building_id = "watch_tower").workers == 1
+        assert city.get_building(building_id = "hospital").workers == 2
+        assert city.get_building(building_id = "training_ground").workers == 1
+    
+    def test_zero_strategy_with_no_pre_assigned_workers(self, _roman_food_producer_buildings: BuildingsCount) -> None:
+        city: City = City.from_buildings_count(
+            campaign = "Unification of Italy",
+            name = "Populonia",
+            buildings = _roman_food_producer_buildings,
+            staffing_strategy = "zero",
+        )
+        
+        for building in city.buildings:
+            assert building.workers == 0
+        
+        assert city.assigned_workers == 0
+    
+    def test_zero_strategy_with_pre_assigned_workers(self) -> None:
+        city: City = City(
+            campaign = "Unification of Italy",
+            name = "Populonia",
+            buildings = [
+                Building(id = "city_hall"),
+                Building(id = "basilica", workers = 0),
+                Building(id = "watch_tower", workers = 1),
+                Building(id = "hospital", workers = 2),
+                Building(id = "training_ground", workers = 1),
+            ],
+            staffing_strategy = "zero",
+        )
+        
+        for building in city.buildings:
+            assert building.workers == 0
+        
+        assert city.assigned_workers == 0
+    
+    def test_pre_assigned_workers_are_accounted_for(self) -> None:
+        city: City = City(
+            campaign = "Unification of Italy",
+            name = "Roma",
+            buildings = [
+                Building(id = "city_hall", workers = 0),
+                Building(id = "basilica", workers = 1),
+                Building(id = "vineyard", workers = 3),
+                Building(id = "large_farm", workers = 3),
+                Building(id = "large_farm", workers = 0),
+                Building(id = "large_farm", workers = 0),
+                Building(id = "large_farm", workers = 0),
+                Building(id = "large_farm", workers = 0),
+                Building(id = "large_farm", workers = 0),
+            ],
+            staffing_strategy = "production_first",
+        )
+        
+        assert city.assigned_workers == 18
+        assert city.get_building(building_id = "basilica").workers == 1
+        assert city.get_building(building_id = "vineyard").workers == 3
+        
+        # These values can only be correct if the distribution of workers is:
+        #   City hall - 0 of 0
+        #   Basilica - 1 of 1
+        #   Vineyard - 3 of 3
+        #   Large farm - 3 of 3
+        #   Large farm - 3 of 3
+        #   Large farm - 3 of 3
+        #   Large farm - 3 of 3
+        #   Large farm - 2 of 3
+        #   Large farm - 0 of 3
+        #   ---------------------
+        #   Available workers: 18
+        #   Assigned workers: 18
+        assert city.effects.city.population_growth == 0
+        assert city.effects.buildings.population_growth == 0
+        assert city.effects.workers.population_growth == 50
+        assert city.effects.total.population_growth == 50
+        
+        assert city.production.base.food == 246
+        assert city.production.productivity_bonuses.food == 85
+        assert city.production.total.food == 455
+        assert city.production.maintenance_costs.food == 4
+        assert city.production.balance.food == 451
     
     def test_unknown_staffing_strategy_raises_error(self) -> None:
         with raises(expected_exception = UnknownBuildingStaffingStrategyError):
@@ -1897,7 +2023,7 @@ class TestCityScenarios:
         assert _roman_city_with_supply_dump.hall.id == "city_hall"
         assert _roman_city_with_supply_dump.is_fort is False
         assert _roman_city_with_supply_dump.has_supply_dump is True
-        assert _roman_city_with_supply_dump.has_building(id = "supply_dump")
+        assert _roman_city_with_supply_dump.has_building(building_id = "supply_dump")
     
     def test_roman_military_city_with_supply_dump(self) -> None:
         city: City = City.from_buildings_count(
@@ -1922,7 +2048,7 @@ class TestCityScenarios:
         assert city.hall.id == "city_hall"
         assert city.is_fort is False
         assert city.has_supply_dump is True
-        assert city.has_building(id = "supply_dump")
+        assert city.has_building(building_id = "supply_dump")
         
         assert city.effects.city.troop_training == 0
         assert city.effects.city.population_growth == 0
@@ -1959,7 +2085,7 @@ class TestImpossibleScenarios:
                 buildings = [
                     Building(id = "town_hall"),
                     Building(id = "mine"),
-                ]
+                ],
             )
     
     def test_outcrop_mine_with_no_geo_or_rss_raises_error(self) -> None:
@@ -1970,7 +2096,7 @@ class TestImpossibleScenarios:
                 buildings = [
                     Building(id = "town_hall"),
                     Building(id = "outcrop_mine"),
-                ]
+                ],
             )
     
     def test_hunters_lodge_with_no_rss_raises_error(self) -> None:
@@ -1982,7 +2108,7 @@ class TestImpossibleScenarios:
                 buildings = [
                     Building(id = "village_hall"),
                     Building(id = "hunters_lodge"),
-                ]
+                ],
             )
     
     def test_vineyard_with_no_town_hall_raises_error(self) -> None:
@@ -1994,7 +2120,7 @@ class TestImpossibleScenarios:
                 buildings = [
                     Building(id = "village_hall"),
                     Building(id = "vineyard"),
-                ]
+                ],
             )
     
     def test_multiple_guilds_raises_errors(self) -> None:
@@ -2006,7 +2132,7 @@ class TestImpossibleScenarios:
                     Building(id = "city_hall"),
                     Building(id = "farmers_guild"),
                     Building(id = "carpenters_guild"),
-                ]
+                ],
             )
 
 
@@ -2064,9 +2190,9 @@ class TestCityDisplay:
         
         for section in expected_sections:
             section_conf: DisplaySectionConfiguration = config[section]
-            assert section_conf["include"] is True # type: ignore
-            assert isinstance(section_conf["height"], int) # type: ignore
-            assert isinstance(section_conf["color"], str) # type: ignore
+            assert section_conf["include"] is True # pyright: ignore[reportTypedDictNotRequiredAccess]
+            assert isinstance(section_conf["height"], int) # pyright: ignore[reportTypedDictNotRequiredAccess]
+            assert isinstance(section_conf["color"], str) # pyright: ignore[reportTypedDictNotRequiredAccess]
         
         assert config["buildings"]["height"] == len(city.buildings) + 2 if "height" in config else True
         
@@ -2099,10 +2225,10 @@ class TestCityDisplay:
         config: DisplayConfiguration = city_display._build_configuration()
         
         # User config should override defaults
-        assert config["city"]["include"] is False # type: ignore
-        assert config["city"]["color"] == "white" # type: ignore
-        assert config["buildings"]["height"] == 99 # type: ignore
+        assert config["city"]["include"] is False # pyright: ignore[reportTypedDictNotRequiredAccess]
+        assert config["city"]["color"] == "white" # pyright: ignore[reportTypedDictNotRequiredAccess]
+        assert config["buildings"]["height"] == 99 # pyright: ignore[reportTypedDictNotRequiredAccess]
         
         # Other sections still have defaults
-        assert config["effects"]["include"] is True # type: ignore
-        assert config["effects"]["color"] == DEFAULT_SECTION_COLORS["effects"] # type: ignore
+        assert config["effects"]["include"] is True # pyright: ignore[reportTypedDictNotRequiredAccess]
+        assert config["effects"]["color"] == DEFAULT_SECTION_COLORS["effects"] # pyright: ignore[reportTypedDictNotRequiredAccess]

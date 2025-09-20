@@ -15,8 +15,11 @@ Internal objects (not part of the public API):
 - _BuildingData (TypedDict): Helper for type annotations when reading building data from YAML/JSON files.
 """
 
+from __future__ import annotations
+
 from dataclasses import dataclass, field
-from typing import ClassVar, Literal, TypeAlias, TypedDict
+from pathlib import Path
+from typing import TYPE_CHECKING, ClassVar, Literal, TypedDict
 
 import yaml
 from rich.align import Align
@@ -25,7 +28,7 @@ from rich.layout import Layout
 from rich.panel import Panel
 from rich.text import Text
 
-from .effects import EffectBonuses, EffectBonusesData
+from .effects import EffectBonuses
 from .exceptions import (
     InsufficientNumberOfWorkersError,
     NegativeNumberOfWorkersError,
@@ -33,7 +36,12 @@ from .exceptions import (
     UnknownBuildingError,
 )
 from .geo_features import GeoFeature
-from .resources import Resource, ResourceCollection, ResourceCollectionData
+from .resources import Resource, ResourceCollection
+
+
+if TYPE_CHECKING:
+    from .effects import EffectBonusesData
+    from .resources import ResourceCollectionData
 
 
 __all__: list[str] = ["BuildingsCount", "Building"]
@@ -44,7 +52,7 @@ Mapping of building identifiers to their counts in a city.
 
 Keys are building IDs (e.g., "farm", "mine"). Values are integers representing how many of that building exist.
 """
-BuildingsCount: TypeAlias = dict[str, int]
+type BuildingsCount = dict[str, int]
 
 
 # * ************** * #
@@ -56,6 +64,7 @@ class _BuildingData(TypedDict):
     This is a helper class meant to be used when reading building data from YAML or JSON files. Its only purpose is to
     provide good type annotations and hints.
     """
+    
     id: str
     name: str
     building_cost: ResourceCollectionData
@@ -76,7 +85,8 @@ class _BuildingData(TypedDict):
     blocked_by_building: list[str]
     replaces: str | None
 
-with open(file = "./data/buildings.yaml", mode = "r") as file:
+
+with Path("./data/buildings.yaml").open(mode = "r", encoding = "utf-8") as file:
     _buildings_data: dict[Literal["buildings"], list[_BuildingData]] = yaml.safe_load(stream = file)
 
 _BUILDINGS: dict[str, _BuildingData] = {building["id"]: building for building in _buildings_data["buildings"]}
@@ -125,10 +135,17 @@ class Building:
         required_geo (GeoFeature | None): Required geographic feature, if any. For example, building a Mountain mine
             requires that the city where it is being built has a mountain.
         required_rss list[Resource]: Required resource, if any. For example, building Farms requires that the city
-            has production potential for food production.
-        required_building (list[str]): List of possible pre-requisite buildings (OR condition).
+            has production potential for food production. If the building does not require any resource, the list will
+            be empty.
+        required_hall (str): The building ID of the hall that the city must have in order to unblock the building of
+            this building.
+        required_building (list[str]): List of possible pre-requisite buildings (OR conditions). If the list is empty
+            it means that the building has no dependency on other buildings, other than the `required_hall`.
+        blocked_by_building (list[str]): List of buildings that, if present in a city, will disable the construction of
+            this building, even if space is available and pre-requisites have been met.
         replaces (str | None): Identifier of the building this one replaces.
     """
+    
     id: str = field(init = True, repr = True, compare = True, hash = True)
     workers: int = field(init = True, default = 0, repr = False, compare = False, hash = False)
     
@@ -145,14 +162,14 @@ class Building:
     is_deletable: bool = field(init = False, repr = False, compare = False, hash = False)
     is_upgradeable: bool = field(init = False, repr = False, compare = False, hash = False)
     required_geo: GeoFeature | None = field(init = False, default = None, repr = False, compare = False, hash = False)
-    required_rss: list[Resource] = field(init = False, default_factory = list, repr = False, compare = False, hash = False)
+    required_rss: list[Resource] = field(init = False, default_factory = list, repr = False, compare = False, hash = False)  # noqa: E501
     required_hall: str | None = field(init = False, default = None, repr = False, compare = False, hash = False)
-    # Dependencies here need to be interpreted as an OR condition. Either of the listed buildings unblocks the building.
+    # Dependencies here need to be interpreted as OR conditions. Any of the listed buildings unblocks the building.
     # For example, a Stable requires either a Farm, or a Large Farm, or a Vineyard, or a Fishing Village. If the city
     # has any one of them it can build a Stable. Similarly, a Blacksmith requires either a Mine, or a Large Mine, or a
     # Mountain Mine, or an Outcrop Mine. If a building has no dependencies the list will be empty.
-    required_building: list[str] = field(init = False, default_factory = list, repr = False, compare = False, hash = False)
-    blocked_by_building: list[str] = field(init = False, default_factory = list, repr = False, compare = False, hash = False)
+    required_building: list[str] = field(init = False, default_factory = list, repr = False, compare = False, hash = False) # noqa: E501
+    blocked_by_building: list[str] = field(init = False, default_factory = list, repr = False, compare = False, hash = False) # noqa: E501
     replaces: str | None = field(init = False, default = None, repr = False, compare = False, hash = False)
     
     
@@ -183,7 +200,7 @@ class Building:
         self.is_buildable = _BUILDINGS[self.id]["is_buildable"]
         self.is_deletable = _BUILDINGS[self.id]["is_deletable"]
         self.is_upgradeable = _BUILDINGS[self.id]["is_upgradeable"]
-        self.required_geo = GeoFeature(value = _BUILDINGS[self.id]["required_geo"]) if _BUILDINGS[self.id]["required_geo"] else None
+        self.required_geo = GeoFeature(value = _BUILDINGS[self.id]["required_geo"]) if _BUILDINGS[self.id]["required_geo"] else None # noqa: E501
         self.required_rss = [Resource(value = rss) for rss in _BUILDINGS[self.id]["required_rss"]]
         self.required_hall = _BUILDINGS[self.id]["required_hall"]
         self.required_building = _BUILDINGS[self.id]["required_building"]
@@ -204,6 +221,7 @@ class Building:
             TooManyWorkersError: If the new total (current + the qty to be added) exceeds the maximum worker capacity.
             NegativeNumberOfWorkersError: If the supplied quantity (`qty`) is negative.
         """
+        
         if qty < 0:
             raise NegativeNumberOfWorkersError("Cannot add a negative number of workers.")
         
@@ -223,11 +241,14 @@ class Building:
             InsufficientNumberOfWorkersError: If the operation results in fewer than zero workers.
             NegativeNumberOfWorkersError: If the supplied quantity (`qty`) is negative.
         """
+        
         if qty < 0:
             raise NegativeNumberOfWorkersError("Cannot remove a negative number of workers.")
         
         if self.workers - qty < 0:
-            raise InsufficientNumberOfWorkersError(f"Can not remove {qty} workers. Building currently has {self.workers}.")
+            raise InsufficientNumberOfWorkersError(
+                f"Can not remove {qty} workers. Building currently has {self.workers}.",
+            )
         
         self.workers -= qty
     
@@ -242,6 +263,7 @@ class Building:
             TooManyWorkersError: If the value exceeds the maximum number of workers the building can have.
             NegativeNumberOfWorkersError: If the supplied quantity (`qty`) is negative.
         """
+        
         if qty < 0:
             raise NegativeNumberOfWorkersError("Cannot set a negative number of workers.")
         
@@ -254,8 +276,10 @@ class Building:
     #* Formatters
     @staticmethod
     def _format_building(text: str) -> str:
-        return f"[italic bold bright_cyan]Building[/italic bold bright_cyan](" \
+        return (
+            f"[italic bold bright_cyan]Building[/italic bold bright_cyan]("
             f"[italic dim]id = [/italic dim][yellow]\"{text}\"[/yellow])"
+        )
     
     @staticmethod
     def _format_string(text: str) -> str:
@@ -271,24 +295,26 @@ class Building:
     
     @staticmethod
     def _format_resource_collection(collection: ResourceCollection) -> str:
-        text: str = f"[italic bold bright_cyan]ResourceCollection[/italic bold bright_cyan](" \
-            f"[italic dim]food = [/italic dim]{collection.food}, " \
-            f"[italic dim]ore = [/italic dim]{collection.ore}, " \
-            f"[italic dim]wood = [/italic dim]{collection.wood}" \
+        return (
+            f"[italic bold bright_cyan]ResourceCollection[/italic bold bright_cyan]("
+            f"[italic dim]food = [/italic dim]{collection.food}, "
+            f"[italic dim]ore = [/italic dim]{collection.ore}, "
+            f"[italic dim]wood = [/italic dim]{collection.wood}"
             f")"
-        return text
+        )
     
     @staticmethod
     def _format_effect_bonuses(bonuses: EffectBonuses) -> str:
-        text: str = f"[italic bold bright_cyan]EffectBonuses[/italic bold bright_cyan](" \
-            f"[italic dim]troop_training = [/italic dim]{bonuses.troop_training}, " \
-            f"[italic dim]population_growth = [/italic dim]{bonuses.population_growth}, " \
-            f"[italic dim]intelligence = [/italic dim]{bonuses.intelligence}" \
+        return (
+            f"[italic bold bright_cyan]EffectBonuses[/italic bold bright_cyan]("
+            f"[italic dim]troop_training = [/italic dim]{bonuses.troop_training}, "
+            f"[italic dim]population_growth = [/italic dim]{bonuses.population_growth}, "
+            f"[italic dim]intelligence = [/italic dim]{bonuses.intelligence}"
             f")"
-        return text
+        )
     
     @staticmethod
-    def _format_scalar(scalar: int | float | bool) -> str:
+    def _format_scalar(scalar: float | bool) -> str:
         return f"[dark_magenta]{scalar}[/dark_magenta]"
     
     @staticmethod
@@ -309,32 +335,46 @@ class Building:
         return f"[bold]Name:[/bold] {Building._format_string(text = self.name)}"
     
     def _building_building_costs(self) -> str:
-        return f"[bold]Building costs:[/bold] " \
+        return (
+            f"[bold]Building costs:[/bold] "
             f"{Building._format_resource_collection(collection = self.building_cost)}"
+        )
     
     def _building_maintenance_costs(self) -> str:
-        return f"[bold]Maintenance costs:[/bold] " \
+        return (
+            f"[bold]Maintenance costs:[/bold] "
             f"{Building._format_resource_collection(collection = self.maintenance_cost)}"
+        )
     
     def _building_productivity_bonuses(self) -> str:
-        return f"[bold]Productivity bonuses:[/bold] " \
+        return (
+            f"[bold]Productivity bonuses:[/bold] "
             f"{Building._format_resource_collection(collection = self.productivity_bonuses)}"
+        )
     
     def _building_productivity_per_worker(self) -> str:
-        return f"[bold]Productivity per worker:[/bold] " \
+        return (
+            f"[bold]Productivity per worker:[/bold] "
             f"{Building._format_resource_collection(collection = self.productivity_per_worker)}"
+        )
     
     def _building_effect_bonuses(self) -> str:
-        return f"[bold]Effect bonuses:[/bold] " \
+        return (
+            f"[bold]Effect bonuses:[/bold] "
             f"{Building._format_effect_bonuses(self.effect_bonuses)}"
+        )
     
     def _building_effect_bonuses_per_worker(self) -> str:
-        return f"[bold]Effect bonuses per worker:[/bold] " \
+        return (
+            f"[bold]Effect bonuses per worker:[/bold] "
             f"{Building._format_effect_bonuses(self.effect_bonuses_per_worker)}"
+        )
     
     def _building_storage_capacity(self) -> str:
-        return f"[bold]Storage capacity:[/bold] " \
+        return (
+            f"[bold]Storage capacity:[/bold] "
             f"{Building._format_resource_collection(collection = self.storage_capacity)}"
+        )
     
     def _building_max_workers(self) -> str:
         return f"[bold]Max. workers:[/bold] {Building._format_scalar(scalar = self.max_workers)}"
@@ -355,7 +395,7 @@ class Building:
         text: str = f"[bold]Required geo. feature:[/bold] "
         
         if self.required_geo:
-            text += f"{Building._format_geo(self.required_geo.name)}"
+            text += f"{Building._format_geo(text = self.required_geo.name)}"
         else:
             text += Building._format_none()
         
@@ -457,7 +497,7 @@ class Building:
         )
         
         layout["header"].update(
-            renderable = Align(renderable = self._building_information(), align = "center")
+            renderable = Align(renderable = self._building_information(), align = "center"),
         )
         
         layout["main"].split(
@@ -578,79 +618,79 @@ class Building:
         )
         
         layout["building_name"].update(
-            renderable = Align(renderable = self._building_name(), align = "left")
+            renderable = Align(renderable = self._building_name(), align = "left"),
         )
         
         layout["building_costs"].update(
-            renderable = Align(renderable = self._building_building_costs(), align = "left")
+            renderable = Align(renderable = self._building_building_costs(), align = "left"),
         )
         
         layout["maintenance_cost"].update(
-            renderable = Align(renderable = self._building_maintenance_costs(), align = "left")
+            renderable = Align(renderable = self._building_maintenance_costs(), align = "left"),
         )
         
         layout["productivity_bonuses"].update(
-            renderable = Align(renderable = self._building_productivity_bonuses(), align = "left")
+            renderable = Align(renderable = self._building_productivity_bonuses(), align = "left"),
         )
         
         layout["productivity_per_worker"].update(
-            renderable = Align(renderable = self._building_productivity_per_worker(), align = "left")
+            renderable = Align(renderable = self._building_productivity_per_worker(), align = "left"),
         )
         
         layout["effect_bonuses"].update(
-            renderable = Align(renderable = self._building_effect_bonuses(), align = "left")
+            renderable = Align(renderable = self._building_effect_bonuses(), align = "left"),
         )
         
         layout["effect_bonuses_per_worker"].update(
-            renderable = Align(renderable = self._building_effect_bonuses_per_worker(), align = "left")
+            renderable = Align(renderable = self._building_effect_bonuses_per_worker(), align = "left"),
         )
         
         layout["storage_capacity"].update(
-            renderable = Align(renderable = self._building_storage_capacity(), align = "left")
+            renderable = Align(renderable = self._building_storage_capacity(), align = "left"),
         )
         
         layout["max_workers"].update(
-            renderable = Align(renderable = self._building_max_workers(), align = "left")
+            renderable = Align(renderable = self._building_max_workers(), align = "left"),
         )
         
         layout["current_workers"].update(
-            renderable = Align(renderable = self._building_current_workers(), align = "left")
+            renderable = Align(renderable = self._building_current_workers(), align = "left"),
         )
         
         layout["is_buildable"].update(
-            renderable = Align(renderable = self._building_is_buildable(), align = "left")
+            renderable = Align(renderable = self._building_is_buildable(), align = "left"),
         )
         
         layout["is_deletable"].update(
-            renderable = Align(renderable = self._building_is_deletable(), align = "left")
+            renderable = Align(renderable = self._building_is_deletable(), align = "left"),
         )
         
         layout["is_upgradeable"].update(
-            renderable = Align(renderable = self._building_is_upgradeable(), align = "left")
+            renderable = Align(renderable = self._building_is_upgradeable(), align = "left"),
         )
         
         layout["required_geo"].update(
-            renderable = Align(renderable = self._building_required_geo(), align = "left")
+            renderable = Align(renderable = self._building_required_geo(), align = "left"),
         )
         
         layout["required_rss"].update(
-            renderable = Align(renderable = self._building_required_rss(), align = "left")
+            renderable = Align(renderable = self._building_required_rss(), align = "left"),
         )
         
         layout["required_hall"].update(
-            renderable = Align(renderable = self._building_required_hall(), align = "left")
+            renderable = Align(renderable = self._building_required_hall(), align = "left"),
         )
         
         layout["required_building"].update(
-            renderable = Align(renderable = self._building_required_building(), align = "left")
+            renderable = Align(renderable = self._building_required_building(), align = "left"),
         )
         
         layout["blocked_by_building"].update(
-            renderable = Align(renderable = self._building_blocked_by_building(), align = "left")
+            renderable = Align(renderable = self._building_blocked_by_building(), align = "left"),
         )
         
         layout["replaces"].update(
-            renderable = Align(renderable = self._building_replaces(), align = "left")
+            renderable = Align(renderable = self._building_replaces(), align = "left"),
         )
         
         return Panel(

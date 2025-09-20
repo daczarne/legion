@@ -1,7 +1,7 @@
+from __future__ import annotations
+
 from collections import Counter
 from typing import Any
-
-from pytest import mark, raises
 
 from modules.building import Building
 from modules.effects import EffectBonuses
@@ -14,6 +14,8 @@ from modules.exceptions import (
 from modules.geo_features import GeoFeature
 from modules.resources import Resource, ResourceCollection
 
+from pytest import mark, raises
+
 
 @mark.building
 @mark.buildings_data
@@ -24,6 +26,7 @@ class TestBuildingsData:
             _errors: list[dict[str, dict[str, list[str]]]],
             _buildings: list[dict[str, Any]],
         ) -> None:
+        
         expected_keys: list[str] = [
             "id",
             "name",
@@ -50,7 +53,7 @@ class TestBuildingsData:
             building_id: str = building["id"]
             keys_found: list[str] = list(building.keys())
             
-            if not Counter(keys_found) == Counter(expected_keys):
+            if Counter(keys_found) != Counter(expected_keys):
                 missing_keys: list[str] = list(set(Counter(expected_keys)) - set(Counter(keys_found)))
                 extra_keys: list[str] = list(set(Counter(keys_found)) - set(Counter(expected_keys)))
                 
@@ -107,7 +110,7 @@ class TestBuildingsData:
             building_id: str = building["id"]
             keys_found: list[str] = list(building[collection].keys())
             
-            if not Counter(keys_found) == Counter(expected_keys):
+            if Counter(keys_found) != Counter(expected_keys):
                 missing_keys: list[str] = list(set(Counter(expected_keys)) - set(Counter(keys_found)))
                 extra_keys: list[str] = list(set(Counter(keys_found)) - set(Counter(expected_keys)))
                 
@@ -144,7 +147,7 @@ class TestBuildingsData:
             building_id: str = building["id"]
             keys_found: list[str] = list(building[collection].keys())
             
-            if not Counter(keys_found) == Counter(expected_keys):
+            if Counter(keys_found) != Counter(expected_keys):
                 missing_keys: list[str] = list(set(Counter(expected_keys)) - set(Counter(keys_found)))
                 extra_keys: list[str] = list(set(Counter(keys_found)) - set(Counter(expected_keys)))
                 
@@ -213,7 +216,7 @@ class TestBuildingsData:
                     }
                     _errors.append(error)
                 
-                if not 0 <= effect_value:
+                if not effect_value >= 0:
                     error: dict[str, str] = {
                         "building_id": building_id,
                         f"{collection}": f"{effect}: {effect_value}",
@@ -347,17 +350,17 @@ class TestBuilding:
         assert isinstance(city_hall.productivity_bonuses, ResourceCollection)
         assert city_hall.productivity_bonuses == ResourceCollection(food = 25, ore = 25, wood = 25)
         assert isinstance(city_hall.productivity_per_worker, ResourceCollection)
-        assert city_hall.productivity_per_worker == ResourceCollection(food = 0, ore = 0, wood = 0)
+        assert city_hall.productivity_per_worker == ResourceCollection()
         assert isinstance(city_hall.effect_bonuses, EffectBonuses)
-        assert city_hall.effect_bonuses == EffectBonuses(troop_training = 0, population_growth = 0, intelligence = 0)
+        assert city_hall.effect_bonuses == EffectBonuses()
         assert isinstance(city_hall.effect_bonuses_per_worker, EffectBonuses)
-        assert city_hall.effect_bonuses_per_worker == EffectBonuses(troop_training = 0, population_growth = 0, intelligence = 0)
+        assert city_hall.effect_bonuses_per_worker == EffectBonuses()
         assert isinstance(city_hall.storage_capacity, ResourceCollection)
         assert city_hall.storage_capacity == ResourceCollection(food = 100, ore = 100, wood = 100)
         assert city_hall.max_workers == 0
-        assert city_hall.is_buildable == True
-        assert city_hall.is_deletable == False
-        assert city_hall.is_upgradeable == False
+        assert city_hall.is_buildable is True
+        assert city_hall.is_deletable is False
+        assert city_hall.is_upgradeable is False
         assert city_hall.required_geo is None
         assert len(city_hall.required_rss) == 0
         assert city_hall.required_hall == "town_hall"
