@@ -1,8 +1,8 @@
 """
-Module for building Rich displays.
+Module for building Rich display configurationss.
 
-This module provides classes and types for building display configurations. These are used in City, Scenario, and
-Kingdom to control how information is displayed.
+This module provides classes and types for building display configurations. These are used by the City and Scenario
+classes to control how information is displayed.
 
 Public API:
     - DisplaySection: Enum representing different display sections.
@@ -15,13 +15,13 @@ Internal objects:
 """
 
 from enum import Enum
-from typing import TypeAlias, TypedDict
+from typing import TypedDict
 
 
 __all__: list[str] = ["DisplayConfiguration"]
 
 
-_DisplaySectionColors: TypeAlias = dict[str, str]
+type _DisplaySectionColors = dict[str, str]
 
 
 class DisplaySection(Enum):
@@ -36,6 +36,7 @@ class DisplaySection(Enum):
         STORAGE: Storage capacities for city, buildings, warehouse, supply dump, and total.
         DEFENSES: Defense information including garrison, squadrons, and squadron size.
     """
+    
     CITY = "city"
     BUILDINGS = "buildings"
     EFFECTS = "effects"
@@ -53,6 +54,7 @@ class DisplaySectionConfiguration(TypedDict, total = False):
         height (int): Height of the section in rows.
         color (str): Color for the section text, as a Rich color string or HEX value.
     """
+    
     include: bool
     height: int
     color: str
@@ -70,6 +72,7 @@ class DisplayConfiguration(TypedDict, total = False):
         storage (DisplaySectionConfiguration): Configuration for the storage table.
         defenses (DisplaySectionConfiguration): Configuration for the defenses table.
     """
+    
     city: DisplaySectionConfiguration
     buildings: DisplaySectionConfiguration
     effects: DisplaySectionConfiguration
