@@ -2,9 +2,9 @@ from collections import Counter
 from dataclasses import fields
 from typing import Literal
 
-from pytest import mark, raises
-
 from modules.resources import ResourceCollection
+
+from pytest import mark, raises
 
 
 @mark.resources
@@ -60,7 +60,7 @@ class TestResourceCollection:
         assert Counter(values) == Counter([1, 2, 3])
     
     @mark.parametrize(
-        argnames = "key, expected",
+        argnames = ["key", "expected"],
         argvalues = [
             ("food", 11),
             ("ore", 22),
@@ -69,8 +69,8 @@ class TestResourceCollection:
     )
     def test_get_valid_keys(
         self,
-        key: Literal["food"] | Literal["ore"] | Literal["wood"],
-        expected: Literal[11] | Literal[22] | Literal[33],
+        key: Literal["food", "ore", "wood"],
+        expected: Literal[11, 22, 33],
     ) -> None:
         rss_collection: ResourceCollection = ResourceCollection(
             food = 11,
