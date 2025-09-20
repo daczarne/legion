@@ -325,7 +325,7 @@ class Building:
     #* Display building
     def _building_information(self) -> Text:
         text: Text = Text(
-            text = f' Building(id = "{self.id}") ',
+            text = f" Building(id = \"{self.id}\") ",
             style = "bold black on white",
             justify = "center",
         )
