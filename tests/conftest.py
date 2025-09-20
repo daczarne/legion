@@ -27,7 +27,7 @@ def _errors() -> list:
 def _cities() -> Generator[list[_CityData]]:
     # Loads the cities.yaml file.
     
-    with Path("./data/cities.yaml").open(mode = "r") as file:
+    with Path("./data/cities.yaml").open(mode = "r", encoding = "utf-8") as file:
         cities_data: dict[Literal["cities"], list[_CityData]] = yaml.safe_load(stream = file)
         yield cities_data["cities"]
 
@@ -36,7 +36,7 @@ def _cities() -> Generator[list[_CityData]]:
 def _buildings() -> Generator[list[_BuildingData]]:
     # Loads the buildings.yaml file.
     
-    with Path("./data/buildings.yaml").open(mode = "r") as file:
+    with Path("./data/buildings.yaml").open(mode = "r", encoding = "utf-8") as file:
         buildings_data: dict[Literal["buildings"], list[_BuildingData]] = yaml.safe_load(stream = file)
         yield buildings_data["buildings"]
 
