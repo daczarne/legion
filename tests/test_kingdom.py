@@ -1,9 +1,16 @@
-from pytest import mark, raises
+from __future__ import annotations
 
-from modules.building import BuildingsCount
+from typing import TYPE_CHECKING
+
 from modules.city import City
 from modules.exceptions import CitiesFromMultipleCampaignsError, DuplicatedCityError
 from modules.kingdom import Kingdom
+
+from pytest import mark, raises
+
+
+if TYPE_CHECKING:
+    from modules.building import BuildingsCount
 
 
 @mark.kingdom

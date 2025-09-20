@@ -2,9 +2,9 @@ from collections import Counter
 from dataclasses import fields
 from typing import Literal
 
-from pytest import mark, raises
-
 from modules.effects import EffectBonuses
+
+from pytest import mark, raises
 
 
 @mark.effect_bonuses
@@ -60,7 +60,7 @@ class TestEffectBonuses:
         assert Counter(values) == Counter([10, 20, 30])
     
     @mark.parametrize(
-        argnames = "key, expected",
+        argnames = ["key", "expected"],
         argvalues = [
             ("troop_training", 11),
             ("population_growth", 22),
@@ -69,8 +69,8 @@ class TestEffectBonuses:
     )
     def test_get_valid_keys(
         self,
-        key: Literal["troop_training"] | Literal["population_growth"] | Literal["intelligence"],
-        expected: Literal[11] | Literal[22] | Literal[33],
+        key: Literal["troop_training", "population_growth", "intelligence"],
+        expected: Literal[11, 22, 33],
     ) -> None:
         effects: EffectBonuses = EffectBonuses(
             troop_training = 11,
