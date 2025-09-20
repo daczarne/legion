@@ -742,6 +742,7 @@ future-annotations = true
     "PLR2004",
     "F841",
     "SLF001",
+    "PLR6301",
 ]
 
 
