@@ -1,3 +1,7 @@
+"""
+Example uses of the scenario module.
+"""
+
 from modules.scenario import Scenario
 
 
