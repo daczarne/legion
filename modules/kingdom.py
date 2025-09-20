@@ -12,9 +12,11 @@ Public API:
     production, storage capacity, and other aggregated statistics.
 """
 
+from __future__ import annotations
+
 from collections import Counter
 from dataclasses import dataclass, field
-from typing import ClassVar
+from typing import TYPE_CHECKING, ClassVar
 
 from rich import box
 from rich.align import Align
@@ -25,9 +27,13 @@ from rich.style import Style
 from rich.table import Table
 from rich.text import Text
 
-from .city import CITIES, City, CityDict
+from .city import CITIES, City
 from .exceptions import CitiesFromMultipleCampaignsError, DuplicatedCityError
 from .resources import Resource, ResourceCollection
+
+
+if TYPE_CHECKING:
+    from .city import CityDict
 
 
 __all__: list[str] = ["Kingdom"]
@@ -77,6 +83,7 @@ class Kingdom:
         DuplicatedCityError: If there are duplicated city names
         CitiesFromMultipleCampaignsError: If there are cities from multiple campaigns.
     """
+    
     cities: list[City]
     sort_order: list[str | None] | None = field(default = None)
     
@@ -106,11 +113,8 @@ class Kingdom:
         
         Returns:
             list[City]: a new list of cities sorted according to the specified order.
-        
-        Example:
-            >>> sorted_cities = Kingdom.sort_cities_by_focus(cities, ["food", "ore"])
-            # Orders cities producing food first, then ore, then wood, then None.
         """
+        
         if "food" not in order:
             order.append("food")
         
@@ -133,6 +137,7 @@ class Kingdom:
         """
         Replace self.cities with the sorted list according to the provided order.
         """
+        
         self.cities = Kingdom.sort_cities_by_focus(
             cities = self.cities,
             order = ["food", "ore", "wood", None] if order is None else order,
@@ -144,7 +149,7 @@ class Kingdom:
             cls,
             data: list[CityDict],
             sort_order: list[str | None] | None = None,
-        ) -> "Kingdom":
+        ) -> Kingdom:
         """
         Create a `Kingdom` instance from a list of raw city data dictionaries.
         
@@ -156,36 +161,39 @@ class Kingdom:
         
         Returns:
             Kingdom: a new `Kingdom` instance populated with the provided cities.
-        
-        Example:
-            >>> raw_data = [{"name": "CityA", "campaign": "Alpha", "buildings": {"city_hall: 1, "farm": 4}}, ...]
-            >>> kingdom = Kingdom.from_list(raw_data, ["ore", "wood"])
         """
-        cities: list[City] = [City.from_buildings_count(**city) for city in data]
-        return cls(cities, sort_order)
+        return cls(
+            cities = [City.from_buildings_count(**city) for city in data],
+            sort_order = sort_order,
+        )
     
     
     #* Validate Kingdom
     def _validate_all_cities_are_unique(self) -> None:
+        
         all_cities: list[str] = [city.name for city in self.cities]
         city_counts: Counter = Counter(all_cities)
+        
         for city, count in city_counts.items():
             if count > 1:
                 raise DuplicatedCityError(f"Found duplicated city: {city}")
     
     def _validate_all_cities_are_from_the_same_campaign(self) -> None:
+        
         all_campaigns: list[str] = [city.campaign for city in self.cities]
         campaign_counts: Counter = Counter(all_campaigns)
+        
         if len(campaign_counts) > 1:
             raise CitiesFromMultipleCampaignsError(
                 f"All cities must belong to the same campaign. "
-                f"Found cities from: {" and ".join(campaign_counts.keys())}"
+                f"Found cities from: {" and ".join(campaign_counts.keys())}",
             )
     
     def _get_campaign(self) -> str:
         return self.cities[0].campaign
     
     def _get_number_of_cities_in_campaign(self) -> int:
+        
         number_of_cities_in_campaign: int = 0
         
         for city in CITIES:
@@ -197,6 +205,7 @@ class Kingdom:
     
     #* Kingdom calculations
     def _calculate_total_production(self) -> ResourceCollection:
+        
         total_production: ResourceCollection = ResourceCollection()
         
         for city in self.cities:
@@ -207,6 +216,7 @@ class Kingdom:
         return total_production
     
     def _calculate_total_storage(self) -> ResourceCollection:
+        
         total_storage: ResourceCollection = ResourceCollection(
             food = self.BASE_KINGDOM_STORAGE,
             ore = self.BASE_KINGDOM_STORAGE,
@@ -244,6 +254,7 @@ class Kingdom:
         Returns:
             bool: True if the city belongs to the kingdom, otherwise False.
         """
+        
         for city in self.cities:
             if city.name == name:
                 return True
@@ -263,6 +274,7 @@ class Kingdom:
         Returns:
             City: The City object representing the city in question.
         """
+        
         for city in self.cities:
             if city.name == name:
                 return city
@@ -273,10 +285,11 @@ class Kingdom:
     #* Kingdom display
     @staticmethod
     def _calculate_indentations(cell_value: int, width: int) -> int:
-        CHARS_PER_THOUSAND_SEPARATOR: int = 3
+        
+        chars_per_thousand_separator: int = 3
         
         digits_in_number: int = len(str(cell_value))
-        n_of_dashes: int = (digits_in_number - 1) // CHARS_PER_THOUSAND_SEPARATOR
+        n_of_dashes: int = (digits_in_number - 1) // chars_per_thousand_separator
         n_chars_in_number: int = digits_in_number + n_of_dashes
         
         if width <= n_chars_in_number:
@@ -285,6 +298,7 @@ class Kingdom:
         return width - n_chars_in_number
     
     def _build_kingdom_information(self) -> Text:
+        
         city_information: Text = Text(
             text = f" {self.campaign} ",
             style = "bold black on white",
@@ -293,9 +307,10 @@ class Kingdom:
         return city_information
     
     def _build_campaign_table(self) -> Table:
+        
         percentage_conquered: float = round(
             number = len(self.cities) / self.number_of_cities_in_campaign * 100,
-            ndigits = 2
+            ndigits = 2,
         )
         
         table_style: Style = Style(color = "cyan")
@@ -316,8 +331,10 @@ class Kingdom:
         return table
     
     def _build_kingdom_production_table(self) -> Table:
+        
         production_color: str = "#228b22"
         table_style: Style = Style(color = production_color)
+        
         table: Table = Table(
             title = Text(text = "Production", style = table_style + Style(italic = True)),
             style = table_style,
@@ -346,10 +363,14 @@ class Kingdom:
                 rss_potential_cell_value: str = f"{" " * indentation_rss_potential}[dim]({rss_potential})[/dim]"
                 
                 rss_balance: int = city.production.balance.get(key = rss)
-                indentation_rss_balance: int = Kingdom._calculate_indentations(cell_value = rss_balance, width = 3)
-                rss_balance_color: str = production_color if getattr(city.focus, "value", None) == rss else "white"
+                rss_balance_indentation: int = Kingdom._calculate_indentations(cell_value = rss_balance, width = 3)
                 rss_balance_color: str = production_color if Resource(value = rss) == city.focus else "white"
-                rss_balance_cell_value: str = f"{" " * (indentation_rss_balance)}{f"[{rss_balance_color}]"}{rss_balance:_}{f"[/{rss_balance_color}]"}"
+                rss_balance_cell_value: str = (
+                    f"{" " * (rss_balance_indentation)}"
+                    f"[{rss_balance_color}]"
+                    f"{rss_balance:_}"
+                    f"[/{rss_balance_color}]"
+                )
                 
                 row_element: str = f"{rss_potential_cell_value}{" " * 2}{rss_balance_cell_value}"
                 row_elements.append(row_element)
@@ -373,8 +394,10 @@ class Kingdom:
         return table
     
     def _build_kingdom_storage_table(self) -> Table:
+        
         storage_color: str = "purple"
         table_style: Style = Style(color = storage_color)
+        
         table: Table = Table(
             title = Text(text = "Storage", style = table_style + Style(italic = True)),
             style = table_style,
@@ -399,9 +422,14 @@ class Kingdom:
             for rss in ["food", "ore", "wood"]:
                 
                 rss_storage: int = city.storage.total.get(key = rss)
-                indentation_rss_storage: int = Kingdom._calculate_indentations(cell_value = rss_storage, width = 6)
+                rss_storage_indentation: int = Kingdom._calculate_indentations(cell_value = rss_storage, width = 6)
                 rss_storage_color: str = storage_color if Resource(value = rss) == city.focus else "white"
-                rss_storage_cell_value: str = f"{" " * (indentation_rss_storage)}{f"[{rss_storage_color}]"}{rss_storage:_}{f"[/{rss_storage_color}]"}"
+                rss_storage_cell_value: str = (
+                    f"{" " * (rss_storage_indentation)}"
+                    f"[{rss_storage_color}]"
+                    f"{rss_storage:_}"
+                    f"[/{rss_storage_color}]"
+                )
                 
                 row_element: str = f"{rss_storage_cell_value}"
                 row_elements.append(row_element)
@@ -425,6 +453,7 @@ class Kingdom:
         return table
     
     def _build_kingdom_display(self) -> Panel:
+        
         header_height: int = 2
         campaign_height: int = 7
         production_and_storage_height: int = len(self.cities) + 9
@@ -500,5 +529,6 @@ class Kingdom:
         Resource values for a city's primary focus are highlighted for quick reference. Production tables also include
         resource potential values in parentheses.
         """
+        
         console: Console = Console()
         console.print(self._build_kingdom_display())
