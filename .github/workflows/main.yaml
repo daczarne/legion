@@ -68,16 +68,16 @@ jobs:
         run: uv sync --locked --all-extras --dev
       - name: Lint YAML files 🧪
         id: lint_yaml_files
-        run: yamllint -c .yamllint.yaml .
+        run: yamllint -c .yamllint.yaml --format github .
       - name: Lint Markdown files 🧪
         id: lint_markdown_files
         uses: DavidAnson/markdownlint-cli2-action@992badcdf24e3b8eb7e87ff9287fe931bcb00c6e # v20.0.0
         with:
           config: .markdownlint.yaml
           globs: .
-      - name: Run isort 🧪
-        id: run_isort
-        run: uv run isort --diff --check-only --verbose --color --sp pyproject.toml .
+      - name: Lint Python files 🧪
+        id: lint_python_files
+        run: uv run ruff check --output-format=github --preview .
 
   spell-check:
     name: Spell check

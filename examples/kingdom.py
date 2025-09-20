@@ -1,5 +1,12 @@
-from modules.building import BuildingsCount
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from modules.kingdom import Kingdom
+
+
+if TYPE_CHECKING:
+    from modules.building import BuildingsCount
 
 
 food_producer: BuildingsCount = {

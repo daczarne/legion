@@ -1,5 +1,13 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from modules.building import Building, BuildingsCount
 from modules.city import City
+
+
+if TYPE_CHECKING:
+    from modules.building import BuildingsCount
 
 
 military: BuildingsCount = {
@@ -79,7 +87,7 @@ city.display_city(
     configuration = {
         "storage": {"include": False},
         "defenses": {"include": False},
-    }
+    },
 )
 
 for building in city.buildings:

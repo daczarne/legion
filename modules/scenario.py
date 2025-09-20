@@ -9,12 +9,22 @@ Public API:
     Scenario: A class for representing a collection of cities to be compared and displayed together.
 """
 
+from __future__ import annotations
+
+from math import ceil
+from typing import TYPE_CHECKING
+
 from rich.align import Align
 from rich.console import Console
 from rich.layout import Layout
 
-from .city import City, CityDict
-from .display import DEFAULT_SECTION_COLORS, DisplayConfiguration, DisplaySection, DisplaySectionConfiguration
+from .city import City
+from .display import DEFAULT_SECTION_COLORS, DisplaySection
+
+
+if TYPE_CHECKING:
+    from .city import CityDict
+    from .display import DisplayConfiguration, DisplaySectionConfiguration
 
 
 __all__: list[str] = ["Scenario"]
@@ -27,7 +37,19 @@ class Scenario:
     The `Scenario` class takes a list of `City` instances and optionally a display configuration. It prepares each city
     for display and arranges them in a grid layout for easy visual comparison.
     
-    Public API:
+    Args:
+        cities (list[City]): The list of cities to include in the scenario.
+        configuration (DisplayConfiguration | None): A DisplayConfiguration dictionary. This controls which sections of
+            the dispalay are included in the output and how. The configuration is shared amongst all cities in the
+            scenario. Defaults to None, meaning that the class will resolve it internally and all sections will be
+            displaied using default colors. Can be a partial dictionary where only certain sections and certain
+            attributes are passed. The ones omitted will use their default values. Unknown sections of the dictionary
+            are ignored.
+    
+    Raises:
+        Exceptions are inherited from the City class.
+    
+    Methods:
         from_list(data: list[CityDict], configuration: DisplayConfiguration | None = None) -> Scenario
             Create a Scenario instance from a list of dictionary definitions of cities.
         display_scenario() -> None
@@ -39,6 +61,7 @@ class Scenario:
             cities: list[City],
             configuration: DisplayConfiguration | None = None,
         ) -> None:
+        
         self.cities: list[City] = cities
         self._user_configuration: DisplayConfiguration = configuration or {}
         self.configuration: DisplayConfiguration = self._build_configuration()
@@ -49,7 +72,7 @@ class Scenario:
             cls,
             data: list[CityDict],
             configuration: DisplayConfiguration | None = None,
-        ) -> "Scenario":
+        ) -> Scenario:
         """
         Create a Scenario instance from a list of city dictionaries.
         
@@ -62,12 +85,16 @@ class Scenario:
         Returns:
             Scenario: A new Scenario instance with City objects created from the given data.
         """
-        cities: list[City] = [City.from_buildings_count(**city) for city in data]
-        return cls(cities, configuration)
+        
+        return cls(
+            cities = [City.from_buildings_count(**city) for city in data],
+            configuration = configuration,
+        )
     
     
     #* Display configuration
     def _build_default_configuration(self) -> DisplayConfiguration:
+        
         sections: list[str] = [
             "city",
             "buildings",
@@ -88,6 +115,7 @@ class Scenario:
         return default_configuration
     
     def _calculate_default_section_height(self, section: str) -> int:
+        
         match section:
             case "city":
                 return 2
@@ -105,7 +133,9 @@ class Scenario:
         return 0
     
     def _get_max_buildings_length(self) -> int:
+        
         building_lengths: list[int] = [len(city.buildings) + 2 for city in self.cities]
+        
         return max(building_lengths)
     
     def _build_configuration(self) -> DisplayConfiguration:
@@ -122,11 +152,12 @@ class Scenario:
     
     #* City displays
     def _build_scenario_display(self) -> Layout:
+        
         main_layout: Layout = Layout()
         row_layouts: list[Layout] = []
         
         for i in range(0, len(self.cities), 2):
-            row: Layout = Layout(name = f"row_{i//2}")
+            row: Layout = Layout(name = f"row_{i // 2}")
             
             row.split_row(
                 Layout(name = f"left_{i // 2}", ratio = 1),
@@ -135,19 +166,23 @@ class Scenario:
             
             row[f"left_{i // 2}"].update(
                 renderable = Align(
-                    renderable = self.cities[i].build_city_displayer(configuration = self.configuration).build_city_display(),
-                )
+                    renderable = self.cities[i]
+                        .build_city_displayer(configuration = self.configuration)
+                        .build_city_display(),
+                ),
             )
             
             if i + 1 < len(self.cities):
                 row[f"right_{i // 2}"].update(
                     renderable = Align(
-                        renderable = self.cities[i + 1].build_city_displayer(configuration = self.configuration).build_city_display(),
-                    )
+                        renderable = self.cities[i + 1]
+                            .build_city_displayer(configuration = self.configuration)
+                            .build_city_display(),
+                    ),
                 )
             else:
                 row[f"right_{i // 2}"].update(
-                    renderable = Align(renderable = "")
+                    renderable = Align(renderable = ""),
                 )
             
             row_layouts.append(row)
@@ -157,7 +192,7 @@ class Scenario:
         return main_layout
     
     def _calculate_console_height(self) -> int:
-        from math import ceil
+        
         qty_cities: int = len(self.cities)
         qty_display_rows: int = ceil(qty_cities / 2)
         
@@ -165,7 +200,7 @@ class Scenario:
         console_height: int = 2
         
         for section in self.configuration:
-            if section not in [DisplaySection.EFFECTS.value, DisplaySection.BUILDINGS.value]:
+            if section not in {DisplaySection.EFFECTS.value, DisplaySection.BUILDINGS.value}:
                 section_config: DisplaySectionConfiguration = self.configuration[section]
                 console_height += section_config.get("height", 0) if section_config.get("include", False) else 0
         
@@ -188,5 +223,6 @@ class Scenario:
         The cities are displayed side by side in a grid layout, with the layout automatically calculated based on the
         number of cities and the configuration provided.
         """
+        
         console: Console = Console(width = 192, height = self._calculate_console_height())
         console.print(self._build_scenario_display())
