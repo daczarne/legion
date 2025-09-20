@@ -1,3 +1,7 @@
+"""
+Example uses of the buildings' module.
+"""
+
 from modules.building import Building
 
 
