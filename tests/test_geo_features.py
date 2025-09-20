@@ -2,9 +2,9 @@ from collections import Counter
 from dataclasses import fields
 from typing import Literal
 
-from pytest import mark, raises
-
 from modules.geo_features import GeoFeatures
+
+from pytest import mark, raises
 
 
 @mark.geo_features
@@ -66,7 +66,7 @@ class TestGeoFeatures:
         assert Counter(values) == Counter([1, 2, 3, 4])
     
     @mark.parametrize(
-        argnames = "key, expected",
+        argnames = ["key", "expected"],
         argvalues = [
             ("lakes", 11),
             ("rock_outcrops", 22),
@@ -76,8 +76,8 @@ class TestGeoFeatures:
     )
     def test_get_valid_keys(
         self,
-        key: Literal["lakes"] | Literal["rock_outcrops"] | Literal["mountains"] | Literal["forests"],
-        expected: Literal[11] | Literal[22] | Literal[33] | Literal[44],
+        key: Literal["lakes", "rock_outcrops", "mountains", "forests"],
+        expected: Literal[11, 22, 33, 44],
     ) -> None:
         geo_features: GeoFeatures = GeoFeatures(
             lakes = 11,
