@@ -21,9 +21,7 @@ dev = [
 fix = false
 indent-width = 4
 line-length = 120
-extend-exclude = [
-    "dotbot/**",
-]
+extend-exclude = []
 target-version = "py313"
 
 
@@ -31,6 +29,7 @@ target-version = "py313"
 indent-style = "space"
 quote-style = "double"
 skip-magic-trailing-comma = false
+line-ending = "lf"
 
 
 [tool.ruff.lint]
