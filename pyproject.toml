@@ -161,7 +161,7 @@ select = [
     "PT016", # Checks for `pytest.fail` calls without a message.
     "PT017", # Checks for assert statements in except clauses.
     "PT018", # Checks for assertions that combine multiple independent conditions.
-    "PT019", # Checks for pytest test functions that should be decorated with `@pytest.mark.usefixtures`.
+    # "PT019", #! Rule produces false negatives.
     "PT020", # Checks for `pytest.yield_fixture` usage.
     "PT021", # Checks for unnecessary `request.addfinalizer` usages in pytest fixtures.
     "PT022", # Checks for unnecessary yield expressions in pytest fixtures. #~ I'm sceptical of this rule. Need to investigate more.
@@ -732,6 +732,19 @@ typing-modules = []
 future-annotations = true
 
 
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = [
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D106",
+    "PLR2004",
+    "F841",
+    "SLF001",
+]
+
+
 [tool.ruff.lint.flake8-bugbear]
 extend-immutable-calls = []
 
@@ -748,7 +761,7 @@ extend-allowed-calls = []
 [tool.ruff.lint.flake8-pytest-style]
 fixture-parentheses = false
 mark-parentheses = false
-parametrize-names-type = "tuple"
+parametrize-names-type = "list"
 parametrize-values-type = "list"
 parametrize-values-row-type = "tuple"
 raises-extend-require-match-for = []
