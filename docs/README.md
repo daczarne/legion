@@ -11,7 +11,7 @@ The environment includes the following libraries:
 
 And the following dev libraries:
 
-- [`isort`][isort-repo]
+- [`ruff`][ruff-repo]
 - [`YAMLlint`][yamllint-repo]
 - [`pytest`][pytest-repo]
 
@@ -78,12 +78,12 @@ cspell lint --config ".cspell.json" --dot .
 - [CSpell][cspell-repo]
 - [CSpell CLI][cspell-cli-repo]
 
-## Running isort locally
+## Running ruff locally
 
-To run isort locally use:
+To run ruff locally use:
 
 ```shell
-uv run isort --check-only --verbose --color --sp pyproject.toml .
+uv run ruff check --preview .
 ```
 
 [cspell-cli-repo]: https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell
@@ -95,4 +95,4 @@ uv run isort --check-only --verbose --color --sp pyproject.toml .
 [pyyaml-repo]: https://github.com/yaml/pyyaml
 [yamllint-repo]: https://github.com/adrienverge/yamllint
 [rich-repo]: https://github.com/Textualize/rich
-[isort-repo]: https://github.com/PyCQA/isort
+[ruff-repo]: https://github.com/astral-sh/ruff
