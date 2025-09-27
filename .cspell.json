@@ -39,13 +39,9 @@
         "python",
         "troops",
     ],
-    "words": [
-        "builtins",
-        "capitalisation",
-    ],
+    "words": [],
     "ignoreWords": [
         "ings",
-        "pkief",
     ],
     "overrides": [
         {
