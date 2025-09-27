@@ -1,17 +1,13 @@
 {
     "recommendations": [
         "aaron-bond.better-comments",
+        "charliermarsh.ruff",
         "davidanson.vscode-markdownlint",
-        "dracula-theme.theme-dracula",
         "editorconfig.editorconfig",
         "esbenp.prettier-vscode",
-        "mhutchie.git-graph",
-        "ms-python.isort",
         "ms-python.python",
         "ms-python.vscode-pylance",
         "njpwerner.autodocstring",
-        "oderwat.indent-rainbow",
-        "pkief.material-icon-theme",
         "redhat.vscode-yaml",
         "streetsidesoftware.code-spell-checker",
         "tamasfe.even-better-toml",
@@ -19,5 +15,9 @@
     ],
     "unwantedRecommendations": [
         "ms-python.autopep8",
+        "ms-python.black-formatter",
+        "ms-python.flake8",
+        "ms-python.isort",
+        "ms-python.pylint",
     ],
 }
