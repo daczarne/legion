@@ -9,13 +9,23 @@ if TYPE_CHECKING:
     from modules.building import BuildingsCount
 
 
+campaign: str = "Hispania"
+
 food_producer: BuildingsCount = {
     "city_hall": 1,
     "basilica": 1,
-    "warehouse": 1,
     "farmers_guild": 1,
-    "large_farm": 4,
     "vineyard": 1,
+    "large_farm": 5,
+}
+
+food_producer_with_warehouse: BuildingsCount = {
+    "city_hall": 1,
+    "basilica": 1,
+    "farmers_guild": 1,
+    "warehouse": 1,
+    "vineyard": 1,
+    "large_farm": 4,
 }
 
 ore_producer: BuildingsCount = {
@@ -25,7 +35,30 @@ ore_producer: BuildingsCount = {
     "large_mine": 6,
 }
 
+ore_producer_with_outcrop_mine: BuildingsCount = {
+    "city_hall": 1,
+    "basilica": 1,
+    "miners_guild": 1,
+    "outcrop_mine": 1,
+    "large_mine": 5,
+}
+
+ore_producer_with_mountain_mine: BuildingsCount = {
+    "city_hall": 1,
+    "basilica": 1,
+    "miners_guild": 1,
+    "mountain_mine": 1,
+    "large_mine": 5,
+}
+
 wood_producer: BuildingsCount = {
+    "city_hall": 1,
+    "basilica": 1,
+    "carpenters_guild": 1,
+    "large_lumber_mill": 6,
+}
+
+wood_producer_with_warehouse: BuildingsCount = {
     "city_hall": 1,
     "basilica": 1,
     "warehouse": 1,
@@ -48,240 +81,270 @@ military: BuildingsCount = {
 kingdom: Kingdom = Kingdom.from_list(
     data = [
         {
-            "campaign": "Germania",
-            "name": "Vetera",
-            "buildings": {},
-        },
-        {
-            "campaign": "Germania",
-            "name": "Argentaria",
-            "buildings": {},
-        },
-        {
-            "campaign": "Germania",
-            "name": "Moguntiacum",
-            "buildings": {},
-        },
-        {
-            "campaign": "Germania",
-            "name": "Novesium",
+            "campaign": campaign,
+            "name": "Biskargis",
             "buildings": ore_producer,
         },
         {
-            "campaign": "Germania",
-            "name": "Rogomagnum",
+            "campaign": campaign,
+            "name": "Dertosa",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Tarrako",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Ilerda",
+            "buildings": ore_producer_with_mountain_mine,
+        },
+        {
+            "campaign": campaign,
+            "name": "Oska",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Tolosa",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Vokata",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Tarbelles",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Ilumberis",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Torbelia",
+            "buildings": ore_producer_with_outcrop_mine,
+        },
+        {
+            "campaign": campaign,
+            "name": "Oiasson",
+            "buildings": ore_producer_with_outcrop_mine,
+        },
+        {
+            "campaign": campaign,
+            "name": "Blendion",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Diobriga",
+            "buildings": ore_producer_with_mountain_mine,
+        },
+        {
+            "campaign": campaign,
+            "name": "Kontrebia",
+            "buildings": food_producer_with_warehouse,
+        },
+        {
+            "campaign": campaign,
+            "name": "Segontia",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Kalagurris",
+            "buildings": wood_producer_with_warehouse,
+        },
+        {
+            "campaign": campaign,
+            "name": "Karaka",
+            "buildings": military,
+        },
+        {
+            "campaign": campaign,
+            "name": "Numantia",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Uxama",
+            "buildings": ore_producer_with_mountain_mine,
+        },
+        {
+            "campaign": campaign,
+            "name": "Pallantia",
+            "buildings": wood_producer_with_warehouse,
+        },
+        {
+            "campaign": campaign,
+            "name": "Kamarika",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Noega",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Kauka",
+            "buildings": military,
+        },
+        {
+            "campaign": campaign,
+            "name": "Segovia",
+            "buildings": ore_producer_with_outcrop_mine,
+        },
+        {
+            "campaign": campaign,
+            "name": "Toleton",
+            "buildings": food_producer_with_warehouse,
+        },
+        {
+            "campaign": campaign,
+            "name": "Arbokala",
+            "buildings": wood_producer_with_warehouse,
+        },
+        {
+            "campaign": campaign,
+            "name": "Argentiola",
+            "buildings": ore_producer_with_mountain_mine,
+        },
+        {
+            "campaign": campaign,
+            "name": "Asturika",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Salmantika",
+            "buildings": ore_producer_with_mountain_mine,
+        },
+        {
+            "campaign": campaign,
+            "name": "Karanikon",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Brigantion",
+            "buildings": food_producer_with_warehouse,
+        },
+        {
+            "campaign": campaign,
+            "name": "Bergidon",
+            "buildings": wood_producer_with_warehouse,
+        },
+        {
+            "campaign": campaign,
+            "name": "Kaliabriga",
+            "buildings": ore_producer_with_outcrop_mine,
+        },
+        {
+            "campaign": campaign,
+            "name": "Brakara",
+            "buildings": wood_producer_with_warehouse,
+        },
+        {
+            "campaign": campaign,
+            "name": "Aiminion",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Konsabura",
+            "buildings": food_producer_with_warehouse,
+        },
+        {
+            "campaign": campaign,
+            "name": "Osikerda",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Arsa",
+            "buildings": food_producer_with_warehouse,
+        },
+        {
+            "campaign": campaign,
+            "name": "Salika",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Igaiditania",
+            "buildings": ore_producer,
+        },
+        {
+            "campaign": campaign,
+            "name": "Turmogon",
             "buildings": {
                 "city_hall": 1,
                 "basilica": 1,
                 "miners_guild": 1,
+                "fishing_village": 1,
                 "large_mine": 5,
-                "supply_dump": 1,
             },
         },
         {
-            "campaign": "Germania",
-            "name": "Peucini",
-            "buildings": wood_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Oxiones",
+            "campaign": campaign,
+            "name": "Ammaia",
             "buildings": ore_producer,
         },
         {
-            "campaign": "Germania",
-            "name": "Suarines",
+            "campaign": campaign,
+            "name": "Skallabis",
             "buildings": ore_producer,
         },
         {
-            "campaign": "Germania",
-            "name": "Valeda",
+            "campaign": campaign,
+            "name": "Libora",
             "buildings": ore_producer,
         },
         {
-            "campaign": "Germania",
-            "name": "Nerthus",
-            "buildings": food_producer,
+            "campaign": campaign,
+            "name": "Ebora",
+            "buildings": wood_producer_with_warehouse,
         },
         {
-            "campaign": "Germania",
-            "name": "Aliso",
+            "campaign": campaign,
+            "name": "Myrtilis",
             "buildings": ore_producer,
         },
         {
-            "campaign": "Germania",
-            "name": "Naristi",
-            "buildings": food_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Tanfana",
+            "campaign": campaign,
+            "name": "Oreton",
             "buildings": ore_producer,
         },
         {
-            "campaign": "Germania",
-            "name": "Tuisto",
+            "campaign": campaign,
+            "name": "Kaspiana",
             "buildings": ore_producer,
         },
         {
-            "campaign": "Germania",
-            "name": "Marsii",
+            "campaign": campaign,
+            "name": "Mirobriga",
             "buildings": ore_producer,
         },
         {
-            "campaign": "Germania",
-            "name": "Tencterii",
-            "buildings": ore_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Adgandestrius",
+            "campaign": campaign,
+            "name": "Nertobriga",
             "buildings": military,
         },
         {
-            "campaign": "Germania",
-            "name": "Atamaci",
+            "campaign": campaign,
+            "name": "Helike",
             "buildings": ore_producer,
         },
         {
-            "campaign": "Germania",
-            "name": "Nehalennia",
-            "buildings": ore_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Gadgaesus",
-            "buildings": ore_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Bueci",
-            "buildings": ore_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Dructeri",
-            "buildings": wood_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Cherusci",
-            "buildings": wood_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Chasuari",
-            "buildings": food_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Gambrivi",
-            "buildings": food_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Chatii",
-            "buildings": wood_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Radaci",
-            "buildings": food_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Soci",
-            "buildings": wood_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Namenones",
-            "buildings": ore_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Dubraci",
-            "buildings": ore_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Matagarci",
-            "buildings": wood_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Brini",
-            "buildings": food_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Chacirici",
-            "buildings": wood_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Tuder",
-            "buildings": ore_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Langobardii",
-            "buildings": ore_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Matiaci",
-            "buildings": food_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Nementes",
-            "buildings": ore_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Sturi",
-            "buildings": wood_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Salassi",
-            "buildings": wood_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Sugambrii",
-            "buildings": military,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Abdagaesus",
-            "buildings": ore_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Varini",
-            "buildings": ore_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Libici",
-            "buildings": ore_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Valeda II",
-            "buildings": ore_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Osi",
-            "buildings": ore_producer,
-        },
-        {
-            "campaign": "Germania",
-            "name": "Suebii",
-            "buildings": ore_producer,
+            "campaign": campaign,
+            "name": "Ilorki",
+            "buildings": ore_producer_with_mountain_mine,
         },
     ],
 )
