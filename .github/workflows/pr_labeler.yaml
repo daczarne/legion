@@ -1,0 +1,39 @@
+name: PR labeler
+
+on:
+  pull_request:
+    paths:
+      - "**/**"
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+permissions: {}
+
+jobs:
+  label-pr:
+    name: Label PR
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    outputs:
+      labels: ${{ steps.pr_labeler.outputs.all-labels }}
+    steps:
+      - name: PR labeler 🏷
+        id: pr_labeler
+        uses: actions/labeler@634933edcd8ababfe52f92936142cc22ac488b1b # v6.0.1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: .github/labeler.yaml
+          sync-labels: true
+          dot: true
+      - name: Show labels 👀
+        id: show_labels
+        env:
+          ALL_LABELS: ${{ steps.pr_labeler.outputs.all-labels }}
+          NEW_LABELS: ${{ steps.pr_labeler.outputs.new-labels }}
+        run: |
+          echo "ALL_LABELS: ${{ env.ALL_LABELS }}"
+          echo "NEW_LABELS: ${{ env.NEW_LABELS }}"
