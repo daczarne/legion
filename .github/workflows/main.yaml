@@ -1,8 +1,5 @@
 name: Main
 
-env:
-  PYTHON_VERSION: 3.13.3
-
 on:
   pull_request:
     paths:
@@ -20,33 +17,6 @@ on:
 permissions: {}
 
 jobs:
-  label-pr:
-    name: Label PR
-    runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request }}
-    permissions:
-      contents: read
-      pull-requests: write
-    outputs:
-      labels: ${{ steps.pr_labeler.outputs.all-labels }}
-    steps:
-      - name: PR labeler 🏷
-        id: pr_labeler
-        uses: actions/labeler@634933edcd8ababfe52f92936142cc22ac488b1b # v6.0.1
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          configuration-path: .github/labeler.yaml
-          sync-labels: true
-          dot: true
-      - name: Show labels 👀
-        id: show_labels
-        env:
-          ALL_LABELS: ${{ steps.pr_labeler.outputs.all-labels }}
-          NEW_LABELS: ${{ steps.pr_labeler.outputs.new-labels }}
-        run: |
-          echo "ALL_LABELS: ${{ env.ALL_LABELS }}"
-          echo "NEW_LABELS: ${{ env.NEW_LABELS }}"
-
   lint:
     name: Lint
     runs-on: ubuntu-latest
@@ -165,14 +135,14 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
     needs:
-      - label-pr
       - lint
       - spell-check
       - unit-tests
       - run-examples
     permissions: {}
     steps:
-      - uses: re-actors/alls-green@05ac9388f0aebcb5727afa17fcccfecd6f8ec5fe # v1.2.2
+      - name: All checks passed 🧪
+        id: alls_green
+        uses: re-actors/alls-green@05ac9388f0aebcb5727afa17fcccfecd6f8ec5fe # v1.2.2
         with:
-          allowed-skips: label-pr
           jobs: ${{ toJSON(needs) }}
